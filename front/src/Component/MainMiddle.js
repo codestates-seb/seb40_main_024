@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const MiddleDiv = styled.div`
   margin: 0 auto;
@@ -25,6 +26,7 @@ const MiddleDiv = styled.div`
 `;
 
 const Middle = () => {
+  const navigate = useNavigate();
   return (
     <MiddleDiv>
       <div id="1" className="div1">
@@ -86,8 +88,8 @@ const Middle = () => {
           <br />
           길을 떠나볼까요?
         </h2>
-        <button>로그인</button>
-        <button>회원가입</button>
+        <button onClick={() => navigate('login')}>로그인</button>
+        <button onClick={() => navigate('/signup')}>회원가입</button>
       </div>
     </MiddleDiv>
   );

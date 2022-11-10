@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
   display: flex;
@@ -79,6 +80,7 @@ const Button = styled.button`
 `;
 
 export const LoginBox = () => {
+  const navigate = useNavigate();
   return (
     <PageContainer>
       <Container>
@@ -86,8 +88,10 @@ export const LoginBox = () => {
         <TextBox placeholder="아이디"></TextBox>
         <TextBox placeholder="비밀번호"></TextBox>
         <ButtonBox>
-          <Button>Forgot Password?</Button>
-          <Button>SignUp</Button>
+          <Button onClick={() => navigate('/forgotpassword')}>
+            Forgot Password?
+          </Button>
+          <Button onClick={() => navigate('/signup')}>SignUp</Button>
         </ButtonBox>
       </Container>
     </PageContainer>
