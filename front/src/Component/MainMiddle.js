@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const MiddleDiv = styled.div`
   margin: 0 auto;
   div {
-    height: 1000px;
+    height: 500px;
   }
   .div1 {
     text-align: center;

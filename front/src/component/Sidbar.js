@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -12,7 +11,5 @@ const PageContainer = styled.div`
 `;
 
 export const Sidebar = () => {
-
-  return(
-    <PageContainer>사이드바</PageContainer>
-  )}
+  return <PageContainer>사이드바</PageContainer>;
+};

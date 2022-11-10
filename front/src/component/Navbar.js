@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
+// import { Link } from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 
 const LongContainer = styled.div`
@@ -12,7 +12,6 @@ const LongContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   border: 1px solid #0000ff;
-
 `;
 
 const MiniContainer = styled.div`
@@ -190,6 +189,9 @@ export const MiniNavbarBox = () => {
 };
 
 export const MiniLoginNavbarBox = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [clicked, setClicked] = useState(false);
+  console.log(clicked === true);
   return (
     <>
       <MediaQuery minWidth={0} maxWidth={965}>
