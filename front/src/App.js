@@ -1,11 +1,14 @@
 import './App.css';
-<<<<<<< HEAD
-import { SignupBox } from './component/SignupBox';
-import { LoginBox } from './component/LoginBox';
-import { ForgotPasswordBox } from './component/ForgotPasswordBox';
-import { LongNavbarBox, MiniNavbarBox } from './component/Navbar';
-import { List } from './component/List';
-import { Sidebar } from './component/Sidbar';
+import { Route, Routes } from 'react-router-dom';
+import MainHome from './Pages/MainHome';
+import Asset from './Pages/Asset';
+import AssetChange from './Pages/AssetChange';
+import { SignupBox } from './Component/SignupBox';
+import { LoginBox } from './Component/LoginBox';
+import { ForgotPasswordBox } from './Component/ForgotPasswordBox';
+import { LongNavbarBox, MiniNavbarBox } from './Component/Navbar';
+import { List } from './Component/List';
+import { Sidebar } from './Component/Sidebar';
 
 function App() {
   return (
@@ -17,23 +20,14 @@ function App() {
       <SignupBox />
       <LoginBox />
       <ForgotPasswordBox />
+      <div>
+        <Routes>
+          <Route path="/" element={<MainHome />} />
+          <Route path="/asset" element={<Asset />} />
+          <Route path="/assetchange" element={<AssetChange />} />
+        </Routes>
+      </div>
     </>
-=======
-import { Route, Routes } from 'react-router-dom';
-import MainHome from './Pages/MainHome';
-import Asset from './Pages/Asset';
-import AssetChange from './Pages/AssetChange';
-
-function App() {
-  return (
-    <div>
-      <Routes>
-        <Route path="/" element={<MainHome />} />
-        <Route path="/asset" element={<Asset />} />
-        <Route path="/assetchange" element={<AssetChange />} />
-      </Routes>
-    </div>
->>>>>>> ba8994dbca2594042ca9eb83f85a10614cc3f270
   );
 }
 

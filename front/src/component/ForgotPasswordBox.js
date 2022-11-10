@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,9 +78,8 @@ const Button = styled.button`
   }
 `;
 
-
 export const ForgotPasswordBox = () => {
-  return(
+  return (
     <PageContainer>
       <Container>
         <TitleBox>비밀번호 찾기</TitleBox>
@@ -92,5 +90,5 @@ export const ForgotPasswordBox = () => {
         </ButtonBox>
       </Container>
     </PageContainer>
-  )
-}
+  );
+};

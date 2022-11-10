@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -79,9 +78,8 @@ const Button = styled.button`
   }
 `;
 
-
 export const LoginBox = () => {
-  return(
+  return (
     <PageContainer>
       <Container>
         <TitleBox>로그인</TitleBox>
@@ -93,5 +91,5 @@ export const LoginBox = () => {
         </ButtonBox>
       </Container>
     </PageContainer>
-  )
-}
+  );
+};

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import MediaQuery from 'react-responsive';
 
 const LongContainer = styled.div`
@@ -12,7 +11,6 @@ const LongContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   border: 1px solid #0000ff;
-
 `;
 
 const MiniContainer = styled.div`
@@ -159,6 +157,7 @@ export const LongLoginNavbarBox = () => {
 
 export const MiniNavbarBox = () => {
   const [clicked, setClicked] = useState(false);
+
   console.log(clicked === true);
   const handleClick = () => {
     setClicked(!clicked);
@@ -190,11 +189,19 @@ export const MiniNavbarBox = () => {
 };
 
 export const MiniLoginNavbarBox = () => {
+  const [clicked, setClicked] = useState(false);
+
+  console.log(clicked === true);
+  const handleClick = () => {
+    setClicked(!clicked);
+    console.log('눌림');
+  };
+
   return (
     <>
       <MediaQuery minWidth={0} maxWidth={965}>
         <MiniContainer>
-          <HamburgerBox>
+          <HamburgerBox onClick={handleClick}>
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
@@ -213,64 +220,3 @@ export const MiniLoginNavbarBox = () => {
     </>
   );
 };
-
-// export const LongNavbarBox = () => {
-
-//   return(
-//     <PageContainer>
-
-//       <LongContainer>
-//         <MarkBox></MarkBox>
-//         <ButtonBox>
-//           <Button>로그인</Button>
-//           <Button>회원가입</Button>
-//         </ButtonBox>
-//       </LongContainer>
-
-//       <MiniContainer style={{margin : "20px", border : "none"}}></MiniContainer>
-
-//       <LongContainer>
-//         <MarkBox></MarkBox>
-//         <ButtonBox>
-//           <Button>마이페이지</Button>
-//           <Button>로그아웃</Button>
-//         </ButtonBox>
-//       </LongContainer>
-
-//       <MiniContainer style={{margin : "20px", border : "none"}}></MiniContainer>
-
-//       <MediaQuery minWidth={0} maxWidth={965}>
-//         <MiniContainer>
-//           <HamburgerBox>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//           </HamburgerBox>
-//           <MarkBox></MarkBox>
-//           <ButtonBox>
-//             <Button>로그인</Button>
-//             <Button>회원가입</Button>
-//           </ButtonBox>
-//         </MiniContainer>
-//       </MediaQuery>
-
-//       <MiniContainer style={{margin : "20px", border : "none"}}></MiniContainer>
-
-//       <MediaQuery minWidth={0} maxWidth={965}>
-//         <MiniContainer>
-//           <HamburgerBox>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//           </HamburgerBox>
-//           <MarkBox></MarkBox>
-//           <ButtonBox>
-//             <Button>마이페이지</Button>
-//             <Button>로그아웃</Button>
-//           </ButtonBox>
-//         </MiniContainer>
-//       </MediaQuery>
-
-//     </PageContainer>
-//   )
-// }

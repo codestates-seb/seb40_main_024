@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,7 +76,6 @@ const Button = styled.button`
     background-color: #f4c00b;
   }
 `;
-
 
 export const SignupBox = () => {
   return (
