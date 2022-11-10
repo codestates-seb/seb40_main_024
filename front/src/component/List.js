@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -10,7 +9,6 @@ const PageContainer = styled.div`
   justify-content: center; */
   border: 3px solid #800000;
 `;
-
 const ListBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -18,14 +16,14 @@ const ListBox = styled.div`
   height: auto;
   padding: 10px;
   border: 1px solid #00ff00;
-`
+`;
 
 const ImageBox = styled.div`
   display: flex;
   width: 150px;
   height: 150px;
   /* border: 1px solid #ff8000; */
-`
+`;
 
 const Image = styled.svg`
   display: flex;
@@ -33,7 +31,7 @@ const Image = styled.svg`
   height: auto;
   border-radius: 50%;
   border: 1px solid #ff8000;
-`
+`;
 
 const Container = styled.div`
   display: flex;
@@ -42,7 +40,7 @@ const Container = styled.div`
   width: 80%;
   height: 100%;
   /* border: 1px solid #0000ff; */
-`
+`;
 
 const IdEtContainer = styled.div`
   display: flex;
@@ -52,7 +50,7 @@ const IdEtContainer = styled.div`
   width: auto;
   margin-left: 30px;
   /* border: 1px solid #ff8000; */
-`
+`;
 
 const IdEtcBox = styled.div`
   display: flex;
@@ -60,7 +58,7 @@ const IdEtcBox = styled.div`
   height: 30px;
   margin-left: 10px;
   /* border: 1px solid #ff8000; */
-`
+`;
 
 const Id = styled.div`
   display: flex;
@@ -69,7 +67,7 @@ const Id = styled.div`
   align-items: center;
   line-height: normal;
   /* border: 1px solid #ff8000; */
-`
+`;
 
 const At = styled.div`
   display: flex;
@@ -80,7 +78,7 @@ const At = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   /* border: 1px solid #ff8000; */
-`
+`;
 
 const Date = styled.div`
   display: flex;
@@ -91,7 +89,7 @@ const Date = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   /* border: 1px solid #ff8000; */
-`
+`;
 
 const TextEtcContainer = styled.div`
   display: flex;
@@ -101,7 +99,7 @@ const TextEtcContainer = styled.div`
   height: 100%;
   margin-left: 30px;
   border: 1px solid #ff8000;
-`
+`;
 
 const Text = styled.li`
   display: flex;
@@ -110,45 +108,42 @@ const Text = styled.li`
   height: 100%;
   padding: 5px;
   /* border: 1px solid #ff8000; */
-`
-
+`;
 const LikeBox = styled.div`
   display: flex;
   font-size: 35px;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   line-height: normal;
   height: 30px;
   margin-right: 10px;
   /* border: 1px solid #ff8000; */
-`
-
+`;
 export const List = () => {
-
-  return(
+  return (
     <>
-    <PageContainer>
-      <ListBox>
-        <ImageBox>
-          <Image>IMG</Image>
-        </ImageBox>
-        <Container>
-        <IdEtContainer>
-          <IdEtcBox>
-            <Id>idididididid</Id>
-          </IdEtcBox>
-          <IdEtcBox>
-            <Date>2022-11-01</Date>
-            <At>22:12:12</At>
-            <LikeBox>♡</LikeBox>
-          </IdEtcBox>
-        </IdEtContainer>
-        <TextEtcContainer>
-          <Text>Text</Text>
-        </TextEtcContainer>
-        </Container>
-      </ListBox>
-    </PageContainer>
+      <PageContainer>
+        <ListBox>
+          <ImageBox>
+            <Image>IMG</Image>
+          </ImageBox>
+          <Container>
+            <IdEtContainer>
+              <IdEtcBox>
+                <Id>idididididid</Id>
+              </IdEtcBox>
+              <IdEtcBox>
+                <Date>2022-11-01</Date>
+                <At>22:12:12</At>
+                <LikeBox>♡</LikeBox>
+              </IdEtcBox>
+            </IdEtContainer>
+            <TextEtcContainer>
+              <Text>Text</Text>
+            </TextEtcContainer>
+          </Container>
+        </ListBox>
+      </PageContainer>
     </>
-  )
-}
+  );
+};
