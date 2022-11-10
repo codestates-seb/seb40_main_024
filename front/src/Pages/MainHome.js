@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import MainMiddle from '../Component/MainMiddle';
 import MainSide from '../Component/MainSide';
 import MainFooter from '../Component/MainFooter';
-import { LongNavbarBox, MiniNavbarBox } from '../Component/Navbar';
+import { LongNavbarBox, MiniNavbarBox } from '../component/Navbar';
 
 const MainDiv = styled.div`
   margin: 3rem 5rem;

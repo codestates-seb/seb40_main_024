@@ -7,5 +7,7 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
 
+    Board boardPatchToBoard(BoardDto.Patch requestBody);
+    Board boardPostToBoard(BoardDto.Post requestBody);
     BoardDto.Response boardToBoardResponseDto(Board board);
 }

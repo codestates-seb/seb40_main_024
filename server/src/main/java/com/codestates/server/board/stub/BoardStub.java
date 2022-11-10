@@ -1,5 +1,6 @@
 package com.codestates.server.board.stub;
 
+import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.repository.BoardRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,12 +20,11 @@ public class BoardStub {
 
             // post x 10
 
-//            for (int i = 1; i <= 10; i++) {
-//                String temp = "Test title " + i;
-//                log.info("BOARD STUB " + repository.save(new Board(temp, "Hi! This is the body area.")));
-//            }
+            for (int i = 1; i <= 10; i++) {
+                String temp = "테스트 게시글 " + i + " 번";
+                log.info("BOARD STUB " + repository.save(new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.")));
+            }
 
-//            log.info("BOARD STUB " + repository.save(new Board("title1", "Hi! This is the body area.")));
         };
     }
 }
