@@ -10,7 +10,10 @@ public enum ExceptionCode {
     ORDER_NOT_FOUND(404, "Order not found"),
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
 
-    NOT_IMPLEMENTATION(501, "Not Implementation");
+    NOT_IMPLEMENTATION(501, "Not Implementation"),
+
+    // Board related
+    BOARD_NOT_FOUND(404, "Board not found");
 
     @Getter
     private int status;
