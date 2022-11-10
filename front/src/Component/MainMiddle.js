@@ -43,6 +43,15 @@ const Middle = () => {
         <button onClick={() => navigate('/sharecommunitypost')}>
           테스트버튼 자산공유게시판 작성페이지
         </button>
+        <button onClick={() => navigate('/mypage')}>
+          테스트버튼 마이페이지
+        </button>
+        <button onClick={() => navigate('/myinfopage')}>
+          테스트버튼 내정보페이지
+        </button>
+        <button onClick={() => navigate('/boardcontentpage')}>
+          테스트버튼 게시글상세페이지
+        </button>
       </div>
       <div id="2" className="div2">
         <span>이미지?들어갈것같음</span>

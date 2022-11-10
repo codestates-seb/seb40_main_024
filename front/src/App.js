@@ -8,6 +8,9 @@ import { LoginBox } from './Pages/LoginBox';
 import { ForgotPasswordBox } from './Pages/ForgotPasswordBox';
 import FreeCommunity from './Pages/FreeCommunity';
 import ShareCommunity from './Pages/ShareCommunity';
+import MyPage from './Pages/MyPage';
+import InfoPage from './Pages/InfoPage';
+import BoardContentPage from './Pages/BoardContentPage';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
         <Route path="/forgotpassword" element={<ForgotPasswordBox />} />
         <Route path="/freecommunitypost" element={<FreeCommunity />} />
         <Route path="/sharecommunitypost" element={<ShareCommunity />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/myinfopage" element={<InfoPage />} />
+        <Route path="/boardcontentpage" element={<BoardContentPage />} />
       </Routes>
     </div>
   );
