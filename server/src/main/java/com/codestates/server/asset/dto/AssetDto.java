@@ -1,6 +1,6 @@
 package com.codestates.server.asset.dto;
 
-//import com.codestates.server.asset.entity.Asset;
+import com.codestates.server.asset.entity.Asset;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,6 @@ public class AssetDto {
         @Size(min = 1, message = "최소 단위는 1 입니다")
         private String content;
     }
-
 
     @Getter
     @Setter
