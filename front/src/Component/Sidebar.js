@@ -17,7 +17,7 @@ const SidebarBox = styled.div`
   justify-content: left;
   margin-top: 100px;
   padding: 20px;
-  border: 1px solid #8000ff;
+  /* border: 1px solid #8000ff; */
 `;
 
 const ListBox = styled.button`
