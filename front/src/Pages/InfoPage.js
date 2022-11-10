@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Profile from '../Component/Profile';
 
 const InfoContain = styled.div`
   display: flex;
@@ -17,19 +18,6 @@ const PageHeader = styled.div`
   top: 10%;
   left: 10%;
   font-size: 50px;
-`;
-
-const Profile = styled.div`
-  box-sizing: border-box;
-  height: 300px;
-  width: 300px;
-  position: absolute;
-  top: 18%;
-  left: 23%;
-  /* transform: translate(-50%,-50%) */
-  padding: 130px;
-  border: solid 1px black;
-  border-radius: 100%;
 `;
 
 const ProfileBtn = styled.button`
@@ -128,7 +116,7 @@ const InfoPage = () => {
         <UserInfo>
           <UserInfoHead>구독사항 변경</UserInfoHead>
         </UserInfo>
-        <OutBtn>회원 탈퇴</OutBtn>
+        <OutBtn onClick={() => alert('탈퇴 완료')}>회원 탈퇴</OutBtn>
       </ListContain>
     </InfoContain>
   );
