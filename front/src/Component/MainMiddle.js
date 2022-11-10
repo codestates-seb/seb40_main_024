@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 const MiddleDiv = styled.div`
   margin: 0 auto;
   div {
-    height: 500px;
+    height: 900px;
   }
   .div1 {
     text-align: center;
@@ -36,6 +36,7 @@ const Middle = () => {
           <br />
           이곳에서 저희와 함께 이루어 보세요
         </h2>
+        <button onClick={() => navigate('/asset')}>테스트버튼 자산이동</button>
       </div>
       <div id="2" className="div2">
         <span>이미지?들어갈것같음</span>
