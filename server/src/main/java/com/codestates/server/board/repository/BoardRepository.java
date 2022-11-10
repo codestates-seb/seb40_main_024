@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
-    @Query(nativeQuery = true, value = "select * from Board b where b.status > 0")
+    @Query(nativeQuery = true, value = "select * from Board b where b.board_status > 0")
     List<Board> findAll();
 }
