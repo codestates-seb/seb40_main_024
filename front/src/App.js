@@ -6,6 +6,8 @@ import Asset from './Pages/Asset';
 import AssetChange from './Pages/AssetChange';
 import { LoginBox } from './Pages/LoginBox';
 import { ForgotPasswordBox } from './Pages/ForgotPasswordBox';
+import FreeCommunity from './Pages/FreeCommunity';
+import ShareCommunity from './Pages/ShareCommunity';
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route path="/signup" element={<SignupBox />} />
         <Route path="/login" element={<LoginBox />} />
         <Route path="/forgotpassword" element={<ForgotPasswordBox />} />
+        <Route path="/freecommunitypost" element={<FreeCommunity />} />
+        <Route path="/sharecommunitypost" element={<ShareCommunity />} />
       </Routes>
     </div>
   );
