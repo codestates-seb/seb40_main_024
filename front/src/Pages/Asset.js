@@ -2,6 +2,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { Assetdata } from '../Component/AssetData';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -46,8 +47,11 @@ const AssetExchange = styled.div`
 `;
 
 function Asset() {
+  const navigate = useNavigate();
   return (
     <MainPie>
+      <button onClick={() => navigate('/')}>홈으로</button>
+      <button onClick={() => navigate('/assetchange')}>자산변경페이지</button>
       <h2 className="pieheader">총 금액 확인하기</h2>
       <GraphPie>
         <Pie data={Assetdata} />
