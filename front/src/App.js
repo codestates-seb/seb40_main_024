@@ -24,10 +24,8 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-
         <Route path="/freeboard" element={<FreeBoardPage />} />
         <Route path="/assetboard" element={<AssetBoardPage />} />
-
         <Route path="/freecommunitypost" element={<FreeCommunity />} />
         <Route path="/sharecommunitypost" element={<ShareCommunity />} />
         <Route path="/mypage" element={<MyPage />} />
