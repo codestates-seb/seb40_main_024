@@ -9,7 +9,6 @@ function Quill() {
 
   console.log(quill); // undefined > Quill Object
   console.log(quillRef); // { current: undefined } > { current: Quill Editor Reference }
-
   return (
     <div style={{ width: 800, height: 300 }}>
       <div ref={quillRef} />
