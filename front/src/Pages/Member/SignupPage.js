@@ -1,5 +1,5 @@
-import { LongNavbarBox, MiniNavbarBox } from '../Component/Navbar';
-import { SignupBox } from '../Component/SignupBox';
+import { LongNavbarBox, MiniNavbarBox } from '../../Component/Navbar';
+import { SignupBox } from '../../Component/SignupBox';
 
 export const SignupPage = () => {
   return (

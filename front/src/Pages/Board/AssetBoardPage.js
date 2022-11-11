@@ -1,7 +1,7 @@
-import { LongLoginNavbarBox, MiniLoginNavbarBox } from '../Component/Navbar';
+import { LongLoginNavbarBox, MiniLoginNavbarBox } from '../../Component/Navbar';
 import styled from 'styled-components';
-import { Sidebar } from '../Component/Sidebar';
-import { List } from '../Component/List';
+import { Sidebar } from '../../Component/Sidebar';
+import { List } from '../../Component/List';
 
 const PageContainer = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const PostListSpace = styled.div`
   border: 1px solid #00ff00;
 `;
 
-export const FreeBoardPage = () => {
+export const AssetBoardPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
