@@ -152,7 +152,6 @@ export const LongLoginNavbarBox = () => {
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
-      :
     </>
   );
 };
@@ -197,6 +196,7 @@ export const MiniNavbarBox = () => {
 
 export const MiniLoginNavbarBox = () => {
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
 
   console.log(clicked === true);
   const handleClick = () => {

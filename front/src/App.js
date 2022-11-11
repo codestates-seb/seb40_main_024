@@ -1,5 +1,4 @@
 import './App.css';
-import { SignupBox } from './Pages/SignupBox';
 import { Route, Routes } from 'react-router-dom';
 import MainHome from './Pages/MainHome';
 import Asset from './Pages/Asset';
@@ -9,7 +8,11 @@ import { SignupPage } from './Pages/SignupPage';
 import { ForgotPasswordPage } from './Pages/ForgotPasswordPage';
 import { FreeBoardPage } from './Pages/FreeBoardPage';
 import { AssetBoardPage } from './Pages/AssetBoardPage';
-
+import FreeCommunity from './Pages/FreeCommunity';
+import ShareCommunity from './Pages/ShareCommunity';
+import MyPage from './Pages/MyPage';
+import InfoPage from './Pages/InfoPage';
+import BoardContentPage from './Pages/BoardContentPage';
 
 function App() {
   return (
@@ -24,6 +27,12 @@ function App() {
 
         <Route path="/freeboard" element={<FreeBoardPage />} />
         <Route path="/assetboard" element={<AssetBoardPage />} />
+
+        <Route path="/freecommunitypost" element={<FreeCommunity />} />
+        <Route path="/sharecommunitypost" element={<ShareCommunity />} />
+        <Route path="/mypage" element={<MyPage />} />
+        <Route path="/myinfopage" element={<InfoPage />} />
+        <Route path="/boardcontentpage" element={<BoardContentPage />} />
       </Routes>
     </>
   );
