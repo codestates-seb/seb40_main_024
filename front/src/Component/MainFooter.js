@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+// 홈페이지 이름
 const FooterMain = styled.div`
   display: flex;
   justify-content: space-between;

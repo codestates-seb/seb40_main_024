@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const MiddleDiv = styled.div`
   margin: 0 auto;
   div {
-    height: 1000px;
+    height: 900px;
   }
   .div1 {
     text-align: center;
@@ -25,6 +26,7 @@ const MiddleDiv = styled.div`
 `;
 
 const Middle = () => {
+  const navigate = useNavigate();
   return (
     <MiddleDiv>
       <div id="1" className="div1">
@@ -34,6 +36,22 @@ const Middle = () => {
           <br />
           이곳에서 저희와 함께 이루어 보세요
         </h2>
+        <button onClick={() => navigate('/asset')}>테스트버튼 자산이동</button>
+        <button onClick={() => navigate('/freecommunitypost')}>
+          테스트버튼 자유게시판 작성페이지
+        </button>
+        <button onClick={() => navigate('/sharecommunitypost')}>
+          테스트버튼 자산공유게시판 작성페이지
+        </button>
+        <button onClick={() => navigate('/mypage')}>
+          테스트버튼 마이페이지
+        </button>
+        <button onClick={() => navigate('/myinfopage')}>
+          테스트버튼 내정보페이지
+        </button>
+        <button onClick={() => navigate('/boardcontentpage')}>
+          테스트버튼 게시글상세페이지
+        </button>
       </div>
       <div id="2" className="div2">
         <span>이미지?들어갈것같음</span>
@@ -86,8 +104,8 @@ const Middle = () => {
           <br />
           길을 떠나볼까요?
         </h2>
-        <button>로그인</button>
-        <button>회원가입</button>
+        <button onClick={() => navigate('login')}>로그인</button>
+        <button onClick={() => navigate('/signup')}>회원가입</button>
       </div>
     </MiddleDiv>
   );

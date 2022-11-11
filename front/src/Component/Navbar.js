@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import MediaQuery from 'react-responsive';
+import { useNavigate } from 'react-router-dom';
 
 const LongContainer = styled.div`
   display: flex;
@@ -123,14 +124,15 @@ const BurgerButton = styled.button`
 `;
 
 export const LongNavbarBox = () => {
+  const navigate = useNavigate();
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
           <MarkBox>마크</MarkBox>
           <ButtonBox>
-            <Button>로그인</Button>
-            <Button>회원가입</Button>
+            <Button onClick={() => navigate('/login')}>로그인</Button>
+            <Button onClick={() => navigate('/signup')}>회원가입</Button>
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
@@ -156,6 +158,7 @@ export const LongLoginNavbarBox = () => {
 };
 
 export const MiniNavbarBox = () => {
+  const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
 
   console.log(clicked === true);
@@ -178,8 +181,12 @@ export const MiniNavbarBox = () => {
         {clicked ? (
           <>
             <HamburgerList>
-              <BurgerButton>로그인</BurgerButton>
-              <BurgerButton>회원가입</BurgerButton>
+              <BurgerButton onClick={() => navigate('/login')}>
+                로그인
+              </BurgerButton>
+              <BurgerButton onClick={() => navigate('/signup')}>
+                회원가입
+              </BurgerButton>
             </HamburgerList>
           </>
         ) : null}
@@ -211,8 +218,12 @@ export const MiniLoginNavbarBox = () => {
         {clicked ? (
           <>
             <HamburgerList>
-              <BurgerButton>MyPage</BurgerButton>
-              <BurgerButton>Logout</BurgerButton>
+              <BurgerButton onClick={() => navigate('/login')}>
+                로그인
+              </BurgerButton>
+              <BurgerButton onClick={() => navigate('/signup')}>
+                회원가입
+              </BurgerButton>
             </HamburgerList>
           </>
         ) : null}

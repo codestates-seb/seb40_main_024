@@ -1,5 +1,14 @@
 import styled from 'styled-components';
 
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+  height: 1000px;
+  /* align-items: center;
+  justify-content: center; */
+  border: 3px solid #800000;
+`;
 const ListBox = styled.div`
   display: flex;
   flex-direction: row;

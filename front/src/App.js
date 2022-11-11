@@ -1,4 +1,5 @@
 import './App.css';
+import { SignupBox } from './Pages/SignupBox';
 import { Route, Routes } from 'react-router-dom';
 import MainHome from './Pages/MainHome';
 import Asset from './Pages/Asset';
@@ -8,6 +9,7 @@ import { SignupPage } from './Pages/SignupPage';
 import { ForgotPasswordPage } from './Pages/ForgotPasswordPage';
 import { FreeBoardPage } from './Pages/FreeBoardPage';
 import { AssetBoardPage } from './Pages/AssetBoardPage';
+
 
 function App() {
   return (
