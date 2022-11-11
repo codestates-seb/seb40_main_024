@@ -37,10 +37,10 @@ const Middle = () => {
           이곳에서 저희와 함께 이루어 보세요
         </h2>
         <button onClick={() => navigate('/asset')}>테스트버튼 자산이동</button>
-        <button onClick={() => navigate('/freecommunitypost')}>
+        <button onClick={() => navigate('/freeboardpost')}>
           테스트버튼 자유게시판 작성페이지
         </button>
-        <button onClick={() => navigate('/sharecommunitypost')}>
+        <button onClick={() => navigate('/shareboardpost')}>
           테스트버튼 자산공유게시판 작성페이지
         </button>
         <button onClick={() => navigate('/mypage')}>
@@ -51,6 +51,12 @@ const Middle = () => {
         </button>
         <button onClick={() => navigate('/boardcontentpage')}>
           테스트버튼 게시글상세페이지
+        </button>
+        <button onClick={() => navigate('/freeboard')}>
+          테스트버튼 자유게시판 조회페이지
+        </button>
+        <button onClick={() => navigate('/assetboard')}>
+          테스트버튼 자산공유게시판 조회페이지
         </button>
       </div>
       <div id="2" className="div2">
