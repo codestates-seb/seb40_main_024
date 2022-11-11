@@ -4,11 +4,8 @@ import com.codestates.server.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -30,13 +27,13 @@ public class Board extends Auditable {
     @Column(name = "likes")
     private int like = 0;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false, name = "CREATED_AT")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @LastModifiedDate
-    @Column(nullable = false, name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt = LocalDateTime.now();
+//    @CreatedDate
+//    @Column(nullable = false, updatable = false, name = "CREATED_AT")
+//    private LocalDateTime createdAt = LocalDateTime.now();
+//
+//    @LastModifiedDate
+//    @Column(nullable = false, name = "LAST_MODIFIED_AT")
+//    private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @Column
     @Enumerated(EnumType.ORDINAL)
