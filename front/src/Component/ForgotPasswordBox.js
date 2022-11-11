@@ -80,15 +80,17 @@ const Button = styled.button`
 
 export const ForgotPasswordBox = () => {
   return (
-    <PageContainer>
-      <Container>
-        <TitleBox>비밀번호 찾기</TitleBox>
-        <TextBox placeholder="이메일"></TextBox>
-        <TextBox placeholder="비밀번호"></TextBox>
-        <ButtonBox>
-          <Button>임시비밀번호 받기</Button>
-        </ButtonBox>
-      </Container>
-    </PageContainer>
+    <>
+      <PageContainer>
+        <Container>
+          <TitleBox>비밀번호 찾기</TitleBox>
+          <TextBox placeholder="이메일"></TextBox>
+          <TextBox placeholder="비밀번호"></TextBox>
+          <ButtonBox>
+            <Button>임시비밀번호 받기</Button>
+          </ButtonBox>
+        </Container>
+      </PageContainer>
+    </>
   );
 };
