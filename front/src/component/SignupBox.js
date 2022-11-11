@@ -79,18 +79,20 @@ const Button = styled.button`
 
 export const SignupBox = () => {
   return (
-    <PageContainer>
-      <Container>
-        <TitleBox>회원가입</TitleBox>
-        <TextBox placeholder="성명"></TextBox>
-        <TextBox placeholder="아이디"></TextBox>
-        <TextBox placeholder="비밀번호"></TextBox>
-        <TextBox placeholder="비밀번호 재입력"></TextBox>
-        <TextBox placeholder="이메일"></TextBox>
-        <ButtonBox>
-          <Button>SignUp</Button>
-        </ButtonBox>
-      </Container>
-    </PageContainer>
+    <>
+      <PageContainer>
+        <Container>
+          <TitleBox>회원가입</TitleBox>
+          <TextBox placeholder="성명"></TextBox>
+          <TextBox placeholder="아이디"></TextBox>
+          <TextBox placeholder="비밀번호"></TextBox>
+          <TextBox placeholder="비밀번호 재입력"></TextBox>
+          <TextBox placeholder="이메일"></TextBox>
+          <ButtonBox>
+            <Button>SignUp</Button>
+          </ButtonBox>
+        </Container>
+      </PageContainer>
+    </>
   );
 };

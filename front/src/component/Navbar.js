@@ -145,8 +145,8 @@ export const LongLoginNavbarBox = () => {
         <LongContainer>
           <MarkBox>마크</MarkBox>
           <ButtonBox>
-            <Button>마이페이지</Button>
-            <Button>로그아웃</Button>
+            <Button>MyPage</Button>
+            <Button>Logout</Button>
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
@@ -211,8 +211,8 @@ export const MiniLoginNavbarBox = () => {
         {clicked ? (
           <>
             <HamburgerList>
-              <BurgerButton>로그인</BurgerButton>
-              <BurgerButton>회원가입</BurgerButton>
+              <BurgerButton>MyPage</BurgerButton>
+              <BurgerButton>Logout</BurgerButton>
             </HamburgerList>
           </>
         ) : null}

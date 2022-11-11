@@ -3,30 +3,26 @@ import { Route, Routes } from 'react-router-dom';
 import MainHome from './Pages/MainHome';
 import Asset from './Pages/Asset';
 import AssetChange from './Pages/AssetChange';
-import { SignupBox } from './Component/SignupBox';
-import { LoginBox } from './Component/LoginBox';
-import { ForgotPasswordBox } from './Component/ForgotPasswordBox';
-import { LongNavbarBox, MiniNavbarBox } from './Component/Navbar';
-import { List } from './Component/List';
-import { Sidebar } from './Component/Sidebar';
+import { LoginPage } from './Pages/LoginPage';
+import { SignupPage } from './Pages/SignupPage';
+import { ForgotPasswordPage } from './Pages/ForgotPasswordPage';
+import { FreeBoardPage } from './Pages/FreeBoardPage';
+import { AssetBoardPage } from './Pages/AssetBoardPage';
 
 function App() {
   return (
     <>
-      <LongNavbarBox />
-      <MiniNavbarBox />
-      <Sidebar />
-      <List />
-      <SignupBox />
-      <LoginBox />
-      <ForgotPasswordBox />
-      <div>
-        <Routes>
-          <Route path="/" element={<MainHome />} />
-          <Route path="/asset" element={<Asset />} />
-          <Route path="/assetchange" element={<AssetChange />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/" element={<MainHome />} />
+        <Route path="/asset" element={<Asset />} />
+        <Route path="/assetchange" element={<AssetChange />} />
+        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+
+        <Route path="/freeboard" element={<FreeBoardPage />} />
+        <Route path="/assetboard" element={<AssetBoardPage />} />
+      </Routes>
     </>
   );
 }

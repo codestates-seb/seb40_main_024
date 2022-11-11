@@ -1,14 +1,5 @@
 import styled from 'styled-components';
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 1000px;
-  height: 1000px;
-  justify-content: left;
-  border: 3px solid #800000;
-`;
-
 const SidebarBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -16,8 +7,8 @@ const SidebarBox = styled.div`
   height: auto;
   justify-content: left;
   margin-top: 100px;
-  padding: 20px;
-  /* border: 1px solid #8000ff; */
+  padding: 1px;
+  border: 1px solid #8000ff;
 `;
 
 const ListBox = styled.button`
@@ -48,13 +39,11 @@ const Lists = ['자유게시판', '자산공유'];
 export const Sidebar = () => {
   return (
     <>
-      <PageContainer>
-        <SidebarBox>
-          {Lists.map((list, key) => {
-            return <ListBox key={key}>{list}</ListBox>;
-          })}
-        </SidebarBox>
-      </PageContainer>
+      <SidebarBox>
+        {Lists.map((list, key) => {
+          return <ListBox key={key}>{list}</ListBox>;
+        })}
+      </SidebarBox>
     </>
   );
 };
