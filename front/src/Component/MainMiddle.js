@@ -14,10 +14,12 @@ const MiddleDiv = styled.div`
   }
   .div3 {
     display: flex;
+    justify-content: center;
     text-align: center;
   }
   .div4 {
     display: flex;
+    justify-content: center;
     text-align: center;
   }
   .div5 {
@@ -31,6 +33,7 @@ const Middle = () => {
     <MiddleDiv>
       <div id="1" className="div1">
         <span>호주머니</span>
+        <span>fniowfjniowanfiowa</span>
         <h2>
           누구나 꿈꾸는 자산전문가
           <br />
