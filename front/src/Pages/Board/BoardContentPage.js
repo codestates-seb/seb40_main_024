@@ -1,5 +1,5 @@
-import BoardContents from '../Component/BoardContents';
-import Comments from '../Component/Comments';
+import BoardContents from '../../Component/BoardContents';
+import Comments from '../../Component/Comments';
 
 const BoardContentPage = () => {
   return (

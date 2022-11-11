@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Quill from '../Component/Quill';
+import Quill from '../../Component/Quill';
 import styled from 'styled-components';
 
 const Input = styled.input`
@@ -16,7 +16,7 @@ function FreeCommunity() {
   return (
     <>
       <div>
-        <h2>자유게시글 작성하기</h2>
+        <h2>자산공유게시글 작성하기</h2>
         <button onClick={() => navigate('/')}>홈버튼</button>
         <br />
         <select name="1234">
