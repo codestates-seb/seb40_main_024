@@ -1,27 +1,20 @@
 import styled from 'styled-components';
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 1000px;
-  height: 1000px;
-  /* align-items: center;
-  justify-content: center; */
-  border: 3px solid #800000;
-`;
 const ListBox = styled.div`
   display: flex;
   flex-direction: row;
   width: auto;
   height: auto;
-  padding: 10px;
+  margin-left: 20px;
   border: 1px solid #00ff00;
 `;
 
 const ImageBox = styled.div`
   display: flex;
-  width: 150px;
-  height: 150px;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-content: center;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -48,7 +41,7 @@ const IdEtContainer = styled.div`
   justify-content: space-between;
   height: 30px;
   width: auto;
-  margin-left: 30px;
+  margin-left: 10px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -97,21 +90,21 @@ const TextEtcContainer = styled.div`
   justify-content: space-between;
   width: auto;
   height: 100%;
-  margin-left: 30px;
+  margin-left: 10px;
   border: 1px solid #ff8000;
 `;
 
-const Text = styled.li`
+const Text = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100%;
+  height: auto;
   padding: 5px;
   /* border: 1px solid #ff8000; */
 `;
 const LikeBox = styled.div`
   display: flex;
-  font-size: 35px;
+  font-size: 20px;
   align-items: center;
   justify-content: center;
   line-height: normal;
@@ -122,28 +115,26 @@ const LikeBox = styled.div`
 export const List = () => {
   return (
     <>
-      <PageContainer>
-        <ListBox>
-          <ImageBox>
-            <Image>IMG</Image>
-          </ImageBox>
-          <Container>
-            <IdEtContainer>
-              <IdEtcBox>
-                <Id>idididididid</Id>
-              </IdEtcBox>
-              <IdEtcBox>
-                <Date>2022-11-01</Date>
-                <At>22:12:12</At>
-                <LikeBox>♡</LikeBox>
-              </IdEtcBox>
-            </IdEtContainer>
-            <TextEtcContainer>
-              <Text>Text</Text>
-            </TextEtcContainer>
-          </Container>
-        </ListBox>
-      </PageContainer>
+      <ListBox>
+        <ImageBox>
+          <Image>IMG</Image>
+        </ImageBox>
+        <Container>
+          <IdEtContainer>
+            <IdEtcBox>
+              <Id>idididididid</Id>
+            </IdEtcBox>
+            <IdEtcBox>
+              <Date>2022-11-01</Date>
+              <At>22:12:12</At>
+              <LikeBox>♡</LikeBox>
+            </IdEtcBox>
+          </IdEtContainer>
+          <TextEtcContainer>
+            <Text>Text</Text>
+          </TextEtcContainer>
+        </Container>
+      </ListBox>
     </>
   );
 };
