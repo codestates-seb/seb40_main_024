@@ -147,12 +147,11 @@ export const LongLoginNavbarBox = () => {
         <LongContainer>
           <MarkBox>마크</MarkBox>
           <ButtonBox>
-            <Button>마이페이지</Button>
-            <Button>로그아웃</Button>
+            <Button>MyPage</Button>
+            <Button>Logout</Button>
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
-      :
     </>
   );
 };
@@ -160,6 +159,7 @@ export const LongLoginNavbarBox = () => {
 export const MiniNavbarBox = () => {
   const navigate = useNavigate();
   const [clicked, setClicked] = useState(false);
+
   console.log(clicked === true);
   const handleClick = () => {
     setClicked(!clicked);
@@ -195,15 +195,20 @@ export const MiniNavbarBox = () => {
 };
 
 export const MiniLoginNavbarBox = () => {
-  const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
   const [clicked, setClicked] = useState(false);
+  const navigate = useNavigate();
+
   console.log(clicked === true);
+  const handleClick = () => {
+    setClicked(!clicked);
+    console.log('눌림');
+  };
+
   return (
     <>
       <MediaQuery minWidth={0} maxWidth={965}>
         <MiniContainer>
-          <HamburgerBox>
+          <HamburgerBox onClick={handleClick}>
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
@@ -226,64 +231,3 @@ export const MiniLoginNavbarBox = () => {
     </>
   );
 };
-
-// export const LongNavbarBox = () => {
-
-//   return(
-//     <PageContainer>
-
-//       <LongContainer>
-//         <MarkBox></MarkBox>
-//         <ButtonBox>
-//           <Button>로그인</Button>
-//           <Button>회원가입</Button>
-//         </ButtonBox>
-//       </LongContainer>
-
-//       <MiniContainer style={{margin : "20px", border : "none"}}></MiniContainer>
-
-//       <LongContainer>
-//         <MarkBox></MarkBox>
-//         <ButtonBox>
-//           <Button>마이페이지</Button>
-//           <Button>로그아웃</Button>
-//         </ButtonBox>
-//       </LongContainer>
-
-//       <MiniContainer style={{margin : "20px", border : "none"}}></MiniContainer>
-
-//       <MediaQuery minWidth={0} maxWidth={965}>
-//         <MiniContainer>
-//           <HamburgerBox>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//           </HamburgerBox>
-//           <MarkBox></MarkBox>
-//           <ButtonBox>
-//             <Button>로그인</Button>
-//             <Button>회원가입</Button>
-//           </ButtonBox>
-//         </MiniContainer>
-//       </MediaQuery>
-
-//       <MiniContainer style={{margin : "20px", border : "none"}}></MiniContainer>
-
-//       <MediaQuery minWidth={0} maxWidth={965}>
-//         <MiniContainer>
-//           <HamburgerBox>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//             <Hamburger></Hamburger>
-//           </HamburgerBox>
-//           <MarkBox></MarkBox>
-//           <ButtonBox>
-//             <Button>마이페이지</Button>
-//             <Button>로그아웃</Button>
-//           </ButtonBox>
-//         </MiniContainer>
-//       </MediaQuery>
-
-//     </PageContainer>
-//   )
-// }

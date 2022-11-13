@@ -1,4 +1,4 @@
-import Subscript from '../Component/Subscript';
+import Subscript from '../../Component/Subscript';
 
 const SubscriptionPage = () => {
   return <Subscript></Subscript>;

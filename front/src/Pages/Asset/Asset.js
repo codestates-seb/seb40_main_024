@@ -1,6 +1,6 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
-import { Assetdata } from '../Component/AssetData';
+import { Assetdata } from '../../Component/AssetData';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
