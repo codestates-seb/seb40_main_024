@@ -17,7 +17,7 @@ public interface AssetMapper {
 
     Response assetToAssetResponse(Asset response);
 
-    List<Response> assetsToAssetResponses(List<Asset> responses);
+//    List<Response> assetsToAssetResponses(List<Asset> responses);
 
 
 

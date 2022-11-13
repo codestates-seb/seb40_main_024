@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface AssetRepository extends JpaRepository<Asset, Long> {
 
-    Optional<Asset> findByAssetId(Long assetId);
+//    Optional<Asset> findByAssetId(Long assetId);
 
 //    @Query(nativeQuery = true, value = "select * from Asset a where a.asset_status>0")
 //    List<Asset> findAll();
