@@ -8,11 +8,12 @@ import com.codestates.server.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Transactional
+@Transactional(readOnly = true)
 @Service
 public class BoardService {
 
@@ -22,7 +23,6 @@ public class BoardService {
         this.repository = repository;
     }
 
-    @Transactional(readOnly = true)
     public Board findOne(long id) {
         return findVerifiedBoard(id);
     }
@@ -31,16 +31,21 @@ public class BoardService {
         return new ArrayList<>(repository.findAll());
     }
 
+    @Transactional
     public Board createOne(Board board) {
         return repository.save(board);
     }
 
+    @Transactional
     public Board updateOne(Board board) {
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
 
         // title and body
         verifiedBoard.setTitle(board.getTitle());
         verifiedBoard.setBody(board.getBody());
+
+        // Modified time
+        verifiedBoard.setModifiedAt(LocalDateTime.now());
 
         return repository.save(verifiedBoard);
     }
@@ -55,6 +60,7 @@ public class BoardService {
         return repository.save(verifiedBoard);
     }
 
+    @Transactional
     public void deleteOne(Long id) {
         Board verifiedBoard = findVerifiedBoard(id);
 
@@ -62,8 +68,6 @@ public class BoardService {
         verifiedBoard.setBoardStatus(Board.BoardStatus.BOARD_DELETED);
     }
 
-
-    @Transactional(readOnly = true)
     public Board findVerifiedBoard(long id) {
         Optional<Board> optionalBoard = repository.findById(id);
         return optionalBoard.orElseThrow(() -> new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
