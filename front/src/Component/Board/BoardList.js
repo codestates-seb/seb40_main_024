@@ -112,7 +112,7 @@ const LikeBox = styled.div`
   margin-right: 10px;
   /* border: 1px solid #ff8000; */
 `;
-export const List = () => {
+export const BoardList = () => {
   return (
     <>
       <ListBox>
