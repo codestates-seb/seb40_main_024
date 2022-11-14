@@ -79,13 +79,13 @@ export const AssetTest = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" stroke="#ffff" />
+          <XAxis dataKey="name" stroke="#82ca9d" />
+          <YAxis stroke="#82ca9d" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="현재금액" fill="#8884d8" />
-          <Bar dataKey="목표금액" fill="#82ca9d" />
+          <Bar dataKey="현재금액" fill="#BCEAD5" />
+          <Bar dataKey="목표금액" fill="#8EC3B0" />
         </BarChart>
       </Main>
     </ResponsiveContainer>
