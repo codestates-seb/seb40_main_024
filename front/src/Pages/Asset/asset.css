@@ -1,3 +1,6 @@
+.recharts-rectangle {
+  background-color: #b1052c;
+}
 .recharts-cartesian-axis-ticks {
-  background-color: red;
+  color: #b1052c;
 }

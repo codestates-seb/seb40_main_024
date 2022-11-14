@@ -13,10 +13,7 @@ import styled from 'styled-components';
 import './asset.css';
 
 const Main = styled.div`
-  padding: 30px;
-  .yAxis {
-    background-color: red;
-  }
+  color: #ff0000;
 `;
 
 const data = [
@@ -79,13 +76,13 @@ export const AssetTest = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
+          <XAxis dataKey="name" stroke="#82ca9d" />
+          <YAxis stroke="#82ca9d" />
           <Tooltip />
           <Legend />
-          <Bar dataKey="현재금액" fill="#8884d8" />
-          <Bar dataKey="목표금액" fill="#82ca9d" />
+          <Bar dataKey="현재금액" fill="#b1052c" />
+          <Bar dataKey="목표금액" stroke="#82ca9d" fill="#82ca9d" />
         </BarChart>
       </Main>
     </ResponsiveContainer>
