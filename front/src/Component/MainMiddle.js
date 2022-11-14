@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { AssetTest } from '../Pages/Asset/AssetTest';
 
 const MiddleDiv = styled.div`
   margin: 0 auto;
@@ -32,6 +33,7 @@ const Middle = () => {
   return (
     <MiddleDiv>
       <div id="1" className="div1">
+        <AssetTest />
         <span>호주머니</span>
         <span>fniowfjniowanfiowa</span>
         <h2>
