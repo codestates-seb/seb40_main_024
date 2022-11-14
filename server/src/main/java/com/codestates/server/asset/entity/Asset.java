@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Getter
-//@Setter
+@Setter
 @Entity
 public class Asset {
 
@@ -23,14 +23,14 @@ public class Asset {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long assetId;
 
-    @Column(nullable = false)
-    private String assetType; // type은 어떻게 지정해야 할 지? (주식, 현금, 예금 등 유동성자산 택 1 가능?)
+    @Column
+    private String assetType; // (주식, 현금, 예금 등 유동성자산. 택 1 가능?)
 
-    @Column(nullable = false) // null값 가능?
-    private Long assetValue; // int인지 long인지?
+    @Column(nullable = false)
+    private long assetValue; // long은 null값 불가능
 
     @Builder
-    public Asset(String assetType, long assetValue) {
+    public Asset(String assetType, Long assetValue) {
         this.assetType = assetType;
         this.assetValue = assetValue;
     }
@@ -38,7 +38,6 @@ public class Asset {
     @ManyToOne // 단방향
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
 
 
 //    @Column

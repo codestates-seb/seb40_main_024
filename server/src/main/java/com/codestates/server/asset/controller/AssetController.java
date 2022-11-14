@@ -7,11 +7,14 @@ import com.codestates.server.asset.mapper.AssetMapper;
 import com.codestates.server.asset.service.AssetService;
 import com.codestates.server.dto.MultiResponseDto;
 import com.codestates.server.dto.SingleResponseDto;
+import com.codestates.server.exception.*;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,70 +34,78 @@ public class AssetController {
 
     private final AssetService assetService;
     private final AssetMapper mapper;
+//    private final MemberService memberService;
 
     public AssetController(AssetService assetService, AssetMapper mapper) {
         this.assetService = assetService;
         this.mapper = mapper;
     }
-}
+
 
     // 자산 전체 조회
-//    @GetMapping("/{memberId}")
-//    @GetMapping
-//    public ResponseEntity getAssets() {
-//        List<Asset> assets = assetService.findAssets();
-//        return new ResponseEntity<>(
-//            new MultiResponseDto<>(mapper.assetToAssetResponse(assets))
-//        );
-////        assets.stream()
-//
-////            .map(m -> mapper.assetToAssetResponse(m))
-////            .orElse
-////        Asset asset =assetService.findAsset(assetId);
-////        AssetDto.Response response = mapper.assetToAssetResponse(asset);
-////        return new ResponseEntity<>(
-////            new MultiResponseDto<>(mapper.assetsToAssetResponses(assets))
-////        );
-//    }
+    @GetMapping
+    public ResponseEntity getAssets() {
 
-    // 자산 일부 조회
-//    @GetMapping("/{memberId}")
-//    public EntityModel<Response> getAsset(@PathVariable long id) {
-//        Asset asset = assetService.findAsset(id);
-//        AssetDto.Response response = mapper.assetToAssetResponse(asset);
-//        return new ResponseEntity<>(
-//            new SingleResponseDto<>(mapper.assetToAssetResponse(asset))
-//        );
-////    }
-//
-//    // 자산 등록
-//    @PostMapping("/{assetId}/asset")
-//    public ResponseEntity<?> postAsset(@Valid @RequestBody AssetDto.Post requestBody) {
-//        Asset asset = assetService.createAsset(mapper.assetPostDtoToAsset(requestBody));
-////        return (ResponseEntity<?>) ResponseEntity.created();
-//        return null;
-//    }
-//
-//
-//    // 자산 수정
-//    @PatchMapping
-//    public ResponseEntity patchAsset(@PathVariable("assetId") @Positive Long assetId,
-//        @Valid @RequestBody AssetDto.Patch requestBody) {
-//        requestBody.setAssetId(assetId);
-//        Asset asset = assetService.updateAsset(
-//            mapper.assetPatchDtoToAsset(requestBody)
-//        );
-//        return new ResponseEntity<?>(
-//            new MultiResponseDto<>(mapper.assetToAssetResponse(asset))
-//        );
-//    }
-//
-//    // 자산 삭제
-//    @DeleteMapping("/{assetId}")
-//    public ResponseEntity<?> deleteAsset(@PathVariable long assetId) {
-//        assetService.deleteAsset(assetId);
-//        return ResponseEntity.noContent().build();
-//    }
-//
-//
-//}
+        List<Asset> assets = assetService.findAssets();
+
+        List<Response> response = assets.stream()
+
+            .map(m -> mapper.assetToAssetResponse(m))
+            .collect(Collectors.toList());
+
+        return new ResponseEntity<>(
+            response, HttpStatus.OK
+
+        );
+    }
+
+
+
+
+    //     자산 일부 조회
+    @GetMapping("/{assetId}")
+    public ResponseEntity getAsset(@PathVariable long assetId) {
+        Asset asset = assetService.findVerifiedAsset(assetId);
+        AssetDto.Response response = mapper.assetToAssetResponse(asset);
+        return new ResponseEntity<>(
+            response, HttpStatus.OK
+//            response, HttpStatus.CREATED : post일 때
+        );
+    }
+
+    // 자산 등록
+    @PostMapping
+    public ResponseEntity postAsset(@Valid @RequestBody AssetDto.Post requestBody) {
+        Asset asset = assetService.createAsset(mapper.assetPostDtoToAsset(requestBody));
+//        asset.setAssetValue(100L);
+        AssetDto.Response response = mapper.assetToAssetResponse(asset);
+        log.info("response{}=",response);
+        return new ResponseEntity<>(
+            response, HttpStatus.CREATED);
+    }
+
+    //
+    // 자산 수정
+    @PatchMapping("/{assetId}")
+    public ResponseEntity patchAsset(@PathVariable @Positive Long assetId,
+        @Valid @RequestBody AssetDto.Patch patch) {
+
+        patch.setAssetId(assetId);
+        Asset asset = assetService.updateAsset(
+            mapper.assetPatchDtoToAsset(patch)
+        );
+        AssetDto.Response response = mapper.assetToAssetResponse(asset); // 변환
+        return new ResponseEntity<>(
+            response, HttpStatus.OK
+        );
+    }
+
+    // 자산 삭제
+    @DeleteMapping("/{assetId}")
+    public ResponseEntity<?> deleteAsset(@PathVariable long assetId) {
+        assetService.deleteAsset(assetId);
+        return ResponseEntity.noContent().build();
+    }
+
+
+}
