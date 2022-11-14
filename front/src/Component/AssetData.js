@@ -15,3 +15,21 @@ export const Assetdata = {
     },
   ],
 };
+
+export const Assetdata2 = {
+  labels: ['현금', '금', '다이아몬드', '주식'],
+  datasets: [
+    {
+      label: 'Test2',
+      data: [1000000, 200000, 700000, 3200000],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+      ],
+    },
+  ],
+};

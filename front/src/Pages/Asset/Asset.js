@@ -3,6 +3,7 @@ import { Pie } from 'react-chartjs-2';
 import { Assetdata } from '../../Component/AssetData';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { AssetTest } from '../Asset/AssetTest';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -57,6 +58,7 @@ function Asset() {
         <Pie data={Assetdata} />
       </GraphPie>
       <AssetExchange>
+        <AssetTest />
         <h2>현재 자산을 다른 자산과 비교해보세요!</h2>
         <div className="AssetExchangeBox">
           <span>현재보유현금 : 10,000 / USD로 환산시 : 7.28$</span>
