@@ -4,16 +4,27 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // 홈페이지 이름
 const FooterMain = styled.div`
   display: flex;
-  justify-content: space-between;
   text-align: center;
+  justify-content: space-evenly;
+  background-color: #8ec3b0;
+  margin-top: 100px;
+  padding: 70px;
   .github {
     display: flex;
-    margin: 0 auto;
     font-size: 50px;
+    margin: 0 auto;
   }
   a {
     text-decoration: none;
     color: inherit;
+  }
+  span {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .FooterInfo {
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -80,6 +91,11 @@ function Footer() {
           </span>
         </a>
       </div>
+      <span className="FooterInfo">
+        CodeStates - Main Projects - Team24
+        <br />
+        22.11.08 ~ 22.12.04
+      </span>
     </FooterMain>
   );
 }

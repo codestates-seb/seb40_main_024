@@ -2,6 +2,22 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+import MainSide from '../Home/MainSide';
+
+const MainLongContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 63px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #8ec3b0;
+  border-bottom: 3px solid #def5e5;
+`;
 
 const LongContainer = styled.div`
   display: flex;
@@ -62,21 +78,45 @@ const Hamburger = styled.div`
   border-radius: 20px;
 `;
 
+const MainButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
   /* border: 1px solid #ff8040; */
 `;
 
+// const MainButton = styled.button`
+//   display: flex;
+//   line-height: normal;
+//   font-size: 15px;
+//   font-weight: bold;
+//   border: none;
+//   border-radius: 5px;
+//   padding: 5px;
+//   background-color: transparent;
+//   cursor: pointer;
+//   :hover {
+//     color: #fff;
+//   }
+//   :active {
+//     color: #f4c00b;
+//   }
+// `;
+
 const Button = styled.button`
   display: flex;
   line-height: normal;
   margin-left: 5px;
-  margin-right: 30px;
-  padding-top: 30px;
-  padding-bottom: 5px;
-  font-size: 18px;
+  margin-right: 25px;
+  margin-bottom: auto;
+  margin-top: auto;
+  font-size: 17px;
   font-weight: bold;
+  width: 90px;
   border: none;
   border-radius: 5px;
   background-color: transparent;
@@ -85,10 +125,10 @@ const Button = styled.button`
   z-index: 9999;
   cursor: pointer;
   :hover {
-    color: #0ea34e;
+    color: #ffff;
   }
   :active {
-    color: #f4c00b;
+    color: #9ed5c5;
   }
 `;
 
@@ -130,13 +170,31 @@ const BurgerButton = styled.button`
   }
 `;
 
+export const MainLongNavbarBox = () => {
+  const navigate = useNavigate();
+  return (
+    <>
+      <MediaQuery minWidth={966} maxWidth={999999}>
+        <MainLongContainer>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
+          <MainSide />
+          <MainButtonBox>
+            <Button onClick={() => navigate('/login')}>로그인</Button>
+            <Button onClick={() => navigate('/signup')}>회원가입</Button>
+          </MainButtonBox>
+        </MainLongContainer>
+      </MediaQuery>
+    </>
+  );
+};
+
 export const LongNavbarBox = () => {
   const navigate = useNavigate();
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
             <Button onClick={() => navigate('/login')}>로그인</Button>
             <Button onClick={() => navigate('/signup')}>회원가입</Button>
@@ -148,14 +206,15 @@ export const LongNavbarBox = () => {
 };
 
 export const LongLoginNavbarBox = () => {
+  const navigate = useNavigate();
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
-            <Button>MyPage</Button>
-            <Button>Logout</Button>
+            <Button>마이페이지</Button>
+            <Button>로그아웃</Button>
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
@@ -182,7 +241,7 @@ export const MiniNavbarBox = () => {
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
           </HamburgerBox>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
         </MiniContainer>
         {clicked ? (
           <>
@@ -220,16 +279,16 @@ export const MiniLoginNavbarBox = () => {
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
           </HamburgerBox>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
         </MiniContainer>
         {clicked ? (
           <>
             <HamburgerList>
               <BurgerButton onClick={() => navigate('/login')}>
-                로그인
+                마이페이지
               </BurgerButton>
               <BurgerButton onClick={() => navigate('/signup')}>
-                회원가입
+                로그아웃
               </BurgerButton>
             </HamburgerList>
           </>

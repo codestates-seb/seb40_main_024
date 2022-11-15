@@ -116,3 +116,29 @@ export const SignUpButton = () => {
     </ButtonCC>
   );
 };
+
+export const ButtonLogin = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/login');
+      }}
+    >
+      로그인
+    </ButtonAA>
+  );
+};
+
+export const ButtonSignup = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/signup');
+      }}
+    >
+      회원가입
+    </ButtonAA>
+  );
+};

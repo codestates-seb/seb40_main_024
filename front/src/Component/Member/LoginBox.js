@@ -6,7 +6,6 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 4500px;
   align-items: center;
   /* border: 3px solid #800000; */
 `;
@@ -17,7 +16,7 @@ const Container = styled.div`
   width: 600px;
   height: 700px;
   padding: 30px;
-  margin: 500px;
+  margin: 350px;
   justify-content: center;
   border: 10px solid #9ed5c5;
   border-radius: 50px;
@@ -46,7 +45,7 @@ const TextBox = styled.input`
   margin-top: 25px;
   margin-left: 50px;
   margin-right: 50px;
-  height: 40px;
+  height: 45px;
   line-height: normal;
   font-weight: 800;
   font-size: 20px;
