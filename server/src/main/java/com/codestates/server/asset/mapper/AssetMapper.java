@@ -15,9 +15,10 @@ public interface AssetMapper {
 
     Asset assetPatchDtoToAsset(AssetDto.Patch requestBody);
 
-    Response assetToAssetResponse(Asset response);
+    AssetDto.Response assetToAssetResponse(Asset response);
 
-//    List<Response> assetsToAssetResponses(List<Asset> responses);
+    List<Response> assetsToAssetResponses(List<Asset> responses);
+
 
 
 
