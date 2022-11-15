@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
+import MainSide from '../Home/MainSide';
 
 const LongContainer = styled.div`
   display: flex;
@@ -122,6 +123,24 @@ const BurgerButton = styled.button`
     color: #f4c00b;
   }
 `;
+
+export const MainLongNavbarBox = () => {
+  const navigate = useNavigate();
+  return (
+    <>
+      <MediaQuery minWidth={966} maxWidth={999999}>
+        <LongContainer>
+          <MarkBox>마크</MarkBox>
+          <MainSide />
+          <ButtonBox>
+            <Button onClick={() => navigate('/login')}>로그인</Button>
+            <Button onClick={() => navigate('/signup')}>회원가입</Button>
+          </ButtonBox>
+        </LongContainer>
+      </MediaQuery>
+    </>
+  );
+};
 
 export const LongNavbarBox = () => {
   const navigate = useNavigate();
