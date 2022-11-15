@@ -34,7 +34,7 @@ public class MemberService {
 
     private void verifyEmail(Member member) {
         if (memberRepository.findByEmail(member.getEmail()).isPresent()) {
-            throw new CustomException(ExceptionCode.USER_EXISTS);
+            throw new CustomException(ExceptionCode.DUPLICATE_MEMBER);
         }
     }
 }

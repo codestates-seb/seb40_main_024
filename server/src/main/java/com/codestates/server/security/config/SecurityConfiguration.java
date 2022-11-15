@@ -1,5 +1,7 @@
 package com.codestates.server.security.config;
 
+import com.codestates.server.jwt.filter.JwtAuthenticationFilter;
+import com.codestates.server.jwt.filter.JwtAuthorizationFilter;
 import com.codestates.server.jwt.repository.JwtRepository;
 import com.codestates.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +9,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,8 +39,16 @@ public class SecurityConfiguration {
                 .and()
                 .addFilter(corsFilter())
                 .formLogin().disable()
-                .httpBasic().disable();
-//                .apply()
+                .httpBasic().disable()
+                .apply(new CustomFilterConfigurer())
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "*/member/refresh").permitAll()
+                .antMatchers(HttpMethod.GET, "/*/members/").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/*/members/").hasRole("ADMIN")
+                .anyRequest().permitAll();
+
+        return http.build();
     }
 
     @Bean
@@ -55,4 +68,17 @@ public class SecurityConfiguration {
     }
 
 
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtRepository);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/member/login");
+
+            JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager, memberRepository);
+            builder
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
+        }
+    }
 }
