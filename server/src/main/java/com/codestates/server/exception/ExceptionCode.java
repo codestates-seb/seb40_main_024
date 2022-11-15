@@ -15,7 +15,9 @@ public enum ExceptionCode {
     BOARD_NOT_FOUND(404, "Board not found"),
     ASSET_NOT_FOUND(404, "Asset not found"),
 
-    COMMENT_NOT_FOUND(404, "Comment not found");
+    COMMENT_NOT_FOUND(404, "Comment not found"),
+
+    GOAL_NOT_FOUND(404, "Goal not found");
 
     @Getter
     private int status;
