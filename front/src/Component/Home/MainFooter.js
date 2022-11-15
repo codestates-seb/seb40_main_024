@@ -4,11 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // 홈페이지 이름
 const FooterMain = styled.div`
   display: flex;
-  justify-content: space-between;
   text-align: center;
+  justify-content: space-evenly;
+  margin-top: 50px;
+  padding: 70px;
   .github {
     display: flex;
-    margin: 0 auto;
     font-size: 50px;
   }
   a {
