@@ -30,6 +30,9 @@ public class Member extends Auditable {
     //활동 상태??? enum으로 처리할지 말지 상의
     private boolean active;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    public List<String> roles = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.R0LE_NORMAL;
 
@@ -57,5 +60,9 @@ public class Member extends Auditable {
     //비밀번호 변경 메서드
     public String getPassword() {
         return password;
+    }
+
+    public void changeRoles(List<String> roles) {
+        this.roles = roles;
     }
 }
