@@ -18,8 +18,8 @@ public class BoardStub {
 
         return args -> {
 
-            // post x 10
-            for (int i = 1; i <= 10; i++) {
+            // post x 30
+            for (int i = 1; i <= 30; i++) {
                 String temp = "테스트 게시글 " + i + " 번";
                 log.info("BOARD STUB " + repository.save(new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.")));
             }
