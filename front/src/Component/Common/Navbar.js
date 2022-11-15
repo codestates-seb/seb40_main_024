@@ -8,10 +8,10 @@ const LongContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: auto;
-  height: 50px;
+  height: 60px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid #0000ff;
+  background-color: #8ec3b0;
 `;
 
 const MiniContainer = styled.div`
@@ -19,15 +19,17 @@ const MiniContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 900px;
-  height: 50px;
+  height: 60px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid #0000ff;
+  background-color: #8ec3b0;
 `;
 
 const MarkBox = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: auto;
+  margin-bottom: auto;
   width: 100px;
   height: 50px;
   border: 1px solid #ff8040;
@@ -38,9 +40,14 @@ const HamburgerBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
   width: 50px;
   height: 50px;
-  border: 1px solid #ff8040;
+  background-color: #8ec3b0;
+  border: 1px solid #bcead5;
+  border-radius: 10px;
+  /* border: 1px solid #ff8040; */
   cursor: pointer;
 `;
 
@@ -50,30 +57,30 @@ const Hamburger = styled.div`
   width: 20px;
   height: 2px;
   margin: 2px;
-  background-color: #1a1a1a;
-  border: 1px solid #1a1a1a;
+  background-color: #444;
+  border: 1px solid #444;
   border-radius: 20px;
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid #ff8040;
+  /* border: 1px solid #ff8040; */
 `;
 
 const Button = styled.button`
   display: flex;
   line-height: normal;
   margin-left: 5px;
-  margin-right: 5px;
+  margin-right: 30px;
   padding-top: 30px;
   padding-bottom: 5px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   border: none;
   border-radius: 5px;
   background-color: transparent;
-  color: #13df6a;
+  color: #444;
   vertical-align: bottom;
   z-index: 9999;
   cursor: pointer;

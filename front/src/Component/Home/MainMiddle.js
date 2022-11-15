@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { ButtonA, ButtonB, ButtonC } from '../Common/Button';
+import { ButtonA, ButtonB, NavForgotPasswordButton } from '../Common/Button';
 
 const MiddleDiv = styled.div`
   margin: 0 auto;
@@ -41,7 +41,7 @@ const Middle = () => {
           이곳에서 저희와 함께 이루어 보세요
           <ButtonA></ButtonA>
           <ButtonB></ButtonB>
-          <ButtonC></ButtonC>
+          <NavForgotPasswordButton></NavForgotPasswordButton>
         </h2>
         <button onClick={() => navigate('/asset')}>테스트버튼 자산이동</button>
         <button onClick={() => navigate('/freeboardpost')}>
