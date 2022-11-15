@@ -69,3 +69,11 @@ export const ButtonB = () => {
 export const ButtonC = () => {
   return <ButtonCC>임시비밀번호 받기</ButtonCC>;
 };
+
+export const PlusBtn = ({ HandlerAdd }) => {
+  return <ButtonAA onClick={HandlerAdd}>목표 추가</ButtonAA>;
+};
+
+export const SaveBtn = () => {
+  return <ButtonBB>저장</ButtonBB>;
+};
