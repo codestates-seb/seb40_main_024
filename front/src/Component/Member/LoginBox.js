@@ -7,7 +7,6 @@ const PageContainer = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
-  /* border: 3px solid #800000; */
 `;
 
 const Container = styled.div`
