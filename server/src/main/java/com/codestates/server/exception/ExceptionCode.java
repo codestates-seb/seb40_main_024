@@ -3,6 +3,8 @@ package com.codestates.server.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
+
+
     USER_NOT_FOUND(404, "User not found"),
     USER_EXISTS(409, "User exists"),
     INVALID_USER_STATUS(400, "Invalid user status"),
