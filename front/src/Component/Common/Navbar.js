@@ -88,24 +88,6 @@ const ButtonBox = styled.div`
   flex-direction: row;
 `;
 
-// const MainButton = styled.button`
-//   display: flex;
-//   line-height: normal;
-//   font-size: 15px;
-//   font-weight: bold;
-//   border: none;
-//   border-radius: 5px;
-//   padding: 5px;
-//   background-color: transparent;
-//   cursor: pointer;
-//   :hover {
-//     color: #fff;
-//   }
-//   :active {
-//     color: #f4c00b;
-//   }
-// `;
-
 const Button = styled.button`
   display: flex;
   line-height: normal;
