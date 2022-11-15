@@ -24,10 +24,10 @@ const LongContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: auto;
-  height: 50px;
+  height: 60px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid #0000ff;
+  background-color: #8ec3b0;
 `;
 
 const MiniContainer = styled.div`
@@ -35,15 +35,17 @@ const MiniContainer = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 900px;
-  height: 50px;
+  height: 60px;
   padding-left: 20px;
   padding-right: 20px;
-  border: 1px solid #0000ff;
+  background-color: #8ec3b0;
 `;
 
 const MarkBox = styled.div`
   display: flex;
   flex-direction: row;
+  margin-top: auto;
+  margin-bottom: auto;
   width: 100px;
   height: 50px;
   border: 1px solid #ff8040;
@@ -54,9 +56,14 @@ const HamburgerBox = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  margin-top: auto;
+  margin-bottom: auto;
   width: 50px;
   height: 50px;
-  border: 1px solid #ff8040;
+  background-color: #8ec3b0;
+  border: 1px solid #bcead5;
+  border-radius: 10px;
+  /* border: 1px solid #ff8040; */
   cursor: pointer;
 `;
 
@@ -66,8 +73,8 @@ const Hamburger = styled.div`
   width: 20px;
   height: 2px;
   margin: 2px;
-  background-color: #1a1a1a;
-  border: 1px solid #1a1a1a;
+  background-color: #444;
+  border: 1px solid #444;
   border-radius: 20px;
 `;
 
@@ -79,45 +86,48 @@ const MainButtonBox = styled.div`
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
-  border: 1px solid #ff8040;
 `;
 
-const MainButton = styled.button`
-  display: flex;
-  line-height: normal;
-  font-size: 15px;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-  background-color: transparent;
-  cursor: pointer;
-  :hover {
-    color: #fff;
-  }
-`;
+// const MainButton = styled.button`
+//   display: flex;
+//   line-height: normal;
+//   font-size: 15px;
+//   font-weight: bold;
+//   border: none;
+//   border-radius: 5px;
+//   padding: 5px;
+//   background-color: transparent;
+//   cursor: pointer;
+//   :hover {
+//     color: #fff;
+//   }
+//   :active {
+//     color: #f4c00b;
+//   }
+// `;
 
 const Button = styled.button`
   display: flex;
   line-height: normal;
   margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 30px;
-  padding-bottom: 5px;
-  font-size: 15px;
+  margin-right: 25px;
+  margin-bottom: auto;
+  margin-top: auto;
+  font-size: 17px;
   font-weight: bold;
+  width: 90px;
   border: none;
   border-radius: 5px;
   background-color: transparent;
-  color: #13df6a;
+  color: #444;
   vertical-align: bottom;
   z-index: 9999;
   cursor: pointer;
   :hover {
-    color: #0ea34e;
+    color: #ffff;
   }
   :active {
-    color: #f4c00b;
+    color: #9ed5c5;
   }
 `;
 
@@ -165,13 +175,11 @@ export const MainLongNavbarBox = () => {
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <MainLongContainer>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <MainSide />
           <MainButtonBox>
-            <MainButton onClick={() => navigate('/login')}>로그인</MainButton>
-            <MainButton onClick={() => navigate('/signup')}>
-              회원가입
-            </MainButton>
+            <Button onClick={() => navigate('/login')}>로그인</Button>
+            <Button onClick={() => navigate('/signup')}>회원가입</Button>
           </MainButtonBox>
         </MainLongContainer>
       </MediaQuery>
@@ -185,7 +193,7 @@ export const LongNavbarBox = () => {
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
             <Button onClick={() => navigate('/login')}>로그인</Button>
             <Button onClick={() => navigate('/signup')}>회원가입</Button>
@@ -197,14 +205,15 @@ export const LongNavbarBox = () => {
 };
 
 export const LongLoginNavbarBox = () => {
+  const navigate = useNavigate();
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
-            <Button>MyPage</Button>
-            <Button>Logout</Button>
+            <Button>마이페이지</Button>
+            <Button>로그아웃</Button>
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
@@ -231,7 +240,7 @@ export const MiniNavbarBox = () => {
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
           </HamburgerBox>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
         </MiniContainer>
         {clicked ? (
           <>
@@ -269,16 +278,16 @@ export const MiniLoginNavbarBox = () => {
             <Hamburger></Hamburger>
             <Hamburger></Hamburger>
           </HamburgerBox>
-          <MarkBox>마크</MarkBox>
+          <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
         </MiniContainer>
         {clicked ? (
           <>
             <HamburgerList>
               <BurgerButton onClick={() => navigate('/login')}>
-                로그인
+                마이페이지
               </BurgerButton>
               <BurgerButton onClick={() => navigate('/signup')}>
-                회원가입
+                로그아웃
               </BurgerButton>
             </HamburgerList>
           </>
