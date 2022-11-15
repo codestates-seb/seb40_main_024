@@ -14,10 +14,10 @@ const Container = styled.div`
   width: 600px;
   height: 700px;
   padding: 30px;
-  margin: 350px;
+  margin: 200px;
   justify-content: center;
   border: 10px solid #9ed5c5;
-  border-radius: 50px;
+  border-radius: 70px;
   background-color: #def5e5;
   box-shadow: 10px 10px 8px #d1d1d1;
 `;
@@ -47,7 +47,7 @@ const TextBox = styled.input`
   line-height: normal;
   font-weight: 800;
   font-size: 20px;
-  border-radius: 8px;
+  border-radius: 20px;
   border: 3px solid #9ed5c5;
   color: #444;
   ::placeholder {
