@@ -5,6 +5,7 @@ import styled from 'styled-components';
 const Div = styled.div`
   display: flex;
   align-items: center;
+  cursor: pointer;
   .test {
     margin: 15px;
   }

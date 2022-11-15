@@ -4,6 +4,21 @@ import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import MainSide from '../Home/MainSide';
 
+const MainLongContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 63px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: #8ec3b0;
+  border-bottom: 3px solid #def5e5;
+`;
+
 const LongContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -56,10 +71,30 @@ const Hamburger = styled.div`
   border-radius: 20px;
 `;
 
+const MainButtonBox = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
   border: 1px solid #ff8040;
+`;
+
+const MainButton = styled.button`
+  display: flex;
+  line-height: normal;
+  font-size: 15px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: transparent;
+  cursor: pointer;
+  :hover {
+    color: #fff;
+  }
 `;
 
 const Button = styled.button`
@@ -129,14 +164,16 @@ export const MainLongNavbarBox = () => {
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
-        <LongContainer>
+        <MainLongContainer>
           <MarkBox>마크</MarkBox>
           <MainSide />
-          <ButtonBox>
-            <Button onClick={() => navigate('/login')}>로그인</Button>
-            <Button onClick={() => navigate('/signup')}>회원가입</Button>
-          </ButtonBox>
-        </LongContainer>
+          <MainButtonBox>
+            <MainButton onClick={() => navigate('/login')}>로그인</MainButton>
+            <MainButton onClick={() => navigate('/signup')}>
+              회원가입
+            </MainButton>
+          </MainButtonBox>
+        </MainLongContainer>
       </MediaQuery>
     </>
   );

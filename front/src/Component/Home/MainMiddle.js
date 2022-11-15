@@ -12,7 +12,6 @@ const MiddleDiv = styled.div`
   }
   .div1 {
     text-align: center;
-    margin-bottom: 500px;
   }
   .Main1 {
     padding-top: 100px;
@@ -161,8 +160,10 @@ const Middle = () => {
             <br />
             길을 떠나볼까요?
           </h2>
-          <ButtonLogin onClick={() => navigate('login')}></ButtonLogin>
-          <ButtonSignup onClick={() => navigate('/signup')}></ButtonSignup>
+          <div>
+            <ButtonLogin onClick={() => navigate('login')}></ButtonLogin>
+            <ButtonSignup onClick={() => navigate('/signup')}></ButtonSignup>
+          </div>
         </JackInTheBox>
       </div>
     </MiddleDiv>

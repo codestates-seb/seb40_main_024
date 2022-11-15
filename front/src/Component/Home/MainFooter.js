@@ -6,15 +6,25 @@ const FooterMain = styled.div`
   display: flex;
   text-align: center;
   justify-content: space-evenly;
-  margin-top: 50px;
+  background-color: #8ec3b0;
+  margin-top: 100px;
   padding: 70px;
   .github {
     display: flex;
     font-size: 50px;
+    margin: 0 auto;
   }
   a {
     text-decoration: none;
     color: inherit;
+  }
+  span {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .FooterInfo {
+    display: flex;
+    align-items: center;
   }
 `;
 
@@ -81,6 +91,11 @@ function Footer() {
           </span>
         </a>
       </div>
+      <span className="FooterInfo">
+        CodeStates - Main Projects - Team24
+        <br />
+        22.11.08 ~ 22.12.04
+      </span>
     </FooterMain>
   );
 }
