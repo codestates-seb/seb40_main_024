@@ -23,8 +23,8 @@ public class AssetService {
 
     @Transactional
     public Asset createAsset(Asset asset) {
-        Asset createdAsset = asset;
-        return createdAsset;
+        return repository.save(asset);
+
     }
     @Transactional
     public Asset updateAsset(Asset asset) {
@@ -48,15 +48,7 @@ public class AssetService {
         return new ArrayList<>(repository.findAll());
     }
 
-//    // 조건 찾기
-//    public Asset findVerifiedAsset(long assetId) {
-//        Optional<Asset> optionalAsset = assetRepository.findByAssetId(assetId);
-//        Asset findAsset =
-//            optionalAsset.orElseThrow(
-//                () -> new AssetLogicException(ExceptionCode.ASSET_NOTFOUND)
-//            );
-//        return findAsset;
-//    }
+
 
     @Transactional
     public void deleteAsset(long assetId) {
@@ -66,11 +58,22 @@ public class AssetService {
 
     }
 
+
     public Asset findVerifiedAsset(long assetId) {
         Optional<Asset> optionalAsset = repository.findById(assetId);
-        return optionalAsset.orElseThrow(() -> new BusinessLogicException(ExceptionCode.ASSET_NOT_FOUND));
+        return optionalAsset.orElseThrow(
+            () -> new BusinessLogicException(ExceptionCode.ASSET_NOT_FOUND));
 
     }
+
+//    public Asset findVerifiedAsset(long assetId) {
+//        Optional<Asset> optionalAsset = repository.findById(assetId);
+//        Asset findAsset =
+//            optionalAsset.orElseThrow(
+//                () -> new BusinessLogicException(ExceptionCode.ASSET_NOT_FOUND)
+//            );
+//        return findAsset;
+//    }
 
 
 }

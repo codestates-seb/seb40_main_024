@@ -2,6 +2,7 @@ package com.codestates.server.asset.dto;
 
 import com.codestates.server.asset.entity.Asset;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,13 +15,13 @@ public class AssetDto {
     @AllArgsConstructor
     public static class Post {
 
-        @NotBlank(message = "자산을 입력하세요.")
-        private String title;
+        @NotBlank(message = "자산을 입력하세요.") // @NotBlank - String 타입에 쓰는 애너테이션
+        private String assetType;
 
-        @NotBlank(message = "금액을 입력하세요.")
+        @NotNull(message = "금액을 입력하세요.") // @NotNull - long 타입에 쓰는 애너테이션
 //        String currency = getCurrency().
-        @Size(min = 1, message = "최소 단위는 1 입니다")
-        private String content;
+//        @Size(min = 1, message = "최소 단위는 1 입니다")
+        private long assetValue;
     }
 
     @Getter
@@ -28,14 +29,14 @@ public class AssetDto {
     @AllArgsConstructor
     public static class Patch {
 
-        private Long assetId;
+        private long assetId;
 
         @NotBlank(message = "자산을 입력하세요 ")
-        private String title;
+        private String assetType;
 
-        @NotBlank(message = "금액을 입력하세요")
-        @Size(min = 1, message = "최소 단위는 1 입니다")
-        private String content;
+        @NotNull(message = "금액을 입력하세요")
+//        @Size(min = 1, message = "최소 단위는 1 입니다")
+        private long assetValue;
     }
 
 
@@ -45,8 +46,8 @@ public class AssetDto {
     public static class Response {
 
         private long assetId;
-        private String title;
-        private String content;
+        private String assetType;
+        private long assetValue;
 
 //        public void setAsset(Asset asset) {
 //            this.assetId = asset.getAssetId();

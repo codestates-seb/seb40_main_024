@@ -13,6 +13,7 @@ public enum ExceptionCode {
     NOT_IMPLEMENTATION(501, "Not Implementation"),
 
     BOARD_NOT_FOUND(404, "Board not found"),
+    ASSET_NOT_FOUND(404, "Asset not found"),
 
     COMMENT_NOT_FOUND(404, "Comment not found");
 
