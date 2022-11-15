@@ -86,7 +86,6 @@ const MainButtonBox = styled.div`
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
-  /* border: 1px solid #ff8040; */
 `;
 
 // const MainButton = styled.button`
