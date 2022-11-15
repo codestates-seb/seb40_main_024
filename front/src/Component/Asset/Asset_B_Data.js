@@ -9,13 +9,6 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import styled from 'styled-components';
-import './asset.css';
-
-const Main = styled.div`
-  color: #ff0000;
-`;
-
 const data = [
   {
     name: '현금',
@@ -61,30 +54,28 @@ const data = [
   },
 ];
 
-export const AssetTest = () => {
+export const AssetBdata = () => {
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <Main>
-        <BarChart
-          width={500}
-          height={300}
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid strokeDasharray="3 3" stroke="#ffffff" />
-          <XAxis dataKey="name" stroke="#82ca9d" />
-          <YAxis stroke="#82ca9d" />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="현재금액" fill="#b1052c" />
-          <Bar dataKey="목표금액" stroke="#82ca9d" fill="#82ca9d" />
-        </BarChart>
-      </Main>
+      <BarChart
+        width={1000}
+        height={300}
+        data={data}
+        margin={{
+          top: 10,
+          right: 100,
+          left: 100,
+          bottom: 10,
+        }}
+      >
+        <CartesianGrid strokeDasharray="3 3" stroke="#ffff" />
+        <XAxis dataKey="name" stroke="#333333" />
+        <YAxis stroke="#333333" />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="현재금액" fill="#b3ad2d" />
+        <Bar dataKey="목표금액" fill="#000000" />
+      </BarChart>
     </ResponsiveContainer>
   );
 };

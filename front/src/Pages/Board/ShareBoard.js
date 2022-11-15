@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import Quill from '../../Component/Quill';
+import Quill from '../../Component/Common/Quill';
 import styled from 'styled-components';
 
 const Input = styled.input`

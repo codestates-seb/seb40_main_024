@@ -1,8 +1,8 @@
 import styled from 'styled-components';
-import MainMiddle from '../../Component/MainMiddle';
-import MainSide from '../../Component/MainSide';
-import MainFooter from '../../Component/MainFooter';
-import { LongNavbarBox, MiniNavbarBox } from '../../Component/Navbar';
+import MainMiddle from '../../Component/Home/MainMiddle';
+import MainSide from '../../Component/Home/MainSide';
+import MainFooter from '../../Component/Home/MainFooter';
+import { LongNavbarBox, MiniNavbarBox } from '../../Component/Common/Navbar';
 
 const MainDiv = styled.div`
   background-color: #f8f8f8;

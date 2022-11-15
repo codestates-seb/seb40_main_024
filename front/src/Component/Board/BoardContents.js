@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ProfileIcon from './ProfileIcon';
+import ProfileIcon from '../Member/ProfileIcon';
 
 const BoardContentContain = styled.div`
   display: flex;
