@@ -9,6 +9,10 @@ const FooterMain = styled.div`
   background-color: #8ec3b0;
   margin-top: 100px;
   padding: 70px;
+  line-height: normal;
+  font-size: 17px;
+  font-weight: bold;
+  color: #333;
   .github {
     display: flex;
     font-size: 50px;
@@ -26,14 +30,23 @@ const FooterMain = styled.div`
     display: flex;
     align-items: center;
   }
+  .Footers {
+    cursor: pointer;
+    :hover {
+      color: #ffff;
+    }
+    :active {
+      color: #9ed5c5;
+    }
+  }
 `;
 
 function Footer() {
   return (
     <FooterMain>
-      <div>
-        <FontAwesomeIcon icon={faGithub} className="github" />
+      <div className="Footers">
         <a href="https://github.com/junny1995">
+          <FontAwesomeIcon icon={faGithub} className="github" />
           <span>
             Frontend
             <br />
@@ -41,9 +54,9 @@ function Footer() {
           </span>
         </a>
       </div>
-      <div>
-        <FontAwesomeIcon icon={faGithub} className="github" />
+      <div className="Footers">
         <a href="https://github.com/dlagnsk2">
+          <FontAwesomeIcon icon={faGithub} className="github" />
           <span>
             Frontend
             <br />
@@ -51,9 +64,9 @@ function Footer() {
           </span>
         </a>
       </div>
-      <div>
-        <FontAwesomeIcon icon={faGithub} className="github" />
+      <div className="Footers">
         <a href="https://github.com/jioneee">
+          <FontAwesomeIcon icon={faGithub} className="github" />
           <span>
             Frontend
             <br />
@@ -61,19 +74,19 @@ function Footer() {
           </span>
         </a>
       </div>
-      <div>
-        <FontAwesomeIcon icon={faGithub} className="github" />
-        <span>
-          <a href="https://github.com/HongSungHak">
+      <div className="Footers">
+        <a href="https://github.com/HongSungHak">
+          <FontAwesomeIcon icon={faGithub} className="github" />
+          <span>
             Backend
             <br />
             홍성학
-          </a>
-        </span>
+          </span>
+        </a>
       </div>
-      <div>
-        <FontAwesomeIcon icon={faGithub} className="github" />
+      <div className="Footers">
         <a href="https://github.com/codinginfant">
+          <FontAwesomeIcon icon={faGithub} className="github" />
           <span>
             Backend
             <br />
@@ -81,9 +94,9 @@ function Footer() {
           </span>
         </a>
       </div>
-      <div>
-        <FontAwesomeIcon icon={faGithub} className="github" />
+      <div className="Footers">
         <a href="https://github.com/JadeMK">
+          <FontAwesomeIcon icon={faGithub} className="github" />
           <span>
             Backend
             <br />
