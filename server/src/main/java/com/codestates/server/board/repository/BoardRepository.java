@@ -10,4 +10,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query(nativeQuery = true, value = "select * from Board b where b.board_status > 0")
     List<Board> findAll();
+
+    // status -> posted 만 조회
 }

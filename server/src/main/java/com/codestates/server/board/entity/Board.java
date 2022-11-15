@@ -1,20 +1,20 @@
 package com.codestates.server.board.entity;
 
 import com.codestates.server.audit.Auditable;
+import com.codestates.server.comment.entity.Comment;
+import com.codestates.server.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-//@Table(name = "BOARD_TABLE")
 public class Board extends Auditable {
 
     @Id
@@ -30,19 +30,16 @@ public class Board extends Auditable {
     @Column(name = "likes")
     private int like = 0;
 
-    @CreatedDate
-    @Column(nullable = false, updatable = false, name = "CREATED_AT")
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @LastModifiedDate
-    @Column(nullable = false, name = "LAST_MODIFIED_AT")
-    private LocalDateTime modifiedAt = LocalDateTime.now();
-
     @Column
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.ORDINAL)  // STRING?
     private BoardStatus boardStatus = BoardStatus.BOARD_POSTED;
 
-    // user & reply mapping WIP
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public Board(String title, String body) {
         this.title = title;
