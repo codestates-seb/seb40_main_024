@@ -69,3 +69,11 @@ export const ButtonB = () => {
 export const ButtonC = () => {
   return <ButtonCC>임시비밀번호 받기</ButtonCC>;
 };
+
+export const ButtonLogin = () => {
+  return <ButtonAA>로그인</ButtonAA>;
+};
+
+export const ButtonSignup = () => {
+  return <ButtonAA>회원가입</ButtonAA>;
+};
