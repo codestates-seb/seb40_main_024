@@ -1,4 +1,4 @@
-export const Assetdata = {
+export const AssetAdata = {
   labels: ['현금', '금', '다이아몬드', '주식'],
   datasets: [
     {

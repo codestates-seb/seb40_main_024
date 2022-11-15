@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Profile from '../../Component/Profile';
+import Profile from '../../Component/Member/Profile';
 
 const InfoContain = styled.div`
   display: flex;

@@ -1,7 +1,10 @@
-import { LongLoginNavbarBox, MiniLoginNavbarBox } from '../../Component/Navbar';
+import {
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/Navbar';
 import styled from 'styled-components';
-import { Sidebar } from '../../Component/Sidebar';
-import { List } from '../../Component/List';
+import { Sidebar } from '../../Component/Common/Sidebar';
+import { BoardList } from '../../Component/Board/BoardList';
 
 const PageContainer = styled.div`
   display: flex;
@@ -48,7 +51,7 @@ export const AssetBoardPage = () => {
         </SidebarSpace>
         <PostListSpace>
           <TitleBox>Title</TitleBox>
-          <List></List>
+          <BoardList></BoardList>
         </PostListSpace>
       </PageContainer>
     </>

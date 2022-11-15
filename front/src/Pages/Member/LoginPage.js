@@ -1,5 +1,5 @@
-import { LongNavbarBox, MiniNavbarBox } from '../../Component/Navbar';
-import { LoginBox } from '../../Component/LoginBox';
+import { LongNavbarBox, MiniNavbarBox } from '../../Component/Common/Navbar';
+import { LoginBox } from '../../Component/Member/LoginBox';
 
 export const LoginPage = () => {
   return (

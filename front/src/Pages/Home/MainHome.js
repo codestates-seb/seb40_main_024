@@ -1,8 +1,10 @@
 import styled from 'styled-components';
-import MainMiddle from '../../Component/MainMiddle';
-import MainSide from '../../Component/MainSide';
-import MainFooter from '../../Component/MainFooter';
-import { LongNavbarBox, MiniNavbarBox } from '../../Component/Navbar';
+import MainMiddle from '../../Component/Home/MainMiddle';
+import MainFooter from '../../Component/Home/MainFooter';
+import {
+  MainLongNavbarBox,
+  MiniNavbarBox,
+} from '../../Component/Common/Navbar';
 
 const MainDiv = styled.div`
   background-color: #f8f8f8;
@@ -21,12 +23,11 @@ const MainHome = () => {
   return (
     <MainDiv>
       <TestDiv>
-        <LongNavbarBox />
+        <MainLongNavbarBox />
         <MiniNavbarBox />
       </TestDiv>
       <ContentDiv>
         <MainMiddle />
-        <MainSide />
       </ContentDiv>
       <MainFooter />
     </MainDiv>
