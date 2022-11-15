@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const ButtonAA = styled.button`
   width: 90px;
@@ -71,9 +72,27 @@ export const ButtonC = () => {
 };
 
 export const ButtonLogin = () => {
-  return <ButtonAA>로그인</ButtonAA>;
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/login');
+      }}
+    >
+      로그인
+    </ButtonAA>
+  );
 };
 
 export const ButtonSignup = () => {
-  return <ButtonAA>회원가입</ButtonAA>;
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/signup');
+      }}
+    >
+      회원가입
+    </ButtonAA>
+  );
 };

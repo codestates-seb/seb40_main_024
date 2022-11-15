@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import { MainA, MainB } from './MainImgData';
 import 'animate.css';
 import { Fade, JackInTheBox } from 'react-awesome-reveal';
-import { useNavigate } from 'react-router-dom';
 import { ButtonLogin, ButtonSignup } from '../../Component/Common/Button';
 
 const MiddleDiv = styled.div`
@@ -58,7 +57,6 @@ const MiddleDiv = styled.div`
 `;
 
 const Middle = () => {
-  const navigate = useNavigate();
   return (
     <MiddleDiv>
       <div id="1" className="Main1 div1">
@@ -161,8 +159,8 @@ const Middle = () => {
             길을 떠나볼까요?
           </h2>
           <div>
-            <ButtonLogin onClick={() => navigate('login')}></ButtonLogin>
-            <ButtonSignup onClick={() => navigate('/signup')}></ButtonSignup>
+            <ButtonLogin />
+            <ButtonSignup />
           </div>
         </JackInTheBox>
       </div>
