@@ -69,8 +69,6 @@ const Id = styled.div`
   line-height: normal;
   color: #444;
   font-size: 18px;
-  /* font-weight: bold; */
-  /* border: 1px solid #ff8000; */
 `;
 
 const At = styled.div`
