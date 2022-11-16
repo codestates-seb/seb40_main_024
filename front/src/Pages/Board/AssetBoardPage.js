@@ -9,35 +9,43 @@ import { BoardList } from '../../Component/Board/BoardList';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
-  width: 1000px;
-  height: 1000px;
-  justify-content: left;
-  border: 3px solid #800000;
+  justify-content: center;
+  margin-right: 100px;
 `;
 
 const SidebarSpace = styled.div`
   display: flex;
-  width: 15%;
-  height: 1000px;
   flex-direction: row;
   justify-content: left;
-  border: 1px solid #00ff00;
+  margin-left: 10px;
 `;
-
+const Box = styled.div`
+  display: flex;
+  justify-content: left;
+  margin-left: 50px;
+  width: 100%;
+`;
 const TitleBox = styled.div`
   display: flex;
-  border: 1px solid #008000;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: #8ec3b0;
   height: 100px;
-  margin-left: 20px;
+  margin-top: 50px;
+  margin-bottom: 20px;
 `;
 
 const PostListSpace = styled.div`
   display: flex;
-  width: 85%;
-  height: 1000px;
+  width: 100%;
+  height: 1500px;
   flex-direction: column;
   justify-content: left;
-  border: 1px solid #00ff00;
+  border: 3px solid #8ec3b0;
+  border-top: none;
+  border-bottom: none;
 `;
 
 export const AssetBoardPage = () => {
@@ -49,10 +57,12 @@ export const AssetBoardPage = () => {
         <SidebarSpace>
           <Sidebar></Sidebar>
         </SidebarSpace>
-        <PostListSpace>
-          <TitleBox>Title</TitleBox>
-          <BoardList></BoardList>
-        </PostListSpace>
+        <Box>
+          <PostListSpace>
+            <TitleBox>자산공유 커뮤니티</TitleBox>
+            <BoardList></BoardList>
+          </PostListSpace>
+        </Box>
       </PageContainer>
     </>
   );
