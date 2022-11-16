@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const SidebarBox = styled.div`
   display: flex;
@@ -6,43 +7,47 @@ const SidebarBox = styled.div`
   width: 200px;
   height: auto;
   justify-content: left;
-  margin-top: 100px;
+  margin-top: 120px;
   padding: 1px;
-  border: 1px solid #8000ff;
+  /* border: 1px solid #8000ff; */
 `;
 
 const ListBox = styled.button`
   display: flex;
-  width: auto;
-  height: auto;
-  padding: 5px;
-  border: none;
-  background-color: #13df6a;
-  z-index: 9999;
-  color: #f9dd7d;
+  align-items: center;
+  justify-content: center;
+  width: 190px;
+  height: 50px;
+  border: 1px solid #8ec3b0;
+  border-radius: 4px;
+  background-color: #bcead5;
+  color: #444;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 18px;
+  margin-left: 9px;
+  margin-bottom: 0.3px;
   cursor: pointer;
   &:hover {
-    background-color: #11c65e;
+    color: #fff;
   }
   &:active {
-    color: #f4c00b;
+    color: #9ed5c5;
   }
   &:focus-within {
-    background-color: #0ea34e;
+    color: #fff;
+    background-color: #8ec3b0;
   }
 `;
 
-const Lists = ['자유게시판', '자산공유'];
-
 export const Sidebar = () => {
+  const navigate = useNavigate();
   return (
     <>
       <SidebarBox>
-        {Lists.map((list, key) => {
-          return <ListBox key={key}>{list}</ListBox>;
-        })}
+        <ListBox onClick={() => navigate('/freeboard')}>자유게시판</ListBox>
+        <ListBox onClick={() => navigate('/assetboard')}>
+          자산공유 게시판
+        </ListBox>
       </SidebarBox>
     </>
   );

@@ -62,7 +62,7 @@ const HamburgerBox = styled.div`
   height: 50px;
   background-color: #8ec3b0;
   border: 1px solid #bcead5;
-  border-radius: 10px;
+  border-radius: 5px;
   /* border: 1px solid #ff8040; */
   cursor: pointer;
 `;
@@ -87,24 +87,6 @@ const ButtonBox = styled.div`
   display: flex;
   flex-direction: row;
 `;
-
-// const MainButton = styled.button`
-//   display: flex;
-//   line-height: normal;
-//   font-size: 15px;
-//   font-weight: bold;
-//   border: none;
-//   border-radius: 5px;
-//   padding: 5px;
-//   background-color: transparent;
-//   cursor: pointer;
-//   :hover {
-//     color: #fff;
-//   }
-//   :active {
-//     color: #f4c00b;
-//   }
-// `;
 
 const Button = styled.button`
   display: flex;
@@ -137,35 +119,36 @@ const HamburgerList = styled.div`
   align-items: center;
   justify-content: center;
   float: left;
-  margin-left: 10px;
-  width: auto;
-  height: auto;
+  margin-left: 19px;
+  margin-top: -5px;
+  width: 190px;
+  height: 120px;
   border-radius: 5px;
-  /* border: 1px solid #ff8040; */
-  background-color: #13df6a;
+  border: 1px solid #bcead5;
+  background-color: #8ec3b0;
   cursor: pointer;
-  position: fixed;
   z-index: 9999;
+  position: absolute;
 `;
 
 const BurgerButton = styled.button`
   display: flex;
   line-height: normal;
   margin: 5px;
-  font-size: 15px;
+  font-size: 18px;
   font-weight: bold;
   border: none;
   border-radius: 5px;
   background-color: transparent;
-  color: #f9dd7d;
+  color: #444;
   vertical-align: bottom;
   z-index: 9999;
   cursor: pointer;
   :hover {
-    background-color: #0ea34e;
+    color: #ffff;
   }
   :active {
-    color: #f4c00b;
+    color: #9ed5c5;
   }
 `;
 
@@ -212,8 +195,9 @@ export const LongLoginNavbarBox = () => {
         <LongContainer>
           <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
-            <Button>마이페이지</Button>
-            <Button>로그아웃</Button>
+            <Button onClick={() => navigate('/freeboard')}>커뮤니티</Button>
+            <Button onClick={() => navigate('/mypage')}>마이페이지</Button>
+            <Button onClick={() => navigate('/login')}>로그아웃</Button>
           </ButtonBox>
         </LongContainer>
       </MediaQuery>
@@ -283,10 +267,13 @@ export const MiniLoginNavbarBox = () => {
         {clicked ? (
           <>
             <HamburgerList>
-              <BurgerButton onClick={() => navigate('/login')}>
+              <BurgerButton onClick={() => navigate('/freeboard')}>
+                커뮤니티
+              </BurgerButton>
+              <BurgerButton onClick={() => navigate('/mypage')}>
                 마이페이지
               </BurgerButton>
-              <BurgerButton onClick={() => navigate('/signup')}>
+              <BurgerButton onClick={() => navigate('/login')}>
                 로그아웃
               </BurgerButton>
             </HamburgerList>
