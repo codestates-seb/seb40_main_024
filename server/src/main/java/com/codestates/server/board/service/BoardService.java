@@ -58,6 +58,7 @@ public class BoardService {
         return repository.save(verifiedBoard);
     }
 
+    @Transactional
     public Board increaseLike(Board board) {
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
 
@@ -68,6 +69,7 @@ public class BoardService {
         return repository.save(verifiedBoard);
     }
 
+    @Transactional
     public Board decreaseLike(Board board) {
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
 
