@@ -112,12 +112,21 @@ const BoxContain = styled.div`
 
 const AssetSettingTest = ({ HandlerRemove, post }) => {
   const [goal, setGoal] = useState(''); // 명칭
-  const [extended, setExtended] = useState(0); // 총금액
-  const [period, setPeriod] = useState(1); // 기간
+  const [extended, setExtended] = useState(); // 총금액
+  const [period, setPeriod] = useState(); // 기간
   // const [savings, setSavings] = useState(0); // 저축금액
 
-  let test = extended / period;
-  const test2 = (test / extended) * 100;
+  let test = Math.floor(extended / period);
+  if (isNaN(test)) {
+    test = 0;
+  } else if (test === Infinity) {
+    test = 0;
+  }
+  const testA = test.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  let test2 = Math.floor((test / extended) * 100);
+  if (isNaN(test2)) {
+    test2 = 0;
+  }
 
   console.log(`test2: ${test2}`);
   console.log(`goal: ${goal}`);
@@ -127,46 +136,9 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
 
   const data = [
     {
-      name: '현금',
+      name: goal,
       목표률: 100,
       현재률: test2,
-      amt: 2400,
-    },
-    {
-      name: 'Page B',
-      목표금액: 100,
-      현재금액: 10,
-      amt: 2210,
-    },
-    {
-      name: 'Page C',
-      uv: 2000,
-      pv: 9800,
-      amt: 2290,
-    },
-    {
-      name: 'Page D',
-      uv: 2780,
-      pv: 3908,
-      amt: 2000,
-    },
-    {
-      name: 'Page E',
-      uv: 1890,
-      pv: 4800,
-      amt: 2181,
-    },
-    {
-      name: 'Page F',
-      uv: 2390,
-      pv: 3800,
-      amt: 2500,
-    },
-    {
-      name: 'Page G',
-      uv: 3490,
-      pv: 4300,
-      amt: 2100,
     },
   ];
 
@@ -212,7 +184,7 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
             onChange={(e) => setPeriod(e.target.value)}
           />
           목표달성을 위한 매달 저축액은?
-          <div>{test}원</div>
+          <div>{testA}원</div>
           {/* <TextBox>
             <SettingInput
               placeholder="400,000원"
