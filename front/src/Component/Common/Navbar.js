@@ -49,6 +49,7 @@ const MarkBox = styled.div`
   width: 100px;
   height: 50px;
   border: 1px solid #ff8040;
+  cursor: pointer;
 `;
 
 const HamburgerBox = styled.div`
@@ -171,28 +172,61 @@ export const MainLongNavbarBox = () => {
 };
 
 export const LongNavbarBox = () => {
+  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
+  const handleClick = () => {
+    setClicked(!clicked);
+    console.log('눌림');
+  };
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
+          <HamburgerBox onClick={handleClick}>
+            <Hamburger></Hamburger>
+            <Hamburger></Hamburger>
+            <Hamburger></Hamburger>
+          </HamburgerBox>
           <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
             <Button onClick={() => navigate('/login')}>로그인</Button>
             <Button onClick={() => navigate('/signup')}>회원가입</Button>
           </ButtonBox>
         </LongContainer>
+        {clicked ? (
+          <>
+            <HamburgerList>
+              <BurgerButton onClick={() => navigate('/login')}>
+                로그인
+              </BurgerButton>
+              <BurgerButton onClick={() => navigate('/signup')}>
+                회원가입
+              </BurgerButton>
+            </HamburgerList>
+          </>
+        ) : null}
       </MediaQuery>
     </>
   );
 };
 
 export const LongLoginNavbarBox = () => {
+  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
+  const handleClick = () => {
+    setClicked(!clicked);
+    console.log('눌림');
+  };
+
   return (
     <>
       <MediaQuery minWidth={966} maxWidth={999999}>
         <LongContainer>
+          <HamburgerBox onClick={handleClick}>
+            <Hamburger></Hamburger>
+            <Hamburger></Hamburger>
+            <Hamburger></Hamburger>
+          </HamburgerBox>
           <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
           <ButtonBox>
             <Button onClick={() => navigate('/freeboard')}>커뮤니티</Button>
@@ -200,6 +234,21 @@ export const LongLoginNavbarBox = () => {
             <Button onClick={() => navigate('/login')}>로그아웃</Button>
           </ButtonBox>
         </LongContainer>
+        {clicked ? (
+          <>
+            <HamburgerList>
+              <BurgerButton onClick={() => navigate('/freeboard')}>
+                커뮤니티
+              </BurgerButton>
+              <BurgerButton onClick={() => navigate('/mypage')}>
+                마이페이지
+              </BurgerButton>
+              <BurgerButton onClick={() => navigate('/login')}>
+                로그아웃
+              </BurgerButton>
+            </HamburgerList>
+          </>
+        ) : null}
       </MediaQuery>
     </>
   );

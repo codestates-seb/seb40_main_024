@@ -25,7 +25,6 @@ const Container = styled.div`
 const TitleBox = styled.div`
   /* position: fixed; */
   padding: 5px;
-  padding-left: 12px;
   margin: 10px;
   margin-bottom: 30px;
   margin-left: 50px;
@@ -41,6 +40,7 @@ const TitleBox = styled.div`
 const TextBox = styled.input`
   display: flex;
   padding: 5px;
+  padding-left: 12px;
   margin-top: 20px;
   margin-left: 50px;
   margin-right: 50px;
