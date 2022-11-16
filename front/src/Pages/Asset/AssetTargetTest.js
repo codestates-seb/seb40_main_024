@@ -40,6 +40,7 @@ const SettingInput = styled.input`
   font-size: 20px;
   border: solid 2px #9ed5c5;
   border-radius: 10px;
+  cursor: pointer;
   &:focus {
     outline: none;
     border-color: #8ec3b0;
@@ -111,23 +112,36 @@ const BoxContain = styled.div`
 // `;
 
 const AssetSettingTest = ({ HandlerRemove, post }) => {
-  const [goal, setGoal] = useState(''); // 명칭
-  const [extended, setExtended] = useState(0); // 총금액
-  const [period, setPeriod] = useState(1); // 기간
-  // const [savings, setSavings] = useState(0); // 저축금액
+  const [goal, setGoal] = useState('현금'); // 명칭
+  const [extended, setExtended] = useState(''); // 목표금액
+  const [period, setPeriod] = useState(''); // 기간
+  const [savings, setSavings] = useState(''); // 저축횟수
+  let test = Math.floor(extended / period);
+  if (isNaN(test)) {
+    test = 0;
+  } else if (test === Infinity) {
+    test = 0;
+  }
 
-  let test = extended / period;
-  const test2 = (test / extended) * 100;
+  const testA = test.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  let test2 = Math.floor((test / extended) * 100);
+  if (isNaN(test2)) {
+    test2 = 0;
+  }
 
   console.log(`test2: ${test2}`);
   console.log(`goal: ${goal}`);
   console.log(`extended: ${extended}`);
   console.log(`period: ${period}`);
   // console.log(`savings: ${savings}`);
+  const HandlerAddCount = () => {
+    let countArr = countArr + 1;
+    setSavings(countArr);
+  };
 
   const data = [
     {
-      name: '현금',
+      name: goal,
       목표률: 100,
       현재률: test2,
       amt: 2400,
@@ -205,14 +219,14 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
           />
           목표 기간
           <SettingInput
-            placeholder="3개월"
+            placeholder="1개월"
             type="number"
             name="period"
             value={period}
             onChange={(e) => setPeriod(e.target.value)}
           />
           목표달성을 위한 매달 저축액은?
-          <div>{test}원</div>
+          <div>{testA}원</div>
           {/* <TextBox>
             <SettingInput
               placeholder="400,000원"
@@ -223,7 +237,12 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
             />
           </TextBox>
           입니다! */}
-          <SaveBtn></SaveBtn>
+          <SaveBtn
+            HandlerAddCount={HandlerAddCount}
+            type="number"
+            name="savings"
+            value={savings}
+          ></SaveBtn>
         </ComponentContain>
       </div>
 
