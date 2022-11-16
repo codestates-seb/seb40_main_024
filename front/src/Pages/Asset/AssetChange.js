@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { LongNavbarBox } from '../../Component/Common/Navbar';
-import { ModifyBtn } from '../../Component/Common/Button';
+import { AssetchangeBtn, ModifyBtn } from '../../Component/Common/Button';
 
 const MainAssetChange = styled.div`
   display: flex;
@@ -15,7 +15,7 @@ const MainBox = styled.div`
   -webkit-backdrop-filter: blur(3.5px);
   border-radius: 10px;
   border: 5px solid rgba(255, 255, 255, 0.18);
-  padding: 100px;
+  padding: 85px;
   z-index: 9999;
 `;
 
@@ -33,6 +33,13 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   margin: 15px;
+`;
+
+const Btn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
 `;
 
 const Input = styled.input`
@@ -115,6 +122,9 @@ function AssetChange() {
             <Input type="number" placeholder="수정할 현금을 적어주세요" />
             <ModifyBtn>수정</ModifyBtn>
           </Div>
+          <Btn>
+            <AssetchangeBtn />
+          </Btn>
         </MainBox>
       </MainAssetChange>
     </>

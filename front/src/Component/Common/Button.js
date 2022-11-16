@@ -188,7 +188,7 @@ export const DeleteBtn = () => {
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonAA onClick={() => navigate('/assetchange')}>자산 확인</ButtonAA>
+    <ButtonAA onClick={() => navigate('/assetchange')}>자산 수정</ButtonAA>
   );
 };
 
@@ -203,4 +203,9 @@ export const Assettarget = () => {
       목표 확인
     </ButtonAA>
   );
+};
+
+export const AssetchangeBtn = () => {
+  const navigate = useNavigate();
+  return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
 };
