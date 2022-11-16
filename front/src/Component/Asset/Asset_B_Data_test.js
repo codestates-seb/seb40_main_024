@@ -54,7 +54,7 @@ const data = [
   },
 ];
 
-export const AssetBdata = () => {
+export const AssetBdataTest = () => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
