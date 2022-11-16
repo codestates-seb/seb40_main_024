@@ -74,7 +74,6 @@ const AssetTargetPage = () => {
         </ChartContain>
         <div className="Contain">
           <PlusBtn HandlerAdd={HandlerAdd} />
-
           <BoxContain>
             {countList.map((count, i) => (
               <AssetSetting
