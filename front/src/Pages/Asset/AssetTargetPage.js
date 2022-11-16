@@ -64,13 +64,46 @@ const AssetTargetPage = () => {
     setCountList(countList.filter((user) => user.id !== id));
     console.log('handler', countList);
   };
+
+  const [goal, setGoal] = useState('현금'); // 명칭
+  const [extended, setExtended] = useState(''); // 목표금액
+  const [period, setPeriod] = useState(''); // 기간
+  const [savings, setSavings] = useState(''); // 저축횟수
+  let test = Math.floor(extended / period);
+  if (isNaN(test)) {
+    test = 0;
+  } else if (test === Infinity) {
+    test = 0;
+  }
+
+  const testA = test.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  let test2 = Math.floor((test / extended) * 100);
+  if (isNaN(test2)) {
+    test2 = 0;
+  }
+
+  console.log(`test2: ${test2}`);
+  console.log(`goal: ${goal}`);
+  console.log(`extended: ${extended}`);
+  console.log(`period: ${period}`);
+  // console.log(`savings: ${savings}`);
+  const HandlerAddCount = () => {
+    let countArr = countArr + 1;
+    setSavings(countArr);
+  };
+
   return (
     <>
       <LongNavbarBox />
       <MiniNavbarBox />
       <PageContain>
         <ChartContain className="ScrollActive">
-          <AssetBdata />
+          <AssetBdata
+            goal={goal}
+            test={test}
+            extended={extended}
+            period={period}
+          />
         </ChartContain>
         <div className="Contain">
           <PlusBtn HandlerAdd={HandlerAdd} />
@@ -80,6 +113,12 @@ const AssetTargetPage = () => {
                 count={count}
                 key={i}
                 HandlerRemove={HandlerRemove}
+                setGoal={setGoal}
+                setExtended={setExtended}
+                setPeriod={setPeriod}
+                testA={testA}
+                savings={savings}
+                HandlerAddCount={HandlerAddCount}
               />
             ))}
           </BoxContain>

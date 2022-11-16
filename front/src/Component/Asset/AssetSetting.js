@@ -51,7 +51,17 @@ const TextBox = styled.div`
   width: 200px;
 `;
 
-const AssetSetting = ({ HandlerRemove, post }) => {
+const AssetSetting = ({
+  HandlerRemove,
+  post,
+  setGoal,
+  setExtended,
+  setPeriod,
+  testA,
+  goal,
+  extended,
+  period,
+}) => {
   return (
     <div>
       <ComponentContain>
@@ -69,14 +79,29 @@ const AssetSetting = ({ HandlerRemove, post }) => {
           ></FontAwesomeIcon>
         </div>
         <Header>나의 목표</Header>
-        <SettingInput placeholder="티끌모아 티끌" />
+        <SettingInput
+          placeholder="티끌모아 티끌"
+          type="text"
+          onChange={(e) => setGoal(e.target.value)}
+          value={goal}
+        />
         목표 금액
-        <SettingInput placeholder="1,200,000원" />
+        <SettingInput
+          placeholder="1,200,000원"
+          type="number"
+          onChange={(e) => setExtended(e.target.value)}
+          value={extended}
+        />
         목표 기간
-        <SettingInput placeholder="3개월" />
+        <SettingInput
+          placeholder="3개월"
+          type="number"
+          onChange={(e) => setPeriod(e.target.value)}
+          value={period}
+        />
         목표달성을 위한 매달 저축액은?
         <TextBox>
-          <TargetBox>400,000원</TargetBox>
+          <TargetBox>{testA}</TargetBox>
         </TextBox>
         입니다!
         <SaveBtn></SaveBtn>

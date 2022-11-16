@@ -147,8 +147,12 @@ export const PlusBtn = ({ HandlerAdd }) => {
   return <ButtonBB onClick={HandlerAdd}>목표 추가</ButtonBB>;
 };
 
-export const SaveBtn = () => {
-  return <ButtonBB>저장</ButtonBB>;
+export const SaveBtn = ({ savings }) => {
+  return (
+    <ButtonBB type="number" name="savings" value={savings}>
+      저장
+    </ButtonBB>
+  );
 };
 
 export const UpdateBtn = () => {
