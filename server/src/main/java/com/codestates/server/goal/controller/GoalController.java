@@ -77,4 +77,6 @@ public class GoalController {
         goalService.deleteOne(id);
         return ResponseEntity.noContent().build();
     }
+
+    // TODO: KIM - 목표 자산 성취도 구현
 }
