@@ -30,4 +30,8 @@ public class Comment extends Auditable {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    public Comment(String body, Board board) {
+        this.body = body;
+        this.board = board;
+    }
 }
