@@ -22,13 +22,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import javax.servlet.Filter;
 import java.util.Collections;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @Slf4j
 @RequiredArgsConstructor
 public class SecurityConfiguration {
     private final MemberRepository memberRepository;
     private final JwtRepository jwtRepository;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -37,15 +38,16 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(corsFilter())
+//                .addFilter(corsFilter())
+//                .cors(withDefaults())
                 .formLogin().disable()
                 .httpBasic().disable()
                 .apply(new CustomFilterConfigurer())
                 .and()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .antMatchers(HttpMethod.POST, "*/member/refresh").permitAll()
-                .antMatchers(HttpMethod.GET, "/*/members/").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.GET, "/*/members/").hasRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/*/member/").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/*/member/").hasRole("ADMIN")
                 .anyRequest().permitAll();
 
         return http.build();
@@ -60,22 +62,23 @@ public class SecurityConfiguration {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true); // 서버가 응답을 할 떄 JSON을 자바스크립트에서 처리할 수 있게 할지 설정하는 것
+        config.setAllowCredentials(true); //내서버가 응답을 할 때 json 을 자바스크립트에서 처리할 수 있게 할지를 설정하는것
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("*", config);
         return new CorsFilter();
     }
 
-
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtRepository);
+
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,jwtRepository);
             jwtAuthenticationFilter.setFilterProcessesUrl("/member/login");
 
-            JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager, memberRepository);
+            JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager,memberRepository);
+
             builder
                     .addFilter(jwtAuthenticationFilter)
                     .addFilterAfter(jwtAuthorizationFilter, JwtAuthenticationFilter.class);

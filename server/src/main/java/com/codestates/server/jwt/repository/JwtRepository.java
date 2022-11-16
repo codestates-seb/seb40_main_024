@@ -16,7 +16,7 @@ public interface JwtRepository extends JpaRepository<Jwt, Long> {
     @Query("select j from Jwt j left join fetch j.member where j.accessToken = :token")
     Optional<Jwt> findAccessToken(@Param("token") String token);
 
-    @Query("select j from Jwt j left join fetch j.member m where j.member.id = :id")
+    @Query("select j from Jwt j left join fetch j.member where j.member.id = :memberId")
     Optional<Jwt> findMemberId(@Param("memberId") String memberId);
 
     @Modifying

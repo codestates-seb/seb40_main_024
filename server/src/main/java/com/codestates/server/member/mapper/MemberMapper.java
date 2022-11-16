@@ -7,15 +7,14 @@ import org.mapstruct.ReportingPolicy;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MemberMapper {
-    default Member PostToMember(MemberDto.Post post) {
+    default Member PostDtoToMember(MemberDto.Post post) {
         return Member.builder()
                 .email(post.getEmail())
                 .name(post.getName())
                 .password(post.getPassword())
                 .build();
-
     }
-    default Member PatchToMember(MemberDto.Patch patch) {
+    default Member PatchDtoToMember(MemberDto.Patch patch) {
         return  Member.builder()
                     .id(patch.getMemberId())
                     .name(patch.getName())

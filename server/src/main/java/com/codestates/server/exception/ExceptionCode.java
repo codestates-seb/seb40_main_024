@@ -17,7 +17,7 @@ public enum ExceptionCode {
     INVALID_AUTH_TOKEN(401, "권한 정보가 없는 토큰입니다"),
     REFRESH_TOKEN_NOT_FOUND(404, "로그아웃 된 사용자입니다"),
 
-    //게시굴
+    //게시글
     POST_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
     LIKE_NOT_ACCEPTED(400, "회원당 한번만 좋아요를 누를 수 있습니다."),
     ANSWER_NOT_FOUND(404, "존재하지 않는 답변입니다."),
