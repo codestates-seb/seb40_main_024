@@ -34,11 +34,22 @@ const SettingInput = styled.input`
     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
   }
 `;
-// const Button = styled.button`
-//   width: 200px;
-//   height: 60px;
-//   margin: 20px;
-// `;
+const TargetBox = styled.div`
+  box-sizing: border-box;
+  width: 300px;
+  height: 60px;
+  margin: 20px;
+  font-size: 30px;
+  color: red;
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  height: 70px;
+  width: 200px;
+`;
 
 const AssetSetting = ({ HandlerRemove, post }) => {
   return (
@@ -57,14 +68,17 @@ const AssetSetting = ({ HandlerRemove, post }) => {
             }}
           ></FontAwesomeIcon>
         </div>
-        <Header>목표명칭</Header>
+        <Header>나의 목표</Header>
         <SettingInput placeholder="티끌모아 티끌" />
-        목표금액
+        목표 금액
         <SettingInput placeholder="1,200,000원" />
-        목표기간
+        목표 기간
         <SettingInput placeholder="3개월" />
-        월 저축액
-        <SettingInput placeholder="400,000원" />
+        목표달성을 위한 매달 저축액은?
+        <TextBox>
+          <TargetBox>400,000원</TargetBox>
+        </TextBox>
+        입니다!
         <SaveBtn></SaveBtn>
       </ComponentContain>
     </div>

@@ -117,14 +117,6 @@ export const SignUpButton = () => {
   );
 };
 
-export const PlusBtn = ({ HandlerAdd }) => {
-  return <ButtonAA onClick={HandlerAdd}>목표 추가</ButtonAA>;
-};
-
-export const SaveBtn = () => {
-  return <ButtonBB>저장</ButtonBB>;
-};
-
 export const ButtonLogin = () => {
   const navigate = useNavigate();
   return (
@@ -149,4 +141,46 @@ export const ButtonSignup = () => {
       회원가입
     </ButtonAA>
   );
+};
+
+export const PlusBtn = ({ HandlerAdd }) => {
+  return <ButtonBB onClick={HandlerAdd}>목표 추가</ButtonBB>;
+};
+
+export const SaveBtn = () => {
+  return <ButtonBB>저장</ButtonBB>;
+};
+
+export const UpdateBtn = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      onClick={() => {
+        navigate('/myinfopage');
+      }}
+    >
+      회원정보 수정
+    </ButtonBB>
+  );
+};
+
+export const ProfileBtn = () => {
+  return <ButtonBB>프로필 수정</ButtonBB>;
+};
+
+export const ReviseBtn = () => {
+  return <ButtonAA>변경</ButtonAA>;
+};
+export const SignOutBtn = () => {
+  return (
+    <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
+  );
+};
+
+export const ModifyBtn = () => {
+  return <ButtonAA>수정</ButtonAA>;
+};
+
+export const DeleteBtn = () => {
+  return <ButtonAA>삭제</ButtonAA>;
 };

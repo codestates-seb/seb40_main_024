@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
+import { LongNavbarBox, MiniNavbarBox } from '../../Component/Common/Navbar';
 
 const PageContain = styled.div`
   display: flex;
@@ -65,6 +66,8 @@ const AssetTargetPage = () => {
   };
   return (
     <>
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <PageContain>
         <ChartContain className="ScrollActive">
           <AssetBdata />
@@ -88,6 +91,3 @@ const AssetTargetPage = () => {
 };
 
 export default AssetTargetPage;
-{
-  /* <AssetSetting countList={countList} /> */
-}
