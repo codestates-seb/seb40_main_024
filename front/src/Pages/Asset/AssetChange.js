@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { LongNavbarBox } from '../../Component/Common/Navbar';
 import { AssetchangeBtn, ModifyBtn } from '../../Component/Common/Button';
+import { Fade } from 'react-awesome-reveal';
 
 const MainAssetChange = styled.div`
   display: flex;
@@ -62,7 +63,7 @@ const Input = styled.input`
   }
 `;
 
-const Footer = styled.footer`
+const Header = styled.header`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -84,22 +85,24 @@ function AssetChange() {
   return (
     <>
       <LongNavbarBox />
-      <Footer>
-        <h1>🚨 주의사항 🚨</h1>
-        <p>1. 모든 보유 자산은 원 단위로, 환산되어 보여집니다.</p>
-        <p>
-          2. 자산 수정시 바로 반영되며, 수정된 자산은 그래프로 확인이
-          가능합니다.
-        </p>
-        <p>
-          3. 현재 보유 자산은 회원 본인의 자산이며, 타인의 자산은 조회 불가능
-          합니다.
-        </p>
-        <p>
-          4. 자산 수정은 원 단위로 가능하며, 숫자를 제외한 나머지는 입력 불가능
-          합니다.
-        </p>
-      </Footer>
+      <Header>
+        <Fade cascade duration="1300">
+          <h1>🚨 주의사항 🚨</h1>
+          <p>1. 모든 보유 자산은 원 단위로, 환산되어 보여집니다.</p>
+          <p>
+            2. 자산 수정시 바로 반영되며, 수정된 자산은 그래프로 확인이
+            가능합니다.
+          </p>
+          <p>
+            3. 현재 보유 자산은 회원 본인의 자산이며, 타인의 자산은 조회 불가능
+            합니다.
+          </p>
+          <p>
+            4. 자산 수정은 원 단위로 가능하며, 숫자를 제외한 나머지는 입력
+            불가능 합니다.
+          </p>
+        </Fade>
+      </Header>
       <MainAssetChange>
         <MainBox>
           <H1>현재 자산 수정하기</H1>
