@@ -27,16 +27,16 @@ const ListBox = styled.button`
   margin-left: 9px;
   margin-bottom: 0.3px;
   cursor: pointer;
-  &:hover {
+  :hover {
     color: #fff;
   }
   &:active {
-    color: #9ed5c5;
-  }
-  &:focus-within {
-    color: #fff;
     background-color: #8ec3b0;
   }
+  /* :focus-within {
+    color: #fff;
+    background-color: #8ec3b0;
+  } */
 `;
 
 export const Sidebar = () => {

@@ -25,6 +25,9 @@ const ImageBox = styled.div`
 
 const Image = styled.svg`
   display: flex;
+  background-image: url(https://source.unsplash.com/category/nature/1600x900);
+  background-position: top center;
+  background-size: cover;
   width: auto;
   height: auto;
   border-radius: 50%;

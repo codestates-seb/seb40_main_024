@@ -8,12 +8,15 @@ const MainLongContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: auto;
+  width: 100%;
   height: 60px;
   padding-left: 20px;
   padding-right: 20px;
   background-color: #8ec3b0;
   border-bottom: 3px solid #def5e5;
+  position: fixed;
+  z-index: 999999;
+  top: 0;
 `;
 
 const LongContainer = styled.div`
@@ -25,18 +28,20 @@ const LongContainer = styled.div`
   padding-left: 20px;
   padding-right: 20px;
   background-color: #8ec3b0;
+  border-bottom: 3px solid #def5e5;
 `;
 
-const MiniContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 900px;
-  height: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
-  background-color: #8ec3b0;
-`;
+// const MiniContainer = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   width: 900px;
+//   height: 60px;
+//   padding-left: 20px;
+//   padding-right: 20px;
+//   background-color: #8ec3b0;
+//   border-bottom: 3px solid #def5e5;
+// `;
 
 const MarkBox = styled.div`
   display: flex;
@@ -56,8 +61,8 @@ const HamburgerBox = styled.div`
   justify-content: center;
   margin-top: auto;
   margin-bottom: auto;
-  width: 60px;
-  height: 60px;
+  width: 55px;
+  height: 55px;
   background-color: #8ec3b0;
   border: 1px solid #bcead5;
   border-radius: 5px;
@@ -312,104 +317,104 @@ export const LongLoginNavbarBox = () => {
   );
 };
 
-export const MiniNavbarBox = () => {
-  const navigate = useNavigate();
-  const [clicked, setClicked] = useState(false);
+// export const MiniNavbarBox = () => {
+//   const navigate = useNavigate();
+//   const [clicked, setClicked] = useState(false);
 
-  console.log(clicked === true);
-  const handleClick = () => {
-    setClicked(!clicked);
-    console.log('눌림');
-  };
+//   console.log(clicked === true);
+//   const handleClick = () => {
+//     setClicked(!clicked);
+//     console.log('눌림');
+//   };
 
-  return (
-    <>
-      {/* <MediaQuery minWidth={0} maxWidth={965}> */}
-      <MiniContainer>
-        <HamburgerBox onClick={handleClick}>
-          <Hamburger></Hamburger>
-          <Hamburger></Hamburger>
-          <Hamburger></Hamburger>
-        </HamburgerBox>
-        <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
-      </MiniContainer>
-      {clicked ? (
-        <>
-          <HamburgerList>
-            <BurgerButton onClick={() => navigate('/')}>홈</BurgerButton>
-            <BurgerButton onClick={() => navigate('/login')}>
-              로그인
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/signup')}>
-              회원가입
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/asset')}>
-              자산&목표
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assetchange')}>
-              자산수정
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assettarget')}>
-              목표수정
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/freeboard')}>
-              커뮤니티
-            </BurgerButton>
-          </HamburgerList>
-        </>
-      ) : null}
-      {/* </MediaQuery> */}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {/* <MediaQuery minWidth={0} maxWidth={965}> */}
+//       <MiniContainer>
+//         <HamburgerBox onClick={handleClick}>
+//           <Hamburger></Hamburger>
+//           <Hamburger></Hamburger>
+//           <Hamburger></Hamburger>
+//         </HamburgerBox>
+//         <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
+//       </MiniContainer>
+//       {clicked ? (
+//         <>
+//           <HamburgerList>
+//             <BurgerButton onClick={() => navigate('/')}>홈</BurgerButton>
+//             <BurgerButton onClick={() => navigate('/login')}>
+//               로그인
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/signup')}>
+//               회원가입
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/asset')}>
+//               자산&목표
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/assetchange')}>
+//               자산수정
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/assettarget')}>
+//               목표수정
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/freeboard')}>
+//               커뮤니티
+//             </BurgerButton>
+//           </HamburgerList>
+//         </>
+//       ) : null}
+//       {/* </MediaQuery> */}
+//     </>
+//   );
+// };
 
-export const MiniLoginNavbarBox = () => {
-  const [clicked, setClicked] = useState(false);
-  const navigate = useNavigate();
+// export const MiniLoginNavbarBox = () => {
+//   const [clicked, setClicked] = useState(false);
+//   const navigate = useNavigate();
 
-  console.log(clicked === true);
-  const handleClick = () => {
-    setClicked(!clicked);
-    console.log('눌림');
-  };
+//   console.log(clicked === true);
+//   const handleClick = () => {
+//     setClicked(!clicked);
+//     console.log('눌림');
+//   };
 
-  return (
-    <>
-      {/* <MediaQuery minWidth={0} maxWidth={965}> */}
-      <MiniContainer>
-        <HamburgerBox onClick={handleClick}>
-          <Hamburger></Hamburger>
-          <Hamburger></Hamburger>
-          <Hamburger></Hamburger>
-        </HamburgerBox>
-        <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
-      </MiniContainer>
-      {clicked ? (
-        <>
-          <HamburgerList>
-            <BurgerButton onClick={() => navigate('/')}>홈</BurgerButton>
-            <BurgerButton onClick={() => navigate('/mypage')}>
-              마이페이지
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/asset')}>
-              자산&목표
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assetchange')}>
-              자산수정
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assettarget')}>
-              목표수정
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/freeboard')}>
-              커뮤니티
-            </BurgerButton>
-            <BurgerButton onClick={() => navigate('/login')}>
-              로그아웃
-            </BurgerButton>
-          </HamburgerList>
-        </>
-      ) : null}
-      {/* </MediaQuery> */}
-    </>
-  );
-};
+//   return (
+//     <>
+//       {/* <MediaQuery minWidth={0} maxWidth={965}> */}
+//       <MiniContainer>
+//         <HamburgerBox onClick={handleClick}>
+//           <Hamburger></Hamburger>
+//           <Hamburger></Hamburger>
+//           <Hamburger></Hamburger>
+//         </HamburgerBox>
+//         <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
+//       </MiniContainer>
+//       {clicked ? (
+//         <>
+//           <HamburgerList>
+//             <BurgerButton onClick={() => navigate('/')}>홈</BurgerButton>
+//             <BurgerButton onClick={() => navigate('/mypage')}>
+//               마이페이지
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/asset')}>
+//               자산&목표
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/assetchange')}>
+//               자산수정
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/assettarget')}>
+//               목표수정
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/freeboard')}>
+//               커뮤니티
+//             </BurgerButton>
+//             <BurgerButton onClick={() => navigate('/login')}>
+//               로그아웃
+//             </BurgerButton>
+//           </HamburgerList>
+//         </>
+//       ) : null}
+//       {/* </MediaQuery> */}
+//     </>
+//   );
+// };
