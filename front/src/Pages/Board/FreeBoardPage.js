@@ -1,6 +1,6 @@
 import {
   LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  // MiniLoginNavbarBox,
 } from '../../Component/Common/Navbar';
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
@@ -17,7 +17,7 @@ const SidebarSpace = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: left;
-  margin-left: 10px;
+  margin-left: 300px;
 `;
 
 const Box = styled.div`
@@ -41,6 +41,7 @@ const TitleBox = styled.div`
 const PostListSpace = styled.div`
   display: flex;
   width: 60%;
+  min-width: 600px;
   height: 1800px;
   flex-direction: column;
   justify-content: left;
@@ -53,7 +54,7 @@ export const FreeBoardPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      {/* <MiniLoginNavbarBox /> */}
       <PageContainer>
         <SidebarSpace>
           <Sidebar></Sidebar>

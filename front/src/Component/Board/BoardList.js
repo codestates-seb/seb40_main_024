@@ -4,6 +4,7 @@ const ListBox = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  min-width: 600px;
   height: auto;
   padding: 20px;
   border: 3px solid #def5e5;

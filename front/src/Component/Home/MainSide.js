@@ -1,5 +1,6 @@
 import { Link } from 'react-scroll';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line no-unused-vars
 const Div = styled.div`
@@ -38,10 +39,23 @@ const TextType = styled.button`
     color: #9ed5c5;
   }
 `;
+const MarkBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 20px;
+  width: 100px;
+  height: 50px;
+  border: 1px solid #ff8040;
+  cursor: pointer;
+`;
 
 const Side = () => {
+  const navigate = useNavigate();
   return (
     <Div>
+      <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
       <Link to="1" spy={true} smooth={true} className="test">
         <TextType>호주머니</TextType>
       </Link>
