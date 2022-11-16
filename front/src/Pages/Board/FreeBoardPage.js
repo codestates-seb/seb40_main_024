@@ -10,7 +10,7 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-right: 100px;
+  /* margin-right: 100px; */
 `;
 
 const SidebarSpace = styled.div`
@@ -40,14 +40,15 @@ const TitleBox = styled.div`
 
 const PostListSpace = styled.div`
   display: flex;
-  width: 100%;
-  height: 1500px;
+  width: 60%;
+  height: 1800px;
   flex-direction: column;
   justify-content: left;
-  border: 3px solid #8ec3b0;
+  border: 5px solid #def5e5;
   border-top: none;
   border-bottom: none;
 `;
+
 export const FreeBoardPage = () => {
   return (
     <>

@@ -116,6 +116,7 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
   const [extended, setExtended] = useState(''); // 목표금액
   const [period, setPeriod] = useState(''); // 기간
   const [savings, setSavings] = useState(''); // 저축횟수
+
   let test = Math.floor(extended / period);
   if (isNaN(test)) {
     test = 0;

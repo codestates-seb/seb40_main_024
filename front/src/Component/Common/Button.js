@@ -73,10 +73,22 @@ export const NavForgotPasswordButton = () => {
   const navigate = useNavigate();
   return (
     <ButtonCC
-      style={{ marginRight: '20px', marginTop: '30px', borderRadius: '40px' }}
+      style={{ marginTop: '20px', borderRadius: '40px' }}
       onClick={() => navigate('/forgotpassword')}
     >
       비밀번호 찾기
+    </ButtonCC>
+  );
+};
+
+export const NavAssetButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonCC
+      style={{ marginTop: '50px', marginBottom: '80px', borderRadius: '40px' }}
+      onClick={() => navigate('/asset')}
+    >
+      로그인
     </ButtonCC>
   );
 };
@@ -97,7 +109,7 @@ export const NavSignUpButton = () => {
   const navigate = useNavigate();
   return (
     <ButtonCC
-      style={{ marginLeft: '20px', marginTop: '30px', borderRadius: '40px' }}
+      style={{ marginTop: '20px', borderRadius: '40px' }}
       onClick={() => navigate('/signup')}
     >
       회원가입
