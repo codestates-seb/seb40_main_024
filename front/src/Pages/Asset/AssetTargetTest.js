@@ -40,6 +40,7 @@ const SettingInput = styled.input`
   font-size: 20px;
   border: solid 2px #9ed5c5;
   border-radius: 10px;
+  cursor: pointer;
   &:focus {
     outline: none;
     border-color: #8ec3b0;
@@ -111,17 +112,17 @@ const BoxContain = styled.div`
 // `;
 
 const AssetSettingTest = ({ HandlerRemove, post }) => {
-  const [goal, setGoal] = useState(''); // 명칭
-  const [extended, setExtended] = useState(); // 총금액
-  const [period, setPeriod] = useState(); // 기간
-  // const [savings, setSavings] = useState(0); // 저축금액
-
+  const [goal, setGoal] = useState('현금'); // 명칭
+  const [extended, setExtended] = useState(''); // 목표금액
+  const [period, setPeriod] = useState(''); // 기간
+  const [savings, setSavings] = useState(''); // 저축횟수
   let test = Math.floor(extended / period);
   if (isNaN(test)) {
     test = 0;
   } else if (test === Infinity) {
     test = 0;
   }
+
   const testA = test.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
   let test2 = Math.floor((test / extended) * 100);
   if (isNaN(test2)) {
@@ -133,12 +134,53 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
   console.log(`extended: ${extended}`);
   console.log(`period: ${period}`);
   // console.log(`savings: ${savings}`);
+  const HandlerAddCount = () => {
+    let countArr = countArr + 1;
+    setSavings(countArr);
+  };
 
   const data = [
     {
       name: goal,
       목표률: 100,
       현재률: test2,
+      amt: 2400,
+    },
+    {
+      name: 'Page B',
+      목표금액: 100,
+      현재금액: 10,
+      amt: 2210,
+    },
+    {
+      name: 'Page C',
+      uv: 2000,
+      pv: 9800,
+      amt: 2290,
+    },
+    {
+      name: 'Page D',
+      uv: 2780,
+      pv: 3908,
+      amt: 2000,
+    },
+    {
+      name: 'Page E',
+      uv: 1890,
+      pv: 4800,
+      amt: 2181,
+    },
+    {
+      name: 'Page F',
+      uv: 2390,
+      pv: 3800,
+      amt: 2500,
+    },
+    {
+      name: 'Page G',
+      uv: 3490,
+      pv: 4300,
+      amt: 2100,
     },
   ];
 
@@ -177,7 +219,7 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
           />
           목표 기간
           <SettingInput
-            placeholder="3개월"
+            placeholder="1개월"
             type="number"
             name="period"
             value={period}
@@ -195,7 +237,12 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
             />
           </TextBox>
           입니다! */}
-          <SaveBtn></SaveBtn>
+          <SaveBtn
+            HandlerAddCount={HandlerAddCount}
+            type="number"
+            name="savings"
+            value={savings}
+          ></SaveBtn>
         </ComponentContain>
       </div>
 
