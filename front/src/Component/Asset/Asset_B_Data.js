@@ -12,45 +12,23 @@ import {
 const data = [
   {
     name: '현금',
-    목표금액: 100,
-    현재금액: 10,
-    amt: 2400,
+    목표금액: 10000,
+    현재금액: 7000,
   },
   {
-    name: 'Page B',
-    목표금액: 100,
-    현재금액: 10,
-    amt: 2210,
+    name: '금',
+    목표금액: 1000,
+    현재금액: 7000,
   },
   {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    name: '다이아몬드',
+    목표금액: 400,
+    현재금액: 90,
   },
   {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    name: '주식',
+    목표금액: 700,
+    현재금액: 300,
   },
 ];
 
@@ -68,13 +46,13 @@ export const AssetBdata = () => {
           bottom: 10,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="#ffff" />
-        <XAxis dataKey="name" stroke="#333333" />
-        <YAxis stroke="#333333" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#fff" />
+        <XAxis dataKey="name" stroke="#bcead5" />
+        <YAxis stroke="#bcead5" />
         <Tooltip />
         <Legend />
-        <Bar dataKey="현재금액" fill="#b3ad2d" />
-        <Bar dataKey="목표금액" fill="#000000" />
+        <Bar dataKey="현재금액" fill="#def5e5" />
+        <Bar dataKey="목표금액" fill="#9ec3b0" />
       </BarChart>
     </ResponsiveContainer>
   );

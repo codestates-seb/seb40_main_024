@@ -9,7 +9,7 @@ export const getBoard = createAsyncThunk('GET_Board', async () => {
 });
 
 export const getAllBoard = createAsyncThunk('GET_AllBoard', async () => {
-  const res = await axios.get(`${url}board?page={page}&size={size}`);
+  const res = await axios.get(`${url}board?page={1}&size={10}`);
   return res.data;
 });
 

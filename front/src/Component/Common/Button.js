@@ -184,3 +184,23 @@ export const ModifyBtn = () => {
 export const DeleteBtn = () => {
   return <ButtonAA>삭제</ButtonAA>;
 };
+
+export const AssetButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA onClick={() => navigate('/assetchange')}>자산 수정</ButtonAA>
+  );
+};
+
+export const Assettarget = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/assettarget');
+      }}
+    >
+      목표 확인
+    </ButtonAA>
+  );
+};
