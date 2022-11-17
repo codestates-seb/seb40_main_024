@@ -26,7 +26,10 @@ const TotalContain = styled.div`
   width: 750px;
   /* position: absolute;
   top: 15%; */
-  border: solid 1px black;
+  border: solid 5px #9ed5c5;
+  border-radius: 10px;
+  background-color: #ffff;
+  box-shadow: 10px 5px 10px #d1d1d1;
 `;
 
 const ContentBox = styled.div`
@@ -34,7 +37,9 @@ const ContentBox = styled.div`
   margin-bottom: 10px;
   height: 300px;
   width: 700px;
-  border: solid 1px black;
+  border: solid 2px #9ed5c5;
+  border-radius: 10px;
+  background-color: #f8f8f8;
 `;
 
 const BtnContain = styled.div`
@@ -60,7 +65,9 @@ const BoardContents = () => {
   return (
     <BoardContentContain>
       <Contain>
+        <br />
         <ProfileIcon></ProfileIcon>
+        <br />
         <TotalContain>
           <span>게시글</span>
           <BtnContain>

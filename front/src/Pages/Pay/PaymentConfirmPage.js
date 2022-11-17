@@ -1,4 +1,4 @@
-import PayConfirm from '../../Component/PayConfirm';
+import PayConfirm from '../../Component/Pay/PayConfirm';
 
 const PaymentConfirmPage = () => {
   return <PayConfirm></PayConfirm>;

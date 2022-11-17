@@ -3,7 +3,7 @@ import MainMiddle from '../../Component/Home/MainMiddle';
 import MainFooter from '../../Component/Home/MainFooter';
 import {
   MainLongNavbarBox,
-  MiniNavbarBox,
+  // MiniNavbarBox,
 } from '../../Component/Common/Navbar';
 
 const MainDiv = styled.div`
@@ -24,7 +24,7 @@ const MainHome = () => {
     <MainDiv>
       <TestDiv>
         <MainLongNavbarBox />
-        <MiniNavbarBox />
+        {/* <MiniNavbarBox /> */}
       </TestDiv>
       <ContentDiv>
         <MainMiddle />

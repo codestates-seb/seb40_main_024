@@ -61,8 +61,12 @@ const Middle = () => {
     <MiddleDiv>
       <div id="1" className="Main1 div1">
         <Fade cascade duration="1300">
-          <span>호주머니</span>
-          <h2>
+          <span
+            style={{ color: '#8ec3b0', fontSize: '35px', fontWeight: 'bold' }}
+          >
+            호주머니
+          </span>
+          <h2 style={{ marginTop: '40px' }}>
             누구나 꿈꾸는 자산전문가
             <br />
             이곳에서 저희와 함께 이루어 보세요
