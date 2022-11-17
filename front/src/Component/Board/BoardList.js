@@ -4,11 +4,12 @@ const ListBox = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+  min-width: 600px;
   height: auto;
   padding: 20px;
-  border: 1px solid #fff;
+  border: 3px solid #def5e5;
   border-radius: 10px;
-  background-color: #def5e5;
+  /* background-color: #8ec3b0; */
   margin-bottom: 1px;
 `;
 
@@ -24,6 +25,9 @@ const ImageBox = styled.div`
 
 const Image = styled.svg`
   display: flex;
+  background-image: url(https://source.unsplash.com/category/nature/1600x900);
+  background-position: top center;
+  background-size: cover;
   width: auto;
   height: auto;
   border-radius: 50%;
@@ -49,7 +53,7 @@ const IdEtContainer = styled.div`
   margin-left: 10px;
   margin-bottom: 8px;
   padding-bottom: 10px;
-  border-bottom: 3px solid #9ed5c5;
+  border-bottom: 3px solid #8ec3b0;
   /* border: 1px solid #ff8000; */
 `;
 

@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { PlusBtn, SaveBtn } from '../../Component/Common/Button';
-import { LongNavbarBox, MiniNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongNavbarBox,
+  // , MiniNavbarBox
+} from '../../Component/Common/Navbar';
 import {
   BarChart,
   Bar,
@@ -116,6 +119,7 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
   const [extended, setExtended] = useState(''); // 목표금액
   const [period, setPeriod] = useState(''); // 기간
   const [savings, setSavings] = useState(''); // 저축횟수
+
   let test = Math.floor(extended / period);
   if (isNaN(test)) {
     test = 0;
@@ -290,7 +294,7 @@ const AssetTargetTest = () => {
   return (
     <>
       <LongNavbarBox />
-      <MiniNavbarBox />
+      {/* <MiniNavbarBox /> */}
       <PageContain>
         <ChartContain className="ScrollActive">
           {/* <AssetBdataTest /> */}

@@ -17,9 +17,9 @@ const Container = styled.div`
   padding: 30px;
   margin: 200px;
   justify-content: center;
-  border: 10px solid #9ed5c5;
+  border: 8px solid #9ed5c5;
   border-radius: 70px;
-  background-color: #def5e5;
+  /* background-color: #def5e5; */
   box-shadow: 10px 10px 8px #d1d1d1;
 `;
 
@@ -29,7 +29,7 @@ const TitleBox = styled.div`
   margin: 10px;
   margin-bottom: 50px;
   margin-left: 50px;
-  width: 350px;
+  width: 340px;
   font-size: 45px;
   font-weight: bold;
   border-bottom: 5px solid #8ec3b0;
@@ -41,6 +41,7 @@ const TitleBox = styled.div`
 const TextBox = styled.input`
   display: flex;
   padding: 5px;
+  padding-left: 12px;
   margin-top: 25px;
   margin-left: 50px;
   margin-right: 50px;

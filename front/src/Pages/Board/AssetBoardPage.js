@@ -1,23 +1,22 @@
-import {
-  LongLoginNavbarBox,
-  MiniLoginNavbarBox,
-} from '../../Component/Common/Navbar';
+import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
 import { BoardList } from '../../Component/Board/BoardList';
+import { NavAssetContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin-right: 100px;
+  /* align-items: center; */
+  /* margin-right: 100px; */
 `;
 
 const SidebarSpace = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: left;
-  margin-left: 10px;
+  margin-left: 300px;
 `;
 const Box = styled.div`
   display: flex;
@@ -39,11 +38,12 @@ const TitleBox = styled.div`
 
 const PostListSpace = styled.div`
   display: flex;
-  width: 100%;
-  height: 1500px;
+  width: 60%;
+  min-width: 600px;
+  height: 1800px;
   flex-direction: column;
   justify-content: left;
-  border: 3px solid #8ec3b0;
+  border: 5px solid #def5e5;
   border-top: none;
   border-bottom: none;
 `;
@@ -52,7 +52,7 @@ export const AssetBoardPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      {/* <MiniLoginNavbarBox /> */}
       <PageContainer>
         <SidebarSpace>
           <Sidebar></Sidebar>
@@ -60,6 +60,17 @@ export const AssetBoardPage = () => {
         <Box>
           <PostListSpace>
             <TitleBox>자산공유 커뮤니티</TitleBox>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'right',
+                alignItems: 'right',
+                marginRight: '10px',
+                // border: '1px solid red',
+              }}
+            >
+              <NavAssetContentsButton />
+            </div>
             <BoardList></BoardList>
           </PostListSpace>
         </Box>

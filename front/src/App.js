@@ -13,7 +13,6 @@ import ShareBoard from './Pages/Board/ShareBoard';
 import MyPage from './Pages/Member/MyPage';
 import InfoPage from './Pages/Member/InfoPage';
 import BoardContentPage from './Pages/Board/BoardContentPage';
-import AssetTartgetPage from './Pages/Asset/AssetTargetPage';
 import AssetTartgetTest from './Pages/Asset/AssetTargetTest';
 
 function App() {
@@ -33,8 +32,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/myinfopage" element={<InfoPage />} />
         <Route path="/boardcontentpage" element={<BoardContentPage />} />
-        <Route path="/assettarget" element={<AssetTartgetPage />} />
-        <Route path="/assettargettest" element={<AssetTartgetTest />} />
+        <Route path="/assettarget" element={<AssetTartgetTest />} />
       </Routes>
     </>
   );

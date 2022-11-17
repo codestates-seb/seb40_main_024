@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
+import {
+  NavForgotPasswordButton,
+  NavSignUpButton,
+  NavAssetButton,
+} from '../Common/Button';
 
 const PageContainer = styled.div`
   display: flex;
@@ -17,9 +21,9 @@ const Container = styled.div`
   padding: 30px;
   margin: 200px;
   justify-content: center;
-  border: 10px solid #9ed5c5;
+  border: 8px solid #9ed5c5;
   border-radius: 70px;
-  background-color: #def5e5;
+  /* background-color: #def5e5; */
   box-shadow: 10px 10px 8px #d1d1d1;
 `;
 
@@ -41,6 +45,7 @@ const TitleBox = styled.div`
 const TextBox = styled.input`
   display: flex;
   padding: 5px;
+  padding-left: 12px;
   margin-top: 25px;
   margin-left: 50px;
   margin-right: 50px;
@@ -63,21 +68,29 @@ const TextBox = styled.input`
 
 const ButtonBox = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   padding: 5px;
   margin: 10px;
-  margin-top: 30px;
+
   /* border: 1px solid #0000ff; */
 `;
 
-const Button = styled.div`
+const Button1 = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
   height: auto;
   padding: 5px;
-  margin: 10px;
+  /* border: 1px solid #0000ff; */
+`;
+const Button2 = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+  padding: 5px;
   /* border: 1px solid #0000ff; */
 `;
 
@@ -89,10 +102,13 @@ export const LoginBox = () => {
         <TextBox placeholder="아이디"></TextBox>
         <TextBox placeholder="비밀번호"></TextBox>
         <ButtonBox>
-          <Button>
+          <Button1>
+            <NavAssetButton />
+          </Button1>
+          <Button2>
             <NavForgotPasswordButton />
             <NavSignUpButton />
-          </Button>
+          </Button2>
         </ButtonBox>
       </Container>
     </PageContainer>

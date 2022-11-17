@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
-import { LongNavbarBox, MiniNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongNavbarBox,
+  // ,MiniNavbarBox
+} from '../../Component/Common/Navbar';
 
 const PageContain = styled.div`
   display: flex;
@@ -67,7 +70,7 @@ const AssetTargetPage = () => {
   return (
     <>
       <LongNavbarBox />
-      <MiniNavbarBox />
+      {/* <MiniNavbarBox /> */}
       <PageContain>
         <ChartContain className="ScrollActive">
           <AssetBdata />

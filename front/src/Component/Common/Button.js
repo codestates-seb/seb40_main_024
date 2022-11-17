@@ -69,14 +69,74 @@ export const ButtonB = () => {
   return <ButtonBB>버튼 중</ButtonBB>;
 };
 
+export const NavAssetContentsButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      style={{
+        marginBottom: '10px',
+        borderRadius: '40px',
+        fontSize: '15px',
+        position: 'left',
+        display: 'flex',
+        justifyContent: 'center',
+        lineHeight: 'normal',
+        alignItems: 'center',
+      }}
+      onClick={() => navigate('/shareboardpost')}
+    >
+      게시글 작성
+    </ButtonBB>
+  );
+};
+
+export const NavFreeContentsButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      style={{
+        marginBottom: '10px',
+        borderRadius: '40px',
+        fontSize: '15px',
+        position: 'left',
+        display: 'flex',
+        justifyContent: 'center',
+        lineHeight: 'normal',
+        alignItems: 'center',
+      }}
+      onClick={() => navigate('/freeboardpost')}
+    >
+      게시글 작성
+    </ButtonBB>
+  );
+};
+
 export const NavForgotPasswordButton = () => {
   const navigate = useNavigate();
   return (
     <ButtonCC
-      style={{ marginRight: '20px', marginTop: '30px', borderRadius: '40px' }}
+      style={{
+        marginTop: '20px',
+        marginLeft: '30px',
+        borderRadius: '40px',
+        height: '40px',
+        width: '180px',
+      }}
       onClick={() => navigate('/forgotpassword')}
     >
       비밀번호 찾기
+    </ButtonCC>
+  );
+};
+
+export const NavAssetButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonCC
+      style={{ marginTop: '65px', marginBottom: '65px', borderRadius: '40px' }}
+      onClick={() => navigate('/asset')}
+    >
+      로그인
     </ButtonCC>
   );
 };
@@ -97,7 +157,13 @@ export const NavSignUpButton = () => {
   const navigate = useNavigate();
   return (
     <ButtonCC
-      style={{ marginLeft: '20px', marginTop: '30px', borderRadius: '40px' }}
+      style={{
+        marginTop: '20px',
+        marginRight: '30px',
+        borderRadius: '40px',
+        height: '40px',
+        width: '180px',
+      }}
       onClick={() => navigate('/signup')}
     >
       회원가입
