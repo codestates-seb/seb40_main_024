@@ -17,7 +17,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 100px;
   div {
     position: fixed;
     right: 0;
@@ -61,36 +61,38 @@ const AssetExchange = styled.div`
 
 function Asset() {
   return (
-    <MainPie>
-      <LongLoginNavbarBox />
-      <Header>
-        <H1>자산현황</H1>
-        <div>
-          <AssetButton />
-        </div>
-      </Header>
-      <FirstGraph>
-        <GraphPie>
-          <Pie data={AssetAdata} />
-        </GraphPie>
-      </FirstGraph>
-      <Header>
-        <H1>목표현황</H1>
-        <div>
-          <Assettargetpage />
-        </div>
-      </Header>
-      <AssetExchange>
-        <AssetBdata />
-        {/* <h2>현재 자산을 다른 자산과 비교해보세요!</h2>
+    <>
+      <MainPie>
+        <LongLoginNavbarBox />
+        <Header>
+          <H1>자산현황</H1>
+          <div>
+            <AssetButton />
+          </div>
+        </Header>
+        <FirstGraph>
+          <GraphPie>
+            <Pie data={AssetAdata} />
+          </GraphPie>
+        </FirstGraph>
+        <Header>
+          <H1>목표현황</H1>
+          <div>
+            <Assettargetpage />
+          </div>
+        </Header>
+        <AssetExchange>
+          <AssetBdata />
+          {/* <h2>현재 자산을 다른 자산과 비교해보세요!</h2>
         <div className="AssetExchangeBox">
           <span>현재보유현금 : 10,000 / USD로 환산시 : 7.28$</span>
           <span>금</span>
           <span>다이아몬드</span>
           <span>주식</span>
         </div> */}
-      </AssetExchange>
-    </MainPie>
+        </AssetExchange>
+      </MainPie>
+    </>
   );
 }
 

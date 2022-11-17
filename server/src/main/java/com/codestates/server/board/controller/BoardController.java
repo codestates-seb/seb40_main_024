@@ -5,13 +5,16 @@ import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.service.BoardService;
+import org.springframework.data.domain.Page;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +23,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/board")
+@Validated
 public class BoardController {
 
     private final BoardService boardService;
@@ -42,16 +46,19 @@ public class BoardController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<BoardDto.Response>> getBoards() {
-        List<EntityModel<BoardDto.Response>> boards = boardService.findAll().stream()
+    public CollectionModel<EntityModel<BoardDto.Response>> getBoards(@Positive @RequestParam int page,
+                                                                     @Positive @RequestParam int size) {
+
+        Page<Board> pagedBoards = boardService.findAll(page - 1, size);
+        List<Board> listedBoards = pagedBoards.getContent();
+
+        List<EntityModel<BoardDto.Response>> boards = listedBoards.stream()
                 .map(mapper::boardToBoardResponseDto)
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        // Page WIP
-
         return CollectionModel.of(boards,
-                linkTo(methodOn(BoardService.class).findAll()).withSelfRel());
+                linkTo(methodOn(BoardService.class).findAll(page - 1, size)).withSelfRel());
     }
 
     @PostMapping
@@ -78,4 +85,25 @@ public class BoardController {
         boardService.deleteOne(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PatchMapping("/{id}/like")
+    public ResponseEntity<?> likeBoard(@PathVariable long id) {
+        Board board = boardService.findVerifiedBoard(id);
+        boardService.increaseLike(board);
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
+    @PatchMapping("/{id}/dislike")
+    public ResponseEntity<?> dislikeBoard(@PathVariable long id) {
+        Board board = boardService.findVerifiedBoard(id);
+        boardService.decreaseLike(board);
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
 }

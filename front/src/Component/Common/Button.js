@@ -265,7 +265,12 @@ export const DeleteBtn = () => {
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonAA onClick={() => navigate('/assetchange')}>자산 수정</ButtonAA>
+    <ButtonAA
+      onClick={() => navigate('/assetchange')}
+      style={{ marginTop: '90px' }}
+    >
+      자산 수정
+    </ButtonAA>
   );
 };
 
@@ -285,4 +290,14 @@ export const Assettargetpage = () => {
 export const AssetchangeBtn = () => {
   const navigate = useNavigate();
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
+};
+
+export const FreeBoardPostBtn = () => {
+  const navigate = useNavigate();
+  return <ButtonCC onClick={() => navigate('/freeboard')}>작성하기</ButtonCC>;
+};
+
+export const AssetBoardPostBtn = () => {
+  const navigate = useNavigate();
+  return <ButtonCC onClick={() => navigate('/assetboard')}>작성하기</ButtonCC>;
 };

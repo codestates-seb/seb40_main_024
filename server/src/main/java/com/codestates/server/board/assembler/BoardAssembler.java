@@ -15,8 +15,8 @@ public class BoardAssembler implements RepresentationModelAssembler <BoardDto.Re
     @Override
     public EntityModel<BoardDto.Response> toModel(BoardDto.Response board) {
         return EntityModel.of(board,
-                linkTo(methodOn(BoardController.class).getBoard(board.getBoardId())).withSelfRel(),
-                linkTo(methodOn(BoardController.class).getBoards()).withRel("boards"));
+                linkTo(methodOn(BoardController.class).getBoard(board.getBoardId())).withSelfRel());
+//                linkTo(methodOn(BoardController.class).getBoards()).withRel("boards"));
     }
 
 }
