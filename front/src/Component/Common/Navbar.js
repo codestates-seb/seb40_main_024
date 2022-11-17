@@ -3,21 +3,7 @@ import { useState } from 'react';
 // import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
 import MainSide from '../Home/MainSide';
-
-// const MainLongContainer = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   width: 100%;
-//   height: 60px;
-//   padding-left: 20px;
-//   padding-right: 20px;
-//   background-color: #8ec3b0;
-//   border-bottom: 3px solid #def5e5;
-//   position: fixed;
-//   z-index: 999990;
-//   top: 0;
-// `;
+import mark from './Img/mark.png';
 
 const LongContainer = styled.div`
   display: flex;
@@ -34,26 +20,18 @@ const LongContainer = styled.div`
   top: 0;
 `;
 
-// const MiniContainer = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: space-between;
-//   width: 900px;
-//   height: 60px;
-//   padding-left: 20px;
-//   padding-right: 20px;
-//   background-color: #8ec3b0;
-//   border-bottom: 3px solid #def5e5;
-// `;
-
 const MarkBox = styled.div`
   display: flex;
   flex-direction: row;
   margin-top: auto;
   margin-bottom: auto;
-  width: 100px;
+  z-index: 9999999;
+  width: 50px;
   height: 50px;
-  border: 1px solid #ff8040;
+  margin: 4px;
+  background-image: url(${mark});
+  background-position: top center;
+  background-size: cover;
   cursor: pointer;
 `;
 
@@ -248,7 +226,7 @@ export const LongNavbarBox = () => {
           <Hamburger></Hamburger>
           <Hamburger></Hamburger>
         </HamburgerBox>
-        <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
+        <MarkBox onClick={() => navigate('/')}></MarkBox>
         <ButtonBox>
           <Button onClick={() => navigate('/login')}>로그인</Button>
           <Button onClick={() => navigate('/signup')}>회원가입</Button>
@@ -301,7 +279,7 @@ export const LongLoginNavbarBox = () => {
           <Hamburger></Hamburger>
           <Hamburger></Hamburger>
         </HamburgerBox>
-        <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
+        <MarkBox onClick={() => navigate('/')}></MarkBox>
         <ButtonBox>
           <Button onClick={() => navigate('/freeboard')}>커뮤니티</Button>
           <Button onClick={() => navigate('/mypage')}>마이페이지</Button>

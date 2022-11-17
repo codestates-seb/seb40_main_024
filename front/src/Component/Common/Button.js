@@ -15,6 +15,7 @@ const ButtonAA = styled.button`
   color: #444;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -34,6 +35,7 @@ const ButtonBB = styled.button`
   color: #444;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -55,6 +57,7 @@ const ButtonCC = styled.button`
   stroke: #000000;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -210,7 +213,11 @@ export const ButtonSignup = () => {
 };
 
 export const PlusBtn = ({ HandlerAdd }) => {
-  return <ButtonBB onClick={HandlerAdd}>목표 추가</ButtonBB>;
+  return (
+    <ButtonBB onClick={HandlerAdd} style={{ marginTop: '90px' }}>
+      목표 추가
+    </ButtonBB>
+  );
 };
 
 export const SaveBtn = ({ savings }) => {
