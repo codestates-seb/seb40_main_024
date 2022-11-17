@@ -14,8 +14,7 @@ const MainLongContainer = styled.div`
   padding-right: 20px;
   background-color: #8ec3b0;
   border-bottom: 3px solid #def5e5;
-  position: fixed;
-  z-index: 999999;
+  z-index: 999998;
   top: 0;
 `;
 
