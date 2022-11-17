@@ -29,11 +29,12 @@ export const deleteBoard = createAsyncThunk(
 );
 
 export const BoardAPI = createSlice({
-  name: 'todoList',
+  name: 'BoardAPI',
   initialState: [],
   reducers: {},
   extraReducers: {
     [getBoard.fulfilled]: (state, { payload }) => [...payload],
+    [getAllBoard.fulfilled]: (state, { payload }) => [...payload],
     [addBoard.fulfilled]: (state, { payload }) => [...state, payload],
     [deleteBoard.fulfilled]: (state, { payload }) =>
       state.filter((Board) => Board.id !== payload),
