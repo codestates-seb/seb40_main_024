@@ -15,7 +15,6 @@ export const getAllBoard = createAsyncThunk('GET_AllBoard', async () => {
 
 export const addBoard = createAsyncThunk('ADD_Board', async (data) => {
   const res = await axios.post(`${url}board`, data);
-
   return res.data;
 });
 

@@ -9,6 +9,7 @@ const SidebarBox = styled.div`
   justify-content: left;
   margin-top: 120px;
   padding: 1px;
+
   /* border: 1px solid #8000ff; */
 `;
 

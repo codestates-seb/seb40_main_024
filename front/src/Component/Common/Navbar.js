@@ -4,7 +4,22 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MainSide from '../Home/MainSide';
 
-const MainLongContainer = styled.div`
+// const MainLongContainer = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: space-between;
+//   width: 100%;
+//   height: 60px;
+//   padding-left: 20px;
+//   padding-right: 20px;
+//   background-color: #8ec3b0;
+//   border-bottom: 3px solid #def5e5;
+//   position: fixed;
+//   z-index: 999990;
+//   top: 0;
+// `;
+
+const LongContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -14,20 +29,9 @@ const MainLongContainer = styled.div`
   padding-right: 20px;
   background-color: #8ec3b0;
   border-bottom: 3px solid #def5e5;
-  z-index: 999998;
+  position: fixed;
+  z-index: 999990;
   top: 0;
-`;
-
-const LongContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: auto;
-  height: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
-  background-color: #8ec3b0;
-  border-bottom: 3px solid #def5e5;
 `;
 
 // const MiniContainer = styled.div`
@@ -121,15 +125,33 @@ const HamburgerList = styled.div`
   align-items: center;
   float: left;
   margin-left: 20px;
-  margin-top: -1px;
+  margin-top: 57px;
   width: 190px;
   height: 330px;
   border-radius: 2px;
   border: 3px solid #bcead5;
   background-color: #bcead5;
   cursor: pointer;
-  z-index: 9999;
-  position: absolute;
+  z-index: 999999;
+  position: fixed;
+`;
+
+const MainHamburgerList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  float: left;
+  margin-left: 20px;
+  margin-top: 29px;
+  width: 190px;
+  height: 330px;
+  border-radius: 2px;
+  border: 3px solid #bcead5;
+  background-color: #bcead5;
+  cursor: pointer;
+  z-index: 999999;
+  position: fixed;
 `;
 
 const BurgerButton = styled.button`
@@ -168,7 +190,7 @@ export const MainLongNavbarBox = () => {
   return (
     <>
       {/* <MediaQuery minWidth={966} maxWidth={999999}> */}
-      <MainLongContainer>
+      <LongContainer>
         <HamburgerBox onClick={handleClick}>
           <Hamburger></Hamburger>
           <Hamburger></Hamburger>
@@ -179,10 +201,10 @@ export const MainLongNavbarBox = () => {
           <Button onClick={() => navigate('/login')}>로그인</Button>
           <Button onClick={() => navigate('/signup')}>회원가입</Button>
         </MainButtonBox>
-      </MainLongContainer>
+      </LongContainer>
       {clicked ? (
         <>
-          <HamburgerList>
+          <MainHamburgerList>
             <BurgerButton onClick={() => navigate('/')}>홈</BurgerButton>
             <BurgerButton onClick={() => navigate('/login')}>
               로그인
@@ -202,7 +224,7 @@ export const MainLongNavbarBox = () => {
             <BurgerButton onClick={() => navigate('/freeboard')}>
               커뮤니티
             </BurgerButton>
-          </HamburgerList>
+          </MainHamburgerList>
         </>
       ) : null}
       {/* </MediaQuery> */}
