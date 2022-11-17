@@ -34,8 +34,8 @@ public class Stub {
             }
 
             // Comments data
-            long boardNum = (long) (Math.random() * postNum) + 1;  // 랜덤 보드 넘버
             for (int j = 1; j <= commentNum; j++) {
+                long boardNum = (long) (Math.random() * postNum) + 1;  // 랜덤 보드 넘버
                 String temp = "테스트 댓글 " + j + " 번";
                 Board board = boardService.findVerifiedBoard(boardNum);
                 log.info("COMMENT STUB " + commentRepository.save(new Comment(temp, board)));
