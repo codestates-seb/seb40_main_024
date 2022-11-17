@@ -46,7 +46,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
         //username이 존재하면 정상적으로 처리 됨
         if  (username != null) {
-            Member member = memberRepository.findByEmail(username).orElseThrow(() -> new CustomException(ExceptionCode.USER_NOT_FOUND));
+            Member member = memberRepository.findByEmail(username).orElseThrow(() -> new CustomException(ExceptionCode.USER_NOT_FOUNT));
 
             CustomDetails customDetails = new CustomDetails(member);
 

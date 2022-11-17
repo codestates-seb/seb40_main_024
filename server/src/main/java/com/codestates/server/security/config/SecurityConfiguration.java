@@ -1,5 +1,7 @@
 package com.codestates.server.security.config;
 
+import com.codestates.server.jwt.filter.JwtAuthenticationFilter;
+import com.codestates.server.jwt.filter.JwtAuthorizationFilter;
 import com.codestates.server.jwt.repository.JwtRepository;
 import com.codestates.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -7,15 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import javax.servlet.Filter;
-import java.util.Collections;
 
 @Configuration
 @Slf4j
@@ -23,7 +25,6 @@ import java.util.Collections;
 public class SecurityConfiguration {
     private final MemberRepository memberRepository;
     private final JwtRepository jwtRepository;
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -32,10 +33,19 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .addFilter(corsFilter())
+//                .addFilter(corsFilter())
+//                .cors(withDefaults())
                 .formLogin().disable()
-                .httpBasic().disable();
-//                .apply()
+                .httpBasic().disable()
+                .apply(new CustomFilterConfigurer())
+                .and()
+                .authorizeHttpRequests()
+                .antMatchers(HttpMethod.POST, "*/member/refresh").permitAll()
+                .antMatchers(HttpMethod.GET, "/*/member/").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/*/member/").hasRole("ADMIN")
+                .anyRequest().permitAll();
+
+        return http.build();
     }
 
     @Bean
@@ -47,12 +57,26 @@ public class SecurityConfiguration {
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowCredentials(true); // 서버가 응답을 할 떄 JSON을 자바스크립트에서 처리할 수 있게 할지 설정하는 것
+        config.setAllowCredentials(true); //내서버가 응답을 할 때 json 을 자바스크립트에서 처리할 수 있게 할지를 설정하는것
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("*", config);
         return new CorsFilter();
     }
 
+    public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
+        @Override
+        public void configure(HttpSecurity builder) throws Exception {
+            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
 
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager,jwtRepository);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/member/login");
+
+            JwtAuthorizationFilter jwtAuthorizationFilter = new JwtAuthorizationFilter(authenticationManager,memberRepository);
+
+            builder
+                    .addFilter(jwtAuthenticationFilter)
+                    .addFilterAfter(jwtAuthorizationFilter, JwtAuthenticationFilter.class);
+        }
+    }
 }

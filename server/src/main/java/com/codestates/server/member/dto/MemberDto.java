@@ -30,7 +30,7 @@ public class MemberDto {
     @Getter
     public static class Patch {
 
-        private Long userId;
+        private Long memberId;
 
         @NotBlank
         @Size(min = 2, max = 15)
@@ -40,6 +40,10 @@ public class MemberDto {
         @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$",
                 message = "최소 8 자, 하나 이상의 문자와 하나의 숫자를 입력해주셔야 합니다.")
         private String password;
+
+        public void addMemberId(Long memberId) {
+            this.memberId = memberId;
+        }
     }
 
     @Getter

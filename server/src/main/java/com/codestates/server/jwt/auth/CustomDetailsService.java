@@ -20,7 +20,7 @@ public class CustomDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Member member = memberRepository
                 .findByEmail(username)
-                .orElseThrow(() -> new CustomException(ExceptionCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ExceptionCode.USER_NOT_FOUNT));
         return new CustomDetails(member);
     }
 }

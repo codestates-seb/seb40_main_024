@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-15T17:09:45+0900",
-    comments = "version: 1.5.2.Final, compiler: Eclipse JDT (Batch) , environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2022-11-17T14:22:51+0900",
+    comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component
 public class BoardMapperImpl implements BoardMapper {
@@ -19,10 +19,11 @@ public class BoardMapperImpl implements BoardMapper {
             return null;
         }
 
-        String title = null;
-        String body = null;
+        Board board = new Board();
 
-        Board board = new Board( title, body );
+        board.setBoardId( requestBody.getBoardId() );
+        board.setTitle( requestBody.getTitle() );
+        board.setBody( requestBody.getBody() );
 
         return board;
     }
@@ -33,10 +34,10 @@ public class BoardMapperImpl implements BoardMapper {
             return null;
         }
 
-        String title = null;
-        String body = null;
+        Board board = new Board();
 
-        Board board = new Board( title, body );
+        board.setTitle( requestBody.getTitle() );
+        board.setBody( requestBody.getBody() );
 
         return board;
     }
