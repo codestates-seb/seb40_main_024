@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { ModifyBtn, DeleteBtn } from '../Common/Button';
 import ProfileIcon from '../Member/ProfileIcon';
+import axios from 'axios';
+// import { useEffect } from 'react';
 
 const BoardContentContain = styled.div`
   display: flex;
@@ -93,6 +95,15 @@ const Contain = styled.div`
 `;
 
 const Comments = () => {
+  axios
+    .get('https://9ed9-125-182-77-122.jp.ngrok.io')
+
+    .then((response) => {
+      const { data } = response;
+      console.log('응답', data);
+    })
+    .catch((error) => console.log('에러', error));
+
   return (
     <BoardContentContain>
       <TotalComment>
