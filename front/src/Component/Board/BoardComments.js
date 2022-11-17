@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ModifyBtn, DeleteBtn } from '../Common/Button';
+import ProfileIcon from '../Member/ProfileIcon';
 
 const BoardContentContain = styled.div`
   display: flex;
@@ -73,19 +74,19 @@ const Comment = styled.div`
   margin: 10px;
 `;
 
-const ProfileIcon = styled.div`
-  box-sizing: border-box;
-  height: 70px;
-  width: 70px;
-  margin-top: 5px;
-  /* position: absolute;
+// const ProfileIcon = styled.div`
+//   box-sizing: border-box;
+//   height: 70px;
+//   width: 70px;
+//   margin-top: 5px;
+/* position: absolute;
   top: 7%;
   left: 30%; */
-  /* transform: translate(-50%,-50%) */
-  /* padding: 130px; */
-  border: solid 1px black;
-  border-radius: 100%;
-`;
+/* transform: translate(-50%,-50%) */
+/* padding: 130px; */
+/* border: solid 1px black;
+  border-radius: 100%; */
+// `;
 const Contain = styled.div`
   display: flex;
   flex-direction: row;
@@ -101,7 +102,7 @@ const Comments = () => {
         </BtnContain>
         <CommentBox></CommentBox>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>
         </Contain>
         <BtnContain>
@@ -109,7 +110,7 @@ const Comments = () => {
           <DeleteBtn>삭제</DeleteBtn>
         </BtnContain>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>{' '}
         </Contain>
         <BtnContain>
@@ -117,7 +118,7 @@ const Comments = () => {
           <DeleteBtn>삭제</DeleteBtn>
         </BtnContain>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>{' '}
         </Contain>
         <BtnContain>
@@ -125,7 +126,7 @@ const Comments = () => {
           <DeleteBtn>삭제</DeleteBtn>
         </BtnContain>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>{' '}
         </Contain>
         <BtnContain>
