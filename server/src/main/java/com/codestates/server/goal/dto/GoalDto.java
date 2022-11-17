@@ -53,6 +53,7 @@ public class GoalDto {
         private long goalPrice;
         private int targetLength;
         private long calculatedPrice;
+        private int completed;
 
         // WIP: add MemberDto.Response
 

@@ -31,6 +31,7 @@ public interface BoardMapper {
                 .boardId(board.getBoardId())
                 .title(board.getTitle())
                 .body(board.getBody())
+                .like(board.getLike())
                 .createdAt(board.getCreatedAt())
                 .modifiedAt(board.getModifiedAt())
                 .commentsPosted(commentResponse)

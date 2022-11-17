@@ -59,6 +59,25 @@ public class GoalService {
         repository.delete(verifiedGoal);
     }
 
+    @Transactional
+    public Goal increaseCompletion(Long id) {
+        Goal verifiedGoal = findVerifiedGoal(id);
+        int newCompleted = verifiedGoal.getCompleted();
+        int maxLength = verifiedGoal.getTargetLength();
+        // 목표 설정 기간 보다 작은 경우에만 increase
+        verifiedGoal.setCompleted(newCompleted + 1 > maxLength ? maxLength : ++newCompleted);
+        return repository.save(verifiedGoal);
+    }
+
+    @Transactional
+    public Goal decreaseCompletion(Long id) {
+        Goal verifiedGoal = findVerifiedGoal(id);
+        int completed = verifiedGoal.getCompleted();
+        // 0 보다 큰 경우에만 decrease
+        verifiedGoal.setCompleted(completed > 0 ? --completed : 0);
+        return repository.save(verifiedGoal);
+    }
+
     public Goal findVerifiedGoal(long id) {
         Optional<Goal> optionalGoal = repository.findById(id);
         return optionalGoal.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GOAL_NOT_FOUND));
