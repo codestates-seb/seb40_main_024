@@ -213,7 +213,7 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           />
-          목표 금액
+          목표 금액(원)
           <SettingInput
             placeholder="1,200,000원"
             type="number"
@@ -221,7 +221,7 @@ const AssetSettingTest = ({ HandlerRemove, post }) => {
             value={extended}
             onChange={(e) => setExtended(e.target.value)}
           />
-          목표 기간
+          목표 기간(개월)
           <SettingInput
             placeholder="1개월"
             type="number"

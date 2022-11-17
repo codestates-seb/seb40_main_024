@@ -22,6 +22,7 @@ const Header = styled.h3``;
 
 const SettingInput = styled.input`
   box-sizing: border-box;
+  text-align: center;
   width: 300px;
   height: 60px;
   margin: 10px;
@@ -34,24 +35,38 @@ const SettingInput = styled.input`
     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
   }
 `;
-const TargetBox = styled.div`
-  box-sizing: border-box;
-  width: 300px;
-  height: 60px;
-  margin: 20px;
-  font-size: 30px;
-  color: red;
-`;
+// const TargetBox = styled.div`
+//   box-sizing: border-box;
+//   width: 700px;
+//   height: 60px;
+//   /* margin: 20px 80px; */
+//   font-size: 30px;
+//   color: red;
+// `;
 
 const TextBox = styled.div`
   display: flex;
   flex-direction: row;
+  text-align: center;
   box-sizing: border-box;
+  margin-left: 230px;
   height: 70px;
-  width: 200px;
+  width: 300px;
+  color: red;
+  font-size: 30px;
 `;
 
-const AssetSetting = ({ HandlerRemove, post }) => {
+const AssetSetting = ({
+  HandlerRemove,
+  post,
+  setGoal,
+  setExtended,
+  setPeriod,
+  target,
+  goal,
+  extended,
+  period,
+}) => {
   return (
     <div>
       <ComponentContain>
@@ -69,16 +84,28 @@ const AssetSetting = ({ HandlerRemove, post }) => {
           ></FontAwesomeIcon>
         </div>
         <Header>나의 목표</Header>
-        <SettingInput placeholder="티끌모아 티끌" />
+        <SettingInput
+          placeholder="자동차"
+          type="text"
+          onChange={(e) => setGoal(e.target.value)}
+          value={goal}
+        />
         목표 금액
-        <SettingInput placeholder="1,200,000원" />
+        <SettingInput
+          placeholder="30,000,000원"
+          type="number"
+          onChange={(e) => setExtended(e.target.value)}
+          value={extended}
+        />
         목표 기간
-        <SettingInput placeholder="3개월" />
+        <SettingInput
+          placeholder="12개월"
+          type="number"
+          onChange={(e) => setPeriod(e.target.value)}
+          value={period}
+        />
         목표달성을 위한 매달 저축액은?
-        <TextBox>
-          <TargetBox>400,000원</TargetBox>
-        </TextBox>
-        입니다!
+        <TextBox>{target}원!</TextBox>
         <SaveBtn></SaveBtn>
       </ComponentContain>
     </div>

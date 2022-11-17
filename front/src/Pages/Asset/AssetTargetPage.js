@@ -60,6 +60,7 @@ const AssetTargetPage = () => {
     counter += 1;
     countArr.push(counter); // index 사용 X
     // countArr[counter] = counter	// index 사용 시 윗줄 대신 사용
+    console.log('countArr', countArr);
     setCountList(countArr);
   };
 
@@ -67,22 +68,63 @@ const AssetTargetPage = () => {
     setCountList(countList.filter((user) => user.id !== id));
     console.log('handler', countList);
   };
+
+  const [goal, setGoal] = useState('현금'); // 명칭
+  const [extended, setExtended] = useState(''); // 목표금액
+  const [period, setPeriod] = useState(''); // 기간
+  const [savings, setSavings] = useState(''); // 저축횟수
+  let monthly = Math.floor(extended / period);
+  if (isNaN(monthly)) {
+    monthly = 0;
+  } else if (monthly === Infinity) {
+    monthly = 0;
+  }
+
+  const target = monthly
+    .toString()
+    .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
+  let percentage = Math.floor((monthly / extended) * 100);
+  if (isNaN(percentage)) {
+    percentage = 0;
+  }
+
+  console.log(`percentage: ${percentage}`);
+  console.log(`goal: ${goal}`);
+  console.log(`extended: ${extended}`);
+  console.log(`period: ${period}`);
+  // console.log(`savings: ${savings}`);
+  const HandlerAddCount = () => {
+    let countArr = countArr + 1;
+    setSavings(countArr);
+  };
+
   return (
     <>
       <LongNavbarBox />
       {/* <MiniNavbarBox /> */}
       <PageContain>
         <ChartContain className="ScrollActive">
-          <AssetBdata />
+          <AssetBdata
+            goal={goal}
+            monthly={monthly}
+            extended={extended}
+            period={period}
+          />
         </ChartContain>
         <div className="Contain">
           <PlusBtn HandlerAdd={HandlerAdd} />
           <BoxContain>
-            {countList.map((count, i) => (
+            {countList.map((count, id) => (
               <AssetSetting
                 count={count}
-                key={i}
+                key={id}
                 HandlerRemove={HandlerRemove}
+                HandlerAddCount={HandlerAddCount}
+                setGoal={setGoal}
+                setExtended={setExtended}
+                setPeriod={setPeriod}
+                target={target}
+                savings={savings}
               />
             ))}
           </BoxContain>
