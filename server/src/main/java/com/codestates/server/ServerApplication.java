@@ -12,4 +12,11 @@ public class ServerApplication {
 		SpringApplication.run(ServerApplication.class, args);
 	}
 
+	// SpringBootServletInitializer 상속 필요 (+ gradle Jar 추가)
+
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+//		return builder.sources(ServerApplication.class);
+//	}
+
 }
