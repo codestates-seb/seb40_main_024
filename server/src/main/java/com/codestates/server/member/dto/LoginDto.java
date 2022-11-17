@@ -1,13 +1,7 @@
 package com.codestates.server.member.dto;
 
-import com.codestates.server.member.entity.Member;
-import com.codestates.server.member.status.MemberStatus;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Getter

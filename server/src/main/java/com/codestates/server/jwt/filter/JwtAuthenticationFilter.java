@@ -3,6 +3,7 @@ package com.codestates.server.jwt.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.codestates.server.jwt.auth.CustomDetails;
+import com.codestates.server.jwt.entity.Jwt;
 import com.codestates.server.jwt.repository.JwtRepository;
 import com.codestates.server.member.dto.LoginDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -57,7 +58,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withClaim("id", principal.getMember().getId())
                 .withClaim("username", principal.getUsername())
                 .sign(Algorithm.HMAC256("hong"));
+        jwtRepository.findMemberId(String.valueOf(principal.getMember().getId())).ifPresent(jwtRepository::delete);
 
-        jwtRepository.findMemberId((principal.getMember().getId()).isPresent(jwtRepository::delete);
+        String refreshToken = JWT.create()
+                .withExpiresAt(new Date(System.currentTimeMillis() + (600000) * 4))
+                .withClaim("id", principal.getMember().getId())
+                .withClaim("username", principal.getUsername())
+                .sign(Algorithm.HMAC256("hong"));
+
+        Jwt jwt = new Jwt(accessToken, refreshToken, principal.getMember());
+        jwtRepository.save(jwt);
+
+        //토큰 전달
+        response.addHeader("Authorization", "Bearer " + accessToken);
+        response.addHeader("Refresh", refreshToken);
     }
 }

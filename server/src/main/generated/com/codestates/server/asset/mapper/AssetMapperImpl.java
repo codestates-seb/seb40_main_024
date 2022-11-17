@@ -2,13 +2,15 @@ package com.codestates.server.asset.mapper;
 
 import com.codestates.server.asset.dto.AssetDto;
 import com.codestates.server.asset.entity.Asset;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-11-15T17:09:45+0900",
-    comments = "version: 1.5.2.Final, compiler: Eclipse JDT (Batch) , environment: Java 11.0.17 (Azul Systems, Inc.)"
+    date = "2022-11-17T14:22:50+0900",
+    comments = "version: 1.5.2.Final, compiler: javac, environment: Java 11.0.13 (Oracle Corporation)"
 )
 @Component
 public class AssetMapperImpl implements AssetMapper {
@@ -19,12 +21,12 @@ public class AssetMapperImpl implements AssetMapper {
             return null;
         }
 
-        String assetType = null;
-        long assetValue = 0L;
+        Asset.AssetBuilder asset = Asset.builder();
 
-        Asset asset = new Asset( assetType, assetValue );
+        asset.assetType( requestBody.getAssetType() );
+        asset.assetValue( requestBody.getAssetValue() );
 
-        return asset;
+        return asset.build();
     }
 
     @Override
@@ -33,12 +35,12 @@ public class AssetMapperImpl implements AssetMapper {
             return null;
         }
 
-        String assetType = null;
-        long assetValue = 0L;
+        Asset.AssetBuilder asset = Asset.builder();
 
-        Asset asset = new Asset( assetType, assetValue );
+        asset.assetType( requestBody.getAssetType() );
+        asset.assetValue( requestBody.getAssetValue() );
 
-        return asset;
+        return asset.build();
     }
 
     @Override
@@ -47,8 +49,32 @@ public class AssetMapperImpl implements AssetMapper {
             return null;
         }
 
-        AssetDto.Response response1 = new AssetDto.Response();
+        long assetId = 0L;
+        String assetType = null;
+        long assetValue = 0L;
+
+        if ( response.getAssetId() != null ) {
+            assetId = response.getAssetId();
+        }
+        assetType = response.getAssetType();
+        assetValue = response.getAssetValue();
+
+        AssetDto.Response response1 = new AssetDto.Response( assetId, assetType, assetValue );
 
         return response1;
+    }
+
+    @Override
+    public List<AssetDto.Response> assetsToAssetResponses(List<Asset> responses) {
+        if ( responses == null ) {
+            return null;
+        }
+
+        List<AssetDto.Response> list = new ArrayList<AssetDto.Response>( responses.size() );
+        for ( Asset asset : responses ) {
+            list.add( assetToAssetResponse( asset ) );
+        }
+
+        return list;
     }
 }

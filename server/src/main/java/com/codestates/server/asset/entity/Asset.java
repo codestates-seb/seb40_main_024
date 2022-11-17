@@ -35,7 +35,7 @@ public class Asset {
         this.assetValue = assetValue;
     }
 
-    @ManyToOne // 단방향
+    @ManyToOne(fetch = FetchType.LAZY) // 단방향
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
