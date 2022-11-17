@@ -196,7 +196,7 @@ export const MainLongNavbarBox = () => {
             <BurgerButton onClick={() => navigate('/assetchange')}>
               자산수정
             </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assettarget')}>
+            <BurgerButton onClick={() => navigate('/assettargetpage')}>
               목표수정
             </BurgerButton>
             <BurgerButton onClick={() => navigate('/freeboard')}>
@@ -248,7 +248,7 @@ export const LongNavbarBox = () => {
             <BurgerButton onClick={() => navigate('/assetchange')}>
               자산수정
             </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assettarget')}>
+            <BurgerButton onClick={() => navigate('/assettargetpage')}>
               목표수정
             </BurgerButton>
             <BurgerButton onClick={() => navigate('/freeboard')}>
@@ -299,7 +299,7 @@ export const LongLoginNavbarBox = () => {
             <BurgerButton onClick={() => navigate('/assetchange')}>
               자산수정
             </BurgerButton>
-            <BurgerButton onClick={() => navigate('/assettarget')}>
+            <BurgerButton onClick={() => navigate('/assettargetpage')}>
               목표수정
             </BurgerButton>
             <BurgerButton onClick={() => navigate('/freeboard')}>

@@ -11,12 +11,17 @@ const Button = styled.button`
   margin-top: 100px;
 `;
 
+const H2 = styled.h2`
+  text-shadow: 1px 1px 2px #bcead5;
+  color: #bcead5;
+`;
+
 function FreeCommunity() {
   const navigate = useNavigate();
   return (
     <>
       <div>
-        <h2>자유게시글 작성하기</h2>
+        <H2>자유게시글 작성하기</H2>
         <button onClick={() => navigate('/')}>홈버튼</button>
         <br />
         <select name="1234">

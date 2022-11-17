@@ -262,12 +262,12 @@ export const AssetButton = () => {
   );
 };
 
-export const Assettarget = () => {
+export const Assettargetpage = () => {
   const navigate = useNavigate();
   return (
     <ButtonAA
       onClick={() => {
-        navigate('/assettarget');
+        navigate('/assettargetpage');
       }}
     >
       목표 확인

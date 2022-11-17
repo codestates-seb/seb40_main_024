@@ -4,7 +4,7 @@ import { LongNavbarBox } from '../../Component/Common/Navbar';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
-import { AssetButton, Assettarget } from '../../Component/Common/Button';
+import { AssetButton, Assettargetpage } from '../../Component/Common/Button';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -77,7 +77,7 @@ function Asset() {
       <Header>
         <H1>목표현황</H1>
         <div>
-          <Assettarget />
+          <Assettargetpage />
         </div>
       </Header>
       <AssetExchange>
