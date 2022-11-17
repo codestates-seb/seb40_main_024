@@ -67,6 +67,28 @@ export const AssetBdata = ({ extended, period, goal }) => {
       amt: 2100,
     },
   ];
+  // const data = [
+  //   {
+  //     name: '현금',
+  //     목표금액: 10000,
+  //     현재금액: 7000,
+  //   },
+  //   {
+  //     name: '금',
+  //     목표금액: 1000,
+  //     현재금액: 7000,
+  //   },
+  //   {
+  //     name: '다이아몬드',
+  //     목표금액: 400,
+  //     현재금액: 90,
+  //   },
+  //   {
+  //     name: '주식',
+  //     목표금액: 700,
+  //     현재금액: 300,
+  //   },
+  // ];
 
   return (
     <ResponsiveContainer width="100%" height="100%">
@@ -81,13 +103,13 @@ export const AssetBdata = ({ extended, period, goal }) => {
           bottom: 10,
         }}
       >
-        <CartesianGrid strokeDasharray="3 3" stroke="#ffff" />
-        <XAxis dataKey="name" stroke="#333333" />
-        <YAxis stroke="#333333" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#fff" />
+        <XAxis dataKey="name" stroke="#bcead5" />
+        <YAxis stroke="#bcead5" />
         <Tooltip />
         <Legend />
-        <Bar dataKey="현재" fill="#b3ad2d" />
-        <Bar dataKey="목표율" fill="#000000" />
+        <Bar dataKey="현재" fill="#def5e5" />
+        <Bar dataKey="목표율" fill="#9ec3b0" />
       </BarChart>
     </ResponsiveContainer>
   );

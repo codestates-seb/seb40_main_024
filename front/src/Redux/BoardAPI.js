@@ -4,12 +4,17 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 let url = 'http://localhost:8000/';
 
 export const getBoard = createAsyncThunk('GET_Board', async () => {
-  const res = await axios.get(url);
+  const res = await axios.get(`${url}board/{board_id}`);
+  return res.data;
+});
+
+export const getAllBoard = createAsyncThunk('GET_AllBoard', async () => {
+  const res = await axios.get(`${url}board?page={1}&size={10}`);
   return res.data;
 });
 
 export const addBoard = createAsyncThunk('ADD_Board', async (data) => {
-  const res = await axios.post(url, data);
+  const res = await axios.post(`${url}board`, data);
   return res.data;
 });
 
