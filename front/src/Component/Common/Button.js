@@ -69,6 +69,48 @@ export const ButtonB = () => {
   return <ButtonBB>버튼 중</ButtonBB>;
 };
 
+export const NavAssetContentsButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      style={{
+        marginBottom: '10px',
+        borderRadius: '40px',
+        fontSize: '15px',
+        position: 'left',
+        display: 'flex',
+        justifyContent: 'center',
+        lineHeight: 'normal',
+        alignItems: 'center',
+      }}
+      onClick={() => navigate('/shareboardpost')}
+    >
+      게시글 작성
+    </ButtonBB>
+  );
+};
+
+export const NavFreeContentsButton = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      style={{
+        marginBottom: '10px',
+        borderRadius: '40px',
+        fontSize: '15px',
+        position: 'left',
+        display: 'flex',
+        justifyContent: 'center',
+        lineHeight: 'normal',
+        alignItems: 'center',
+      }}
+      onClick={() => navigate('/freeboardpost')}
+    >
+      게시글 작성
+    </ButtonBB>
+  );
+};
+
 export const NavForgotPasswordButton = () => {
   const navigate = useNavigate();
   return (

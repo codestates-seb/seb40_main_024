@@ -2,6 +2,7 @@ import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
 import { BoardList } from '../../Component/Board/BoardList';
+import { NavAssetContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
   display: flex;
@@ -59,6 +60,17 @@ export const AssetBoardPage = () => {
         <Box>
           <PostListSpace>
             <TitleBox>자산공유 커뮤니티</TitleBox>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'right',
+                alignItems: 'right',
+                marginRight: '10px',
+                // border: '1px solid red',
+              }}
+            >
+              <NavAssetContentsButton />
+            </div>
             <BoardList></BoardList>
           </PostListSpace>
         </Box>

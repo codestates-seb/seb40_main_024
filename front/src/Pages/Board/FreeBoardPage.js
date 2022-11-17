@@ -5,6 +5,7 @@ import {
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
 import { BoardList } from '../../Component/Board/BoardList';
+import { NavFreeContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
   display: flex;
@@ -62,6 +63,17 @@ export const FreeBoardPage = () => {
         <Box>
           <PostListSpace>
             <TitleBox>자유 커뮤니티</TitleBox>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'right',
+                alignItems: 'right',
+                marginRight: '10px',
+                // border: '1px solid red',
+              }}
+            >
+              <NavFreeContentsButton />
+            </div>
             <BoardList></BoardList>
           </PostListSpace>
         </Box>
