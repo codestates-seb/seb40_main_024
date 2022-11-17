@@ -85,6 +85,8 @@ export const NavAssetContentsButton = () => {
         justifyContent: 'center',
         lineHeight: 'normal',
         alignItems: 'center',
+        border: '1px solid #8ec3b0',
+        backgroundColor: '#bcead5',
       }}
       onClick={() => navigate('/shareboardpost')}
     >
@@ -106,6 +108,8 @@ export const NavFreeContentsButton = () => {
         justifyContent: 'center',
         lineHeight: 'normal',
         alignItems: 'center',
+        border: '1px solid #8ec3b0',
+        backgroundColor: '#bcead5',
       }}
       onClick={() => navigate('/freeboardpost')}
     >
