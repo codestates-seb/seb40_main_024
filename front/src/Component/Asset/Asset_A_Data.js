@@ -1,9 +1,12 @@
+let a = ['현금', '금', '다이아몬드', '주식'];
+let b = [100000000, 20000000, 70000000, 326000000];
+
 export const AssetAdata = {
-  labels: ['현금', '금', '다이아몬드', '주식'],
+  labels: a,
   datasets: [
     {
       label: 'Test',
-      data: [100000000, 20000000, 70000000, 326000000],
+      data: b,
       backgroundColor: [
         'rgba(255, 99, 132, 0.2)',
         'rgba(54, 162, 235, 0.2)',
