@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+// eslint-disable-next-line no-unused-vars
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
@@ -132,9 +135,39 @@ const LikeBox = styled.div`
   margin-right: 10px;
   /* border: 1px solid #ff8000; */
 `;
+
 export const BoardList = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [value, setValue] = useState();
+  // const Data = async () => {
+  //   const res = await axios.get(
+  //     `https://9ed9-125-182-77-122.jp.ngrok.io/board/1`
+  //   );
+  //   setValue(res);
+  //   console.log(res);
+  // };
+
+  // eslint-disable-next-line no-unused-vars
+  const data = {
+    title: '테스트시간23시03분입니다',
+    body: '테스트시간23시03분입니다',
+  };
+  // https://cors-anywhere.herokuapp.com/
+  axios
+    .patch(`https://d9e6-125-182-77-122.jp.ngrok.io/board/39`, data)
+    // eslint-disable-next-line no-unused-vars
+    .then((res) => console.log(res))
+    .catch((err) => console.log(err));
+
+  // useEffect(() => {
+  //   Data();
+  // }, []);
+
   return (
     <>
+      {/* <h2>{value.data.title}</h2>
+      <p>{value.data.body}</p>
+      <p>{value.data.createdAt}</p> */}
       <ListBox>
         <ImageBox>
           <Image>IMG</Image>
