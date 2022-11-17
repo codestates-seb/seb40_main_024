@@ -1,4 +1,11 @@
+// import {
+//   // useState,
+//   useEffect,
+// } from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
+// import { getList } from '../../Redux/BoardAPI';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
@@ -132,7 +139,38 @@ const LikeBox = styled.div`
   margin-right: 10px;
   /* border: 1px solid #ff8000; */
 `;
-export const BoardList = () => {
+
+// axios
+//   .get(`https://51c4-125-182-77-122.jp.ngrok.io/board/1`, {
+//     withCredentials: true,
+//   })
+//   .then((res) => console.log(res.data))
+//   .catch((err) => console.log(err));
+
+export const FreeBoardList = () => {
+  // const [inputValue, setInputValue] = useState('');
+  // const dispatch = useDispatch();
+  // const boardList = useSelector((state) => state.BoardAPI);
+  // console.log('boardList', boardList);
+
+  // useEffect(() => {
+  //   dispatch(getList());
+  // }, []);
+  async () => {
+    await axios
+      .get('https://9ed9-125-182-77-122.jp.ngrok.io/board/1', {
+        withCredentials: true,
+      })
+      .then((res) => {
+        return res.data;
+        // console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // console.log('res.data', res.data);
+  };
+
   return (
     <>
       <ListBox>

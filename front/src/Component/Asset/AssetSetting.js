@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { SaveBtn } from '../Common/Button';
+import { SaveBtn, SavingsBtn } from '../Common/Button';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -11,7 +11,7 @@ const ComponentContain = styled.div`
   margin: 30px;
   box-sizing: border-box;
   width: 500px;
-  height: 580px;
+  height: auto;
   border: 8px solid #def5e5;
   .trashicon {
     margin-left: 350px;
@@ -35,21 +35,16 @@ const SettingInput = styled.input`
     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
   }
 `;
-// const TargetBox = styled.div`
-//   box-sizing: border-box;
-//   width: 700px;
-//   height: 60px;
-//   /* margin: 20px 80px; */
-//   font-size: 30px;
-//   color: red;
-// `;
 
 const TextBox = styled.div`
   display: flex;
   flex-direction: row;
   text-align: center;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
   box-sizing: border-box;
-  margin-left: 230px;
+  margin: auto;
   height: 70px;
   width: 300px;
   color: red;
@@ -68,47 +63,67 @@ const AssetSetting = ({
   period,
 }) => {
   return (
-    <div>
-      <ComponentContain>
-        <br />{' '}
-        <div className="trashicon">
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            className="icon"
-            size="lg"
-            color="grey"
-            cursor="pointer"
-            onClick={() => {
-              HandlerRemove(post);
-            }}
-          ></FontAwesomeIcon>
-        </div>
-        <Header>나의 목표</Header>
-        <SettingInput
-          placeholder="자동차"
-          type="text"
-          onChange={(e) => setGoal(e.target.value)}
-          value={goal}
-        />
-        목표 금액
-        <SettingInput
-          placeholder="30,000,000원"
-          type="number"
-          onChange={(e) => setExtended(e.target.value)}
-          value={extended}
-        />
-        목표 기간
-        <SettingInput
-          placeholder="12개월"
-          type="number"
-          onChange={(e) => setPeriod(e.target.value)}
-          value={period}
-        />
-        목표달성을 위한 매달 저축액은?
-        <TextBox>{target}원!</TextBox>
-        <SaveBtn></SaveBtn>
-      </ComponentContain>
-    </div>
+    <>
+      <div style={{ display: 'flex' }}>
+        <ComponentContain>
+          <br />{' '}
+          <div className="trashicon">
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              className="icon"
+              size="lg"
+              color="grey"
+              cursor="pointer"
+              onClick={() => {
+                HandlerRemove(post);
+              }}
+            ></FontAwesomeIcon>
+          </div>
+          <Header>나의 목표</Header>
+          <SettingInput
+            placeholder="자동차"
+            type="text"
+            onChange={(e) => setGoal(e.target.value)}
+            value={goal}
+          />
+          목표 금액
+          <SettingInput
+            placeholder="30,000,000원"
+            type="number"
+            onChange={(e) => setExtended(e.target.value)}
+            value={extended}
+          />
+          목표 기간
+          <SettingInput
+            placeholder="12개월"
+            type="number"
+            onChange={(e) => setPeriod(e.target.value)}
+            value={period}
+          />
+          목표달성을 위한 매달 저축액은?
+          <TextBox>{target}원!</TextBox>
+          <SaveBtn></SaveBtn>
+        </ComponentContain>
+        <ComponentContain>
+          {/* <br />{' '}
+          <div className="trashicon">
+            <FontAwesomeIcon
+              icon={faTrashCan}
+              className="icon"
+              size="lg"
+              color="grey"
+              cursor="pointer"
+              onClick={() => {
+                HandlerRemove(post);
+              }}
+            ></FontAwesomeIcon>
+          </div> */}
+          <Header style={{ marginTop: '60px' }}>저축하기</Header>
+          <TextBox>0회/3회</TextBox>
+          <SavingsBtn />
+        </ComponentContain>
+      </div>
+    </>
   );
 };
 

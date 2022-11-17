@@ -11,26 +11,29 @@ import {
 const PageContain = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   /* display: inline-block; */
+
   align-items: center;
-  position: relative;
+  /* position: relative; */
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   .Contain {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    margin-left: 700px;
+    /* margin-top: 30px;*/
+    margin-left: 70px;
   }
 `;
 const ChartContain = styled.div`
+  display: flex;
   box-sizing: border-box;
-  width: 700px;
-  height: 300px;
+  width: 950px;
+  height: 600px;
   position: fixed !important;
-  top: 300px !important;
-  left: 50px;
+  left: 200px;
+  /* top: 300px !important; */
 `;
 
 const BoxContain = styled.div`

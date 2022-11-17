@@ -226,10 +226,19 @@ export const PlusBtn = ({ HandlerAdd }) => {
 
 export const SaveBtn = ({ savings }) => {
   return (
-    <ButtonBB type="number" name="savings" value={savings}>
-      저장
+    <ButtonBB
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+    >
+      월 저축액은?
     </ButtonBB>
   );
+};
+
+export const SavingsBtn = () => {
+  return <ButtonBB style={{ marginBottom: '30px' }}>저축하기</ButtonBB>;
 };
 
 export const UpdateBtn = () => {
