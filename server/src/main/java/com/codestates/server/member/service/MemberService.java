@@ -7,6 +7,7 @@ import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.jwt.auth.utils.CustomAuthorityUtils;
 import com.codestates.server.jwt.entity.Jwt;
 import com.codestates.server.jwt.repository.JwtRepository;
+import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
 import com.codestates.server.member.status.MemberStatus;
@@ -18,7 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -55,7 +58,14 @@ public class MemberService {
     @Transactional
     public void deleteMember(Long id) {
         Member findMemberId = findVerifyMember(id);
-        findMemberId.deleteMember(MemberStatus.SLEEP); //수정해야트
+        memberRepository.delete(findMemberId);
+    }
+
+    public List<Member> findAll() {
+        List<Member> members = memberRepository.findAll();
+        return members.stream()
+                .map(member -> member)
+                .collect(Collectors.toList());
     }
 
     @Transactional

@@ -59,6 +59,7 @@ public class MemberDto {
 
         public Response(Member member) {
             this.userId = member.getId();
+            this.name = member.getName();
             this.email = member.getEmail();
             this.password = member.getPassword();
             this.userStatus = member.getMemberStatus();
