@@ -95,8 +95,12 @@ const Contain = styled.div`
 `;
 
 const Comments = () => {
+  // const data = {
+  //   title: 'hihihihihihihih',
+  //   body: '게시판 수정 수정수정입니다',
+  // };
   axios
-    .get('https://9ed9-125-182-77-122.jp.ngrok.io')
+    .get('https://8fc6-112-171-1-144.jp.ngrok.io/comment')
 
     .then((response) => {
       const { data } = response;
