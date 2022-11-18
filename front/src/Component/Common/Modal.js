@@ -23,13 +23,13 @@ const Div = styled.div`
     border-radius: 0.3rem;
     background-color: #fff;
     /* 팝업이 열릴때 스르륵 열리는 효과 */
-    animation: modal-show 0.3s;
+    animation: modal-show 0.6s;
     overflow: hidden;
   }
   .modal > section > header {
     position: relative;
     padding: 16px 64px 16px 16px;
-    background-color: #f1f1f1;
+    background-color: #9ed5cd;
     font-weight: 700;
   }
   .modal > section > header button {
@@ -55,7 +55,7 @@ const Div = styled.div`
   .modal > section > footer button {
     padding: 6px 12px;
     color: #fff;
-    background-color: #6c757d;
+    background-color: #9ed5cd;
     border-radius: 5px;
     font-size: 13px;
   }

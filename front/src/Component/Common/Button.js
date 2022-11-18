@@ -275,6 +275,7 @@ export const DeleteBtn = () => {
   return <ButtonAA>삭제</ButtonAA>;
 };
 
+// 자산 수정 버튼
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
