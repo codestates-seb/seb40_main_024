@@ -72,5 +72,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         //토큰 전달
         response.addHeader("Authorization", "Bearer " + accessToken);
         response.addHeader("Refresh", refreshToken);
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
     }
 }

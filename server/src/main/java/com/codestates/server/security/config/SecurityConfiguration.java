@@ -17,8 +17,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import static org.springframework.security.config.Customizer.*;
 
 
 @Configuration
@@ -36,8 +38,8 @@ public class SecurityConfiguration {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .cors().configurationSource(ConfigurationSource())
-                .and()
+                .addFilter(corsFilter())
+                .cors(withDefaults())
                 .httpBasic().disable()
                 .formLogin().disable()
                 .apply(new CustomFilterConfigurer())
@@ -56,7 +58,7 @@ public class SecurityConfiguration {
         return new BCryptPasswordEncoder();
     }
 
- /*   @Bean
+    @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
@@ -66,9 +68,8 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-*/
 
-    @Bean
+   /* @Bean
     public CorsConfigurationSource ConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
@@ -81,7 +82,7 @@ public class SecurityConfiguration {
         source.registerCorsConfiguration("/**", configuration);
         return source;
     }
-
+*/
     public class CustomFilterConfigurer extends AbstractHttpConfigurer<CustomFilterConfigurer, HttpSecurity> {
         @Override
         public void configure(HttpSecurity builder) throws Exception {
