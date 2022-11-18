@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Pie } from 'react-chartjs-2';
-import { LongNavbarBox } from '../../Component/Common/Navbar';
+import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
@@ -17,7 +17,7 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 100px;
   div {
     position: fixed;
     right: 0;
@@ -62,8 +62,8 @@ const AssetExchange = styled.div`
 function Asset() {
   return (
     <>
-      <LongNavbarBox />
       <MainPie>
+        <LongLoginNavbarBox />
         <Header>
           <H1>자산현황</H1>
           <div>

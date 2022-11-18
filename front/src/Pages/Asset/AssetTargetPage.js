@@ -4,33 +4,36 @@ import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
 import {
-  LongNavbarBox,
+  LongLoginNavbarBox,
   // ,MiniNavbarBox
 } from '../../Component/Common/Navbar';
 
 const PageContain = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   /* display: inline-block; */
+
   align-items: center;
-  position: relative;
+  /* position: relative; */
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
   .Contain {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    margin-left: 700px;
+    /* margin-top: 30px;*/
+    margin-left: 500px;
   }
 `;
 const ChartContain = styled.div`
+  display: flex;
   box-sizing: border-box;
   width: 700px;
-  height: 300px;
+  height: 400px;
   position: fixed !important;
-  top: 300px !important;
-  left: 50px;
+  left: 200px;
+  /* top: 300px !important; */
 `;
 
 const BoxContain = styled.div`
@@ -39,7 +42,7 @@ const BoxContain = styled.div`
   display: inline-block;
   align-items: center;
   box-sizing: border-box;
-  width: 1100px;
+  width: 700px;
   height: 1000px;
   top: 30px !important;
   left: 300px;
@@ -53,17 +56,16 @@ const BoxContain = styled.div`
 
 const AssetTargetPage = () => {
   const [countList, setCountList] = useState([0]);
-
+  // console.log('countList', countList.length);
   const HandlerAdd = () => {
     let countArr = [...countList];
     let counter = countArr.slice(-1)[0];
     counter += 1;
-    countArr.push(counter); // index 사용 X
+    countArr.push(counter.length); // index 사용 X
     // countArr[counter] = counter	// index 사용 시 윗줄 대신 사용
     console.log('countArr', countArr);
     setCountList(countArr);
   };
-
   const HandlerRemove = (id) => {
     setCountList(countList.filter((user) => user.id !== id));
     console.log('handler', countList);
@@ -88,10 +90,10 @@ const AssetTargetPage = () => {
     percentage = 0;
   }
 
-  console.log(`percentage: ${percentage}`);
-  console.log(`goal: ${goal}`);
-  console.log(`extended: ${extended}`);
-  console.log(`period: ${period}`);
+  // console.log(`percentage: ${percentage}`);
+  // console.log(`goal: ${goal}`);
+  // console.log(`extended: ${extended}`);
+  // console.log(`period: ${period}`);
   // console.log(`savings: ${savings}`);
   const HandlerAddCount = () => {
     let countArr = countArr + 1;
@@ -100,7 +102,7 @@ const AssetTargetPage = () => {
 
   return (
     <>
-      <LongNavbarBox />
+      <LongLoginNavbarBox />
       {/* <MiniNavbarBox /> */}
       <PageContain>
         <ChartContain className="ScrollActive">
@@ -112,7 +114,17 @@ const AssetTargetPage = () => {
           />
         </ChartContain>
         <div className="Contain">
-          <PlusBtn HandlerAdd={HandlerAdd} />
+          {countList.length === 6 ? (
+            <>
+              <PlusBtn disabled />
+            </>
+          ) : (
+            <>
+              <PlusBtn HandlerAdd={HandlerAdd} />
+            </>
+          )}
+
+          {/* <PlusBtn HandlerAdd={HandlerAdd} /> */}
           <BoxContain>
             {countList.map((count, id) => (
               <AssetSetting

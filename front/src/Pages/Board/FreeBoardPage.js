@@ -4,7 +4,7 @@ import {
 } from '../../Component/Common/Navbar';
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
-import { BoardList } from '../../Component/Board/BoardList';
+import { FreeBoardList } from '../../Component/Board/FreeBoardList';
 import { NavFreeContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
@@ -74,7 +74,7 @@ export const FreeBoardPage = () => {
             >
               <NavFreeContentsButton />
             </div>
-            <BoardList></BoardList>
+            <FreeBoardList />
           </PostListSpace>
         </Box>
       </PageContainer>

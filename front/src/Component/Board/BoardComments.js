@@ -22,8 +22,8 @@ const TotalComment = styled.div`
   padding: 20px;
   height: 800px;
   width: 750px;
-  position: absolute;
-  top: 70%;
+  margin-top: 100px;
+
   border: thick double #9ed5c5;
   border-radius: 10px;
   background-color: #ffff;
@@ -96,12 +96,12 @@ const Contain = styled.div`
 
 const Comments = () => {
   // const data = {
-  //   title: 'hihihihihihihih',
-  //   body: '게시판 수정 수정수정입니다',
+  //   goalName: '미니 JCW',
+  //   goalPrice: 10000000,
+  //   targetLength: 40,
   // };
   axios
-    .get('https://8fc6-112-171-1-144.jp.ngrok.io/comment')
-
+    .delete('https://4de6-112-171-1-144.jp.ngrok.io/goal/1')
     .then((response) => {
       const { data } = response;
       console.log('응답', data);

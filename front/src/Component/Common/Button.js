@@ -15,6 +15,7 @@ const ButtonAA = styled.button`
   color: #444;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -34,6 +35,7 @@ const ButtonBB = styled.button`
   color: #444;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -55,6 +57,7 @@ const ButtonCC = styled.button`
   stroke: #000000;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
@@ -82,6 +85,8 @@ export const NavAssetContentsButton = () => {
         justifyContent: 'center',
         lineHeight: 'normal',
         alignItems: 'center',
+        border: '1px solid #8ec3b0',
+        backgroundColor: '#bcead5',
       }}
       onClick={() => navigate('/shareboardpost')}
     >
@@ -103,6 +108,8 @@ export const NavFreeContentsButton = () => {
         justifyContent: 'center',
         lineHeight: 'normal',
         alignItems: 'center',
+        border: '1px solid #8ec3b0',
+        backgroundColor: '#bcead5',
       }}
       onClick={() => navigate('/freeboardpost')}
     >
@@ -210,15 +217,28 @@ export const ButtonSignup = () => {
 };
 
 export const PlusBtn = ({ HandlerAdd }) => {
-  return <ButtonBB onClick={HandlerAdd}>목표 추가</ButtonBB>;
+  return (
+    <ButtonBB onClick={HandlerAdd} style={{ marginTop: '90px' }}>
+      목표 추가
+    </ButtonBB>
+  );
 };
 
 export const SaveBtn = ({ savings }) => {
   return (
-    <ButtonBB type="number" name="savings" value={savings}>
-      저장
+    <ButtonBB
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+    >
+      월 저축액은?
     </ButtonBB>
   );
+};
+
+export const SavingsBtn = () => {
+  return <ButtonBB style={{ marginBottom: '30px' }}>저축하기</ButtonBB>;
 };
 
 export const UpdateBtn = () => {
@@ -258,7 +278,12 @@ export const DeleteBtn = () => {
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonAA onClick={() => navigate('/assetchange')}>자산 수정</ButtonAA>
+    <ButtonAA
+      onClick={() => navigate('/assetchange')}
+      style={{ marginTop: '90px' }}
+    >
+      자산 수정
+    </ButtonAA>
   );
 };
 
