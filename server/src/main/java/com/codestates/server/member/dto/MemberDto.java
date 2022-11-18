@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MemberDto {
 
@@ -56,6 +57,7 @@ public class MemberDto {
         private MemberStatus userStatus;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private List<String> roles;
 
         public Response(Member member) {
             this.userId = member.getId();
@@ -65,6 +67,7 @@ public class MemberDto {
             this.userStatus = member.getMemberStatus();
             this.createdAt = member.getCreatedAt();
             this.modifiedAt = member.getModifiedAt();
+            this.roles = member.getRoles();
         }
     }
 }
