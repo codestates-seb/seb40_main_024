@@ -54,7 +54,7 @@ public class MemberDto {
         private String email;
         private String name;
         private String password;
-        private MemberStatus userStatus;
+        private MemberStatus memberStatus;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private List<String> roles;
@@ -64,7 +64,7 @@ public class MemberDto {
             this.name = member.getName();
             this.email = member.getEmail();
             this.password = member.getPassword();
-            this.userStatus = member.getMemberStatus();
+            this.memberStatus = member.getMemberStatus();
             this.createdAt = member.getCreatedAt();
             this.modifiedAt = member.getModifiedAt();
             this.roles = member.getRoles();

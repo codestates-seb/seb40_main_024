@@ -1,3 +1,4 @@
+/*
 package com.codestates.server.configuration;
 
 import org.springframework.context.annotation.Configuration;
@@ -15,3 +16,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedOrigins("http://localhost:3000");
     }
 }
+*/
