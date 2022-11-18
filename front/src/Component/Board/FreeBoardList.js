@@ -140,13 +140,6 @@ const LikeBox = styled.div`
   /* border: 1px solid #ff8000; */
 `;
 
-// axios
-//   .get(`https://51c4-125-182-77-122.jp.ngrok.io/board/1`, {
-//     withCredentials: true,
-//   })
-//   .then((res) => console.log(res.data))
-//   .catch((err) => console.log(err));
-
 export const FreeBoardList = () => {
   // const [inputValue, setInputValue] = useState('');
   // const dispatch = useDispatch();
@@ -156,20 +149,89 @@ export const FreeBoardList = () => {
   // useEffect(() => {
   //   dispatch(getList());
   // }, []);
-  async () => {
-    await axios
-      .get('https://9ed9-125-182-77-122.jp.ngrok.io/board/1', {
-        withCredentials: true,
-      })
-      .then((res) => {
-        return res.data;
-        // console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // console.log('res.data', res.data);
+
+  //? POST
+  // const data1 = {
+  //   // eslint-disable-next-line prettier/prettier
+  //   title: "dsf2222",
+  //   // eslint-disable-next-line prettier/prettier
+  //   body: "asdfasdfasf222dfd222",
+  // };
+  // // eslint-disable-next-line no-unused-vars
+  // async function postApi() {
+  //   await axios
+  //     .post('/board', data1)
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
+  //? PATCH
+  // eslint-disable-next-line no-unused-vars
+  const data2 = {
+    // eslint-disable-next-line prettier/prettier
+    title: "dsf222233",
+    // eslint-disable-next-line prettier/prettier
+    body: "asdfasdfasf222dfd222333",
   };
+  // eslint-disable-next-line no-unused-vars
+  async function patchApi() {
+    await axios
+      .patch('/board/2', data2)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  }
+  //?
+
+  //? GET
+  // eslint-disable-next-line no-unused-vars
+  // async function getApi() {
+  //   await axios
+  //     .get('/board/1')
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  // async function deletApi() {
+  //   await axios
+  //     .delet('/board/3')
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
+  //!
+  // axios
+  //   .get('/board/2')
+
+  //   .then((res) => console.log(res))
+  //   .catch((err) => console.log(err));
+  //!
+
+  //*
+  // async () => {
+  //   await axios
+  //     .get('/board/2', {
+  //       withCredentials: true,
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //         // ,
+  //       }),
+  //     })
+  //     .then((res) => res.json())
+  //     .then((data) => console.log(data))
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  //   //   // console.log('res.data', res.data);
+  //   // };
+  // };
+  //*
 
   return (
     <>

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
@@ -147,17 +147,17 @@ export const BoardList = () => {
   //   console.log(res);
   // };
 
-  // eslint-disable-next-line no-unused-vars
-  const data = {
-    title: '테스트시간23시03분입니다',
-    body: '테스트시간23시03분입니다',
-  };
-  // https://cors-anywhere.herokuapp.com/
-  axios
-    .patch(`https://d9e6-125-182-77-122.jp.ngrok.io/board/39`, data)
-    // eslint-disable-next-line no-unused-vars
-    .then((res) => console.log(res))
-    .catch((err) => console.log(err));
+  // // eslint-disable-next-line no-unused-vars
+  // const data = {
+  //   title: '테스트시간23시03분입니다2222',
+  //   body: '테스트시간23시03분입니다222222',
+  // };
+  // // https://cors-anywhere.herokuapp.com/
+  // axios
+  //   .patch(`https://2044-112-171-1-144.jp.ngrok.io/board/2`, data)
+  //   // eslint-disable-next-line no-unused-vars
+  //   .then((res) => console.log(res))
+  //   .catch((err) => console.log(err));
 
   // useEffect(() => {
   //   Data();

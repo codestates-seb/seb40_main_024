@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 // import MediaQuery from 'react-responsive';
 import { useNavigate } from 'react-router-dom';
-import MainSide from '../Home/MainSide';
+// import MainSide from '../Home/MainSide';
 import mark from './Img/mark.png';
 
 const LongContainer = styled.div`
@@ -174,7 +174,7 @@ export const MainLongNavbarBox = () => {
           <Hamburger></Hamburger>
           <Hamburger></Hamburger>
         </HamburgerBox>
-        <MainSide />
+        {/* <MainSide /> */}
         <MainButtonBox>
           <Button onClick={() => navigate('/login')}>로그인</Button>
           <Button onClick={() => navigate('/signup')}>회원가입</Button>
