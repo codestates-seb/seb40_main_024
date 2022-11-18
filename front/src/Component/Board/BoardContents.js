@@ -24,8 +24,6 @@ const TotalContain = styled.div`
   padding: 20px;
   height: 400px;
   width: 750px;
-  /* position: absolute;
-  top: 15%; */
   border: solid 5px #9ed5c5;
   border-radius: 10px;
   background-color: #ffff;

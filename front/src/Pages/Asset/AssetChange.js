@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { LongNavbarBox } from '../../Component/Common/Navbar';
+import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
 import { AssetchangeBtn, ModifyBtn } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
 
@@ -84,7 +84,7 @@ function AssetChange() {
   const navigate = useNavigate();
   return (
     <>
-      <LongNavbarBox />
+      <LongLoginNavbarBox />
       <Header>
         <Fade cascade duration="1300">
           <h1>🚨 주의사항 🚨</h1>

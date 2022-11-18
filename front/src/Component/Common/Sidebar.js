@@ -9,6 +9,7 @@ const SidebarBox = styled.div`
   justify-content: left;
   margin-top: 120px;
   padding: 1px;
+
   /* border: 1px solid #8000ff; */
 `;
 
@@ -19,8 +20,8 @@ const ListBox = styled.button`
   width: 190px;
   height: 50px;
   border: 1px solid #8ec3b0;
-  border-radius: 4px;
   background-color: #bcead5;
+  border-radius: 8px;
   color: #444;
   font-weight: bold;
   font-size: 18px;

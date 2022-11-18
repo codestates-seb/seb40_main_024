@@ -1,7 +1,7 @@
 import { Link } from 'react-scroll';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-
+import mark from '../Common/Img/mark.png';
 // eslint-disable-next-line no-unused-vars
 const Div = styled.div`
   display: flex;
@@ -44,10 +44,14 @@ const MarkBox = styled.div`
   flex-direction: row;
   margin-top: auto;
   margin-bottom: auto;
-  margin-right: 20px;
-  width: 100px;
+  z-index: 9999999;
+  width: 50px;
   height: 50px;
-  border: 1px solid #ff8040;
+  margin: 4px;
+  /* border: 1px solid #ff8040; */
+  background-image: url(${mark});
+  background-position: top center;
+  background-size: cover;
   cursor: pointer;
 `;
 
@@ -55,7 +59,7 @@ const Side = () => {
   const navigate = useNavigate();
   return (
     <Div>
-      <MarkBox onClick={() => navigate('/')}>마크</MarkBox>
+      <MarkBox onClick={() => navigate('/')}></MarkBox>
       <Link to="1" spy={true} smooth={true} className="test">
         <TextType>호주머니</TextType>
       </Link>
