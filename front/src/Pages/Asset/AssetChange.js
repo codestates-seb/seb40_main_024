@@ -102,16 +102,25 @@ function AssetChange() {
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
   const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, seterrModalopen] = useState(false);
   const [Cash, setCash] = useState('');
   const [Diamond, setDiamond] = useState('');
   const [Gold, setGodl] = useState('');
   const [Stock, setStock] = useState('');
 
   const openModal = () => {
-    setModalopen(true);
+    if (Cash) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
   };
   const closeModal = () => {
     setModalopen(false);
+  };
+
+  const errcloseModal = () => {
+    seterrModalopen(false);
   };
 
   const CashonChange = (e) => {
@@ -170,6 +179,9 @@ function AssetChange() {
           <Modal open={Modalopen} close={closeModal} header="자산 수정 알림">
             자산이 수정 되었습니다.
           </Modal>
+          <Modal open={errModalopen} close={errcloseModal} header="오류 알림">
+            수정할 자산을 입력해주세요
+          </Modal>
           <H1>현재 자산 수정하기</H1>
           <H3>현재 보유 현금: 10,000</H3>
           <Div>
@@ -179,7 +191,7 @@ function AssetChange() {
               type="number"
               placeholder="수정할 현금을 적어주세요"
             />
-            <CashBtn openModal={openModal}></CashBtn>
+            {<CashBtn openModal={openModal}></CashBtn>}
           </Div>
           {Cash ? <P>{`수정할 현금은 ${Cashtarget} 원 입니다.`}</P> : null}
           <H3>현재 보유 금: 10,000</H3>
