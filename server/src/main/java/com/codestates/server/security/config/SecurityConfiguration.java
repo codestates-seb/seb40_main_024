@@ -4,6 +4,7 @@ import com.codestates.server.jwt.filter.JwtAuthenticationFilter;
 import com.codestates.server.jwt.filter.JwtAuthorizationFilter;
 import com.codestates.server.jwt.repository.JwtRepository;
 import com.codestates.server.member.repository.MemberRepository;
+import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -30,23 +31,26 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
+                .cors().configurationSource(corsFilters())
+                .and()
                 .headers().frameOptions().sameOrigin()
                 .and()
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
 //                .addFilter(corsFilter())
-                .cors().configurationSource(corsFilters())
-                .and()
                 .httpBasic().disable()
                 .formLogin().disable()
                 .apply(new CustomFilterConfigurer())
                 .and()
                 .authorizeHttpRequests()
+                .antMatchers("/**").permitAll()
+                .anyRequest().permitAll();
+
 //                .antMatchers(HttpMethod.POST, "*/member/refresh").permitAll()
 //                .antMatchers(HttpMethod.GET, "/*/member/").hasAnyRole("USER", "ADMIN")
 //                .antMatchers(HttpMethod.GET, "/*/member/").hasRole("ADMIN")
-                .anyRequest().permitAll();
+
 
         return http.build();
     }
@@ -62,7 +66,8 @@ public class SecurityConfiguration {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true); //내서버가 응답을 할 때 json 을 자바스크립트에서 처리할 수 있게 할지를 설정하는것
         config.addAllowedHeader("*");
-        config.addAllowedMethod("*");
+        config.setAllowedMethods(Arrays.asList("POST", "PATCH", "GET", "DELETE"));
+        config.setAllowedOrigins(Arrays.asList("https://localhost:3000", "http://localhost:3000"));
         source.registerCorsConfiguration("/**", config);
         return source;
     }
