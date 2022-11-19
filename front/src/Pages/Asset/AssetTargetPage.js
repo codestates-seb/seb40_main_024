@@ -23,14 +23,14 @@ const PageContain = styled.div`
     display: flex;
     flex-direction: column;
     /* margin-top: 30px;*/
-    margin-left: 70px;
+    margin-left: 500px;
   }
 `;
 const ChartContain = styled.div`
   display: flex;
   box-sizing: border-box;
-  width: 950px;
-  height: 600px;
+  width: 700px;
+  height: 400px;
   position: fixed !important;
   left: 200px;
   /* top: 300px !important; */
@@ -42,7 +42,7 @@ const BoxContain = styled.div`
   display: inline-block;
   align-items: center;
   box-sizing: border-box;
-  width: 1100px;
+  width: 700px;
   height: 1000px;
   top: 30px !important;
   left: 300px;
@@ -56,7 +56,7 @@ const BoxContain = styled.div`
 
 const AssetTargetPage = () => {
   const [countList, setCountList] = useState([0]);
-  console.log('countList', countList.length);
+  // console.log('countList', countList.length);
   const HandlerAdd = () => {
     let countArr = [...countList];
     let counter = countArr.slice(-1)[0];
@@ -137,6 +137,7 @@ const AssetTargetPage = () => {
                 setPeriod={setPeriod}
                 target={target}
                 savings={savings}
+                period={period}
               />
             ))}
           </BoxContain>

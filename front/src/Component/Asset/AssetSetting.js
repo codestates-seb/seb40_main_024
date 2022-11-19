@@ -1,7 +1,8 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { SaveBtn, SavingsBtn } from '../Common/Button';
+import { faTrashCan, faPiggyBank } from '@fortawesome/free-solid-svg-icons';
+import { SaveBtn } from '../Common/Button';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -51,6 +52,33 @@ const TextBox = styled.div`
   font-size: 30px;
 `;
 
+const ModalSaving = styled.div`
+  display: flex;
+  flex-direction: column;
+  display: inline-flex;
+  align-items: center;
+  margin: 30px;
+  box-sizing: border-box;
+  width: 200px;
+  height: 200px;
+  border: 1px solid #def5e5;
+  border-radius: 100%;
+  background-color: #def5e5;
+`;
+const PeriodBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+  box-sizing: border-box;
+  margin: auto;
+  height: 30px;
+  width: 50px;
+  color: black;
+  font-size: 17px;
+`;
 const AssetSetting = ({
   HandlerRemove,
   post,
@@ -62,6 +90,18 @@ const AssetSetting = ({
   extended,
   period,
 }) => {
+  const [save, setSave] = useState(false);
+  //   const [disabled, setDisabled] = useState(false);
+  // const[numberUp, setNumberUp]= useState(1)
+  const handlerModal = () => {
+    console.log('모달');
+    setSave(!save);
+  };
+
+  //   const handlerNumberUp = ()
+  //   const handlerCloseModal = () => {
+  //     setSave(false);
+  //   };
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -102,10 +142,10 @@ const AssetSetting = ({
           />
           목표달성을 위한 매달 저축액은?
           <TextBox>{target}원!</TextBox>
-          <SaveBtn></SaveBtn>
+          <SaveBtn handlerModal={handlerModal}></SaveBtn>
         </ComponentContain>
-        <ComponentContain>
-          {/* <br />{' '}
+        {/* <ComponentContain> */}
+        {/* <br />{' '}
           <div className="trashicon">
             <FontAwesomeIcon
               icon={faTrashCan}
@@ -118,10 +158,23 @@ const AssetSetting = ({
               }}
             ></FontAwesomeIcon>
           </div> */}
-          <Header style={{ marginTop: '60px' }}>저축하기</Header>
+        {/* <Header style={{ marginTop: '60px' }}>저축하기</Header>
           <TextBox>0회/3회</TextBox>
           <SavingsBtn />
-        </ComponentContain>
+        </ComponentContain> */}
+        {save ? (
+          <ModalSaving>
+            <FontAwesomeIcon
+              icon={faPiggyBank}
+              size="2x"
+              cursor="pointer"
+            ></FontAwesomeIcon>
+            <p>saving button</p>
+            <br />
+            <p>납입 횟수</p>
+            <PeriodBox>{period}!</PeriodBox>
+          </ModalSaving>
+        ) : null}
       </div>
     </>
   );
