@@ -53,15 +53,19 @@ const TextBox = styled.input`
   line-height: normal;
   font-weight: 800;
   font-size: 20px;
-  border-radius: 20px;
-  border: 3px solid #9ed5c5;
-  color: #444;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  color: #9ed5c5;
+  font-weight: 700;
+  border-bottom: 3px solid #9ed5c5;
   ::placeholder {
     font-size: 20px;
     padding-left: 8px;
+    color: rgba(0, 0, 0, 0.3);
   }
   :focus {
-    outline: #8ec3b0;
     color: #444;
   }
 `;

@@ -276,6 +276,7 @@ export const DeleteBtn = () => {
   return <ButtonAA>삭제</ButtonAA>;
 };
 
+// 자산 수정 버튼
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
@@ -301,6 +302,7 @@ export const Assettargetpage = () => {
   );
 };
 
+//게시판 버튼들
 export const AssetchangeBtn = () => {
   const navigate = useNavigate();
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
@@ -314,4 +316,21 @@ export const FreeBoardPostBtn = () => {
 export const AssetBoardPostBtn = () => {
   const navigate = useNavigate();
   return <ButtonCC onClick={() => navigate('/assetboard')}>작성하기</ButtonCC>;
+};
+
+// 현재 자상 수정하기 페이지 버튼들
+export const CashBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+export const GoldBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+export const DiamondBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+export const StockBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };

@@ -1,13 +1,25 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
-import { AssetchangeBtn, ModifyBtn } from '../../Component/Common/Button';
+import {
+  AssetchangeBtn,
+  CashBtn,
+  GoldBtn,
+  DiamondBtn,
+  StockBtn,
+} from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
+import { useState } from 'react';
+import { Modal } from '../../Component/Common/Modal';
 
-const MainAssetChange = styled.div`
+const MainPage = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
 `;
+
+const MainAssetChange = styled.div``;
 
 const MainBox = styled.div`
   background: rgba(222, 245, 229, 0.15);
@@ -16,7 +28,7 @@ const MainBox = styled.div`
   -webkit-backdrop-filter: blur(3.5px);
   border-radius: 10px;
   border: 5px solid rgba(255, 255, 255, 0.18);
-  padding: 85px;
+  padding: 10px 30px;
   z-index: 9999;
 `;
 
@@ -27,6 +39,11 @@ const H1 = styled.h1`
 
 const H3 = styled.h3`
   color: #9ed5c5;
+`;
+
+const P = styled.p`
+  color: red;
+  margin-bottom: 10px;
 `;
 
 const Div = styled.div`
@@ -63,6 +80,7 @@ const Input = styled.input`
   }
 `;
 
+// eslint-disable-next-line no-unused-vars
 const Header = styled.header`
   display: flex;
   flex-direction: column;
@@ -82,55 +100,136 @@ const Header = styled.header`
 function AssetChange() {
   // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
+  const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, seterrModalopen] = useState(false);
+  const [Cash, setCash] = useState('');
+  const [Diamond, setDiamond] = useState('');
+  const [Gold, setGodl] = useState('');
+  const [Stock, setStock] = useState('');
+
+  const openModal = () => {
+    if (Cash) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
+  };
+  const closeModal = () => {
+    setModalopen(false);
+  };
+
+  const errcloseModal = () => {
+    seterrModalopen(false);
+  };
+
+  const CashonChange = (e) => {
+    setCash(e.target.value);
+  };
+  const DiamondonChange = (e) => {
+    setDiamond(e.target.value);
+  };
+  const GoldonChange = (e) => {
+    setGodl(e.target.value);
+  };
+  const StockonChange = (e) => {
+    setStock(e.target.value);
+  };
+
+  const Cashtarget = Cash.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+  const Diamondtarget = Diamond.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+  const Goldtarget = Gold.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+  const Stocktarget = Stock.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
   return (
     <>
       <LongLoginNavbarBox />
-      <Header>
-        <Fade cascade duration="1300">
-          <h1>🚨 주의사항 🚨</h1>
-          <p>1. 모든 보유 자산은 원 단위로, 환산되어 보여집니다.</p>
-          <p>
-            2. 자산 수정시 바로 반영되며, 수정된 자산은 그래프로 확인이
-            가능합니다.
-          </p>
-          <p>
-            3. 현재 보유 자산은 회원 본인의 자산이며, 타인의 자산은 조회 불가능
-            합니다.
-          </p>
-          <p>
-            4. 자산 수정은 원 단위로 가능하며, 숫자를 제외한 나머지는 입력
-            불가능 합니다.
-          </p>
-        </Fade>
-      </Header>
-      <MainAssetChange>
-        <MainBox>
-          <H1>현재 자산 수정하기</H1>
-          <H3>현재 보유 현금: 10,000</H3>
-          <Div>
-            <Input type="number" placeholder="수정할 현금을 적어주세요" />
-            <ModifyBtn>수정</ModifyBtn>
-          </Div>
-          <H3>현재 보유 금: 10,000</H3>
-          <Div>
-            <Input type="number" placeholder="수정할 현금을 적어주세요" />
-            <ModifyBtn>수정</ModifyBtn>
-          </Div>
-          <H3>현재 보유 다이아몬드: 10,000</H3>
-          <Div>
-            <Input type="number" placeholder="수정할 현금을 적어주세요" />
-            <ModifyBtn>수정</ModifyBtn>
-          </Div>
-          <H3>현재 보유 주식: 10,000</H3>
-          <Div>
-            <Input type="number" placeholder="수정할 현금을 적어주세요" />
-            <ModifyBtn>수정</ModifyBtn>
-          </Div>
-          <Btn>
-            <AssetchangeBtn />
-          </Btn>
-        </MainBox>
-      </MainAssetChange>
+      <MainPage>
+        <MainAssetChange>
+          <MainBox>
+            <Modal open={Modalopen} close={closeModal} header="자산 수정 알림">
+              자산이 수정 되었습니다.
+            </Modal>
+            <Modal open={errModalopen} close={errcloseModal} header="오류 알림">
+              수정할 자산을 입력해주세요
+            </Modal>
+            <H1>현재 자산 수정하기</H1>
+            <H3>현재 보유 현금: 10,000</H3>
+            <Div>
+              <Input
+                onChange={CashonChange}
+                value={Cash}
+                type="number"
+                placeholder="수정할 현금을 적어주세요"
+              />
+              {<CashBtn openModal={openModal}></CashBtn>}
+            </Div>
+            {Cash ? (
+              <Fade>
+                <P>{`수정할 현금은 ${Cashtarget} 원 입니다.`}</P>
+              </Fade>
+            ) : null}
+            <H3>현재 보유 금: 10,000</H3>
+            <Div>
+              <Input
+                onChange={GoldonChange}
+                value={Gold}
+                type="number"
+                placeholder="수정할 현금을 적어주세요"
+              />
+              <GoldBtn openModal={openModal}></GoldBtn>
+            </Div>
+            {Gold ? (
+              <Fade>
+                <P>{`수정할 금 은 ${Goldtarget} 원 입니다.`}</P>
+              </Fade>
+            ) : null}
+            <H3>현재 보유 다이아몬드: 10,000</H3>
+            <Div>
+              <Input
+                onChange={DiamondonChange}
+                value={Diamond}
+                type="number"
+                placeholder="수정할 현금을 적어주세요"
+              />
+              <DiamondBtn openModal={openModal}></DiamondBtn>
+            </Div>
+            {Diamond ? (
+              <Fade>
+                <P>{`수정할 다이아몬드는 ${Diamondtarget} 원 입니다.`}</P>
+              </Fade>
+            ) : null}
+            <H3>현재 보유 주식: 10,000</H3>
+            <Div>
+              <Input
+                onChange={StockonChange}
+                value={Stock}
+                type="number"
+                placeholder="수정할 현금을 적어주세요"
+              />
+              <StockBtn openModal={openModal}></StockBtn>
+            </Div>
+            {Stock ? (
+              <Fade>
+                <P>{`수정할 주식은 ${Stocktarget} 원 입니다.`}</P>
+              </Fade>
+            ) : null}
+            <Btn>
+              <AssetchangeBtn />
+            </Btn>
+          </MainBox>
+        </MainAssetChange>
+      </MainPage>
     </>
   );
 }
