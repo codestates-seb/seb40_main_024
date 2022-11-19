@@ -137,6 +137,7 @@ const AssetTargetPage = () => {
                 setPeriod={setPeriod}
                 target={target}
                 savings={savings}
+                period={period}
               />
             ))}
           </BoxContain>

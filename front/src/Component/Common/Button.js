@@ -224,15 +224,16 @@ export const PlusBtn = ({ HandlerAdd }) => {
   );
 };
 
-export const SaveBtn = ({ savings }) => {
+export const SaveBtn = ({ savings, handlerModal }) => {
   return (
     <ButtonBB
       type="number"
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
+      onClick={handlerModal}
     >
-      월 저축액은?
+      START
     </ButtonBB>
   );
 };
