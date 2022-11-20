@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Pie } from 'react-chartjs-2';
-import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
@@ -64,6 +67,7 @@ function Asset() {
     <>
       <MainPie>
         <LongLoginNavbarBox />
+        <MiniLoginNavbarBox />
         <Header>
           <H1>자산현황</H1>
           <div>

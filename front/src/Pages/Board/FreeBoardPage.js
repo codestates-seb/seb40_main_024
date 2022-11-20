@@ -1,7 +1,7 @@
 import {
   LongLoginNavbarBox,
-  // MiniLoginNavbarBox,
-} from '../../Component/Common/Navbar';
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
 import { FreeBoardList } from '../../Component/Board/FreeBoardList';
@@ -55,7 +55,7 @@ export const FreeBoardPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      {/* <MiniLoginNavbarBox /> */}
+      <MiniLoginNavbarBox />
       <PageContainer>
         <SidebarSpace>
           <Sidebar></Sidebar>

@@ -5,8 +5,8 @@ import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
 import {
   LongLoginNavbarBox,
-  // ,MiniNavbarBox
-} from '../../Component/Common/Navbar';
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 
 const PageContain = styled.div`
   display: flex;
@@ -103,7 +103,7 @@ const AssetTargetPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <MiniLoginNavbarBox />
       <PageContain>
         <ChartContain className="ScrollActive">
           <AssetBdata
@@ -123,7 +123,6 @@ const AssetTargetPage = () => {
               <PlusBtn HandlerAdd={HandlerAdd} />
             </>
           )}
-
           {/* <PlusBtn HandlerAdd={HandlerAdd} /> */}
           <BoxContain>
             {countList.map((count, id) => (

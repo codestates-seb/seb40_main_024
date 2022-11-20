@@ -151,55 +151,57 @@ export const FreeBoardList = () => {
   // }, []);
 
   //? POST
-  // const data1 = {
-  //   // eslint-disable-next-line prettier/prettier
-  //   title: "dsf2222",
-  //   // eslint-disable-next-line prettier/prettier
-  //   body: "asdfasdfasf222dfd222",
-  // };
-  // // eslint-disable-next-line no-unused-vars
-  // async function postApi() {
-  //   await axios
-  //     .post('/board', data1)
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
-  //?
-
-  //? PATCH
-  // eslint-disable-next-line no-unused-vars
-  const data2 = {
+  const data1 = {
     // eslint-disable-next-line prettier/prettier
-    title: "dsf222233",
+    title: "dsf2222",
     // eslint-disable-next-line prettier/prettier
-    body: "asdfasdfasf222dfd222333",
+    body: "asdfasdfasf222dfd222",
   };
   // eslint-disable-next-line no-unused-vars
-  async function patchApi() {
+  async function postApi() {
     await axios
-      .patch('/board/2', data2)
+      .post('/board', data1)
       .then((res) => console.log(res.data))
       .catch((err) => console.log(err));
   }
   //?
 
+  //? PATCH
+  // eslint-disable-next-line no-unused-vars
+  // const data2 = {
+  //   // eslint-disable-next-line prettier/prettier
+  //   title: "dsf222233",
+  //   // eslint-disable-next-line prettier/prettier
+  //   body: "asdfasdfasf222dfd222544",
+  // };
+  // // eslint-disable-next-line no-unused-vars
+  // async function patchApi() {
+  //   await axios
+  //     .patch('board/2', data2)
+  //     .then((res) => console.log('res', res))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
   //? GET
   // eslint-disable-next-line no-unused-vars
   // async function getApi() {
-  //   await axios
-  //     .get('/board/1')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
+  //   await
+  // axios
+  //   .get('board/1')
+  //   .then((res) => console.log(res.data))
+  //   .catch((err) => console.log(err));
+  // // }
   //?
 
   //? DELET
   // eslint-disable-next-line no-unused-vars
   // async function deletApi() {
-  //   await axios
-  //     .delet('/board/3')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
+  // await
+  // axios
+  //   .delete('board/37')
+  //   .then((res) => console.log(res.data))
+  //   .catch((err) => console.log(err));
   // }
   //?
 
@@ -235,6 +237,10 @@ export const FreeBoardList = () => {
 
   return (
     <>
+      {/* {postApi()} */}
+      {/* {patchApi()} */}
+      {/* {getApi()} */}
+      {/* {deletApi()} */}
       <ListBox>
         <ImageBox>
           <Image>IMG</Image>
