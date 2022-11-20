@@ -75,9 +75,9 @@ const PeriodBox = styled.div`
   box-sizing: border-box;
   margin: auto;
   height: 30px;
-  width: 50px;
+  width: 100px;
   color: black;
-  font-size: 17px;
+  font-size: 16px;
 `;
 const AssetSetting = ({
   HandlerRemove,
@@ -91,11 +91,19 @@ const AssetSetting = ({
   period,
 }) => {
   const [save, setSave] = useState(false);
+  const [count, setCount] = useState(1);
   //   const [disabled, setDisabled] = useState(false);
   // const[numberUp, setNumberUp]= useState(1)
   const handlerModal = () => {
-    console.log('모달');
     setSave(!save);
+  };
+  const handlerCount = () => {
+    setCount(count + 1);
+    if (count + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
+    // if (count + 1 > Number(period)) return
+    // console.log(count + 1, Number(period));
+
+    //수정필요
   };
 
   //   const handlerNumberUp = ()
@@ -164,15 +172,26 @@ const AssetSetting = ({
         </ComponentContain> */}
         {save ? (
           <ModalSaving>
-            <FontAwesomeIcon
-              icon={faPiggyBank}
-              size="2x"
-              cursor="pointer"
-            ></FontAwesomeIcon>
+            {count + 1 === Number(period) ? (
+              <FontAwesomeIcon
+                disabled
+                icon={faPiggyBank}
+                size="2x"
+                cursor="not-allowed"
+                onClick={handlerCount}
+              ></FontAwesomeIcon>
+            ) : (
+              <FontAwesomeIcon
+                icon={faPiggyBank}
+                size="2x"
+                cursor="pointer"
+                onClick={handlerCount}
+              ></FontAwesomeIcon>
+            )}
             <p>saving button</p>
             <br />
-            <p>납입 횟수</p>
-            <PeriodBox>{period}!</PeriodBox>
+            <p>납입 횟수:{count}</p>
+            <PeriodBox>목표 기간:{period}</PeriodBox>
           </ModalSaving>
         ) : null}
       </div>
