@@ -25,8 +25,8 @@ const MainPage = styled.div`
 const MainAssetChange = styled.div``;
 
 const MainBox = styled.div`
-  background: rgba(222, 245, 229, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  /* background: rgba(222, 245, 229, 0.15);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
   backdrop-filter: blur(3.5px);
   -webkit-backdrop-filter: blur(3.5px);
   border-radius: 10px;
@@ -37,16 +37,21 @@ const MainBox = styled.div`
 
 const H1 = styled.h1`
   margin-bottom: 50px;
+  border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
+  margin-left: 13px;
+  width: 270px;
 `;
 
 const H3 = styled.h3`
   color: #9ed5c5;
+  margin-left: 13px;
 `;
 
 const P = styled.p`
   color: red;
   margin-bottom: 10px;
+  margin-left: 13px;
 `;
 
 const Div = styled.div`
@@ -54,6 +59,9 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   margin: 15px;
+  div {
+    margin-left: 20px;
+  }
 `;
 
 const Btn = styled.div`
@@ -64,7 +72,7 @@ const Btn = styled.div`
 `;
 
 const Input = styled.input`
-  width: auto;
+  width: 300px;
   height: 50px;
   border-top: none;
   border-left: none;
@@ -73,30 +81,12 @@ const Input = styled.input`
   color: #9ed5c5;
   font-weight: 700;
   border-bottom: 3px solid #9ed5c5;
-  background: rgba(222, 245, 229, 0.15);
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
   ::placeholder {
-    color: #9ed5c5;
-  }
-`;
-
-// eslint-disable-next-line no-unused-vars
-const Header = styled.header`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 100px;
-  h1 {
-    color: #8ec3b0;
-    margin-bottom: 10px;
-  }
-  P {
-    font-size: 14px;
-    font-weight: 600;
-    color: #8ec3b0;
+    color: #777;
   }
 `;
 
@@ -176,7 +166,9 @@ function AssetChange() {
                 type="number"
                 placeholder="수정할 현금을 적어주세요"
               />
-              {<CashBtn openModal={openModal}></CashBtn>}
+              <div>
+                <CashBtn openModal={openModal}></CashBtn>
+              </div>
             </Div>
             {Cash ? (
               <Fade>
@@ -191,7 +183,9 @@ function AssetChange() {
                 type="number"
                 placeholder="수정할 현금을 적어주세요"
               />
-              <GoldBtn openModal={openModal}></GoldBtn>
+              <div>
+                <GoldBtn openModal={openModal}></GoldBtn>
+              </div>
             </Div>
             {Gold ? (
               <Fade>
@@ -206,7 +200,9 @@ function AssetChange() {
                 type="number"
                 placeholder="수정할 현금을 적어주세요"
               />
-              <DiamondBtn openModal={openModal}></DiamondBtn>
+              <div>
+                <DiamondBtn openModal={openModal}></DiamondBtn>
+              </div>
             </Div>
             {Diamond ? (
               <Fade>
@@ -221,7 +217,9 @@ function AssetChange() {
                 type="number"
                 placeholder="수정할 현금을 적어주세요"
               />
-              <StockBtn openModal={openModal}></StockBtn>
+              <div>
+                <StockBtn openModal={openModal}></StockBtn>
+              </div>
             </Div>
             {Stock ? (
               <Fade>
