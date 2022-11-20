@@ -10,10 +10,7 @@ const ListBox = styled.div`
   min-width: 590px;
   height: auto;
   padding: 20px;
-  border: 3px solid #def5e5;
   border-radius: 10px;
-  /* background-color: #8ec3b0; */
-  margin-bottom: 1px;
 `;
 
 const ImageBox = styled.div`
@@ -23,7 +20,6 @@ const ImageBox = styled.div`
   justify-content: center;
   align-content: center;
   line-height: normal;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Image = styled.svg`
@@ -34,7 +30,6 @@ const Image = styled.svg`
   width: auto;
   height: auto;
   border-radius: 50%;
-  border: 1px solid #ff8000;
 `;
 
 const Container = styled.div`
@@ -75,7 +70,7 @@ const Id = styled.div`
   align-items: center;
   line-height: normal;
   color: #444;
-  font-size: 18px;
+  font-size: 17px;
 `;
 
 const At = styled.div`
@@ -87,7 +82,7 @@ const At = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -100,7 +95,7 @@ const Date = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -111,7 +106,6 @@ const TextEtcContainer = styled.div`
   width: auto;
   height: 100%;
   margin-left: 10px;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Text = styled.div`
@@ -120,54 +114,22 @@ const Text = styled.div`
   width: 100%;
   height: auto;
   padding: 5px;
-  font-size: 22px;
-  /* font-weight: bold; */
+  font-size: 15px;
   color: #444;
-  /* border: 1px solid #ff8000; */
 `;
 const LikeBox = styled.div`
   display: flex;
-  font-size: 20px;
+  font-size: 15px;
   align-items: center;
   justify-content: center;
   line-height: normal;
   height: 30px;
   margin-right: 10px;
-  /* border: 1px solid #ff8000; */
 `;
 
 export const BoardList = () => {
-  // eslint-disable-next-line no-unused-vars
-  const [value, setValue] = useState();
-  // const Data = async () => {
-  //   const res = await axios.get(
-  //     `https://9ed9-125-182-77-122.jp.ngrok.io/board/1`
-  //   );
-  //   setValue(res);
-  //   console.log(res);
-  // };
-
-  // // eslint-disable-next-line no-unused-vars
-  // const data = {
-  //   title: '테스트시간23시03분입니다2222',
-  //   body: '테스트시간23시03분입니다222222',
-  // };
-  // // https://cors-anywhere.herokuapp.com/
-  // axios
-  //   .patch(`https://2044-112-171-1-144.jp.ngrok.io/board/2`, data)
-  //   // eslint-disable-next-line no-unused-vars
-  //   .then((res) => console.log(res))
-  //   .catch((err) => console.log(err));
-
-  // useEffect(() => {
-  //   Data();
-  // }, []);
-
   return (
     <>
-      {/* <h2>{value.data.title}</h2>
-      <p>{value.data.body}</p>
-      <p>{value.data.createdAt}</p> */}
       <ListBox>
         <ImageBox>
           <Image>IMG</Image>

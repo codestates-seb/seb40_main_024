@@ -3,7 +3,6 @@ import {
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
-import { Sidebar } from '../../Component/Common/Sidebar';
 import { BoardList } from '../../Component/Board/BoardList';
 import { NavAssetContentsButton } from '../../Component/Common/Button';
 
@@ -11,20 +10,11 @@ const PageContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* align-items: center; */
-  /* margin-right: 100px; */
 `;
 
-const SidebarSpace = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: left;
-  margin-left: 300px;
-`;
 const Box = styled.div`
   display: flex;
   justify-content: left;
-  margin-left: 50px;
   width: 100%;
 `;
 const TitleBox = styled.div`
@@ -41,14 +31,49 @@ const TitleBox = styled.div`
 
 const PostListSpace = styled.div`
   display: flex;
-  width: 60%;
-  min-width: 600px;
-  height: 1800px;
+  width: 100%;
+  margin-left: 50px;
+  margin-right: 50px;
   flex-direction: column;
-  justify-content: left;
-  border: 5px solid #def5e5;
-  border-top: none;
-  border-bottom: none;
+`;
+
+const HeaderBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-right: 30px;
+`;
+
+const SelectBox = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 100px;
+  select {
+    border: none;
+    border-bottom: 3px solid #9ed5c5;
+    box-sizing: border-box;
+    color: #555;
+    font-size: 14px;
+    text-align: center;
+    outline: none;
+  }
+  input {
+    margin-left: 10px;
+    min-width: 300px;
+    height: 30px;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    outline: none;
+    color: #555;
+    border-bottom: 3px solid #9ed5c5;
+    ::-webkit-outer-spin-button,
+    ::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+    ::placeholder {
+      color: #777;
+    }
+  }
 `;
 
 export const AssetBoardPage = () => {
@@ -57,24 +82,22 @@ export const AssetBoardPage = () => {
       <LongLoginNavbarBox />
       <MiniLoginNavbarBox />
       <PageContainer>
-        <SidebarSpace>
-          <Sidebar></Sidebar>
-        </SidebarSpace>
         <Box>
           <PostListSpace>
             <TitleBox>자산공유 커뮤니티</TitleBox>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'right',
-                alignItems: 'right',
-                marginRight: '10px',
-                // border: '1px solid red',
-              }}
-            >
+            <HeaderBox>
+              <SelectBox>
+                <select name="1234">
+                  <option value="">카테고리 선택</option>
+                  <option value="자산">자산</option>
+                  <option value="정보">정보</option>
+                  <option value="뉴스">뉴스</option>
+                </select>
+                <input placeholder="검색어를 입력해주세요." />
+              </SelectBox>
               <NavAssetContentsButton />
-            </div>
-            <BoardList></BoardList>
+            </HeaderBox>
+            <BoardList />
           </PostListSpace>
         </Box>
       </PageContainer>

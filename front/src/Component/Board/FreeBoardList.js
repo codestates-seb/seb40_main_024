@@ -103,7 +103,6 @@ const TextEtcContainer = styled.div`
   width: auto;
   height: 100%;
   margin-left: 10px;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Text = styled.div`
@@ -113,9 +112,7 @@ const Text = styled.div`
   height: auto;
   padding: 5px;
   font-size: 15px;
-  /* font-weight: bold; */
   color: #444;
-  /* border: 1px solid #ff8000; */
 `;
 const LikeBox = styled.div`
   display: flex;
@@ -125,7 +122,6 @@ const LikeBox = styled.div`
   line-height: normal;
   height: 30px;
   margin-right: 10px;
-  /* border: 1px solid #ff8000; */
 `;
 
 export const FreeBoardList = () => {

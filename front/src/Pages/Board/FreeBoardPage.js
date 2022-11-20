@@ -3,8 +3,6 @@ import {
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
-// eslint-disable-next-line no-unused-vars
-import { Sidebar } from '../../Component/Common/Sidebar';
 import { FreeBoardList } from '../../Component/Board/FreeBoardList';
 import { NavFreeContentsButton } from '../../Component/Common/Button';
 
