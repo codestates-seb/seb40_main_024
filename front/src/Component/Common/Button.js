@@ -99,18 +99,18 @@ export const NavFreeContentsButton = () => {
   const navigate = useNavigate();
   return (
     <ButtonBB
-      style={{
-        marginBottom: '10px',
-        borderRadius: '40px',
-        fontSize: '15px',
-        position: 'left',
-        display: 'flex',
-        justifyContent: 'center',
-        lineHeight: 'normal',
-        alignItems: 'center',
-        border: '1px solid #8ec3b0',
-        backgroundColor: '#bcead5',
-      }}
+      // style={{
+      //   marginBottom: '10px',
+      //   borderRadius: '40px',
+      //   fontSize: '15px',
+      //   position: 'left',
+      //   display: 'flex',
+      //   justifyContent: 'center',
+      //   lineHeight: 'normal',
+      //   alignItems: 'center',
+      //   border: '1px solid #8ec3b0',
+      //   backgroundColor: '#bcead5',
+      // }}
       onClick={() => navigate('/freeboardpost')}
     >
       게시글 작성
