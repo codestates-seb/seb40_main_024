@@ -260,12 +260,7 @@ export const DeleteBtn = () => {
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonAA
-      onClick={() => navigate('/assetchange')}
-      style={{ marginTop: '90px' }}
-    >
-      자산 수정
-    </ButtonAA>
+    <ButtonAA onClick={() => navigate('/assetchange')}>자산 수정</ButtonAA>
   );
 };
 
