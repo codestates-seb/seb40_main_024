@@ -231,33 +231,7 @@ export const NameUpdateBtn = () => {
         navigate('/myinfopage');
       }}
     >
-      이름 수정
-    </ButtonBB>
-  );
-};
-
-export const EmailUpdateBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <ButtonBB
-      onClick={() => {
-        navigate('/myinfopage');
-      }}
-    >
-      이메일 수정
-    </ButtonBB>
-  );
-};
-
-export const PasswordUpdateBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <ButtonBB
-      onClick={() => {
-        navigate('/myinfopage');
-      }}
-    >
-      비밀번호 수정
+      회원정보 수정
     </ButtonBB>
   );
 };

@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import Profile from '../../Component/Member/Profile';
-import {
-  NameUpdateBtn,
-  EmailUpdateBtn,
-  PasswordUpdateBtn,
-} from '../../Component/Common/Button';
+import { NameUpdateBtn } from '../../Component/Common/Button';
 
 const MyPageContain = styled.div`
   display: flex;
@@ -94,7 +90,6 @@ const InputBox = styled.div`
 
 const UserInfo = styled.div`
   width: 300px;
-  margin-top: 20px;
   padding: 30px;
   margin-left: 50px;
 `;
@@ -120,46 +115,19 @@ const MyInfo = () => {
       <div className="profileStyle">
         <Profile>profile</Profile>
       </div>
+      <BtnStyle>
+        <NameUpdateBtn />
+      </BtnStyle>
       <Div>
         <ListContain>
           <UserInfo>
             <InputBox>
               <UserInfoHead>회원정보</UserInfoHead>
               <div className="input-box">
-                <input
-                  id="username"
-                  type="text"
-                  name="username"
-                  placeholder="이름"
-                />
-                <label htmlFor="username">이름</label>
-                <BtnStyle>
-                  <NameUpdateBtn />
-                </BtnStyle>
+                <div>Hong</div>
               </div>
               <div className="input-box">
-                <input
-                  id="useremail"
-                  type="text"
-                  name="useremail"
-                  placeholder="이메일"
-                />
-                <label htmlFor="useremail">이메일</label>
-                <BtnStyle>
-                  <EmailUpdateBtn />
-                </BtnStyle>
-              </div>
-              <div className="input-box">
-                <input
-                  id="password"
-                  type="password"
-                  name="password"
-                  placeholder="비밀번호"
-                />
-                <label htmlFor="password">비밀번호</label>
-                <BtnStyle>
-                  <PasswordUpdateBtn />
-                </BtnStyle>
+                <div>hong024@gmail.com</div>
               </div>
             </InputBox>
           </UserInfo>
