@@ -58,11 +58,12 @@ const ModalSaving = styled.div`
   display: inline-flex;
   align-items: center;
   margin: 30px;
+  margin-top: 350px;
   box-sizing: border-box;
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border: 1px solid #def5e5;
-  border-radius: 100%;
+  border-radius: 50%;
   background-color: #def5e5;
 `;
 const PeriodBox = styled.div`
@@ -74,6 +75,7 @@ const PeriodBox = styled.div`
   line-height: normal;
   box-sizing: border-box;
   margin: auto;
+  margin-top: -5px;
   height: 30px;
   width: 100px;
   color: black;
@@ -100,8 +102,6 @@ const AssetSetting = ({
   const handlerCount = () => {
     setCount(count + 1);
     if (count + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
-    // if (count + 1 > Number(period)) return
-    // console.log(count + 1, Number(period));
 
     //수정필요
   };
@@ -134,14 +134,14 @@ const AssetSetting = ({
             onChange={(e) => setGoal(e.target.value)}
             value={goal}
           />
-          목표 금액
+          목표 금액(원)
           <SettingInput
             placeholder="30,000,000원"
             type="number"
             onChange={(e) => setExtended(e.target.value)}
             value={extended}
           />
-          목표 기간
+          목표 기간(개월)
           <SettingInput
             placeholder="12개월"
             type="number"
@@ -172,11 +172,11 @@ const AssetSetting = ({
         </ComponentContain> */}
         {save ? (
           <ModalSaving>
-            {count + 1 === Number(period) ? (
+            {count + 1 > Number(period) ? (
               <FontAwesomeIcon
-                disabled
                 icon={faPiggyBank}
                 size="2x"
+                pointerEvents="none"
                 cursor="not-allowed"
                 onClick={handlerCount}
               ></FontAwesomeIcon>
@@ -188,9 +188,10 @@ const AssetSetting = ({
                 onClick={handlerCount}
               ></FontAwesomeIcon>
             )}
-            <p>saving button</p>
+            {/* <p>saving button</p> */}
             <br />
             <p>납입 횟수:{count}</p>
+            <p>/</p>
             <PeriodBox>목표 기간:{period}</PeriodBox>
           </ModalSaving>
         ) : null}
