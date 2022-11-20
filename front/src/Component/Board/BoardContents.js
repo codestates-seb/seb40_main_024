@@ -18,6 +18,7 @@ const Contain = styled.div`
   padding: 0px;
   height: 420px;
   width: 750px;
+  margin-top: 50px;
 `;
 const TotalContain = styled.div`
   box-sizing: border-box;

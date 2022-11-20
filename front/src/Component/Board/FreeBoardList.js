@@ -1,9 +1,3 @@
-// import {
-//   // useState,
-//   useEffect,
-// } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getList } from '../../Redux/BoardAPI';
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -14,10 +8,7 @@ const ListBox = styled.div`
   min-width: 590px;
   height: auto;
   padding: 20px;
-  border: 3px solid #def5e5;
   border-radius: 10px;
-  /* background-color: #8ec3b0; */
-  margin-bottom: 1px;
 `;
 
 const ImageBox = styled.div`
@@ -27,7 +18,6 @@ const ImageBox = styled.div`
   justify-content: center;
   align-content: center;
   line-height: normal;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Image = styled.svg`
@@ -38,7 +28,6 @@ const Image = styled.svg`
   width: auto;
   height: auto;
   border-radius: 50%;
-  border: 1px solid #ff8000;
 `;
 
 const Container = styled.div`
@@ -79,7 +68,7 @@ const Id = styled.div`
   align-items: center;
   line-height: normal;
   color: #444;
-  font-size: 18px;
+  font-size: 17px;
 `;
 
 const At = styled.div`
@@ -91,7 +80,7 @@ const At = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -104,7 +93,7 @@ const Date = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -124,14 +113,14 @@ const Text = styled.div`
   width: 100%;
   height: auto;
   padding: 5px;
-  font-size: 22px;
+  font-size: 15px;
   /* font-weight: bold; */
   color: #444;
   /* border: 1px solid #ff8000; */
 `;
 const LikeBox = styled.div`
   display: flex;
-  font-size: 20px;
+  font-size: 15px;
   align-items: center;
   justify-content: center;
   line-height: normal;

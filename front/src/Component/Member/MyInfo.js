@@ -25,12 +25,12 @@ const BtnStyle = styled.div`
 
 const PageHeader = styled.div`
   box-sizing: border-box;
-  height: 150px;
-  width: 200px;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  font-size: 50px;
+  border: none;
+  height: 80px;
+  width: 280px;
+  margin-top: 80px;
+  margin-left: -1200px;
+  font-size: 70px;
 `;
 
 const ListContain = styled.div`
@@ -39,7 +39,7 @@ const ListContain = styled.div`
   box-sizing: border-box;
   margin-left: 250px;
   padding: 20px;
-  height: 950px;
+  height: 750px;
   width: 600px;
   /* position: absolute;
   top: 40%;
@@ -53,21 +53,24 @@ const UserInfo = styled.div`
   box-sizing: border-box;
   margin-bottom: 30px;
   padding: 7px;
-  height: 280px;
+  height: 250px;
   width: 550px;
-  border: solid 5px #9ed5c5;
+  border: solid 2px #9ed5c5;
   border-radius: 10px;
   span {
     margin: 0 0 0 10px;
+    font-weight: 500;
   }
 `;
 
 const UserInfoHead = styled.div`
   box-sizing: border-box;
+  margin-left: -7px;
   height: 30px;
-  width: 540px;
+  width: 550px;
   border: none;
   background-color: #bcead5;
+  font-weight: 700;
 `;
 
 const InfoBox = styled.input`
