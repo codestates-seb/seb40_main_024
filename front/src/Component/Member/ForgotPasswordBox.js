@@ -4,65 +4,79 @@ import { ForgotPasswordButton } from '../Common/Button';
 const PageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   align-items: center;
-  /* border: 3px solid #800000; */
 `;
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   width: 600px;
   height: 700px;
   padding: 30px;
   margin: 200px;
-  justify-content: center;
-  border: 8px solid #9ed5c5;
-  border-radius: 70px;
-  /* background-color: #def5e5; */
-  box-shadow: 10px 10px 8px #d1d1d1;
 `;
 
 const TitleBox = styled.div`
-  /* position: fixed; */
-  padding: 5px;
-  margin: 10px;
-  margin-bottom: 50px;
-  margin-left: 50px;
-  width: 340px;
-  font-size: 45px;
+  margin-bottom: 30px;
+  margin-left: 1px;
+  width: 240px;
+  font-size: 40px;
   font-weight: bold;
   border-bottom: 5px solid #8ec3b0;
   color: #8ec3b0;
   border-radius: 1px;
-  /* border: 1px solid black; */
 `;
 
-const TextBox = styled.input`
-  display: flex;
-  padding: 5px;
-  padding-left: 12px;
-  margin-top: 25px;
-  margin-left: 50px;
-  margin-right: 50px;
-  height: 45px;
-  line-height: normal;
-  font-weight: 800;
-  font-size: 20px;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  outline: none;
-  color: #9ed5c5;
-  font-weight: 700;
-  border-bottom: 3px solid #9ed5c5;
-  ::placeholder {
-    font-size: 20px;
-    padding-left: 8px;
-    color: rgba(0, 0, 0, 0.3);
+const InputBox = styled.div`
+  .input-box {
+    position: relative;
+    margin: 10px 0;
   }
-  :focus {
-    color: #444;
+  .input-box > input {
+    background: transparent;
+    border: none;
+    border-bottom: solid 1px #ccc;
+    padding: 20px 0px 5px 0px;
+    font-size: 14pt;
+    width: 100%;
+  }
+  input::placeholder {
+    color: transparent;
+  }
+  input:placeholder-shown + label {
+    color: #aaa;
+    font-size: 14pt;
+    top: 15px;
+  }
+  input:focus + label,
+  label {
+    color: #8aa1a1;
+    font-size: 10pt;
+    pointer-events: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+  }
+
+  input:focus,
+  input:not(:placeholder-shown) {
+    border-bottom: solid 1px #8ec3b0;
+    outline: none;
+  }
+  input[type='submit'] {
+    background-color: #8aa1a1;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    font-size: 14pt;
+    margin-top: 100px;
   }
 `;
 
@@ -92,8 +106,22 @@ export const ForgotPasswordBox = () => {
       <PageContainer>
         <Container>
           <TitleBox>비밀번호 찾기</TitleBox>
-          <TextBox placeholder="이메일"></TextBox>
-          <TextBox placeholder="비밀번호"></TextBox>
+          <InputBox>
+            <div className="input-box">
+              <input
+                id="username"
+                type="text"
+                name="username"
+                placeholder="이름"
+              />
+              <label htmlFor="username">이름</label>
+            </div>
+
+            <div className="input-box">
+              <input id="email" type="text" name="email" placeholder="이메일" />
+              <label htmlFor="password">이메일</label>
+            </div>
+          </InputBox>
           <ButtonBox>
             <Button>
               <ForgotPasswordButton />

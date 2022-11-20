@@ -23,8 +23,7 @@ const Container = styled.div`
 `;
 
 const TitleBox = styled.div`
-  /* position: fixed; */
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   margin-left: 1px;
   width: 130px;
   font-size: 40px;
@@ -32,7 +31,6 @@ const TitleBox = styled.div`
   border-bottom: 5px solid #8ec3b0;
   color: #8ec3b0;
   border-radius: 1px;
-  /* border: 1px solid black; */
 `;
 
 const InputBox = styled.div`
@@ -90,29 +88,15 @@ const InputBox = styled.div`
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px;
-  margin: 10px;
-
-  /* border: 1px solid #0000ff; */
 `;
 
 const Button1 = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  width: 100%;
-  height: auto;
-  padding: 5px;
-  /* border: 1px solid #0000ff; */
 `;
 const Button2 = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  width: 100%;
-  height: auto;
-  padding: 5px;
-  /* border: 1px solid #0000ff; */
 `;
 
 export const LoginBox = () => {
@@ -128,7 +112,7 @@ export const LoginBox = () => {
               name="username"
               placeholder="아이디"
             />
-            <label htmlFor="username">아이디</label>
+            <label htmlFor="username">이메일</label>
           </div>
 
           <div className="input-box">

@@ -20,6 +20,10 @@ const ButtonAA = styled.button`
     transform: scale(1.1);
     cursor: pointer;
   }
+  :active {
+    position: relative;
+    top: 3px;
+  }
 `;
 const ButtonBB = styled.button`
   width: 120px;
@@ -39,6 +43,10 @@ const ButtonBB = styled.button`
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
+  }
+  :active {
+    position: relative;
+    top: 3px;
   }
 `;
 const ButtonCC = styled.button`
@@ -61,6 +69,10 @@ const ButtonCC = styled.button`
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
+  }
+  :active {
+    position: relative;
+    top: 3px;
   }
 `;
 
@@ -137,11 +149,11 @@ export const NavForgotPasswordButton = () => {
 };
 
 export const NavAssetButton = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <ButtonCC
       style={{ marginTop: '65px', marginBottom: '65px', borderRadius: '40px' }}
-      onClick={() => navigate('/asset')}
+      // onClick={() => navigate('/asset')}
     >
       로그인
     </ButtonCC>
