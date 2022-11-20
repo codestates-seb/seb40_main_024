@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
