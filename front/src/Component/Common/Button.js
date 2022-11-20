@@ -15,9 +15,14 @@ const ButtonAA = styled.button`
   color: #444;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
+  }
+  :active {
+    position: relative;
+    top: 3px;
   }
 `;
 const ButtonBB = styled.button`
@@ -34,9 +39,14 @@ const ButtonBB = styled.button`
   color: #444;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
+  }
+  :active {
+    position: relative;
+    top: 3px;
   }
 `;
 const ButtonCC = styled.button`
@@ -55,9 +65,14 @@ const ButtonCC = styled.button`
   stroke: #000000;
   background-color: #8ec3b0;
   :hover {
+    color: #fff;
     letter-spacing: 1px;
     transform: scale(1.1);
     cursor: pointer;
+  }
+  :active {
+    position: relative;
+    top: 3px;
   }
 `;
 
@@ -72,42 +87,14 @@ export const ButtonB = () => {
 export const NavAssetContentsButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonBB
-      style={{
-        marginBottom: '10px',
-        borderRadius: '40px',
-        fontSize: '15px',
-        position: 'left',
-        display: 'flex',
-        justifyContent: 'center',
-        lineHeight: 'normal',
-        alignItems: 'center',
-      }}
-      onClick={() => navigate('/shareboardpost')}
-    >
-      게시글 작성
-    </ButtonBB>
+    <ButtonBB onClick={() => navigate('/shareboardpost')}>게시글 작성</ButtonBB>
   );
 };
 
 export const NavFreeContentsButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonBB
-      style={{
-        marginBottom: '10px',
-        borderRadius: '40px',
-        fontSize: '15px',
-        position: 'left',
-        display: 'flex',
-        justifyContent: 'center',
-        lineHeight: 'normal',
-        alignItems: 'center',
-      }}
-      onClick={() => navigate('/freeboardpost')}
-    >
-      게시글 작성
-    </ButtonBB>
+    <ButtonBB onClick={() => navigate('/freeboardpost')}>게시글 작성</ButtonBB>
   );
 };
 
@@ -130,11 +117,11 @@ export const NavForgotPasswordButton = () => {
 };
 
 export const NavAssetButton = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <ButtonCC
       style={{ marginTop: '65px', marginBottom: '65px', borderRadius: '40px' }}
-      onClick={() => navigate('/asset')}
+      // onClick={() => navigate('/asset')}
     >
       로그인
     </ButtonCC>
@@ -210,18 +197,33 @@ export const ButtonSignup = () => {
 };
 
 export const PlusBtn = ({ HandlerAdd }) => {
-  return <ButtonBB onClick={HandlerAdd}>목표 추가</ButtonBB>;
-};
-
-export const SaveBtn = ({ savings }) => {
   return (
-    <ButtonBB type="number" name="savings" value={savings}>
-      저장
+    <ButtonBB onClick={HandlerAdd} style={{ marginTop: '90px' }}>
+      목표 추가
     </ButtonBB>
   );
 };
 
-export const UpdateBtn = () => {
+export const SaveBtn = ({ savings, handlerModal }) => {
+  return (
+    <ButtonBB
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+      onClick={handlerModal}
+    >
+      START
+    </ButtonBB>
+  );
+};
+
+export const SavingsBtn = () => {
+  return <ButtonBB style={{ marginBottom: '30px' }}>저축하기</ButtonBB>;
+};
+
+// 회원 정보 수정
+export const NameUpdateBtn = () => {
   const navigate = useNavigate();
   return (
     <ButtonBB
@@ -229,7 +231,33 @@ export const UpdateBtn = () => {
         navigate('/myinfopage');
       }}
     >
-      회원정보 수정
+      이름 수정
+    </ButtonBB>
+  );
+};
+
+export const EmailUpdateBtn = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      onClick={() => {
+        navigate('/myinfopage');
+      }}
+    >
+      이메일 수정
+    </ButtonBB>
+  );
+};
+
+export const PasswordUpdateBtn = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      onClick={() => {
+        navigate('/myinfopage');
+      }}
+    >
+      비밀번호 수정
     </ButtonBB>
   );
 };
@@ -255,6 +283,7 @@ export const DeleteBtn = () => {
   return <ButtonAA>삭제</ButtonAA>;
 };
 
+// 자산 수정 버튼
 export const AssetButton = () => {
   const navigate = useNavigate();
   return (
@@ -275,6 +304,7 @@ export const Assettargetpage = () => {
   );
 };
 
+//게시판 버튼들
 export const AssetchangeBtn = () => {
   const navigate = useNavigate();
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
@@ -288,4 +318,21 @@ export const FreeBoardPostBtn = () => {
 export const AssetBoardPostBtn = () => {
   const navigate = useNavigate();
   return <ButtonCC onClick={() => navigate('/assetboard')}>작성하기</ButtonCC>;
+};
+
+// 현재 자상 수정하기 페이지 버튼들
+export const CashBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+export const GoldBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+export const DiamondBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+export const StockBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };

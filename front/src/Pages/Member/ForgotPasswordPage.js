@@ -1,14 +1,14 @@
 import {
+  MiniNavbarBox,
   LongNavbarBox,
-  // , MiniNavbarBox
-} from '../../Component/Common/Navbar';
+} from '../../Component/Common/NavebarRev';
 import { ForgotPasswordBox } from '../../Component/Member/ForgotPasswordBox';
 
 export const ForgotPasswordPage = () => {
   return (
     <>
       <LongNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <MiniNavbarBox />
       <ForgotPasswordBox />
     </>
   );

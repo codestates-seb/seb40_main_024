@@ -14,6 +14,7 @@ const MiddleDiv = styled.div`
   }
   .Main1 {
     padding-top: 100px;
+    margin-top: 80px;
   }
   .div2 {
     padding-top: 100px;
@@ -62,7 +63,11 @@ const Middle = () => {
       <div id="1" className="Main1 div1">
         <Fade cascade duration="1300">
           <span
-            style={{ color: '#8ec3b0', fontSize: '35px', fontWeight: 'bold' }}
+            style={{
+              color: '#8ec3b0',
+              fontSize: '35px',
+              fontWeight: 'bold',
+            }}
           >
             호주머니
           </span>

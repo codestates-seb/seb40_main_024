@@ -21,12 +21,12 @@ const InfoContain = styled.div`
 
 const PageHeader = styled.div`
   box-sizing: border-box;
-  height: 150px;
-  width: 300px;
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  font-size: 50px;
+  border: none;
+  height: 80px;
+  width: 400px;
+  margin-top: 80px;
+  margin-left: -1200px;
+  font-size: 70px;
 `;
 
 // const ProfileBtn = styled.button`
@@ -40,13 +40,16 @@ const PageHeader = styled.div`
 // `;
 
 const ListContain = styled.div`
+  display: flex;
+  flex-direction: column;
   box-sizing: border-box;
+  margin-left: 250px;
   padding: 20px;
-  height: 700px;
+  height: 750px;
   width: 600px;
-  position: absolute;
-  top: 30%;
-  left: 45%;
+  /* position: absolute;
+  top: 40%;
+  left: 45%; */
   border: thick double #def5e5;
   border-radius: 10px;
   outline: 1px solid #9ed5c5;
@@ -59,18 +62,21 @@ const UserInfo = styled.div`
   padding: 7px;
   height: 280px;
   width: 550px;
-  border: solid 5px #9ed5c5;
+  border: solid 2px #9ed5c5;
   border-radius: 10px;
   span {
     margin: 0 0 0 1px;
+    font-weight: 500;
   }
 `;
 const UserInfoHead = styled.div`
   box-sizing: border-box;
+  margin-left: -7px;
   height: 30px;
-  width: 540px;
+  width: 550px;
   border: none;
   background-color: #bcead5;
+  font-weight: 700;
 `;
 const InfoBoxContain = styled.div`
   display: flex;
@@ -106,10 +112,11 @@ const InfoBox = styled.input`
 //   cursor: pointer;
 // `;
 const ProfileStyle = styled.div`
-  height: 50px;
-  width: 150px;
-  margin-top: 10px;
-  margin-left: -400px;
+  margin-top: -110px;
+  margin-left: -230px;
+  margin-bottom: 20px;
+  height: 40px;
+  width: 40px;
 `;
 
 const MyInfoUpdate = () => {

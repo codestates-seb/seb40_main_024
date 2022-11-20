@@ -1,5 +1,9 @@
+// import { useState } from 'react';
 import styled from 'styled-components';
 import { ModifyBtn, DeleteBtn } from '../Common/Button';
+import ProfileIcon from '../Member/ProfileIcon';
+// import axios from 'axios';
+// import { useEffect } from 'react';
 
 const BoardContentContain = styled.div`
   display: flex;
@@ -19,8 +23,8 @@ const TotalComment = styled.div`
   padding: 20px;
   height: 800px;
   width: 750px;
-  position: absolute;
-  top: 70%;
+  margin-top: 100px;
+
   border: thick double #9ed5c5;
   border-radius: 10px;
   background-color: #ffff;
@@ -73,25 +77,38 @@ const Comment = styled.div`
   margin: 10px;
 `;
 
-const ProfileIcon = styled.div`
-  box-sizing: border-box;
-  height: 70px;
-  width: 70px;
-  margin-top: 5px;
-  /* position: absolute;
+// const ProfileIcon = styled.div`
+//   box-sizing: border-box;
+//   height: 70px;
+//   width: 70px;
+//   margin-top: 5px;
+/* position: absolute;
   top: 7%;
   left: 30%; */
-  /* transform: translate(-50%,-50%) */
-  /* padding: 130px; */
-  border: solid 1px black;
-  border-radius: 100%;
-`;
+/* transform: translate(-50%,-50%) */
+/* padding: 130px; */
+/* border: solid 1px black;
+  border-radius: 100%; */
+// `;
 const Contain = styled.div`
   display: flex;
   flex-direction: row;
 `;
 
 const Comments = () => {
+  // const data = {
+  //   goalName: '미니 JCW',
+  //   goalPrice: 10000000,
+  //   targetLength: 40,
+  // };
+  // axios
+  //   .delete('https://4de6-112-171-1-144.jp.ngrok.io/goal/1')
+  //   .then((response) => {
+  //     const { data } = response;
+  //     console.log('응답', data);
+  //   })
+  //   .catch((error) => console.log('에러', error));
+
   return (
     <BoardContentContain>
       <TotalComment>
@@ -101,7 +118,7 @@ const Comments = () => {
         </BtnContain>
         <CommentBox></CommentBox>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>
         </Contain>
         <BtnContain>
@@ -109,7 +126,7 @@ const Comments = () => {
           <DeleteBtn>삭제</DeleteBtn>
         </BtnContain>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>{' '}
         </Contain>
         <BtnContain>
@@ -117,7 +134,7 @@ const Comments = () => {
           <DeleteBtn>삭제</DeleteBtn>
         </BtnContain>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>{' '}
         </Contain>
         <BtnContain>
@@ -125,7 +142,7 @@ const Comments = () => {
           <DeleteBtn>삭제</DeleteBtn>
         </BtnContain>
         <Contain>
-          <ProfileIcon></ProfileIcon>
+          <ProfileIcon />
           <Comment></Comment>{' '}
         </Contain>
         <BtnContain>

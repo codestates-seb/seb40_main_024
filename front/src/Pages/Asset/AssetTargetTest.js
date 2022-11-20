@@ -2,9 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import { PlusBtn, SaveBtn } from '../../Component/Common/Button';
 import {
-  LongNavbarBox,
-  // , MiniNavbarBox
-} from '../../Component/Common/Navbar';
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import {
   BarChart,
   Bar,
@@ -293,8 +293,8 @@ const AssetTargetTest = () => {
   };
   return (
     <>
-      <LongNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <LongLoginNavbarBox />
+      <MiniLoginNavbarBox />
       <PageContain>
         <ChartContain className="ScrollActive">
           {/* <AssetBdataTest /> */}

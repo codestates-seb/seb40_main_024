@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import {
-  LongNavbarBox,
-  // , MiniNavbarBox
-} from '../../Component/Common/Navbar';
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import MyInfoUpdate from '../../Component/Member/MyInfoUpdate';
 
 const InfoContain = styled.div`
@@ -21,8 +21,8 @@ const InfoContain = styled.div`
 const InfoPage = () => {
   return (
     <>
-      <LongNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <LongLoginNavbarBox />
+      <MiniLoginNavbarBox />
       <InfoContain>
         <MyInfoUpdate />
       </InfoContain>

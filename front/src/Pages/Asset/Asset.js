@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Pie } from 'react-chartjs-2';
-import { LongNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
@@ -17,17 +20,17 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
-  div {
-    position: fixed;
-    right: 0;
-    margin-right: 100px;
+  margin-top: 100px;
+  h1 {
+    text-shadow: 1px 1px 2px #bcead5;
+    color: #bcead5;
   }
 `;
 
-const H1 = styled.h1`
-  text-shadow: 1px 1px 2px #bcead5;
-  color: #bcead5;
+const Btn = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
 `;
 
 const FirstGraph = styled.div`
@@ -51,8 +54,6 @@ const AssetExchange = styled.div`
   height: 300px;
   padding: 10px;
   margin-top: 100px;
-  /* background: rgba(237, 237, 237, 0.75);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
   .AssetExchangeBox {
     display: flex;
     flex-direction: column;
@@ -62,35 +63,29 @@ const AssetExchange = styled.div`
 function Asset() {
   return (
     <>
-      <LongNavbarBox />
       <MainPie>
+        <LongLoginNavbarBox />
+        <MiniLoginNavbarBox />
         <Header>
-          <H1>자산현황</H1>
-          <div>
-            <AssetButton />
-          </div>
+          <h1>자산현황</h1>
         </Header>
         <FirstGraph>
           <GraphPie>
             <Pie data={AssetAdata} />
           </GraphPie>
         </FirstGraph>
+        <Btn>
+          <AssetButton />
+        </Btn>
         <Header>
-          <H1>목표현황</H1>
-          <div>
-            <Assettargetpage />
-          </div>
+          <h1>목표현황</h1>
         </Header>
         <AssetExchange>
           <AssetBdata />
-          {/* <h2>현재 자산을 다른 자산과 비교해보세요!</h2>
-        <div className="AssetExchangeBox">
-          <span>현재보유현금 : 10,000 / USD로 환산시 : 7.28$</span>
-          <span>금</span>
-          <span>다이아몬드</span>
-          <span>주식</span>
-        </div> */}
         </AssetExchange>
+        <Btn>
+          <Assettargetpage />
+        </Btn>
       </MainPie>
     </>
   );

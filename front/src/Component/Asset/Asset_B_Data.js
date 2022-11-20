@@ -104,8 +104,8 @@ export const AssetBdata = ({ extended, period, goal }) => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" stroke="#fff" />
-        <XAxis dataKey="name" stroke="#bcead5" />
-        <YAxis stroke="#bcead5" />
+        <XAxis dataKey="name" stroke="#9ec3b0" />
+        <YAxis stroke="#9ec3b0" />
         <Tooltip />
         <Legend />
         <Bar dataKey="현재" fill="#def5e5" />

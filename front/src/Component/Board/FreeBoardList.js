@@ -1,7 +1,4 @@
 import styled from 'styled-components';
-// eslint-disable-next-line no-unused-vars
-import { useState, useEffect } from 'react';
-// import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
@@ -127,7 +124,7 @@ const LikeBox = styled.div`
   margin-right: 10px;
 `;
 
-export const BoardList = () => {
+export const FreeBoardList = () => {
   return (
     <>
       <ListBox>
