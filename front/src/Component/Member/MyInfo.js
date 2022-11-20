@@ -1,100 +1,117 @@
 import styled from 'styled-components';
 import Profile from '../../Component/Member/Profile';
-import { UpdateBtn } from '../../Component/Common/Button';
+import {
+  NameUpdateBtn,
+  EmailUpdateBtn,
+  PasswordUpdateBtn,
+} from '../../Component/Common/Button';
 
 const MyPageContain = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
+  margin-top: 100px;
   .profileStyle {
-    margin-top: 100px;
-    margin-left: -700px;
+    margin-top: 20px;
   }
 `;
 
 const BtnStyle = styled.div`
-  margin-top: -110px;
-  margin-left: -230px;
-  margin-bottom: 20px;
-  height: 40px;
-  width: 40px;
+  display: flex;
+  justify-content: end;
+  margin-top: 30px;
+  margin-bottom: 30px;
 `;
 
 const PageHeader = styled.div`
-  box-sizing: border-box;
-  border: none;
-  height: 80px;
-  width: 280px;
-  margin-top: 80px;
-  margin-left: -1200px;
-  font-size: 70px;
+  margin-bottom: 50px;
+  border-bottom: 5px solid #8ec3b0;
+  color: #9ed5c5;
+  width: 180px;
+  font-size: 40px;
 `;
 
 const ListContain = styled.div`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  margin-left: 250px;
-  padding: 20px;
-  height: 750px;
-  width: 600px;
-  /* position: absolute;
-  top: 40%;
-  left: 45%; */
-  border: thick double #def5e5;
-  border-radius: 10px;
-  outline: 1px solid #9ed5c5;
+`;
+
+const InputBox = styled.div`
+  width: 300px;
+  .input-box {
+    position: relative;
+    margin: 10px 0;
+    display: flex;
+  }
+  .input-box > input {
+    background: transparent;
+    border: none;
+    border-bottom: solid 1px #ccc;
+    padding: 20px 0px 5px 0px;
+    font-size: 14pt;
+    width: 100%;
+  }
+  input::placeholder {
+    color: transparent;
+  }
+  input:placeholder-shown + label {
+    color: #aaa;
+    font-size: 14pt;
+    top: 15px;
+  }
+  input:focus + label,
+  label {
+    color: #8aa1a1;
+    font-size: 10pt;
+    pointer-events: none;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    transition: all 0.2s ease;
+    -webkit-transition: all 0.2s ease;
+    -moz-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+  }
+
+  input:focus,
+  input:not(:placeholder-shown) {
+    border-bottom: solid 1px #8ec3b0;
+    outline: none;
+  }
+  input[type='submit'] {
+    background-color: #8aa1a1;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    width: 100%;
+    height: 35px;
+    font-size: 14pt;
+    margin-top: 100px;
+  }
 `;
 
 const UserInfo = styled.div`
-  box-sizing: border-box;
-  margin-bottom: 30px;
-  padding: 7px;
-  height: 250px;
-  width: 550px;
-  border: solid 2px #9ed5c5;
-  border-radius: 10px;
-  span {
-    margin: 0 0 0 10px;
-    font-weight: 500;
-  }
+  width: 300px;
+  margin-top: 20px;
+  padding: 30px;
+  margin-left: 50px;
 `;
 
-const UserInfoHead = styled.div`
-  box-sizing: border-box;
-  margin-left: -7px;
-  height: 30px;
-  width: 550px;
-  border: none;
-  background-color: #bcead5;
-  font-weight: 700;
+const UserInfoHead = styled.h4`
+  color: #bcead5;
+  font-size: 20px;
+  margin-bottom: 20px;
 `;
 
-const InfoBox = styled.input`
-  box-sizing: border-box;
-  margin: 0 0 10px 20px;
-  height: 50px;
-  width: 400px;
-  border: solid 2px #9ed5c5;
-  border-radius: 10px;
-  &:focus {
-    outline: none;
-    border-color: #8ec3b0;
-    box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
-  }
+const InfoBox = styled.div``;
+
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
 `;
-// const UpdateBtn = styled.button`
-//   margin: 0px;
-//   height: 100px;
-//   width: 100px;
-//   position: absolute;
-//   top: 18%;
-//   left: 70%;
-//   cursor: pointer;
-// `;
 
 const MyInfo = () => {
   return (
@@ -103,30 +120,59 @@ const MyInfo = () => {
       <div className="profileStyle">
         <Profile>profile</Profile>
       </div>
-      <BtnStyle>
-        <UpdateBtn />
-      </BtnStyle>
-      <ListContain>
-        <UserInfo>
-          <UserInfoHead>회원정보내용</UserInfoHead>
-          <span className="listText">아이디</span>
-          <InfoBox></InfoBox>
-          <br />
-          <span>이메일</span>
-          <InfoBox></InfoBox>
-          <br />
-          <span>닉네임</span>
-          <InfoBox></InfoBox>
-        </UserInfo>
+      <Div>
+        <ListContain>
+          <UserInfo>
+            <InputBox>
+              <UserInfoHead>회원정보</UserInfoHead>
+              <div className="input-box">
+                <input
+                  id="username"
+                  type="text"
+                  name="username"
+                  placeholder="이름"
+                />
+                <label htmlFor="username">이름</label>
+                <BtnStyle>
+                  <NameUpdateBtn />
+                </BtnStyle>
+              </div>
+              <div className="input-box">
+                <input
+                  id="useremail"
+                  type="text"
+                  name="useremail"
+                  placeholder="이메일"
+                />
+                <label htmlFor="useremail">이메일</label>
+                <BtnStyle>
+                  <EmailUpdateBtn />
+                </BtnStyle>
+              </div>
+              <div className="input-box">
+                <input
+                  id="password"
+                  type="password"
+                  name="password"
+                  placeholder="비밀번호"
+                />
+                <label htmlFor="password">비밀번호</label>
+                <BtnStyle>
+                  <PasswordUpdateBtn />
+                </BtnStyle>
+              </div>
+            </InputBox>
+          </UserInfo>
+        </ListContain>
         <UserInfo>
           <UserInfoHead>구독 현황 확인</UserInfoHead>
-          <InfoBox></InfoBox>
+          <InfoBox>2022.11.01 ~ 2022.11.30</InfoBox>
         </UserInfo>
         <UserInfo>
           <UserInfoHead>내가 쓴 글</UserInfoHead>
-          <InfoBox></InfoBox>
+          <InfoBox>* 오늘 너무 빨리간다 시간이</InfoBox>
         </UserInfo>
-      </ListContain>
+      </Div>
     </MyPageContain>
   );
 };

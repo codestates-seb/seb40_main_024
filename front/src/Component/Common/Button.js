@@ -222,7 +222,8 @@ export const SavingsBtn = () => {
   return <ButtonBB style={{ marginBottom: '30px' }}>저축하기</ButtonBB>;
 };
 
-export const UpdateBtn = () => {
+// 회원 정보 수정
+export const NameUpdateBtn = () => {
   const navigate = useNavigate();
   return (
     <ButtonBB
@@ -230,7 +231,33 @@ export const UpdateBtn = () => {
         navigate('/myinfopage');
       }}
     >
-      회원정보 수정
+      이름 수정
+    </ButtonBB>
+  );
+};
+
+export const EmailUpdateBtn = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      onClick={() => {
+        navigate('/myinfopage');
+      }}
+    >
+      이메일 수정
+    </ButtonBB>
+  );
+};
+
+export const PasswordUpdateBtn = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonBB
+      onClick={() => {
+        navigate('/myinfopage');
+      }}
+    >
+      비밀번호 수정
     </ButtonBB>
   );
 };
