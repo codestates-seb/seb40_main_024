@@ -1,7 +1,7 @@
 import {
   LongLoginNavbarBox,
-  // MiniLoginNavbarBox,
-} from '../../Component/Common/Navbar';
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { Sidebar } from '../../Component/Common/Sidebar';
@@ -82,7 +82,7 @@ export const FreeBoardPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      {/* <MiniLoginNavbarBox /> */}
+      <MiniLoginNavbarBox />
       <PageContainer>
         <Box>
           <PostListSpace>

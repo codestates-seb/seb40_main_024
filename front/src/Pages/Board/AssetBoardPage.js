@@ -1,4 +1,7 @@
-import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
 import { Sidebar } from '../../Component/Common/Sidebar';
 import { BoardList } from '../../Component/Board/BoardList';
@@ -52,7 +55,7 @@ export const AssetBoardPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      {/* <MiniLoginNavbarBox /> */}
+      <MiniLoginNavbarBox />
       <PageContainer>
         <SidebarSpace>
           <Sidebar></Sidebar>

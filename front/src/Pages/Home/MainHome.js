@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import MainMiddle from '../../Component/Home/MainMiddle';
 import MainFooter from '../../Component/Home/MainFooter';
 import {
-  MainLongNavbarBox,
-  // MiniNavbarBox,
-} from '../../Component/Common/Navbar';
+  MiniNavbarBox,
+  LongNavbarBox,
+} from '../../Component/Common/NavebarRev';
 
 const MainDiv = styled.div`
   background-color: #f8f8f8;
@@ -15,17 +16,17 @@ const ContentDiv = styled.div`
   display: flex;
 `;
 
-const TestDiv = styled.div`
+const Marginb = styled.div`
   margin-bottom: 30px;
 `;
 
 const MainHome = () => {
   return (
     <MainDiv>
-      <TestDiv>
-        <MainLongNavbarBox />
-        {/* <MiniNavbarBox /> */}
-      </TestDiv>
+      <Marginb>
+        <LongNavbarBox />
+        <MiniNavbarBox />
+      </Marginb>
       <ContentDiv>
         <MainMiddle />
       </ContentDiv>

@@ -1,6 +1,9 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { LongLoginNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import {
   AssetchangeBtn,
   CashBtn,
@@ -154,6 +157,7 @@ function AssetChange() {
   return (
     <>
       <LongLoginNavbarBox />
+      <MiniLoginNavbarBox />
       <MainPage>
         <MainAssetChange>
           <MainBox>
