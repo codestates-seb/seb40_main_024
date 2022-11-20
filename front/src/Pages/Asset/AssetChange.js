@@ -24,16 +24,7 @@ const MainPage = styled.div`
 
 const MainAssetChange = styled.div``;
 
-const MainBox = styled.div`
-  /* background: rgba(222, 245, 229, 0.15);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37); */
-  backdrop-filter: blur(3.5px);
-  -webkit-backdrop-filter: blur(3.5px);
-  border-radius: 10px;
-  border: 5px solid rgba(255, 255, 255, 0.18);
-  padding: 10px 30px;
-  z-index: 9999;
-`;
+const MainBox = styled.div``;
 
 const H1 = styled.h1`
   margin-bottom: 50px;
@@ -100,8 +91,29 @@ function AssetChange() {
   const [Gold, setGodl] = useState('');
   const [Stock, setStock] = useState('');
 
-  const openModal = () => {
+  const openCashModal = () => {
     if (Cash) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
+  };
+  const openGoldModal = () => {
+    if (Gold) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
+  };
+  const openDiamondModal = () => {
+    if (Diamond) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
+  };
+  const openStockModal = () => {
+    if (Stock) {
       setModalopen(true);
     } else {
       seterrModalopen(true);
@@ -167,7 +179,7 @@ function AssetChange() {
                 placeholder="수정할 현금을 적어주세요"
               />
               <div>
-                <CashBtn openModal={openModal}></CashBtn>
+                <CashBtn openModal={openCashModal}></CashBtn>
               </div>
             </Div>
             {Cash ? (
@@ -184,7 +196,7 @@ function AssetChange() {
                 placeholder="수정할 현금을 적어주세요"
               />
               <div>
-                <GoldBtn openModal={openModal}></GoldBtn>
+                <GoldBtn openModal={openGoldModal}></GoldBtn>
               </div>
             </Div>
             {Gold ? (
@@ -201,7 +213,7 @@ function AssetChange() {
                 placeholder="수정할 현금을 적어주세요"
               />
               <div>
-                <DiamondBtn openModal={openModal}></DiamondBtn>
+                <DiamondBtn openModal={openDiamondModal}></DiamondBtn>
               </div>
             </Div>
             {Diamond ? (
@@ -218,7 +230,7 @@ function AssetChange() {
                 placeholder="수정할 현금을 적어주세요"
               />
               <div>
-                <StockBtn openModal={openModal}></StockBtn>
+                <StockBtn openModal={openStockModal}></StockBtn>
               </div>
             </Div>
             {Stock ? (
