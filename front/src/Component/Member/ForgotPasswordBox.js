@@ -119,7 +119,7 @@ export const ForgotPasswordBox = () => {
 
             <div className="input-box">
               <input id="email" type="text" name="email" placeholder="이메일" />
-              <label htmlFor="password">이메일</label>
+              <label htmlFor="useremail">이메일</label>
             </div>
           </InputBox>
           <ButtonBox>

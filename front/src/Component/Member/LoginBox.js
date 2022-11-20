@@ -107,12 +107,12 @@ export const LoginBox = () => {
         <InputBox>
           <div className="input-box">
             <input
-              id="username"
+              id="useremail"
               type="text"
-              name="username"
-              placeholder="아이디"
+              name="useremail"
+              placeholder="이메일"
             />
-            <label htmlFor="username">이메일</label>
+            <label htmlFor="useremail">이메일</label>
           </div>
 
           <div className="input-box">
