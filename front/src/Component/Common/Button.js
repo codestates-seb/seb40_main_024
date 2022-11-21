@@ -206,6 +206,7 @@ export const ButtonSignup = () => {
   );
 };
 
+//목표수정 페이지
 export const PlusBtn = ({ HandlerAdd }) => {
   return (
     <ButtonBB onClick={HandlerAdd} style={{ marginTop: '90px' }}>
@@ -227,6 +228,7 @@ export const SaveBtn = ({ savings, handlerModal }) => {
     </ButtonBB>
   );
 };
+//마이페이지, 회원정보수정
 
 export const SavingsBtn = () => {
   return <ButtonBB style={{ marginBottom: '30px' }}>저축하기</ButtonBB>;

@@ -190,12 +190,11 @@ export const LongNavbarBox = () => {
                 <Menu onClick={handleClickAsset}>
                   자산&목표
                   <MenuTopList>
-                    <MenuList onClick={() => navigate('/asset')}>현황</MenuList>
                     <MenuList onClick={() => navigate('/assetchange')}>
-                      자산수정
+                      자산현황
                     </MenuList>
                     <MenuList onClick={() => navigate('/assettargetpage')}>
-                      목표수정
+                      목표현황
                     </MenuList>
                   </MenuTopList>
                 </Menu>
@@ -286,12 +285,11 @@ export const LongLoginNavbarBox = () => {
                 <Menu onClick={handleClickAsset}>
                   자산&목표
                   <MenuTopList>
-                    <MenuList onClick={() => navigate('/asset')}>현황</MenuList>
                     <MenuList onClick={() => navigate('/assetchange')}>
-                      자산수정
+                      자산현황
                     </MenuList>
                     <MenuList onClick={() => navigate('/assettargetpage')}>
-                      목표수정
+                      목표현황
                     </MenuList>
                   </MenuTopList>
                 </Menu>

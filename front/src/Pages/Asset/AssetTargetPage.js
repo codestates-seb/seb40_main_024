@@ -5,7 +5,7 @@ import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
 import {
   LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  // ,MiniNavbarBox
 } from '../../Component/Common/NavebarRev';
 
 const PageContain = styled.div`
@@ -28,11 +28,21 @@ const PageContain = styled.div`
 `;
 const ChartContain = styled.div`
   display: flex;
+  flex-direction: column;
   box-sizing: border-box;
   width: 700px;
   height: 400px;
   position: fixed !important;
-  left: 200px;
+  margin-top: -50px;
+  margin-left: -800px;
+  /* top: 300px !important; */
+`;
+const ChartBox = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  width: 700px;
+  height: 350px;
+  /* margin-left: 120px; */
   /* top: 300px !important; */
 `;
 
@@ -46,6 +56,18 @@ const BoxContain = styled.div`
   height: 1000px;
   top: 30px !important;
   left: 300px;
+`;
+
+const GraphH1 = styled.h1`
+  box-sizing: border-box;
+  height: 50px;
+  width: 700px;
+  align-items: center;
+  /* color: #9ed5c5; */
+  text-align: center;
+  margin-top: 10px;
+  text-shadow: 1px 1px 2px #bcead5;
+  color: #bcead5;
 `;
 
 // const PlusButton = styled.button`
@@ -106,16 +128,20 @@ const AssetTargetPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      {/* <MiniNavbarBox /> */}
       <PageContain>
         <ChartContain className="ScrollActive">
-          <AssetBdata
-            goal={goal}
-            monthly={monthly}
-            extended={extended}
-            period={period}
-          />
+          <ChartBox>
+            <AssetBdata
+              goal={goal}
+              monthly={monthly}
+              extended={extended}
+              period={period}
+            />
+          </ChartBox>
+          <GraphH1>목표 현황</GraphH1>
         </ChartContain>
+
         <div className="Contain">
           {countList.length === 6 ? (
             <>
@@ -126,6 +152,7 @@ const AssetTargetPage = () => {
               <PlusBtn HandlerAdd={HandlerAdd} />
             </>
           )}
+
           {/* <PlusBtn HandlerAdd={HandlerAdd} /> */}
           <BoxContain>
             {countList.map((count, id) => (

@@ -162,7 +162,7 @@ const Comments = () => {
   //   targetLength: 40,
   // };
   // axios
-  //   .delete('https://4de6-112-171-1-144.jp.ngrok.io/goal/1')
+  //   .get('https://dry-moons-try-112-171-1-144.loca.lt/comment')
   //   .then((response) => {
   //     const { data } = response;
   //     console.log('응답', data);
