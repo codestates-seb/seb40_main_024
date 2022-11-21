@@ -1,5 +1,5 @@
-import BoardContents from '../../Component/Board/BoardContents';
-import BoardComments from '../../Component/Board/BoardComments';
+import Comments from '../../Component/Board/BoardContents';
+import Contents from '../../Component/Board/BoardComments';
 import {
   LongLoginNavbarBox,
   MiniLoginNavbarBox,
@@ -19,8 +19,8 @@ const BoardContentPage = () => {
       <MainPost>
         <LongLoginNavbarBox />
         <MiniLoginNavbarBox />
-        <BoardContents />
-        <BoardComments />
+        <Comments />
+        <Contents />
       </MainPost>
     </>
   );

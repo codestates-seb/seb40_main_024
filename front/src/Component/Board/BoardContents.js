@@ -47,7 +47,7 @@ import ProfileIcon from '../Member/ProfileIcon';
 /* border: solid 1px black;
   border-radius: 100%; */
 // `;
-const TotalComment = styled.div`
+const TotalContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -70,7 +70,7 @@ const BtnContain = styled.div`
 //   height: auto;
 //   margin-bottom: 20px;
 // `;
-const CommentContain = styled.div`
+const ContentContain = styled.div`
   display: flex;
   flex-direction: row;
   width: auto;
@@ -86,7 +86,7 @@ const ImageBox = styled.div`
   justify-content: center;
   padding-left: 20px;
 `;
-const CommentBox = styled.div`
+const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
   height: 700px;
@@ -158,7 +158,7 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Comments = () => {
+const Contents = () => {
   // const data = {
   //   goalName: '미니 JCW',
   //   goalPrice: 10000000,
@@ -174,17 +174,17 @@ const Comments = () => {
 
   return (
     <>
-      <TotalComment>
+      <TotalContent>
         <BtnContain>
           {/* <AddContentBtn /> */}
           <ModifyContentBtn />
           <DeleteContentBtn />
         </BtnContain>
-        <CommentContain>
+        <ContentContain>
           <ImageBox>
             <ProfileIcon />
           </ImageBox>
-          <CommentBox>
+          <ContentBox>
             <IdEtcBox>
               <Id>여기에는 ID 입력</Id>
               <EtcBox>
@@ -292,15 +292,14 @@ const Comments = () => {
               <br />
               여기에는 작성된 게시글보여주기 dddd */}
             </TextBox>
-          </CommentBox>
-        </CommentContain>
-
+          </ContentBox>
+        </ContentContain>
         {/* <ContentContain>
           <Quill />
         </ContentContain> */}
-      </TotalComment>
+      </TotalContent>
     </>
   );
 };
 
-export default Comments;
+export default Contents;
