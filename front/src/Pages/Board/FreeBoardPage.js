@@ -3,7 +3,7 @@ import {
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
-import { FreeBoardList } from '../../Component/Board/FreeBoardList';
+import { FreeBoardList } from '../../Component/Board/BoardFreeList';
 import { NavFreeContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
@@ -87,7 +87,7 @@ export const FreeBoardPage = () => {
             <TitleBox>자유 커뮤니티</TitleBox>
             <HeaderBox>
               <SelectBox>
-                <select name="1234">
+                <select name="1234" style={{ marginTop: '8px' }}>
                   <option value="">카테고리 선택</option>
                   <option value="자유">자유</option>
                   <option value="일상">일상</option>
