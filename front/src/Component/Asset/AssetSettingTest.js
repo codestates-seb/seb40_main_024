@@ -35,6 +35,7 @@ const SettingInput = styled.input`
     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
   }
 `;
+
 const TargetBox = styled.div`
   box-sizing: border-box;
   width: 300px;

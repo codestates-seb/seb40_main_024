@@ -21,11 +21,11 @@ const BtnStyle = styled.div`
   margin-bottom: 30px;
 `;
 
-const PageHeader = styled.div`
+const PageHeader = styled.h1`
   margin-bottom: 50px;
   border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
-  width: 180px;
+  width: 200px;
   font-size: 40px;
 `;
 
@@ -34,7 +34,7 @@ const ListContain = styled.div`
   flex-direction: column;
 `;
 
-const InputBox = styled.div`
+const DivBox = styled.div`
   width: 300px;
   .input-box {
     position: relative;
@@ -109,9 +109,16 @@ const Div = styled.div`
 `;
 
 const MyInfo = () => {
+  const UserData = [
+    {
+      name: 'Hong',
+      email: 'hong024@gmail.com',
+    },
+  ];
+
   return (
     <MyPageContain>
-      <PageHeader>My Page</PageHeader>
+      <PageHeader>마이페이지</PageHeader>
       <div className="profileStyle">
         <Profile>profile</Profile>
       </div>
@@ -121,15 +128,15 @@ const MyInfo = () => {
       <Div>
         <ListContain>
           <UserInfo>
-            <InputBox>
+            <DivBox>
               <UserInfoHead>회원정보</UserInfoHead>
               <div className="input-box">
-                <div>Hong</div>
+                <div>{UserData[0].name}</div>
               </div>
               <div className="input-box">
-                <div>hong024@gmail.com</div>
+                <div>{UserData[0].email}</div>
               </div>
-            </InputBox>
+            </DivBox>
           </UserInfo>
         </ListContain>
         <UserInfo>

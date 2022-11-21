@@ -240,8 +240,8 @@ export const ProfileBtn = () => {
   return <ButtonBB>프로필 수정</ButtonBB>;
 };
 
-export const ReviseBtn = () => {
-  return <ButtonAA>변경</ButtonAA>;
+export const ReviseBtn = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>변경</ButtonAA>;
 };
 export const SignOutBtn = () => {
   return (
@@ -255,6 +255,11 @@ export const ModifyBtn = () => {
 
 export const DeleteBtn = () => {
   return <ButtonAA>삭제</ButtonAA>;
+};
+
+// 구독 해지 버튼
+export const UnSubscript = ({ openModal }) => {
+  return <ButtonAA onClick={openModal}>해지</ButtonAA>;
 };
 
 // 자산 수정 버튼
