@@ -97,6 +97,8 @@ const AssetTargetPage = () => {
   const [extended, setExtended] = useState(''); // 목표금액
   const [period, setPeriod] = useState(''); // 기간
   const [savings, setSavings] = useState(''); // 저축횟수
+  // eslint-disable-next-line no-unused-vars
+  // const [texttarget, setTexttarget] = useState(''); // 횟수별 저축액
   let monthly = Math.floor(extended / period);
   if (isNaN(monthly)) {
     monthly = 0;
@@ -111,7 +113,7 @@ const AssetTargetPage = () => {
   if (isNaN(percentage)) {
     percentage = 0;
   }
-
+  // setTexttarget(target);
   // console.log(`percentage: ${percentage}`);
   // console.log(`goal: ${goal}`);
   // console.log(`extended: ${extended}`);
@@ -120,6 +122,7 @@ const AssetTargetPage = () => {
   const HandlerAddCount = () => {
     let countArr = countArr + 1;
     setSavings(countArr);
+    setPeriod('');
   };
 
   return (
@@ -163,7 +166,7 @@ const AssetTargetPage = () => {
                 setPeriod={setPeriod}
                 target={target}
                 savings={savings}
-                period={period}
+                // period={period}
               />
             ))}
           </BoxContain>

@@ -1,13 +1,23 @@
 import styled from 'styled-components';
+// eslint-disable-next-line no-unused-vars
+import { useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
   min-width: 590px;
-  height: auto;
+  height: 156px;
   padding: 20px;
-  border-radius: 10px;
+  border-top: 3px solid #def5e5;
+  border-bottom: 3px solid #def5e5;
+  margin-top: 20px;
+  margin-bottom: -17px;
+  cursor: pointer;
 `;
 
 const ImageBox = styled.div`
@@ -120,14 +130,29 @@ const LikeBox = styled.div`
   align-items: center;
   justify-content: center;
   line-height: normal;
+  color: red;
   height: 30px;
   margin-right: 10px;
 `;
 
-export const FreeBoardList = () => {
+const Likenum = styled.div`
+  display: flex;
+  font-size: 10px;
+  height: 30px;
+  align-items: center;
+  line-height: normal;
+  margin-left: 2px;
+  margin-right: 10px;
+  color: #444;
+  font-size: 13px;
+  /* border: 1px solid #ff8000; */
+`;
+
+export const BoardList = () => {
+  const navigate = useNavigate();
   return (
     <>
-      <ListBox>
+      <ListBox onClick={() => navigate('/boardcontentpage')}>
         <ImageBox>
           <Image>IMG</Image>
         </ImageBox>
@@ -139,7 +164,9 @@ export const FreeBoardList = () => {
             <IdEtcBox>
               <Date>2022-11-01</Date>
               <At>22:12:12</At>
-              <LikeBox>♡</LikeBox>
+              <LikeBox>
+                ❤<Likenum>267</Likenum>
+              </LikeBox>
             </IdEtcBox>
           </IdEtContainer>
           <TextEtcContainer>
@@ -159,7 +186,9 @@ export const FreeBoardList = () => {
             <IdEtcBox>
               <Date>2022-11-01</Date>
               <At>22:12:12</At>
-              <LikeBox>♡</LikeBox>
+              <LikeBox>
+                ❤<Likenum>267</Likenum>
+              </LikeBox>
             </IdEtcBox>
           </IdEtContainer>
           <TextEtcContainer>

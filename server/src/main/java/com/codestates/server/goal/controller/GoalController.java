@@ -72,11 +72,28 @@ public class GoalController {
                 .body(entityModel);
     }
 
+    @PatchMapping("/{id}/completed")
+    public ResponseEntity<?> completedGoal(@PathVariable long id) {
+        Goal goal = goalService.increaseCompletion(id);
+        EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
+    @PatchMapping("/{id}/uncompleted")
+    public ResponseEntity<?> uncompletedGoal(@PathVariable long id) {
+        Goal goal = goalService.decreaseCompletion(id);
+        EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteGoal(@PathVariable long id) {
         goalService.deleteOne(id);
         return ResponseEntity.noContent().build();
     }
 
-    // TODO: KIM - 목표 자산 성취도 구현
 }

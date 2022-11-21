@@ -5,14 +5,12 @@ import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,34 +20,68 @@ public class MemberController {
 
     private final MemberService memberService;
     private final MemberMapper mapper;
-    private final HttpServletResponse response;
+    private final PasswordEncoder passwordEncoder;
 
+    // 회원 가입 구현 -> 보안인증[O]
     @PostMapping
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post post) {
-        Member member = memberService.createMember(mapper.PostDtoToMember(post));
-        MemberDto.Response response = mapper.MemberToResponse(member);
-        return new ResponseEntity(response, HttpStatus.CREATED);
+    public ResponseEntity registerMember(@Valid @RequestBody MemberDto.Post post) {
+        Member member = mapper.memberPostToMember(post);
+        Member registerMember = memberService.createMember(member);
+        return ResponseEntity.ok(registerMember);
     }
 
-    @PostMapping("/refresh")
-    public ResponseEntity refreshToken(@RequestHeader String Refresh) {
-        String accessToken = memberService.getAccessToken(Refresh);
-        response.addHeader("Authorization", accessToken);
-        return new ResponseEntity(HttpStatus.ACCEPTED);
+    // 회원 로그인 구현 -> "/api/auth/login" 시큐리티 사용으로 인해 SecurityConfiguration 에서 구현 되었음.
+
+    // 회원 로그아웃 구현 -> 보안인증[O] Optinal
+
+    // 회원 내 정보 구현 -> 보안인증[O]
+    @GetMapping("/{memberId}")
+    public ResponseEntity getMember(@PathVariable("memberId") long id) {
+//        Member member = memberService.findMember(email);
+        Member member = memberService.findVerifiedMember(id);
+        return ResponseEntity.ok(mapper.memberToMemberResponse(member));
     }
 
+    // 회원 내 정보 수정 -> 보안인증[O]
     @PatchMapping("/{memberId}")
-    public ResponseEntity updateMember(@PathVariable("member-id") @Positive Long memberId, @Valid @RequestBody MemberDto.Patch patch) {
-        patch.addMemberId(memberId);
-        Member member = memberService.updateMember(mapper.PatchDtoToMember(patch));
-        MemberDto.Response response = mapper.MemberToResponse(member);
-        return new ResponseEntity<>(response, HttpStatus.OK);
+    public ResponseEntity patchMember(@PathVariable("memberId") String email,
+                                      @Valid @RequestBody MemberDto.Patch patch) {
+        Member member = memberService.updateMember(email ,mapper.memberPatchToMember(patch));
+        return ResponseEntity.ok(mapper.memberToMemberResponse(member));
     }
 
-    @GetMapping("/{member-id}")
-    public ResponseEntity getMember(@PathVariable("member-id") @Positive Long memberId) {
-        Member verifyMember = memberService.findVerifyMember(memberId);
-        MemberDto.Response response = mapper.MemberToResponse(verifyMember);
-        return new ResponseEntity(response, HttpStatus.OK);
+    // 패스워드 검증 구현 -> 보안인증 [O]
+    @PostMapping("{memberId}")
+    public ResponseEntity getPassword(@PathVariable("memberId") String email,
+                                      @Valid @RequestBody Member member) {
+        Member findMember = memberService.findPassword(email);
+
+        if (passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
+            return ResponseEntity.ok().build();
+        }
+        else
+            return ResponseEntity.badRequest().build();
+    }
+
+    // 전체 회원 목록 구현 -> 보안인증[x] 필요하지 않음
+//    @GetMapping
+//    public ResponseEntity getMembers(@Valid @RequestBody PageInfo.Request request) {
+//        Page<Member> pageMembers = memberService.findAllMembers(request.getPage() - 1, request.getSize());
+//        List<Member> members = pageMembers.getContent();
+//        return ResponseEntity.ok(new MemberListDto<>(mapper.membersToMemberResponses(members),pageMembers));
+//    }
+
+    // 회원 탈퇴 구현
+    @DeleteMapping("/{memberId}")
+    public ResponseEntity deleteMember(@PathVariable("memberId") String memberId,
+                                       @Valid @RequestBody Member member) {
+        Member findMember = memberService.findPassword(memberId);
+
+        if (passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
+            memberService.deleteMember(memberId);
+            return ResponseEntity.ok().build();
+        }
+        else
+            return ResponseEntity.badRequest().build();
     }
 }

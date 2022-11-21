@@ -12,16 +12,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 30px;
+  margin: 250px;
   width: 600px;
   height: 700px;
-  padding: 30px;
-  margin: 200px;
+  border: 8px solid #def5e5;
+  border-radius: 10px;
 `;
 
 const TitleBox = styled.div`
   margin-bottom: 30px;
   margin-left: 1px;
-  width: 170px;
+  width: 210px;
   font-size: 40px;
   font-weight: bold;
   border-bottom: 5px solid #8ec3b0;

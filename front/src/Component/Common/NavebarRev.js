@@ -167,12 +167,10 @@ export const LongNavbarBox = () => {
   const handleClickCommunity = () => {
     setAssetclicked(true);
     setCommunityclicked(!Communityclicked);
-    console.log('Asset', Assetclicked, 'Community', Communityclicked);
   };
   const handleClickAsset = () => {
     setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
-    console.log('Asset', Assetclicked, 'Community', Communityclicked);
   };
 
   return (
@@ -241,40 +239,16 @@ export const LongLoginNavbarBox = () => {
     setAssetclicked(true);
     setInfoclicked(true);
     setCommunityclicked(!Communityclicked);
-    console.log(
-      'Asset',
-      Assetclicked,
-      'Community',
-      Communityclicked,
-      'Info',
-      Infoclicked
-    );
   };
   const handleClickAsset = () => {
     setCommunityclicked(true);
     setInfoclicked(true);
     setAssetclicked(!Assetclicked);
-    console.log(
-      'Asset',
-      Assetclicked,
-      'Community',
-      Communityclicked,
-      'Info',
-      Infoclicked
-    );
   };
   const handleClickInfo = () => {
     setAssetclicked(true);
     setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
-    console.log(
-      'Asset',
-      Assetclicked,
-      'Community',
-      Communityclicked,
-      'Info',
-      Infoclicked
-    );
   };
 
   return (
@@ -360,17 +334,14 @@ export const MiniNavbarBox = () => {
     setAssetclicked(true);
     setCommunityclicked(true);
     setMarkclicked(!Markclicked);
-    console.log('클릭됨', 'Asset', Assetclicked, 'Community', Communityclicked);
   };
   const handleClickCommunity = () => {
     setAssetclicked(true);
     setCommunityclicked(!Communityclicked);
-    console.log('Asset', Assetclicked, 'Community', Communityclicked);
   };
   const handleClickAsset = () => {
     setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
-    console.log('Asset', Assetclicked, 'Community', Communityclicked);
   };
 
   return (
@@ -464,30 +435,19 @@ export const MiniLoginNavbarBox = () => {
     setAssetclicked(true);
     setCommunityclicked(true);
     setMarkclicked(!Markclicked);
-    console.log('클릭됨', 'Asset', Assetclicked, 'Community', Communityclicked);
   };
   const handleClickInfo = () => {
     setAssetclicked(true);
     setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
-    console.log(
-      'Asset',
-      Assetclicked,
-      'Community',
-      Communityclicked,
-      'Info',
-      Infoclicked
-    );
   };
   const handleClickCommunity = () => {
     setAssetclicked(true);
     setCommunityclicked(!Communityclicked);
-    console.log('Asset', Assetclicked, 'Community', Communityclicked);
   };
   const handleClickAsset = () => {
     setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
-    console.log('Asset', Assetclicked, 'Community', Communityclicked);
   };
 
   return (

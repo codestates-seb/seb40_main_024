@@ -3,12 +3,15 @@ package com.codestates.server.member.dto;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.status.MemberStatus;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class MemberDto {
 
@@ -47,23 +50,27 @@ public class MemberDto {
     }
 
     @Getter
+    @Setter
+    @NoArgsConstructor
     public static class Response {
-
-        private Long userId;
+        private Long id;
         private String email;
         private String name;
         private String password;
-        private MemberStatus userStatus;
+        private MemberStatus memberStatus;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private List<String> roles;
 
         public Response(Member member) {
-            this.userId = member.getId();
+            this.id = member.getId();
+            this.name = member.getName();
             this.email = member.getEmail();
             this.password = member.getPassword();
-            this.userStatus = member.getMemberStatus();
+            this.memberStatus = member.getMemberStatus();
             this.createdAt = member.getCreatedAt();
             this.modifiedAt = member.getModifiedAt();
+            this.roles = member.getRoles();
         }
     }
 }

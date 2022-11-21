@@ -114,7 +114,7 @@ const AssetSetting = ({
     <>
       <div style={{ display: 'flex' }}>
         <ComponentContain>
-          <br />{' '}
+          <br />
           <div className="trashicon">
             <FontAwesomeIcon
               icon={faTrashCan}
@@ -152,24 +152,6 @@ const AssetSetting = ({
           <TextBox>{target}원!</TextBox>
           <SaveBtn handlerModal={handlerModal}></SaveBtn>
         </ComponentContain>
-        {/* <ComponentContain> */}
-        {/* <br />{' '}
-          <div className="trashicon">
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              className="icon"
-              size="lg"
-              color="grey"
-              cursor="pointer"
-              onClick={() => {
-                HandlerRemove(post);
-              }}
-            ></FontAwesomeIcon>
-          </div> */}
-        {/* <Header style={{ marginTop: '60px' }}>저축하기</Header>
-          <TextBox>0회/3회</TextBox>
-          <SavingsBtn />
-        </ComponentContain> */}
         {save ? (
           <ModalSaving>
             {count + 1 > Number(period) ? (

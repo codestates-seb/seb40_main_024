@@ -4,53 +4,62 @@ package com.codestates.server.member.entity;
 import com.codestates.server.asset.entity.Asset;
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.board.entity.Board;
-import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.member.status.MemberStatus;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import lombok.Setter;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
+@Setter
 public class Member extends Auditable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-
+    @Column(nullable = false, unique = true, updatable = false)
     private String email;
-
+    @Column(nullable = false)
     private String name;
-
+    @Column(nullable = false, length = 100)
     private String password;
 
-    @ElementCollection(fetch = FetchType.LAZY)
+    @ElementCollection(fetch = FetchType.EAGER)
     public List<String> roles = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.ACTIVE;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Board> boards = new ArrayList<>();
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments = new ArrayList<>();
+    private final List<Board> boards = new ArrayList<>();
 // ---------------------  민주님 위에 두 리스트 참조하세요. --------------------------------------------
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Asset> assets = new ArrayList<>();
+    private final List<Asset> assets = new ArrayList<>();
+
 
     @Builder
-    public Member(Long id , String email, String name, String password, MemberStatus memberStatus) {
+    public Member(Long id , String email, String name, String password, List<String> roles) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
-        this.memberStatus = memberStatus;
+        this.roles = roles;
     }
 
 
@@ -63,12 +72,14 @@ public class Member extends Auditable {
         this.password = password;
     }
 
-    //유저 권한 뭐로 할지 고민..
+
     public void changeRoles(List<String> roles) {
         this.roles = roles;
     }
 
     public void deleteMember(MemberStatus memberStatus) {
-        this.memberStatus = memberStatus;
+        this.memberStatus = MemberStatus.SLEEP;
     }
+
+
 }

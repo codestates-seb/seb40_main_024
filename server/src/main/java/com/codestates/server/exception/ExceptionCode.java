@@ -2,6 +2,7 @@ package com.codestates.server.exception;
 
 import lombok.Getter;
 
+@Getter
 public enum ExceptionCode {
 
     //유저

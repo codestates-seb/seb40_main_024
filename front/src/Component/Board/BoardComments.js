@@ -1,56 +1,31 @@
 // import { useState } from 'react';
 import styled from 'styled-components';
-import { ModifyBtn, DeleteBtn } from '../Common/Button';
+// eslint-disable-next-line no-unused-vars
+import {
+  AddCommentBtn,
+  ModifyCommentBtn,
+  DeleteCommentBtn,
+} from '../Common/Button';
+// eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
-import axios from 'axios';
+import Quill from '../Common/Quill';
+// import axios from 'axios';
 // import { useEffect } from 'react';
 
-const BoardContentContain = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  /* image {
-    height: 50px;
-    width: 50px;
-  } */
-`;
+// const CommentBox = styled.div`
+//   display: flex;
+//   height: 200px;
+//   width: 700px;
+//   /* border: solid 2px #9ed5c5;
+//   border-radius: 10px;
+//   font-size: 20px;
+//   &:focus {
+//     outline: none;
+//     border-color: #8ec3b0;
+//     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
+//   } */
+// `;
 
-const TotalComment = styled.div`
-  box-sizing: border-box;
-  padding: 20px;
-  height: 800px;
-  width: 750px;
-  margin-top: 100px;
-
-  border: thick double #9ed5c5;
-  border-radius: 10px;
-  background-color: #ffff;
-  box-shadow: 10px 5px 10px #d1d1d1;
-`;
-
-const CommentBox = styled.input`
-  box-sizing: border-box;
-  height: 200px;
-  width: 700px;
-  border: solid 2px #9ed5c5;
-  border-radius: 10px;
-  font-size: 20px;
-  &:focus {
-    outline: none;
-    border-color: #8ec3b0;
-    box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
-  }
-`;
-const BtnContain = styled.div`
-  display: flex;
-  flex-direction: row;
-  height: 30px;
-  width: 270px;
-  cursor: pointer;
-`;
 // const ReviseBtn = styled.button`
 //   height: 30px;
 //   width: 100px;
@@ -62,20 +37,6 @@ const BtnContain = styled.div`
 //   width: 100px;
 //   cursor: pointer;
 // `;
-
-const WriteBtn = styled.button`
-  height: 30px;
-  width: 100px;
-  cursor: pointer;
-`;
-
-const Comment = styled.div`
-  box-sizing: border-box;
-  border: 1px solid black;
-  height: 60px;
-  width: 500px;
-  margin: 10px;
-`;
 
 // const ProfileIcon = styled.div`
 //   box-sizing: border-box;
@@ -90,9 +51,108 @@ const Comment = styled.div`
 /* border: solid 1px black;
   border-radius: 100%; */
 // `;
-const Contain = styled.div`
+const TotalComment = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 850px;
+  min-height: 800px;
+  margin-top: 100px;
+  border: 3px solid #9ed5c5;
+  border-radius: 10px;
+`;
+const BtnContain = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 700px;
+  margin-bottom: 10px;
+`;
+const QuillContain = styled.div`
+  display: flex;
+  width: 800px;
+  height: auto;
+  margin-bottom: 20px;
+`;
+const CommentContain = styled.div`
   display: flex;
   flex-direction: row;
+  width: auto;
+  padding: 5px;
+  margin-top: 20px;
+  border-top: 3px solid #def5e5;
+  border-bottom: 3px solid #def5e5;
+  line-height: normal;
+`;
+const ImageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-left: 20px;
+`;
+const CommentBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+  margin: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  /* border: 1px solid black; */
+`;
+const IdEtcBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #8ec3b0;
+`;
+const Id = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-left: 5px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+`;
+const EtcBox = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+`;
+const Date = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-right: 20px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+`;
+const At = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-right: 10px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  width: 100%;
+  height: 150px;
+  margin-left: 5px;
+  padding-top: 5px;
+  overflow: auto;
+`;
+const BtnBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 const Comments = () => {
@@ -101,56 +161,98 @@ const Comments = () => {
   //   goalPrice: 10000000,
   //   targetLength: 40,
   // };
-  axios
-    .get('https://dry-moons-try-112-171-1-144.loca.lt/comment')
-    .then((response) => {
-      const { data } = response;
-      console.log('응답', data);
-    })
-    .catch((error) => console.log('에러', error));
+  // axios
+  //   .get('https://dry-moons-try-112-171-1-144.loca.lt/comment')
+  //   .then((response) => {
+  //     const { data } = response;
+  //     console.log('응답', data);
+  //   })
+  //   .catch((error) => console.log('에러', error));
 
   return (
-    <BoardContentContain>
+    <>
       <TotalComment>
-        <span>댓글</span>
         <BtnContain>
-          <WriteBtn>댓글 작성</WriteBtn>
+          <AddCommentBtn />
         </BtnContain>
-        <CommentBox></CommentBox>
-        <Contain>
-          <ProfileIcon />
-          <Comment></Comment>
-        </Contain>
-        <BtnContain>
-          <ModifyBtn>수정</ModifyBtn>
-          <DeleteBtn>삭제</DeleteBtn>
-        </BtnContain>
-        <Contain>
-          <ProfileIcon />
-          <Comment></Comment>{' '}
-        </Contain>
-        <BtnContain>
-          <ModifyBtn>수정</ModifyBtn>
-          <DeleteBtn>삭제</DeleteBtn>
-        </BtnContain>
-        <Contain>
-          <ProfileIcon />
-          <Comment></Comment>{' '}
-        </Contain>
-        <BtnContain>
-          <ModifyBtn>수정</ModifyBtn>
-          <DeleteBtn>삭제</DeleteBtn>
-        </BtnContain>
-        <Contain>
-          <ProfileIcon />
-          <Comment></Comment>{' '}
-        </Contain>
-        <BtnContain>
-          <ModifyBtn>수정</ModifyBtn>
-          <DeleteBtn>삭제</DeleteBtn>
-        </BtnContain>
+        <QuillContain>
+          <Quill />
+        </QuillContain>
+        <CommentContain>
+          <ImageBox>
+            <ProfileIcon />
+          </ImageBox>
+          <CommentBox>
+            <IdEtcBox>
+              <Id>여기에는 ID 입력</Id>
+              <EtcBox>
+                <Date>2022-11-01</Date>
+                <At>22:12:12</At>
+              </EtcBox>
+            </IdEtcBox>
+            <TextBox>
+              여기에는 작성된 댓글보여주기
+              {/* <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기
+              <br />
+              여기에는 작성된 댓글보여주기 */}
+            </TextBox>
+          </CommentBox>
+          <BtnBox>
+            <ModifyCommentBtn />
+            <DeleteCommentBtn />
+          </BtnBox>
+        </CommentContain>
       </TotalComment>
-    </BoardContentContain>
+    </>
   );
 };
 

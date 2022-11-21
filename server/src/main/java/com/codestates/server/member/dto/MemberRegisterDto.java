@@ -1,0 +1,26 @@
+package com.codestates.server.member.dto;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+public class MemberRegisterDto {
+
+    @Email(message = "올바른 이메일 형식이 아닙니다.")
+    @NotBlank
+    private String email;
+
+    @Pattern(regexp = "^(?=.*[A-Za-z0-9가-힣])[A-Za-z0-9가-힣]{2,10}$", message = "닉네임은 2자 이상 10자 이하 대소문자 영어와 한글 숫자로 구성할 수 있습니다.")
+    @NotBlank
+    private String name;
+
+    @Pattern(regexp = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[$@!%*#?&])[A-Za-z\\d$@!%*#?&]{8,16}$", message = "비밀번호는 8자 이상 16자 이하 특수문자와 대소문자 영어및 숫자만 허용됩니다")
+    @NotBlank
+    private String password;
+}
