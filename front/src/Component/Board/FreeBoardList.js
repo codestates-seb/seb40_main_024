@@ -1,11 +1,4 @@
-// import {
-//   // useState,
-//   useEffect,
-// } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getList } from '../../Redux/BoardAPI';
 import styled from 'styled-components';
-import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
@@ -14,10 +7,7 @@ const ListBox = styled.div`
   min-width: 590px;
   height: auto;
   padding: 20px;
-  border: 3px solid #def5e5;
   border-radius: 10px;
-  /* background-color: #8ec3b0; */
-  margin-bottom: 1px;
 `;
 
 const ImageBox = styled.div`
@@ -27,7 +17,6 @@ const ImageBox = styled.div`
   justify-content: center;
   align-content: center;
   line-height: normal;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Image = styled.svg`
@@ -38,7 +27,6 @@ const Image = styled.svg`
   width: auto;
   height: auto;
   border-radius: 50%;
-  border: 1px solid #ff8000;
 `;
 
 const Container = styled.div`
@@ -79,7 +67,7 @@ const Id = styled.div`
   align-items: center;
   line-height: normal;
   color: #444;
-  font-size: 18px;
+  font-size: 17px;
 `;
 
 const At = styled.div`
@@ -91,7 +79,7 @@ const At = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -104,7 +92,7 @@ const Date = styled.div`
   margin-left: 10px;
   margin-right: 10px;
   color: #444;
-  font-size: 18px;
+  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
@@ -115,7 +103,6 @@ const TextEtcContainer = styled.div`
   width: auto;
   height: 100%;
   margin-left: 10px;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Text = styled.div`
@@ -124,115 +111,20 @@ const Text = styled.div`
   width: 100%;
   height: auto;
   padding: 5px;
-  font-size: 22px;
-  /* font-weight: bold; */
+  font-size: 15px;
   color: #444;
-  /* border: 1px solid #ff8000; */
 `;
 const LikeBox = styled.div`
   display: flex;
-  font-size: 20px;
+  font-size: 15px;
   align-items: center;
   justify-content: center;
   line-height: normal;
   height: 30px;
   margin-right: 10px;
-  /* border: 1px solid #ff8000; */
 `;
 
 export const FreeBoardList = () => {
-  // const [inputValue, setInputValue] = useState('');
-  // const dispatch = useDispatch();
-  // const boardList = useSelector((state) => state.BoardAPI);
-  // console.log('boardList', boardList);
-
-  // useEffect(() => {
-  //   dispatch(getList());
-  // }, []);
-
-  //? POST
-  // const data1 = {
-  //   // eslint-disable-next-line prettier/prettier
-  //   title: "dsf2222",
-  //   // eslint-disable-next-line prettier/prettier
-  //   body: "asdfasdfasf222dfd222",
-  // };
-  // // eslint-disable-next-line no-unused-vars
-  // async function postApi() {
-  //   await axios
-  //     .post('/board', data1)
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
-  //?
-
-  //? PATCH
-  // eslint-disable-next-line no-unused-vars
-  const data2 = {
-    // eslint-disable-next-line prettier/prettier
-    title: "dsf222233",
-    // eslint-disable-next-line prettier/prettier
-    body: "asdfasdfasf222dfd222333",
-  };
-  // eslint-disable-next-line no-unused-vars
-  async function patchApi() {
-    await axios
-      .patch('/board/2', data2)
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  }
-  //?
-
-  //? GET
-  // eslint-disable-next-line no-unused-vars
-  // async function getApi() {
-  //   await axios
-  //     .get('/board/1')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
-  //?
-
-  //? DELET
-  // eslint-disable-next-line no-unused-vars
-  // async function deletApi() {
-  //   await axios
-  //     .delet('/board/3')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
-  //?
-
-  //!
-  // axios
-  //   .get('/board/2')
-
-  //   .then((res) => console.log(res))
-  //   .catch((err) => console.log(err));
-  //!
-
-  //*
-  // async () => {
-  //   await axios
-  //     .get('/board/2', {
-  //       withCredentials: true,
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         // ,
-  //       }),
-  //     })
-  //     .then((res) => res.json())
-  //     .then((data) => console.log(data))
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   //   // console.log('res.data', res.data);
-  //   // };
-  // };
-  //*
-
   return (
     <>
       <ListBox>

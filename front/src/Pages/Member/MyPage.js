@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import MyInfo from '../../Component/Member/MyInfo';
 import {
   LongLoginNavbarBox,
-  // , MiniNavbarBox
-} from '../../Component/Common/Navbar';
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 
 const MyPageContain = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const MyPage = () => {
   return (
     <>
       <LongLoginNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <MiniLoginNavbarBox />
       <MyPageContain>
         <MyInfo />
       </MyPageContain>

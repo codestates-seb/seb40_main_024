@@ -1,6 +1,9 @@
 import Quill from '../../Component/Common/Quill';
 import styled from 'styled-components';
-import { LongNavbarBox } from '../../Component/Common/Navbar';
+import {
+  LongLoginNavbarBox,
+  MiniLoginNavbarBox,
+} from '../../Component/Common/NavebarRev';
 import { AssetBoardPostBtn } from '../../Component/Common/Button';
 
 const MainPost = styled.div`
@@ -60,7 +63,8 @@ const Btn = styled.div`
 function ShareCommunity() {
   return (
     <>
-      <LongNavbarBox />
+      <LongLoginNavbarBox />
+      <MiniLoginNavbarBox />
       <MainPost>
         <H2>자산공유게시글 작성하기</H2>
         <Header>
