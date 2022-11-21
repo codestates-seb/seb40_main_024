@@ -1,16 +1,21 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
-import { useState, useEffect } from 'react';
-// import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
 
 const ListBox = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
   min-width: 590px;
-  height: auto;
+  height: 156px;
   padding: 20px;
-  border-radius: 10px;
+  border-top: 3px solid #def5e5;
+  border-bottom: 3px solid #def5e5;
+  margin-top: 20px;
+  margin-bottom: -17px;
+  cursor: pointer;
 `;
 
 const ImageBox = styled.div`
@@ -123,14 +128,87 @@ const LikeBox = styled.div`
   align-items: center;
   justify-content: center;
   line-height: normal;
+  color: red;
   height: 30px;
   margin-right: 10px;
 `;
 
-export const BoardList = () => {
+const Likenum = styled.div`
+  display: flex;
+  font-size: 10px;
+  height: 30px;
+  align-items: center;
+  line-height: normal;
+  margin-left: 2px;
+  margin-right: 10px;
+  color: #444;
+  font-size: 13px;
+  /* border: 1px solid #ff8000; */
+`;
+
+export const FreeBoardList = () => {
+  const navigate = useNavigate();
+  //? POST
+  // const data1 = {
+  //   // eslint-disable-next-line prettier/prettier
+  //   title: "dsf2222",
+  //   // eslint-disable-next-line prettier/prettier
+  //   body: "asdfasdfasf222dfd222",
+  // };
+  // // eslint-disable-next-line no-unused-vars
+  // async function postApi() {
+  //   await axios
+  //     .post('/board', data1)
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
+  //? PATCH
+  // eslint-disable-next-line no-unused-vars
+  // const data2 = {
+  //   // eslint-disable-next-line prettier/prettier
+  //   title: "dsf222233",
+  //   // eslint-disable-next-line prettier/prettier
+  //   body: "asdfasdfasf222dfd222544",
+  // };
+  // // eslint-disable-next-line no-unused-vars
+  // async function patchApi() {
+  //   await axios
+  //     .patch('board/2', data2)
+  //     .then((res) => console.log('res', res))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
+  //? GET
+  // eslint-disable-next-line no-unused-vars
+  // async function getApi() {
+  //   await axios
+  //     .get('board/1')
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }
+  //?
+
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  // async function deletApi() {
+  // await
+  // axios
+  //   .delete('board/37')
+  //   .then((res) => console.log(res.data))
+  //   .catch((err) => console.log(err));
+  // }
+  //?
+
   return (
     <>
-      <ListBox>
+      {/* {postApi()} */}
+      {/* {patchApi()} */}
+      {/* {getApi()} */}
+      {/* {deletApi()} */}
+      <ListBox onClick={() => navigate('/boardcontentpage')}>
         <ImageBox>
           <Image>IMG</Image>
         </ImageBox>
@@ -142,7 +220,9 @@ export const BoardList = () => {
             <IdEtcBox>
               <Date>2022-11-01</Date>
               <At>22:12:12</At>
-              <LikeBox>♡</LikeBox>
+              <LikeBox>
+                ❤<Likenum>267</Likenum>
+              </LikeBox>
             </IdEtcBox>
           </IdEtContainer>
           <TextEtcContainer>
@@ -162,7 +242,9 @@ export const BoardList = () => {
             <IdEtcBox>
               <Date>2022-11-01</Date>
               <At>22:12:12</At>
-              <LikeBox>♡</LikeBox>
+              <LikeBox>
+                ❤<Likenum>267</Likenum>
+              </LikeBox>
             </IdEtcBox>
           </IdEtContainer>
           <TextEtcContainer>

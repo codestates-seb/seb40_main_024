@@ -12,7 +12,7 @@ const Icon = styled.svg`
   left: 30%; */
   /* transform: translate(-50%,-50%) */
   /* padding: 130px; */
-  border: solid 3px #9ed5c5;
+  /* border: solid 3px #9ed5c5; */
   border-radius: 100%;
 `;
 

@@ -3,7 +3,7 @@ import {
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
-import { BoardList } from '../../Component/Board/BoardList';
+import { BoardList } from '../../Component/Board/BoardAssetList';
 import { NavAssetContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
@@ -87,7 +87,7 @@ export const AssetBoardPage = () => {
             <TitleBox>자산공유 커뮤니티</TitleBox>
             <HeaderBox>
               <SelectBox>
-                <select name="1234">
+                <select name="1234" style={{ marginTop: '8px' }}>
                   <option value="">카테고리 선택</option>
                   <option value="자산">자산</option>
                   <option value="정보">정보</option>

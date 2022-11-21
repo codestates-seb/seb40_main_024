@@ -87,14 +87,24 @@ export const ButtonB = () => {
 export const NavAssetContentsButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonBB onClick={() => navigate('/shareboardpost')}>게시글 작성</ButtonBB>
+    <ButtonBB
+      onClick={() => navigate('/shareboardpost')}
+      style={{ marginLeft: '100px' }}
+    >
+      <p style={{ width: '120px' }}>게시글 작성</p>
+    </ButtonBB>
   );
 };
 
 export const NavFreeContentsButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonBB onClick={() => navigate('/freeboardpost')}>게시글 작성</ButtonBB>
+    <ButtonBB
+      onClick={() => navigate('/freeboardpost')}
+      style={{ marginLeft: '100px' }}
+    >
+      <p style={{ width: '120px' }}>게시글 작성</p>
+    </ButtonBB>
   );
 };
 
@@ -248,12 +258,13 @@ export const SignOutBtn = () => {
     <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
   );
 };
-
-export const ModifyBtn = () => {
-  return <ButtonAA>수정</ButtonAA>;
+export const AddCommentBtn = () => {
+  return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
 };
-
-export const DeleteBtn = () => {
+export const ModifyCommentBtn = () => {
+  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+};
+export const DeleteCommentBtn = () => {
   return <ButtonAA>삭제</ButtonAA>;
 };
 
@@ -262,6 +273,15 @@ export const UnSubscript = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>해지</ButtonAA>;
 };
 
+export const AddContentBtn = () => {
+  return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
+};
+export const ModifyContentBtn = () => {
+  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+};
+export const DeleteContentBtn = () => {
+  return <ButtonAA style={{ marginBottom: '10px' }}>삭제</ButtonAA>;
+};
 // 자산 수정 버튼
 export const AssetButton = () => {
   const navigate = useNavigate();
