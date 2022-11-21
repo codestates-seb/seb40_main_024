@@ -2,13 +2,16 @@ package com.codestates.server.member.dto;
 
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.status.MemberStatus;
-import java.time.LocalDateTime;
-import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import lombok.Getter;
+import java.time.LocalDateTime;
+import java.util.List;
 
 public class MemberDto {
 
@@ -47,6 +50,8 @@ public class MemberDto {
     }
 
     @Getter
+    @Setter
+    @NoArgsConstructor
     public static class Response {
         private Long id;
         private String email;
