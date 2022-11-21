@@ -1,24 +1,22 @@
 package com.codestates.server.member.service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.codestates.server.exception.CustomException;
+
+import com.codestates.server.auth.event.MemberRegistrationApplicationEvent;
+import com.codestates.server.auth.utils.CustomAuthorityUtils;
+import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
-import com.codestates.server.jwt.auth.utils.CustomAuthorityUtils;
-import com.codestates.server.jwt.entity.Jwt;
-import com.codestates.server.jwt.repository.JwtRepository;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
-import com.codestates.server.member.status.MemberStatus;
+import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.persistence.EntityManager;
-import java.util.Date;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -27,72 +25,83 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
-    private final JwtRepository jwtRepository;
-    private final EntityManager em;
+    private final ApplicationEventPublisher publisher;
+
+
+
 
 
     @Transactional
     public Member createMember(Member member) {
-        //중복 검증을 거쳐
-        verifyEmail(member);
+        verifyExistsEmail(member.getEmail());
 
-        member.updatePassword(passwordEncoder.encode(member.getPassword()));
-        member.changeRoles(authorityUtils.createRole(member.getEmail()));
+        String encryptPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptPassword);
 
-        return memberRepository.save(member);
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+
+
+        Member savedMember = memberRepository.save(member);
+
+        publisher.publishEvent(new MemberRegistrationApplicationEvent(savedMember));
+        return savedMember;
     }
 
-    @Transactional
-    public Member updateMember(Member member) {
-        Member verifyMember = findVerifyMember(member.getId());
-        Optional.ofNullable(member.getName()).ifPresent(verifyMember::updateName);
-        Optional.ofNullable(member.getPassword()).ifPresent(verifyMember::updatePassword);
-        return verifyMember;
-    }
-
-    @Transactional
-    public void deleteMember(Long id) {
-        Member findMemberId = findVerifyMember(id);
-        findMemberId.deleteMember(MemberStatus.SLEEP); //수정해야트
-    }
-
-    @Transactional
-    public String getAccessToken(String refreshToken) {
-
-        Jwt token = jwtRepository.findRefreshToken(refreshToken).orElseThrow(() -> new CustomException(ExceptionCode.REFRESH_TOKEN_NOT_FOUND));
-        String accessToken = JWT.create()
-                .withExpiresAt(new Date(System.currentTimeMillis() + (600000)))
-                .withClaim("id", token.getMember().getId())
-                .withClaim("username", token.getMember().getEmail())
-                .sign(Algorithm.HMAC256("hong"));
-        token.changeAccessToken(accessToken);
-        return accessToken;
-    }
-
-    @Transactional
-    public void deleteToken(String refreshToken) {
-        jwtRepository.deleteJwtToken(refreshToken);
+    public Member findMember(String email) {
+        Long id = findMemberId(email);
+        return findVerifiedMember(id);
     }
 
 
-    //중복 메일 찾는 메서드
-    public void verifyEmail(Member member) {
-        if (memberRepository.findByEmail(member.getEmail()).isPresent()) {
-            throw new CustomException(ExceptionCode.DUPLICATE_MEMBER);
+
+    public Member findPassword(String email) {
+        return findVerifiedMember(findMemberId(email));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
+    public Member updateMember(String email ,Member member) {
+        Member findMember = findVerifiedMember(findMemberId(email));
+
+        Optional.ofNullable(member.getEmail())
+                .ifPresent(findMember::setEmail);
+
+        if (member.getPassword() != null) {
+            findMember.setPassword(
+                    passwordEncoder.encode(member.getPassword()));
         }
+
+        return memberRepository.save(findMember);
     }
 
-    //맴버 검증로직
-    public Member findVerifyMember(Long id) {
-       return memberRepository.findById(id).orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+//    public Page<Member> findAllMembers(int page, int size) {
+//        return memberRepository.findAll(PageRequest.of(page , size ,
+//                Sort.by("memberId").descending()));
+//    }
+
+    public void deleteMember(String email) {
+        memberRepository.deleteById(findMemberId(email));
     }
 
-    public Member getMemberFromToken(String token) {
-        String pureToken = token.replace("Bearer ", "");
-        Jwt jwt = jwtRepository.findAccessToken(pureToken).orElseThrow(() -> new CustomException(ExceptionCode.MISMATCH_ACCESS_TOKEN));
-        Member verifyMember = findVerifyMember(jwt.getMember().getId());
-        return findVerifyMember(jwt.getMember().getId());
+    private void verifyExistsEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        if (member.isPresent())
+            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+    }
+
+    public Long findMemberId(String email) {
+        Optional<Member> optionalMember = memberRepository.findByEmail(email);
+        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember.getId();
+    }
+
+    @Transactional(readOnly = true)
+    public Member findVerifiedMember(long memberId) {
+        Optional<Member> optionalMember =
+                memberRepository.findById(memberId);
+        return optionalMember.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
     }
 }
