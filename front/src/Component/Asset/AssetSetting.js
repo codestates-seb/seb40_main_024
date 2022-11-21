@@ -75,9 +75,9 @@ const PeriodBox = styled.div`
   line-height: normal;
   box-sizing: border-box;
   margin: auto;
-  margin-top: -5px;
+  margin-top: 3px;
   height: 30px;
-  width: 100px;
+  width: 150px;
   color: black;
   font-size: 16px;
 `;
@@ -176,6 +176,7 @@ const AssetSetting = ({
               <FontAwesomeIcon
                 icon={faPiggyBank}
                 size="2x"
+                color="grey"
                 pointerEvents="none"
                 cursor="not-allowed"
                 onClick={handlerCount}
@@ -184,15 +185,16 @@ const AssetSetting = ({
               <FontAwesomeIcon
                 icon={faPiggyBank}
                 size="2x"
+                color="black"
                 cursor="pointer"
                 onClick={handlerCount}
               ></FontAwesomeIcon>
             )}
             {/* <p>saving button</p> */}
             <br />
-            <p>납입 횟수:{count}</p>
+            <p>납입 횟수:{count}번</p>
             <p>/</p>
-            <PeriodBox>목표 기간:{period}</PeriodBox>
+            <PeriodBox>목표 기간:{period}개월</PeriodBox>
           </ModalSaving>
         ) : null}
       </div>

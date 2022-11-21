@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { ModifyBtn, DeleteBtn } from '../Common/Button';
 import ProfileIcon from '../Member/ProfileIcon';
-// import axios from 'axios';
+import axios from 'axios';
 // import { useEffect } from 'react';
 
 const BoardContentContain = styled.div`
@@ -101,13 +101,13 @@ const Comments = () => {
   //   goalPrice: 10000000,
   //   targetLength: 40,
   // };
-  // axios
-  //   .delete('https://4de6-112-171-1-144.jp.ngrok.io/goal/1')
-  //   .then((response) => {
-  //     const { data } = response;
-  //     console.log('응답', data);
-  //   })
-  //   .catch((error) => console.log('에러', error));
+  axios
+    .get('https://dry-moons-try-112-171-1-144.loca.lt/comment')
+    .then((response) => {
+      const { data } = response;
+      console.log('응답', data);
+    })
+    .catch((error) => console.log('에러', error));
 
   return (
     <BoardContentContain>

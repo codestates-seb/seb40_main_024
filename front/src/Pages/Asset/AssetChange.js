@@ -5,7 +5,6 @@ import {
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import {
-  AssetchangeBtn,
   CashBtn,
   GoldBtn,
   DiamondBtn,
@@ -14,15 +13,24 @@ import {
 import { Fade } from 'react-awesome-reveal';
 import { useState } from 'react';
 import { Modal } from '../../Component/Common/Modal';
+import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
+import { Pie } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const MainPage = styled.div`
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   height: 100vh;
 `;
 
-const MainAssetChange = styled.div``;
+const MainAssetChange = styled.div`
+  margin-top: 150px;
+  margin-left: 100px;
+`;
 
 const MainBox = styled.div``;
 
@@ -55,12 +63,12 @@ const Div = styled.div`
   }
 `;
 
-const Btn = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
-`;
+// const Btn = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin-top: 40px;
+// `;
 
 const Input = styled.input`
   width: 300px;
@@ -79,6 +87,50 @@ const Input = styled.input`
   ::placeholder {
     color: #777;
   }
+`;
+const ChartContain = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  width: 450px;
+  height: 600px;
+  margin-top: 100px;
+  /* margin-left: 120px; */
+  /* top: 300px !important; */
+`;
+
+const ChartBox = styled.div`
+  display: flex;
+  box-sizing: border-box;
+  width: 450px;
+  height: 500px;
+  /* margin-left: 120px; */
+  /* top: 300px !important; */
+`;
+
+const FirstGraph = styled.div`
+  display: flex;
+  margin: 0 auto;
+`;
+
+const GraphPie = styled.div`
+  display: flex;
+  margin-top: 30px;
+  width: 400px;
+  div {
+    display: flex;
+  }
+`;
+
+const GraphH1 = styled.h1`
+  box-sizing: border-box;
+  height: 50px;
+  width: 450px;
+  align-items: center;
+  /* color: #9ed5c5; */
+  text-align: center;
+  text-shadow: 1px 1px 2px #bcead5;
+  color: #bcead5;
 `;
 
 function AssetChange() {
@@ -161,6 +213,17 @@ function AssetChange() {
       <LongLoginNavbarBox />
       <MiniLoginNavbarBox />
       <MainPage>
+        <ChartContain>
+          <ChartBox>
+            <FirstGraph>
+              <GraphPie>
+                <Pie data={AssetAdata} />
+              </GraphPie>
+            </FirstGraph>
+          </ChartBox>
+          <GraphH1>보유자산 현황</GraphH1>
+        </ChartContain>
+
         <MainAssetChange>
           <MainBox>
             <Modal open={Modalopen} close={closeModal} header="자산 수정 알림">
@@ -238,9 +301,9 @@ function AssetChange() {
                 <P>{`수정할 주식은 ${Stocktarget} 원 입니다.`}</P>
               </Fade>
             ) : null}
-            <Btn>
+            {/* <Btn>
               <AssetchangeBtn />
-            </Btn>
+            </Btn> */}
           </MainBox>
         </MainAssetChange>
       </MainPage>
