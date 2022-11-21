@@ -1,163 +1,192 @@
 import styled from 'styled-components';
 import Profile from '../../Component/Member/Profile';
 import {
-  ProfileBtn,
   ReviseBtn,
   SignOutBtn,
+  UnSubscript,
 } from '../../Component/Common/Button';
+import { Modal } from '../Common/Modal';
+import { useState } from 'react';
+// eslint-disable-next-line no-unused-vars
+import axios from 'axios';
 
-const InfoContain = styled.div`
+const MyPageContain = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  .profileStyle {
-    margin-top: 130px;
-    margin-left: -700px;
-  }
+  margin-top: 100px;
 `;
 
-const PageHeader = styled.div`
-  box-sizing: border-box;
-  border: none;
-  height: 80px;
-  width: 400px;
-  margin-top: 80px;
-  margin-left: -1200px;
-  font-size: 70px;
+const PageHeader = styled.h1`
+  margin-bottom: 70px;
+  border-bottom: 5px solid #8ec3b0;
+  color: #9ed5c5;
+  width: 240px;
+  font-size: 40px;
 `;
-
-// const ProfileBtn = styled.button`
-//   margin: 0px;
-//   height: 50px;
-//   width: 150px;
-//   position: absolute;
-//   top: 45%;
-//   left: 35%;
-//   cursor: pointer;
-// `;
 
 const ListContain = styled.div`
   display: flex;
   flex-direction: column;
-  box-sizing: border-box;
-  margin-left: 250px;
-  padding: 20px;
-  height: 750px;
-  width: 600px;
-  /* position: absolute;
-  top: 40%;
-  left: 45%; */
-  border: thick double #def5e5;
-  border-radius: 10px;
-  outline: 1px solid #9ed5c5;
 `;
+
+const Input = styled.input`
+  width: 230px;
+  height: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  color: #444;
+  font-weight: 700;
+  border-bottom: 3px solid #9ed5c5;
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  ::placeholder {
+    color: #999;
+  }
+`;
+
 const UserInfo = styled.div`
+  width: 300px;
+  padding: 30px;
+  margin-left: 50px;
+`;
+
+const UserInfoHead = styled.h4`
+  color: #bcead5;
+  font-size: 20px;
+  margin-bottom: 20px;
+`;
+
+const InfoBox = styled.div`
   display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  margin-bottom: 30px;
-  padding: 7px;
-  height: 280px;
-  width: 550px;
-  border: solid 2px #9ed5c5;
-  border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
   span {
-    margin: 0 0 0 1px;
+    color: #222;
     font-weight: 500;
   }
 `;
-const UserInfoHead = styled.div`
-  box-sizing: border-box;
-  margin-left: -7px;
-  height: 30px;
-  width: 550px;
-  border: none;
-  background-color: #bcead5;
-  font-weight: 700;
-`;
-const InfoBoxContain = styled.div`
+
+const Div = styled.div`
   display: flex;
-  flex-direction: row;
-  box-sizing: border-box;
-  height: 60px;
-  width: 350px;
-`;
-const InfoBox = styled.input`
-  box-sizing: border-box;
-  margin: 0 30 0 20px;
-  height: 50px;
-  width: 200px;
-  border: solid 2px #9ed5c5;
-  border-radius: 10px;
-  &:focus {
-    outline: none;
-    border-color: #8ec3b0;
-    box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
-  }
+  justify-content: center;
+  margin-top: 20px;
 `;
 
-// const ReviseBtn = styled.button`
-//   margin: 0 0 0 10px;
-//   height: 50px;
-//   width: 100px;
+const DivBtn = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
-//   cursor: pointer;
-// `;
-// const OutBtn = styled.button`
-//   height: 50px;
-//   width: 150px;
-//   cursor: pointer;
-// `;
-const ProfileStyle = styled.div`
-  margin-top: -110px;
-  margin-left: -230px;
-  margin-bottom: 20px;
-  height: 40px;
-  width: 40px;
+const DivBtn2 = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 70px;
 `;
 
 const MyInfoUpdate = () => {
-  return (
-    <>
-      <InfoContain>
-        <PageHeader>회원정보수정</PageHeader>
-        <div className="profileStyle">
-          <Profile>profile</Profile>
-        </div>
-        <ProfileStyle>
-          <ProfileBtn />
-        </ProfileStyle>
+  // axios
+  //   .get('https://dry-moons-try-112-171-1-144.loca.lt/board/1')
+  //   .then((res) => console.log(res));
 
+  const [Modalopen, setModalopen] = useState(false);
+  const [unSub, setunSUb] = useState(false);
+  const [errModalopen, seterrModalopen] = useState(false);
+  const [username, setUsername] = useState();
+  const [useremail, setUseremail] = useState();
+  const [userpassword, setUserpassword] = useState();
+
+  const openModal = () => {
+    if (username && useremail && userpassword) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
+  };
+
+  const openUnSub = () => {
+    setunSUb(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+    setunSUb(false);
+  };
+
+  const errcloseModal = () => {
+    seterrModalopen(false);
+  };
+
+  const UserNameonChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const UserEmailonChange = (e) => {
+    setUseremail(e.target.value);
+  };
+
+  const UserPasswordonChange = (e) => {
+    setUserpassword(e.target.value);
+  };
+
+  return (
+    <MyPageContain>
+      <PageHeader>회원정보수정</PageHeader>
+      <Profile>profile</Profile>
+      <Div>
         <ListContain>
           <UserInfo>
-            <UserInfoHead>회원정보 수정</UserInfoHead>
-            <span>아이디 </span>
-            <InfoBoxContain>
-              <InfoBox></InfoBox>
-              <ReviseBtn>변경</ReviseBtn>
-            </InfoBoxContain>
-
-            <span>비밀번호 </span>
-            <InfoBoxContain>
-              <InfoBox></InfoBox>
-              <ReviseBtn>변경</ReviseBtn>
-            </InfoBoxContain>
-            <span>닉네임 </span>
-            <InfoBoxContain>
-              <InfoBox></InfoBox>
-              <ReviseBtn>변경</ReviseBtn>
-            </InfoBoxContain>
+            <div>
+              <UserInfoHead>회원정보 변경</UserInfoHead>
+              <Input
+                value={username}
+                onChange={UserNameonChange}
+                placeholder="이름"
+              />
+              <Input
+                value={useremail}
+                onChange={UserEmailonChange}
+                placeholder="이메일"
+              />
+              <Input
+                value={userpassword}
+                onChange={UserPasswordonChange}
+                placeholder="비밀번호"
+              />
+              <DivBtn>
+                <ReviseBtn openModal={openModal} />
+              </DivBtn>
+            </div>
           </UserInfo>
-          <UserInfo>
-            <UserInfoHead>구독사항 변경</UserInfoHead>
-          </UserInfo>
-          <SignOutBtn />
         </ListContain>
-      </InfoContain>
-    </>
+        <UserInfo>
+          <UserInfoHead>구독 현황 확인</UserInfoHead>
+          <InfoBox>
+            <span>경제신문 구독중</span>
+            <UnSubscript openModal={openUnSub} />
+          </InfoBox>
+          <DivBtn2>
+            <SignOutBtn />
+          </DivBtn2>
+        </UserInfo>
+        <Modal open={Modalopen} close={closeModal} header="정보수정 알림">
+          회원 정보가 수정되었습니다.
+        </Modal>
+        <Modal open={errModalopen} close={errcloseModal} header="오류 알림">
+          회원 정보를 정확히 입력해주세요.
+        </Modal>
+        <Modal open={unSub} close={closeModal} header="구독 해지 알림">
+          구독이 해지 되었습니다
+        </Modal>
+      </Div>
+    </MyPageContain>
   );
 };
 
