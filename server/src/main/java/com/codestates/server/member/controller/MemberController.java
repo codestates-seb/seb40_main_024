@@ -4,19 +4,13 @@ import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
-import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -42,8 +36,9 @@ public class MemberController {
 
     // 회원 내 정보 구현 -> 보안인증[O]
     @GetMapping("/{memberId}")
-    public ResponseEntity getMember(@PathVariable("memberId") String email) {
-        Member member = memberService.findMember(email);
+    public ResponseEntity getMember(@PathVariable("memberId") long id) {
+//        Member member = memberService.findMember(email);
+        Member member = memberService.findVerifiedMember(id);
         return ResponseEntity.ok(mapper.memberToMemberResponse(member));
     }
 
