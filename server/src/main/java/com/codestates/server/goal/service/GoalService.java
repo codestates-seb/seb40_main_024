@@ -1,6 +1,6 @@
 package com.codestates.server.goal.service;
 
-import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.goal.entity.Goal;
 import com.codestates.server.goal.repository.GoalRepository;
@@ -80,6 +80,6 @@ public class GoalService {
 
     public Goal findVerifiedGoal(long id) {
         Optional<Goal> optionalGoal = repository.findById(id);
-        return optionalGoal.orElseThrow(() -> new BusinessLogicException(ExceptionCode.GOAL_NOT_FOUND));
+        return optionalGoal.orElseThrow(() -> new CustomException(ExceptionCode.GOAL_NOT_FOUND));
     }
 }
