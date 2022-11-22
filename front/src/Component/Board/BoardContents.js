@@ -138,6 +138,31 @@ const At = styled.div`
   align-content: center;
   justify-content: center;
 `;
+const LikeBox = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-right: 10px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  color: red;
+  -webkit-text-stroke: 1.5px black;
+  cursor: pointer;
+`;
+const UnLikeBox = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-right: 10px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  color: white;
+  -webkit-text-stroke: 1.5px black;
+
+  cursor: pointer;
+`;
 const TitleBox = styled.div`
   display: flex;
   width: 100%;
@@ -148,6 +173,7 @@ const TitleBox = styled.div`
   border-bottom: 2px solid #8ec3b0;
   overflow: auto;
   font-size: 20px;
+  color: white;
 `;
 const TextBox = styled.div`
   display: flex;
@@ -190,6 +216,8 @@ const Contents = () => {
               <EtcBox>
                 <Date>2022-11-01</Date>
                 <At>22:12:12</At>
+                <LikeBox>❤</LikeBox>
+                <UnLikeBox>❤</UnLikeBox>
               </EtcBox>
             </IdEtcBox>
             <TitleBox>
