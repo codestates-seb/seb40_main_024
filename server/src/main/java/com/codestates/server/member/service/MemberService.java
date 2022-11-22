@@ -8,7 +8,7 @@ import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,7 +22,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-@Slf4j
+@Log4j2
 public class MemberService {
 
     private final MemberRepository memberRepository;
@@ -64,16 +64,19 @@ public class MemberService {
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public Member updateMember(String email ,Member member) {
+        log.info("1번 통과");
         Member findMember = findVerifiedMember(findMemberId(email));
+        log.info("2번 통과");
 
-        Optional.ofNullable(member.getEmail())
-                .ifPresent(findMember::setEmail);
-
+        Optional.ofNullable(member.getEmail()).ifPresent(findMember::setEmail);
+        log.info("3번 통과");
+        Optional.ofNullable(member.getName()).ifPresent(findMember::setName);
+        log.info("4번 통과");
         if (member.getPassword() != null) {
             findMember.setPassword(
                     passwordEncoder.encode(member.getPassword()));
         }
-
+        log.info("5번 통과");
         return memberRepository.save(findMember);
     }
 
@@ -82,6 +85,11 @@ public class MemberService {
 //                Sort.by("memberId").descending()));
 //    }
 
+//    public void deleteMember(String email) {
+//        memberRepository.deleteById(findMemberId(email));
+//    }
+
+    @Transactional
     public void deleteMember(String email) {
         memberRepository.deleteById(findMemberId(email));
     }
