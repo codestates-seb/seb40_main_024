@@ -17,6 +17,7 @@ const Box = styled.div`
   justify-content: left;
   width: 100%;
 `;
+
 const TitleBox = styled.div`
   display: flex;
   align-items: center;
