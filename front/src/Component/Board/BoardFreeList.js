@@ -183,22 +183,21 @@ export const FreeBoardList = () => {
 
   //? GET
   // eslint-disable-next-line no-unused-vars
-  // async function getApi() {
-  //   await axios
-  //     .get('board/1')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
+  async function getApi() {
+    await axios
+      .get('board/1')
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err));
+  }
   //?
 
   //? DELET
   // eslint-disable-next-line no-unused-vars
   // async function deletApi() {
-  // await
-  // axios
-  //   .delete('board/37')
-  //   .then((res) => console.log(res.data))
-  //   .catch((err) => console.log(err));
+  //   await axios
+  //     .delete('board/37')
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
   // }
   //?
 
