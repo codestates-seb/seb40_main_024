@@ -6,6 +6,7 @@ import com.codestates.server.board.repository.BoardRepository;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -100,6 +101,11 @@ public class BoardService {
 
     public Board findVerifiedBoard(long id) {
         Optional<Board> optionalBoard = repository.findById(id);
-        return optionalBoard.orElseThrow(() -> new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND));
+        Board board = optionalBoard.orElseThrow(() -> new CustomException(ExceptionCode.BOARD_NOT_FOUND));
+
+        if (board.getBoardStatus() == Board.BoardStatus.BOARD_DELETED) {
+            throw new CustomException(ExceptionCode.BOARD_DELETED);
+        }
+        return board;
     }
 }
