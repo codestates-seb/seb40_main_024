@@ -2,9 +2,10 @@ package com.codestates.server.member.mapper;
 
 import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
-import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface MemberMapper {
