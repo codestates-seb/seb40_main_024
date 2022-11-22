@@ -3,6 +3,8 @@ package com.codestates.server.board.service;
 
 import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.repository.BoardRepository;
+import com.codestates.server.comment.entity.Comment;
+import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
@@ -11,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -19,8 +22,11 @@ public class BoardService {
 
     private final BoardRepository repository;
 
-    public BoardService(BoardRepository repository) {
+    private final CommentRepository commentRepository;
+
+    public BoardService(BoardRepository repository, CommentRepository commentRepository) {
         this.repository = repository;
+        this.commentRepository = commentRepository;
     }
 
     public Board findOne(long id) {
@@ -84,8 +90,12 @@ public class BoardService {
     public void deleteOne(Long id) {
         Board verifiedBoard = findVerifiedBoard(id);
 
-        // only status is changed
+        // only board's status is changed
         verifiedBoard.setBoardStatus(Board.BoardStatus.BOARD_DELETED);
+
+        // delete related comments
+        List<Comment> relatedComments = commentRepository.findAll(id);
+        commentRepository.deleteAllInBatch(relatedComments);
     }
 
     public Board findVerifiedBoard(long id) {
