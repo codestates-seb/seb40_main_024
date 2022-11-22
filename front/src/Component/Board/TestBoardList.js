@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
 
 const ListBox = styled.div`
   display: flex;
@@ -144,8 +145,10 @@ const Likenum = styled.div`
   /* border: 1px solid #ff8000; */
 `;
 
-function TestBoardList({ title, body, createdAt }) {
+function TestBoardList({ id, title, body, createdAt, like }) {
   const navigate = useNavigate();
+  const data = moment(createdAt);
+  const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
   return (
     <>
       <ListBox onClick={() => navigate('/boardcontentpage')}>
@@ -155,12 +158,12 @@ function TestBoardList({ title, body, createdAt }) {
         <Container>
           <IdEtContainer>
             <IdEtcBox>
-              <Id>{title}</Id>
+              <Id id={id}>{title}</Id>
             </IdEtcBox>
             <IdEtcBox>
-              <Date>{createdAt}</Date>
+              <Date>{momentdata}</Date>
               <LikeBox>
-                ❤<Likenum>267</Likenum>
+                ❤<Likenum>{like}</Likenum>
               </LikeBox>
             </IdEtcBox>
           </IdEtContainer>

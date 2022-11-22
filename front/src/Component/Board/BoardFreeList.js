@@ -7,6 +7,7 @@ const Div = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-top: 100px;
   .lds-ring {
     display: inline-block;
     position: relative;
@@ -84,9 +85,11 @@ export const FreeBoardList = () => {
           boardlist.map((el, i) => (
             <TestBoardList
               key={i}
+              id={el.boardId}
               title={el.title}
               body={el.body}
               createdAt={el.createdAt}
+              like={el.like}
             ></TestBoardList>
           ))
         )}
