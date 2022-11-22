@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import {
@@ -9,8 +8,8 @@ import {
 // eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
 import Quill from '../Common/Quill';
-// import axios from 'axios';
-// import { useEffect } from 'react';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 
 // const CommentBox = styled.div`
 //   display: flex;
@@ -156,18 +155,40 @@ const BtnBox = styled.div`
 `;
 
 const Comments = () => {
+  const url =
+    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const [comments, setComment] = useState([]);
+
   // const data = {
-  //   goalName: '미니 JCW',
-  //   goalPrice: 10000000,
-  //   targetLength: 40,
+  //   body: '댓글 수정테스트 입니다.',
   // };
+  useEffect(() => {
+    const axiosTest = async () => {
+      try {
+        const res = await axios.get(url + '/board/2');
+        setComment(res.data.commentsPosted);
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    axiosTest();
+  }, []);
+  console.log(comments);
+
+  // const Date = new Date().toISOString().replace('T', ' ').substring(0, 19);
+
   // axios
-  //   .get('https://dry-moons-try-112-171-1-144.loca.lt/comment')
-  //   .then((response) => {
-  //     const { data } = response;
-  //     console.log('응답', data);
+  //   .get(url + '/board/2')
+  //   .then((res) => {
+  //     console.log('응답', res.data.commentsPosted[0].commentId);
+  //     setComment(res.data.commentsPosted);
+  //     console.log('comments', comments);
   //   })
   //   .catch((error) => console.log('에러', error));
+
+  // useEffect(() => {
+  //   Comments();
+  // }, []);
 
   return (
     <>
@@ -178,79 +199,87 @@ const Comments = () => {
         <QuillContain>
           <Quill />
         </QuillContain>
-        <CommentContain>
-          <ImageBox>
-            <ProfileIcon />
-          </ImageBox>
-          <CommentBox>
-            <IdEtcBox>
-              <Id>여기에는 ID 입력</Id>
-              <EtcBox>
-                <Date>2022-11-01</Date>
-                <At>22:12:12</At>
-              </EtcBox>
-            </IdEtcBox>
-            <TextBox>
-              여기에는 작성된 댓글보여주기
-              {/* <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기 */}
-            </TextBox>
-          </CommentBox>
-          <BtnBox>
-            <ModifyCommentBtn />
-            <DeleteCommentBtn />
-          </BtnBox>
-        </CommentContain>
+        {comments &&
+          comments.map((c, id) => {
+            return (
+              <CommentContain key={id}>
+                <ImageBox>
+                  <ProfileIcon />
+                </ImageBox>
+
+                <CommentBox>
+                  <IdEtcBox>
+                    <Id>ID: {c.commentId}</Id>
+                  </IdEtcBox>
+                  <EtcBox>
+                    <Date>{c.createdAt.slice(0, 10)}</Date>
+                    <At>{c.createdAt.slice(11, 19)}</At>
+                  </EtcBox>
+                  <TextBox>
+                    <p>{c.body}</p>
+
+                    {/* <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기
+               <br />
+               여기에는 작성된 댓글보여주기 */}
+                  </TextBox>
+                </CommentBox>
+
+                <BtnBox>
+                  <ModifyCommentBtn />
+                  <DeleteCommentBtn />
+                </BtnBox>
+              </CommentContain>
+            );
+          })}
       </TotalComment>
     </>
   );
