@@ -1,7 +1,7 @@
 import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import TestBoardList from './TestBoardList';
+import TestBoardList from './AllBoardList';
 
 const Div = styled.div`
   display: flex;
@@ -46,17 +46,20 @@ const Div = styled.div`
 `;
 
 export const FreeBoardList = () => {
-  // eslint-disable-next-line no-unused-vars
   const URL =
     'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
-  // eslint-disable-next-line no-unused-vars
+
   const [boardlist, setBoardlist] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  // eslint-disable-next-line no-unused-vars
+  const [limit, setLimit] = useState(10);
+  // eslint-disable-next-line no-unused-vars
+  const [page, setPage] = useState(1); //페이지
   useEffect(() => {
     const axiosData = async () => {
       try {
-        const res = await axios.get(`${URL}/board?page=1&size=10`);
+        const res = await axios.get(`${URL}/board?page=${page}&size=${limit}`);
+        console.log(res);
         setBoardlist(res.data._embedded.responseList);
         setLoading(false);
       } catch (e) {
@@ -65,8 +68,6 @@ export const FreeBoardList = () => {
     };
     axiosData();
   }, []);
-
-  console.log(boardlist);
 
   return (
     <>
@@ -82,16 +83,18 @@ export const FreeBoardList = () => {
           </Div>
         ) : (
           boardlist &&
-          boardlist.map((el, i) => (
-            <TestBoardList
-              key={i}
-              id={el.boardId}
-              title={el.title}
-              body={el.body}
-              createdAt={el.createdAt}
-              like={el.like}
-            ></TestBoardList>
-          ))
+          boardlist
+            .sort((a, b) => b.boardId - a.boardId)
+            .map((el, i) => (
+              <TestBoardList
+                key={i}
+                id={el.boardId}
+                title={el.title}
+                body={el.body}
+                createdAt={el.createdAt}
+                like={el.like}
+              ></TestBoardList>
+            ))
         )}
       </div>
     </>

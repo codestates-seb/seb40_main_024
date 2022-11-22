@@ -145,7 +145,7 @@ const Likenum = styled.div`
   /* border: 1px solid #ff8000; */
 `;
 
-function TestBoardList({ id, title, body, createdAt, like }) {
+function AllBoardList({ id, title, body, createdAt, like }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
@@ -176,4 +176,4 @@ function TestBoardList({ id, title, body, createdAt, like }) {
   );
 }
 
-export default TestBoardList;
+export default AllBoardList;
