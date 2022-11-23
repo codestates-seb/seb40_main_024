@@ -27,10 +27,23 @@ public class AssetService {
 
     }
     @Transactional
-    public Asset updateAsset(Asset asset) {
+//    public Asset updateAsset(Asset asset) {
+    public Asset updateAsset(Asset asset, String strValue) { // asset은 Long타입. strValue는 String)
         Asset verifiedAsset = findVerifiedAsset(asset.getAssetId());
-
         verifiedAsset.setAssetValue(asset.getAssetValue());
+
+
+        // string을 long으로 형변환
+
+        String num = strValue.substring(1);
+
+        if (strValue.charAt(0) == '-') {
+            return asset.getAssetValue() - Long.parseLong(num); // str -> Long으로 변환
+//            return asset - Long.valueOf(num).longValue(); // str -> Long으로 변환
+        }
+        else if (strValue.charAt(0) == '+') {
+            return asset.getAssetValue() + Long.parseLong(num, 10);
+        }
 
         return repository.save(verifiedAsset);
 
@@ -74,6 +87,5 @@ public class AssetService {
 //            );
 //        return findAsset;
 //    }
-
 
 }
