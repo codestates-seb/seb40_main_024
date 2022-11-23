@@ -1,52 +1,9 @@
-// import { useState } from 'react';
 import styled from 'styled-components';
-// eslint-disable-next-line no-unused-vars
 import { ModifyContentBtn, DeleteContentBtn } from '../Common/Button';
-// eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
-// import axios from 'axios';
-// import { useEffect } from 'react';
-
-// const CommentBox = styled.div`
-//   display: flex;
-//   height: 200px;
-//   width: 700px;
-//   /* border: solid 2px #9ed5c5;
-//   border-radius: 10px;
-//   font-size: 20px;
-//   &:focus {
-//     outline: none;
-//     border-color: #8ec3b0;
-//     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
-//   } */
-// `;
-
-// const ReviseBtn = styled.button`
-//   height: 30px;
-//   width: 100px;
-//   cursor: pointer;
-// `;
-
-// const DeleteBtn = styled.button`
-//   height: 30px;
-//   width: 100px;
-//   cursor: pointer;
-// `;
-
-// const ProfileIcon = styled.div`
-//   box-sizing: border-box;
-//   height: 70px;
-//   width: 70px;
-//   margin-top: 5px;
-/* position: absolute;
-  top: 7%;
-  left: 30%; */
-/* transform: translate(-50%,-50%) */
-/* padding: 130px; */
-/* border: solid 1px black;
-  border-radius: 100%; */
-// `;
 const TotalContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -64,12 +21,6 @@ const BtnContain = styled.div`
   width: auto;
   margin-bottom: 10px;
 `;
-// const ContentContain = styled.div`
-//   display: flex;
-//   width: 800px;
-//   height: auto;
-//   margin-bottom: 20px;
-// `;
 const ContentContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -159,26 +110,34 @@ const TextBox = styled.div`
 `;
 
 const Contents = () => {
-  // const data = {
-  //   goalName: '미니 JCW',
-  //   goalPrice: 10000000,
-  //   targetLength: 40,
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const URL =
+    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const Delete = async () => {
+    try {
+      const res = await axios.delete(`${URL}/board${id}`);
+      console.log(res);
+      navigate('/freeboard');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  // const Patch = async () => {
+  //   try {
+  //     const res = await axios.patch(`${URL}/board${id}`);
+  //     console.log(res);
+  //     navigate('/freeboard');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
   // };
-  // axios
-  //   .delete('https://4de6-112-171-1-144.jp.ngrok.io/goal/1')
-  //   .then((response) => {
-  //     const { data } = response;
-  //     console.log('응답', data);
-  //   })
-  //   .catch((error) => console.log('에러', error));
-
   return (
     <>
       <TotalContent>
         <BtnContain>
-          {/* <AddContentBtn /> */}
           <ModifyContentBtn />
-          <DeleteContentBtn />
+          <DeleteContentBtn Delete={Delete} />
         </BtnContain>
         <ContentContain>
           <ImageBox>
@@ -192,111 +151,10 @@ const Contents = () => {
                 <At>22:12:12</At>
               </EtcBox>
             </IdEtcBox>
-            <TitleBox>
-              여기에는 게시글 타이틀보여주기
-              {/* <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기
-              <br />
-              여기에는 게시글 타이틀보여주기 */}
-            </TitleBox>
-            <TextBox>
-              여기에는 작성된 게시글내용보여주기
-              {/* <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기
-              <br />
-              여기에는 작성된 게시글보여주기 dddd */}
-            </TextBox>
+            <TitleBox>여기에는 게시글 타이틀보여주기</TitleBox>
+            <TextBox>여기에는 작성된 게시글내용보여주기</TextBox>
           </ContentBox>
         </ContentContain>
-        {/* <ContentContain>
-          <Quill />
-        </ContentContain> */}
       </TotalContent>
     </>
   );

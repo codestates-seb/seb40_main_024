@@ -281,8 +281,12 @@ export const AddContentBtn = () => {
 export const ModifyContentBtn = () => {
   return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
 };
-export const DeleteContentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>삭제</ButtonAA>;
+export const DeleteContentBtn = ({ Delete }) => {
+  return (
+    <ButtonAA style={{ marginBottom: '10px' }} onClick={Delete}>
+      삭제
+    </ButtonAA>
+  );
 };
 // 자산 수정 버튼
 export const AssetButton = () => {
