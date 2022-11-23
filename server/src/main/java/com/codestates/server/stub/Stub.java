@@ -7,6 +7,9 @@ import com.codestates.server.board.repository.BoardRepository;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.repository.MemberRepository;
+import com.codestates.server.member.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -22,19 +25,35 @@ public class Stub {
     CommandLineRunner DataInit(BoardRepository boardRepository,
                                BoardService boardService,
                                CommentRepository commentRepository,
-                               AssetRepository assetRepository) {
+                               AssetRepository assetRepository,
+                               MemberRepository memberRepository,
+                               MemberService memberService) {
 
         return args -> {
 
-            // 게시물, 댓글, 자산 개수
+            // 개수
             int postNum = 30;
             int commentNum = postNum * 2;
             int assetNum = 10;
+            int memberNum = 10;
+
+            // Member data
+            for (int l = 1; l <= memberNum; l++) {
+                String email = "hoju" + l + "@gmail.com";
+                String name = "hojumoney" + l;
+                String password = "password" + l;
+                Member member = new Member(email, name, password);
+                log.info("MEMBER STUB " + memberRepository.save(member));
+            }
 
             // Post data
             for (int i = 1; i <= postNum; i++) {
+                int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
+                Member postMember = memberService.findVerifiedMember(whichMember);
+
                 String temp = "테스트 게시글 " + i + " 번";
-                log.info("BOARD STUB " + boardRepository.save(new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.")));
+                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", postMember);
+                log.info("BOARD STUB " + boardRepository.save(board));
             }
 
             // Comments data
