@@ -260,8 +260,16 @@ export const SignOutBtn = () => {
     <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
   );
 };
-export const AddCommentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
+export const AddCommentBtn = ({ handlerSubmit }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      type="submit"
+      onClick={handlerSubmit}
+    >
+      작성
+    </ButtonAA>
+  );
 };
 export const ModifyCommentBtn = () => {
   return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;

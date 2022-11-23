@@ -7,7 +7,7 @@ import {
 } from '../Common/Button';
 // eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
-import Quill from '../Common/Quill';
+// import Quill from '../Common/Quill';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
@@ -67,12 +67,12 @@ const BtnContain = styled.div`
   margin-left: 700px;
   margin-bottom: 10px;
 `;
-const QuillContain = styled.div`
-  display: flex;
-  width: 800px;
-  height: auto;
-  margin-bottom: 20px;
-`;
+// const QuillContain = styled.div`
+//   display: flex;
+//   width: 800px;
+//   height: auto;
+//   margin-bottom: 20px;
+// `;
 const CommentContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -97,6 +97,17 @@ const CommentBox = styled.div`
   margin-left: 20px;
   margin-right: 20px;
   /* border: 1px solid black; */
+`;
+
+const CommentInput = styled.input`
+  width: 100%;
+  height: 200px;
+  border: 3px solid #def5e5;
+  border-radius: 10px;
+  :focus {
+    outline: none;
+  }
+  font-size: 17px;
 `;
 const IdEtcBox = styled.div`
   display: flex;
@@ -158,24 +169,51 @@ const Comments = () => {
   const url =
     'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
   const [comments, setComment] = useState([]);
+  const [text, setText] = useState('');
 
-  // const data = {
-  //   body: '댓글 수정테스트 입니다.',
-  // };
+  const handlerText = (e) => {
+    // e.preventDefault();
+    const data = e.target.value;
+    setText(data);
+    console.log(data.length);
+    if (data.length < 10) {
+      return;
+    }
+  };
+
+  const handlerSubmit = () => {
+    setText(text);
+    console.log('submit');
+  };
+
   useEffect(() => {
-    const axiosTest = async () => {
+    const axiosGet = async () => {
       try {
-        const res = await axios.get(url + '/board/2');
+        const res = await axios.get(url + '/board/1');
         setComment(res.data.commentsPosted);
       } catch (err) {
         console.log('error', err);
       }
     };
-    axiosTest();
+    axiosGet();
   }, []);
   console.log(comments);
 
-  // const Date = new Date().toISOString().replace('T', ' ').substring(0, 19);
+  useEffect(() => {
+    const axiosPost = async () => {
+      const data = {
+        body: text,
+      };
+      try {
+        const posts = await axios.post(url + '/board/1/comment', data);
+        setText(posts.data);
+        // if(posts.data === " " )
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    axiosPost();
+  }, []);
 
   // axios
   //   .get(url + '/board/2')
@@ -194,92 +232,43 @@ const Comments = () => {
     <>
       <TotalComment>
         <BtnContain>
-          <AddCommentBtn />
+          <AddCommentBtn handlerSubmit={handlerSubmit} />
         </BtnContain>
-        <QuillContain>
-          <Quill />
-        </QuillContain>
-        {comments &&
-          comments.map((c, id) => {
-            return (
-              <CommentContain key={id}>
-                <ImageBox>
-                  <ProfileIcon />
-                </ImageBox>
+        {/* <QuillContain> */}
+        <CommentInput
+          type="text"
+          value={text}
+          // value={text || ''}
+          placeholder="댓글을 작성해주세요."
+          onChange={handlerText}
+        ></CommentInput>
+        {/* </QuillContain> */}
+        {comments.map((c, id) => {
+          return (
+            <CommentContain key={id}>
+              <ImageBox>
+                <ProfileIcon />
+              </ImageBox>
+              <CommentBox>
+                <IdEtcBox>
+                  <Id>ID: {c.commentId}</Id>
+                </IdEtcBox>
+                <EtcBox>
+                  <Date>{c.createdAt.slice(0, 10)}</Date>
+                  <At>{c.createdAt.slice(11, 19)}</At>
+                </EtcBox>
+                <TextBox>
+                  <p>{c.body}</p>
+                </TextBox>
+              </CommentBox>
 
-                <CommentBox>
-                  <IdEtcBox>
-                    <Id>ID: {c.commentId}</Id>
-                  </IdEtcBox>
-                  <EtcBox>
-                    <Date>{c.createdAt.slice(0, 10)}</Date>
-                    <At>{c.createdAt.slice(11, 19)}</At>
-                  </EtcBox>
-                  <TextBox>
-                    <p>{c.body}</p>
-
-                    {/* <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기
-               <br />
-               여기에는 작성된 댓글보여주기 */}
-                  </TextBox>
-                </CommentBox>
-
-                <BtnBox>
-                  <ModifyCommentBtn />
-                  <DeleteCommentBtn />
-                </BtnBox>
-              </CommentContain>
-            );
-          })}
+              <BtnBox>
+                <ModifyCommentBtn />
+                <DeleteCommentBtn />
+              </BtnBox>
+            </CommentContain>
+          );
+        })}
       </TotalComment>
     </>
   );
