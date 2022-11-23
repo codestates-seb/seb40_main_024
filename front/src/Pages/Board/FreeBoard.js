@@ -119,7 +119,7 @@ function FreeCommunity() {
           <Quill setBody={setBody} />
         </QuillBox>
         <Btn>
-          <button onClick={Post}>1234</button>
+          <FreeBoardPostBtn Post={Post}></FreeBoardPostBtn>
         </Btn>
       </MainPost>
     </>

@@ -311,9 +311,8 @@ export const AssetchangeBtn = () => {
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
 };
 
-export const FreeBoardPostBtn = () => {
-  const navigate = useNavigate();
-  return <ButtonCC onClick={() => navigate('/freeboard')}>작성하기</ButtonCC>;
+export const FreeBoardPostBtn = ({ Post }) => {
+  return <ButtonCC onClick={Post}>작성하기</ButtonCC>;
 };
 
 export const AssetBoardPostBtn = () => {
