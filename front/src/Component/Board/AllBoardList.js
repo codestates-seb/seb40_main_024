@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import { useNavigate } from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 
 const ListBox = styled.div`
@@ -149,16 +150,17 @@ function AllBoardList({ id, title, body, createdAt, like }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
+
   return (
     <>
-      <ListBox onClick={() => navigate('/boardcontentpage')}>
+      <ListBox onClick={() => navigate(`/boardcontentpage/${id}`)}>
         <ImageBox>
           <Image>IMG</Image>
         </ImageBox>
         <Container>
           <IdEtContainer>
             <IdEtcBox>
-              <Id id={id}>{title}</Id>
+              <Id>{title}</Id>
             </IdEtcBox>
             <IdEtcBox>
               <Date>{momentdata}</Date>

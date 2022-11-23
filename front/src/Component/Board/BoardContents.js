@@ -3,6 +3,7 @@ import { ModifyContentBtn, DeleteContentBtn } from '../Common/Button';
 import ProfileIcon from '../Member/ProfileIcon';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import moment from 'moment';
 
 const TotalContent = styled.div`
   display: flex;
@@ -80,6 +81,7 @@ const Date = styled.div`
   align-content: center;
   justify-content: center;
 `;
+// eslint-disable-next-line no-unused-vars
 const At = styled.div`
   display: flex;
   width: auto;
@@ -109,14 +111,16 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Contents = () => {
+const Contents = ({ title, body, createdAt }) => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const data = moment(createdAt);
+  const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
   const URL =
     'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
   const Delete = async () => {
     try {
-      const res = await axios.delete(`${URL}/board${id}`);
+      const res = await axios.delete(`${URL}/board/${id}`);
       console.log(res);
       navigate('/freeboard');
     } catch (e) {
@@ -132,6 +136,7 @@ const Contents = () => {
   //     console.log(e);
   //   }
   // };
+
   return (
     <>
       <TotalContent>
@@ -145,14 +150,13 @@ const Contents = () => {
           </ImageBox>
           <ContentBox>
             <IdEtcBox>
-              <Id>여기에는 ID 입력</Id>
+              <Id>유저아이디가 들어가야하오...</Id>
               <EtcBox>
-                <Date>2022-11-01</Date>
-                <At>22:12:12</At>
+                <Date>{momentdata}</Date>
               </EtcBox>
             </IdEtcBox>
-            <TitleBox>여기에는 게시글 타이틀보여주기</TitleBox>
-            <TextBox>여기에는 작성된 게시글내용보여주기</TextBox>
+            <TitleBox>{title}</TitleBox>
+            <TextBox>{body}</TextBox>
           </ContentBox>
         </ContentContain>
       </TotalContent>

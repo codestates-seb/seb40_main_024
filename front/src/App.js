@@ -35,7 +35,7 @@ function App() {
         <Route path="/shareboardpost" element={<ShareBoard />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/myinfopage" element={<InfoPage />} />
-        <Route path="/boardcontentpage" element={<BoardContentPage />} />
+        <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
         <Route path="/assettarget" element={<AssetTargetTest />} />
         <Route path="/assettargetpage" element={<AssetTartget />} />
         {/*
