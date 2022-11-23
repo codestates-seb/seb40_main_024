@@ -7,6 +7,7 @@ import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.dto.MultiResponseDto;
 import org.springframework.data.domain.Page;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/board")
@@ -60,6 +64,20 @@ public class BoardController {
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
+    }
+
+    // Page 없는 전체 게시물 조회
+    @GetMapping("/all")
+    public CollectionModel<EntityModel<BoardDto.Response>> getBoards() {
+
+        List<Board> boards = boardService.findAll();
+        List<EntityModel<BoardDto.Response>> response = boards.stream()
+                .map(mapper::boardToBoardResponseDto)
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+
+        return CollectionModel.of(response,
+                linkTo(methodOn(BoardService.class).findAll()).withSelfRel());
     }
 
     @PostMapping
