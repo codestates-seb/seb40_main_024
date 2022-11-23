@@ -52,7 +52,7 @@ export const FreeBoardList = () => {
   const [boardlist, setBoardlist] = useState([]);
   const [loading, setLoading] = useState(true);
   // eslint-disable-next-line no-unused-vars
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(1000);
   // eslint-disable-next-line no-unused-vars
   const [page, setPage] = useState(1); //페이지
   useEffect(() => {

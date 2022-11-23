@@ -4,7 +4,11 @@ import {
   LongLoginNavbarBox,
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
+// eslint-disable-next-line no-unused-vars
 import { FreeBoardPostBtn } from '../../Component/Common/Button';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const MainPost = styled.div`
   display: flex;
@@ -69,6 +73,29 @@ const QuillBox = styled.div`
 `;
 
 function FreeCommunity() {
+  const navigate = useNavigate();
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const URL =
+    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const data = {
+    title: title,
+    body: body,
+  };
+  const Post = async () => {
+    try {
+      const res = await axios.post(`${URL}/board`, data);
+      console.log(res);
+      navigate('/freeboard');
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const TitleonChange = (e) => {
+    setTitle(e.target.value);
+  };
+
   return (
     <>
       <LongLoginNavbarBox />
@@ -82,13 +109,17 @@ function FreeCommunity() {
             <option value="일상">일상</option>
             <option value="정보">정보</option>
           </Select>
-          <Input type="text" placeholder="제목을 입력해주세요" />
+          <Input
+            onChange={TitleonChange}
+            type="text"
+            placeholder="제목을 입력해주세요"
+          />
         </Header>
         <QuillBox>
-          <Quill />
+          <Quill setBody={setBody} />
         </QuillBox>
         <Btn>
-          <FreeBoardPostBtn />
+          <button onClick={Post}>1234</button>
         </Btn>
       </MainPost>
     </>
