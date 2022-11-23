@@ -260,22 +260,26 @@ export const SignOutBtn = () => {
     <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
   );
 };
-export const AddCommentBtn = ({ handlerSubmit }) => {
+export const AddCommentBtn = ({ commentPost }) => {
   return (
     <ButtonAA
       style={{ marginBottom: '10px' }}
       type="submit"
-      onClick={handlerSubmit}
+      onClick={commentPost}
     >
       작성
     </ButtonAA>
   );
 };
-export const ModifyCommentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+export const ModifyCommentBtn = ({ commentPatch }) => {
+  return (
+    <ButtonAA style={{ marginBottom: '10px' }} onClick={commentPatch}>
+      수정
+    </ButtonAA>
+  );
 };
-export const DeleteCommentBtn = () => {
-  return <ButtonAA>삭제</ButtonAA>;
+export const DeleteCommentBtn = ({ commentDelete }) => {
+  return <ButtonAA onClick={commentDelete}>삭제</ButtonAA>;
 };
 
 // 구독 해지 버튼
@@ -289,8 +293,12 @@ export const AddContentBtn = () => {
 export const ModifyContentBtn = () => {
   return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
 };
-export const DeleteContentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>삭제</ButtonAA>;
+export const DeleteContentBtn = ({ Delete }) => {
+  return (
+    <ButtonAA style={{ marginBottom: '10px' }} onClick={Delete}>
+      삭제
+    </ButtonAA>
+  );
 };
 // 자산 수정 버튼
 export const AssetButton = () => {
@@ -319,9 +327,8 @@ export const AssetchangeBtn = () => {
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
 };
 
-export const FreeBoardPostBtn = () => {
-  const navigate = useNavigate();
-  return <ButtonCC onClick={() => navigate('/freeboard')}>작성하기</ButtonCC>;
+export const FreeBoardPostBtn = ({ Post }) => {
+  return <ButtonCC onClick={Post}>작성하기</ButtonCC>;
 };
 
 export const AssetBoardPostBtn = () => {

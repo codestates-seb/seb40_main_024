@@ -1,7 +1,8 @@
 package com.codestates.server.member.dto;
 
-import javax.validation.constraints.NotBlank;
 import lombok.Getter;
+
+import javax.validation.constraints.NotBlank;
 
 @Getter
 public class LoginDto {

@@ -10,6 +10,7 @@ import ProfileIcon from '../Member/ProfileIcon';
 // import Quill from '../Common/Quill';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+// import { useParams } from 'react-router-dom';
 
 // const CommentBox = styled.div`
 //   display: flex;
@@ -164,8 +165,10 @@ const BtnBox = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
-
+//http://localhost:3000/boardcontentpage/:id
 const Comments = () => {
+  // const { id } = useParams();
+  // console.log(id.slice(1));
   const url =
     'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
   const [comments, setComment] = useState([]);
@@ -181,40 +184,62 @@ const Comments = () => {
     }
   };
 
-  const handlerSubmit = () => {
-    setText(text);
-    console.log('submit');
-  };
-
+  // const handlerSubmit = () => {
+  //   setText(text);
+  //   console.log('submit');
+  // };
+  //8080/board/{board_id}
   useEffect(() => {
-    const axiosGet = async () => {
+    const commentGet = async () => {
       try {
-        const res = await axios.get(url + '/board/1');
+        const res = await axios.get(url + '/board/5');
         setComment(res.data.commentsPosted);
       } catch (err) {
         console.log('error', err);
       }
     };
-    axiosGet();
-  }, []);
-  console.log(comments);
+    commentGet();
+  }, [comments]);
+  // console.log(comments);
 
-  useEffect(() => {
-    const axiosPost = async () => {
-      const data = {
-        body: text,
-      };
-      try {
-        const posts = await axios.post(url + '/board/1/comment', data);
-        setText(posts.data);
-        // if(posts.data === " " )
-      } catch (err) {
-        console.log('error', err);
-      }
+  // console.log(url + `/board/${id}`);
+
+  const commentPost = async () => {
+    const data = {
+      body: text,
     };
-    axiosPost();
-  }, []);
+    try {
+      const posts = await axios.post(url + `/board/5/comment`, data);
+      setText('');
+      console.log(posts);
+      // if(posts.data === " " )
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
 
+  const commentPatch = async () => {
+    const data = {
+      body: text,
+    };
+    try {
+      const patch = await axios.patch(url + `/comment/5`, data);
+      console.log(patch);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
+  const commentDelete = async () => {
+    try {
+      const res = await axios.delete(url + `/comment/69`);
+      console.log(res);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
+  // console.log(comments);
   // axios
   //   .get(url + '/board/2')
   //   .then((res) => {
@@ -232,7 +257,8 @@ const Comments = () => {
     <>
       <TotalComment>
         <BtnContain>
-          <AddCommentBtn handlerSubmit={handlerSubmit} />
+          <AddCommentBtn commentPost={commentPost} />
+          {/* <AddCommentBtn /> */}
         </BtnContain>
         {/* <QuillContain> */}
         <CommentInput
@@ -263,8 +289,8 @@ const Comments = () => {
               </CommentBox>
 
               <BtnBox>
-                <ModifyCommentBtn />
-                <DeleteCommentBtn />
+                <ModifyCommentBtn commentPatch={commentPatch} />
+                <DeleteCommentBtn commentDelete={commentDelete} />
               </BtnBox>
             </CommentContain>
           );

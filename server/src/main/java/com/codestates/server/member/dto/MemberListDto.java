@@ -1,6 +1,5 @@
 package com.codestates.server.member.dto;
 
-import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 @Getter
