@@ -82,7 +82,7 @@ public class AssetController {
 
         Asset updatedAsset = mapper.assetPatchDtoToAsset(patch);
         updatedAsset.setAssetId(assetId);
-        assetService.updateAsset(updatedAsset, updatedAsset.getStrValue());
+        assetService.updateAsset(updatedAsset, patch.getStrValue());
         AssetDto.Response response = mapper.assetToAssetResponse(updatedAsset);
 
 //        patch.setAssetId(assetId);

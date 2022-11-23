@@ -5,11 +5,12 @@ import com.codestates.server.asset.entity.Asset.AssetStatus;
 import com.codestates.server.asset.repository.AssetRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 @Service
@@ -34,17 +35,19 @@ public class AssetService {
 
 
         // string을 long으로 형변환
-
-        String num = strValue.substring(1);
+        long num = Long.parseLong(strValue.substring(1));
+        long newValue = 0L;
+        long oldValue = asset.getAssetValue();
 
         if (strValue.charAt(0) == '-') {
-            return asset.getAssetValue() - Long.parseLong(num); // str -> Long으로 변환
-//            return asset - Long.valueOf(num).longValue(); // str -> Long으로 변환
+//            return asset.getAssetValue() - Long.parseLong(num); // str -> Long으로 변환
+            newValue = oldValue - num;
         }
         else if (strValue.charAt(0) == '+') {
-            return asset.getAssetValue() + Long.parseLong(num, 10);
+//            return asset.getAssetValue() + Long.parseLong(num, 10);
+            newValue = oldValue + num;
         }
-
+        verifiedAsset.setAssetValue(newValue);  // 새로운 벨류로 업데이트
         return repository.save(verifiedAsset);
 
 //        Asset updateAsset = asset;

@@ -1,16 +1,12 @@
 package com.codestates.server.asset.entity;
 
-import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -39,7 +35,7 @@ public class Asset {
     }
 
 
-    @Column(nullable = false)
+    @Column
     private String strValue; // string을 long으로 형변환
 
 
