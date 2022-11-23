@@ -34,4 +34,10 @@ public class Comment extends Auditable {
         this.body = body;
         this.board = board;
     }
+
+    public Comment(String body, Member member, Board board) {
+        this.body = body;
+        this.member = member;
+        this.board = board;
+    }
 }

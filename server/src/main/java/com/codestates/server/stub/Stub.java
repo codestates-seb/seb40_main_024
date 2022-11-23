@@ -58,10 +58,14 @@ public class Stub {
 
             // Comments data
             for (int j = 1; j <= commentNum; j++) {
+                int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
+                Member postMember = memberService.findVerifiedMember(whichMember);
+
                 int boardNum = (int) (Math.random() * postNum) + 1;  // 랜덤 보드 넘버
                 String temp = "테스트 댓글 " + j + " 번";
                 Board board = boardService.findVerifiedBoard(boardNum);
-                log.info("COMMENT STUB " + commentRepository.save(new Comment(temp, board)));
+                Comment comment = new Comment(temp, postMember, board);
+                log.info("COMMENT STUB " + commentRepository.save(comment));
             }
 
             // Asset

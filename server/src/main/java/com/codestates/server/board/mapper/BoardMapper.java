@@ -25,7 +25,8 @@ public interface BoardMapper {
                 .map(c -> new CommentDto.Response(c.getCommentId(),
                         c.getBody(),
                         c.getCreatedAt(),
-                        c.getModifiedAt()))
+                        c.getModifiedAt(),
+                        memberToMemberResponseDto(c.getMember())))
                 .collect(Collectors.toList());
 
         return BoardDto.Response.builder()
@@ -38,7 +39,7 @@ public interface BoardMapper {
                 .memberPosted(memberToMemberResponseDto(member))
                 .commentsPosted(commentResponse)
                 .build();
-
     }
+
     MemberDto.Response memberToMemberResponseDto(Member member);
 }
