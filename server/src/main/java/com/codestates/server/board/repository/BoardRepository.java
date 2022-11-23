@@ -10,7 +10,7 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query(nativeQuery = true, value = "select * from Board where board_status > 0"
             + " order by board_id asc")
-    Page<Board> findAll(Pageable pageable);
+    Page<Board> findAllPaged(Pageable pageable);
 
     // status -> posted 만 조회
 }

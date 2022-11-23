@@ -4,6 +4,7 @@ import com.codestates.server.comment.controller.CommentController;
 import com.codestates.server.comment.dto.CommentDto;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -15,7 +16,7 @@ public class CommentAssembler implements RepresentationModelAssembler <CommentDt
     @Override
     public EntityModel<CommentDto.Response> toModel(CommentDto.Response comment) {
         return EntityModel.of(comment,
-                linkTo(methodOn(CommentController.class).getComment(comment.getCommentId())).withSelfRel(),
+                WebMvcLinkBuilder.linkTo(methodOn(CommentController.class).getComment(comment.getCommentId())).withSelfRel(),
                 linkTo(methodOn(CommentController.class).getComments()).withRel("comments"));
     }
 }

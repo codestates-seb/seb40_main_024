@@ -42,8 +42,8 @@ public class BoardService {
 //        return new ArrayList<>(repository.findAll());
 //    }
 
-    public Page<Board> findAll(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size));
+    public Page<Board> findAllByPage(int page, int size) {
+        return repository.findAllPaged(PageRequest.of(page, size));
     }
 
     @Transactional

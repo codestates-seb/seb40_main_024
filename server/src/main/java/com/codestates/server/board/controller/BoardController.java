@@ -5,10 +5,11 @@ import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.service.BoardService;
+import com.codestates.server.dto.MultiResponseDto;
 import org.springframework.data.domain.Page;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -17,9 +18,6 @@ import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/board")
@@ -46,19 +44,22 @@ public class BoardController {
     }
 
     @GetMapping
-    public CollectionModel<EntityModel<BoardDto.Response>> getBoards(@Positive @RequestParam int page,
-                                                                     @Positive @RequestParam int size) {
+    public ResponseEntity getBoards(@Positive @RequestParam int page,
+                                    @Positive @RequestParam int size) {
 
-        Page<Board> pagedBoards = boardService.findAll(page - 1, size);
+        Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
         List<Board> listedBoards = pagedBoards.getContent();
 
         List<EntityModel<BoardDto.Response>> boards = listedBoards.stream()
                 .map(mapper::boardToBoardResponseDto)
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
+//
+//        return CollectionModel.of(boards,
+//                linkTo(methodOn(BoardService.class).findAllByPage(page - 1, size)).withSelfRel());
 
-        return CollectionModel.of(boards,
-                linkTo(methodOn(BoardService.class).findAll(page - 1, size)).withSelfRel());
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
     }
 
     @PostMapping
