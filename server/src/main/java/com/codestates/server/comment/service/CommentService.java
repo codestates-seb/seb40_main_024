@@ -4,7 +4,7 @@ import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
-import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,6 +63,6 @@ public class CommentService {
 
     public Comment findVerifiedComment(long id) {
         Optional<Comment> optionalComment = repository.findById(id);
-        return optionalComment.orElseThrow(() -> new BusinessLogicException(ExceptionCode.COMMENT_NOT_FOUND));
+        return optionalComment.orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_NOT_FOUND));
     }
 }

@@ -91,6 +91,31 @@ const At = styled.div`
   align-content: center;
   justify-content: center;
 `;
+const LikeBox = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-right: 10px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  color: red;
+  -webkit-text-stroke: 1.5px black;
+  cursor: pointer;
+`;
+const UnLikeBox = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  margin-right: 10px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  color: white;
+  -webkit-text-stroke: 1.5px black;
+
+  cursor: pointer;
+`;
 const TitleBox = styled.div`
   display: flex;
   width: 100%;
@@ -153,6 +178,8 @@ const Contents = ({ title, body, createdAt }) => {
               <Id>유저아이디가 들어가야하오...</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
+                <LikeBox>❤</LikeBox>
+                <UnLikeBox>❤</UnLikeBox>
               </EtcBox>
             </IdEtcBox>
             <TitleBox>{title}</TitleBox>
