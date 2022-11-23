@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,12 +39,12 @@ public class BoardService {
         return verifiedBoard;
     }
 
-//    public List<Board> findAll() {
-//        return new ArrayList<>(repository.findAll());
-//    }
+    public List<Board> findAll() {
+        return new ArrayList<>(repository.findAll());
+    }
 
-    public Page<Board> findAll(int page, int size) {
-        return repository.findAll(PageRequest.of(page, size));
+    public Page<Board> findAllByPage(int page, int size) {
+        return repository.findAllPaged(PageRequest.of(page, size));
     }
 
     @Transactional
