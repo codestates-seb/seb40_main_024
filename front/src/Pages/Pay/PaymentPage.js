@@ -23,7 +23,7 @@ const ProgressContain = styled.div`
 const PaymentPage = () => {
   return (
     <PaymentContain>
-      <ProgressContain></ProgressContain>
+      <ProgressContain>1234</ProgressContain>
     </PaymentContain>
   );
 };

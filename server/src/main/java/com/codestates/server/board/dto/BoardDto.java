@@ -1,12 +1,16 @@
 package com.codestates.server.board.dto;
 
+import com.codestates.server.comment.dto.CommentDto;
+import com.codestates.server.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class BoardDto {
 
@@ -42,14 +46,17 @@ public class BoardDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Response {
         private long boardId;
         private String title;
         private String body;
         private int like;
-
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+
+        private MemberDto.Response memberPosted;
+        private List<CommentDto.Response> commentsPosted;
     }
 
 }
