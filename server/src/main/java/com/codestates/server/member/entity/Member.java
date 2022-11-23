@@ -39,6 +39,12 @@ public class Member extends Auditable {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Asset> assets = new ArrayList<>();
 
+    //게시글 작성에 필요한 생성자
+    public Member (String email, String name, String password) {
+        this.email = email;
+        this.name = name;
+        this.password = password;
+    }
 
     @Builder
     public Member(Long id , String email, String name, String password, List<String> roles) {
