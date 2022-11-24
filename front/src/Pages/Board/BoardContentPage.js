@@ -23,6 +23,7 @@ const BoardContentPage = () => {
   const [createdAt, setcreatedAt] = useState();
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
+  const [like, setLike] = useState();
 
   const URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
@@ -34,6 +35,7 @@ const BoardContentPage = () => {
         setBody(res.data.body);
         setcreatedAt(res.data.createdAt);
         setName(res.data.memberPosted.name);
+        setLike(res.data.like);
       } catch (e) {
         console.log(e);
       }
@@ -52,6 +54,7 @@ const BoardContentPage = () => {
           body={body}
           createdAt={createdAt}
           name={name}
+          like={like}
         />
         <Comments />
       </MainPost>

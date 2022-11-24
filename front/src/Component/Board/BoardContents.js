@@ -95,7 +95,7 @@ const LikeBox = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 10px;
+  margin-right: 3px;
   line-height: normal;
   align-content: center;
   justify-content: center;
@@ -107,7 +107,7 @@ const UnLikeBox = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 10px;
+  margin-left: 3px;
   line-height: normal;
   align-content: center;
   justify-content: center;
@@ -136,7 +136,7 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Contents = ({ boardId, title, body, createdAt, name }) => {
+const Contents = ({ boardId, title, body, createdAt, name, like }) => {
   const navigate = useNavigate();
   const { id } = useParams();
   const date = moment(createdAt);
@@ -152,6 +152,26 @@ const Contents = ({ boardId, title, body, createdAt, name }) => {
       console.log(e);
     }
   };
+
+  const PatchLike = async () => {
+    try {
+      const res = await axios.patch(`${URL}/board/${id}/like`);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const PatchDisLike = async () => {
+    try {
+      const res = await axios.patch(`${URL}/board/${id}/dislike`);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  console.log(like);
 
   return (
     <>
@@ -169,8 +189,9 @@ const Contents = ({ boardId, title, body, createdAt, name }) => {
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
-                <LikeBox>❤</LikeBox>
-                <UnLikeBox>❤</UnLikeBox>
+                <LikeBox onClick={PatchLike}>❤</LikeBox>
+                {like}
+                <UnLikeBox onClick={PatchDisLike}>❤</UnLikeBox>
               </EtcBox>
             </IdEtcBox>
             <TitleBox>{title}</TitleBox>
