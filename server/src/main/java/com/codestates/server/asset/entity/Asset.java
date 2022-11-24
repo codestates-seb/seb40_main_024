@@ -1,16 +1,11 @@
 package com.codestates.server.asset.entity;
 
-import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.*;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -29,14 +24,28 @@ public class Asset {
     @Column(nullable = false)
     private long assetValue; // long은 null값 불가능
 
-    @Builder
+
+
+
+//    @Builder
     public Asset(String assetType, Long assetValue) {
         this.assetType = assetType;
         this.assetValue = assetValue;
     }
+    public Asset(String assetType, Long assetValue, Member member) {
+        this.assetType = assetType;
+        this.assetValue = assetValue;
+        this.member = member;
+    }
+
+
+    @Column
+    private String strValue; // string을 long으로 형변환
+
+
 
     @ManyToOne(fetch = FetchType.LAZY) // 단방향
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     private Member member;
 
 
@@ -64,4 +73,30 @@ public class Asset {
         }
     }
 
+
+    public void addMember(Member member) { // 서로 참조가 필요한 상황
+        if (this.member != null) { // 없으면 무한참조 일어남
+            this.member.getAssets().remove(this);
+        }
+        this.member = member; // 직접 연관관계 매핑 (먼저 매핑된 상태에서)
+        member.getAssets().add(this);
+    }
+
+
+
 }
+//
+//// 서브 클래스로 받아오는 게 맞을지?
+//@Enumerated
+//public static class Currency {
+//    public Currency(Long won, Long dol, Long eu, Long jpy) {
+//        this.won = won;
+//        this.dol = dol;
+//        this.eu = eu;
+//        this.jpy = jpy;
+//    }
+//    private Long won;
+//    private Long dol;
+//    private Long eu;
+//    private Long jpy;
+//}
