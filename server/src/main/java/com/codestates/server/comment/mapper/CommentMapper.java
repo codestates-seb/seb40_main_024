@@ -22,7 +22,6 @@ public interface CommentMapper {
                 .memberPosted(memberToMemberResponseDto(member))
                 .build();
 
-        // WIP: add member info
     }
     MemberDto.Response memberToMemberResponseDto(Member member);
 }
