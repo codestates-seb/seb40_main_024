@@ -72,10 +72,9 @@ const Select = styled.select`
 
 export const FreeBoardList = () => {
   const URL = process.env.REACT_APP_API_URL;
-
   const [boardlist, setBoardlist] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
   const offset = (page - 1) * limit;
 
@@ -103,11 +102,11 @@ export const FreeBoardList = () => {
             value={limit}
             onChange={({ target: { value } }) => setLimit(Number(value))}
           >
+            <option value="5">5</option>
             <option value="10">10</option>
+            <option value="15">15</option>
             <option value="20">20</option>
-            <option value="30">30</option>
             <option value="50">50</option>
-            <option value="100">100</option>
           </Select>
         </Label>
         {loading ? (
@@ -123,16 +122,21 @@ export const FreeBoardList = () => {
           boardlist &&
           boardlist
             .slice(offset, offset + limit)
-            .map((el, i) => (
-              <AllBoardList
-                key={i}
-                id={el.boardId}
-                title={el.title}
-                body={el.body}
-                createdAt={el.createdAt}
-                like={el.like}
-              ></AllBoardList>
-            ))
+            .map(
+              (el, i) => (
+                new Map([...boardlist.sort((a, b) => b.boardId - a.boardId)]),
+                (
+                  <AllBoardList
+                    key={i}
+                    id={el.boardId}
+                    title={el.title}
+                    body={el.body}
+                    createdAt={el.createdAt}
+                    like={el.like}
+                  ></AllBoardList>
+                )
+              )
+            )
         )}
         <Pagination
           total={boardlist.length}
