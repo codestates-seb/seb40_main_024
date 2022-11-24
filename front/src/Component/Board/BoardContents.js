@@ -4,6 +4,7 @@ import ProfileIcon from '../Member/ProfileIcon';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useState, useEffect } from 'react';
 
 const TotalContent = styled.div`
   display: flex;
@@ -136,11 +137,18 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Contents = ({ boardId, title, body, createdAt, name, like }) => {
+const Contents = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [title, setTitle] = useState();
+  const [body, setBody] = useState();
+  const [createdAt, setcreatedAt] = useState();
+  const [name, setName] = useState();
+  const [boardId, setBoardId] = useState();
+  const [like, setLike] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
+
   const URL = process.env.REACT_APP_API_URL;
 
   const Delete = async () => {
@@ -153,25 +161,40 @@ const Contents = ({ boardId, title, body, createdAt, name, like }) => {
     }
   };
 
-  const PatchLike = async () => {
+  const Patchlike = async () => {
     try {
       const res = await axios.patch(`${URL}/board/${id}/like`);
-      console.log(res);
+      setLike(res.data.like);
     } catch (e) {
       console.log(e);
     }
   };
 
-  const PatchDisLike = async () => {
+  const Patchdislike = async () => {
     try {
       const res = await axios.patch(`${URL}/board/${id}/dislike`);
-      console.log(res);
+      setLike(res.data.like);
     } catch (e) {
       console.log(e);
     }
   };
 
-  console.log(like);
+  useEffect(() => {
+    const Get = async () => {
+      try {
+        const res = await axios.get(`${URL}/board/${id}`);
+        setBoardId(res.data.boardId);
+        setTitle(res.data.title);
+        setBody(res.data.body);
+        setcreatedAt(res.data.createdAt);
+        setName(res.data.memberPosted.name);
+        setLike(res.data.like);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    Get();
+  }, [Patchlike]);
 
   return (
     <>
@@ -189,9 +212,9 @@ const Contents = ({ boardId, title, body, createdAt, name, like }) => {
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
-                <LikeBox onClick={PatchLike}>❤</LikeBox>
+                <LikeBox onClick={Patchlike}>❤</LikeBox>
                 {like}
-                <UnLikeBox onClick={PatchDisLike}>❤</UnLikeBox>
+                <UnLikeBox onClick={Patchdislike}>❤</UnLikeBox>
               </EtcBox>
             </IdEtcBox>
             <TitleBox>{title}</TitleBox>
