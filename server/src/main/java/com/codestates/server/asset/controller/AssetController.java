@@ -5,6 +5,8 @@ import com.codestates.server.asset.dto.AssetDto.Response;
 import com.codestates.server.asset.entity.Asset;
 import com.codestates.server.asset.mapper.AssetMapper;
 import com.codestates.server.asset.service.AssetService;
+import com.codestates.server.member.service.MemberService;
+import javax.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,12 +14,11 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/asset")
+@RequestMapping("/")
 @Validated
 @Slf4j
 public class AssetController {
@@ -33,7 +34,7 @@ public class AssetController {
 
 
     // 자산 전체 조회
-    @GetMapping
+    @GetMapping("/asset")
     public ResponseEntity getAssets() {
 
         List<Asset> assets = assetService.findAssets();
@@ -45,7 +46,6 @@ public class AssetController {
 
         return new ResponseEntity<>(
             response, HttpStatus.OK
-
         );
     }
 
@@ -53,9 +53,9 @@ public class AssetController {
 
 
     //     자산 일부 조회
-    @GetMapping("/{assetId}")
-    public ResponseEntity getAsset(@PathVariable long assetId) {
-        Asset asset = assetService.findVerifiedAsset(assetId);
+    @GetMapping("/asset/{assetId}")
+    public ResponseEntity getAsset(@PathVariable("asset_id") @Positive long assetId) {
+        Asset asset = assetService.findAsset(assetId);
         AssetDto.Response response = mapper.assetToAssetResponse(asset);
         return new ResponseEntity<>(
             response, HttpStatus.OK
@@ -64,11 +64,12 @@ public class AssetController {
     }
 
     // 자산 등록
-    @PostMapping
-    public ResponseEntity postAsset(@Valid @RequestBody AssetDto.Post requestBody) {
-        Asset asset = assetService.createAsset(mapper.assetPostDtoToAsset(requestBody));
+    @PostMapping("/member/{member_id}/asset")
+    public ResponseEntity postAsset(@Valid @RequestBody AssetDto.Post requestBody,
+                                    @PathVariable("member_id") @Positive long memberId) {
+        Asset asset = assetService.createAsset(mapper.assetPostDtoToAsset(requestBody), memberId);
 //        asset.setAssetValue(100L);
-        AssetDto.Response response = mapper.assetToAssetResponse(asset);
+        Response response = mapper.assetToAssetResponse(asset);
         log.info("response{}=",response);
         return new ResponseEntity<>(
             response, HttpStatus.CREATED);
@@ -76,14 +77,15 @@ public class AssetController {
 
     //
     // 자산 수정
-    @PatchMapping("/{assetId}")
-    public ResponseEntity patchAsset(@PathVariable @Positive Long assetId,
-        @Valid @RequestBody AssetDto.Patch patch) {
+    @PatchMapping("/member/{member_id}/asset/{assetId}")
+    public ResponseEntity patchAsset(@PathVariable("assetId") @Positive long assetId,
+                                     @PathVariable("member_id") @Positive long memberId,
+                                    @Valid @RequestBody AssetDto.Patch patch) {
 
-        Asset updatedAsset = mapper.assetPatchDtoToAsset(patch);
-        updatedAsset.setAssetId(assetId);
-        assetService.updateAsset(updatedAsset);
-        AssetDto.Response response = mapper.assetToAssetResponse(updatedAsset);
+        patch.setAssetId(assetId);
+
+        Asset updatedAsset = assetService.updateAsset(mapper.assetPatchDtoToAsset(patch), patch.getStrValue());
+        Response response = mapper.assetToAssetResponse(updatedAsset);
 
 //        patch.setAssetId(assetId);
 //        Asset asset = assetService.updateAsset(
@@ -96,9 +98,10 @@ public class AssetController {
     }
 
     // 자산 삭제
-    @DeleteMapping("/{assetId}")
-    public ResponseEntity<?> deleteAsset(@PathVariable long assetId) {
-        assetService.deleteAsset(assetId);
+    @DeleteMapping("member/{member_id}/asset/{assetId}")
+    public ResponseEntity<?> deleteAsset(@PathVariable("asset_id") @Positive long assetId,
+                                            @PathVariable("member_id") @Positive long memberId) {
+        assetService.deleteAsset(assetId, memberId);
         return ResponseEntity.noContent().build();
     }
 
