@@ -63,6 +63,22 @@ const BoardContentPage = () => {
   const [body, setBody] = useState();
   const [createdAt, setcreatedAt] = useState();
 
+  // const URL =
+  //   'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  // useEffect(() => {
+  //   const Get = async () => {
+  //     try {
+  //       const res = await axios.get(`${URL}/board/${id}`);
+  //       setTitle(res.data.title);
+  //       setBody(res.data.body);
+  //       setcreatedAt(res.data.createdAt);
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+  //   Get();
+  // }, []);
+
   const URL =
     'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
   useEffect(() => {

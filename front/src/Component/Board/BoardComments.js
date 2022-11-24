@@ -169,8 +169,7 @@ const BtnBox = styled.div`
 const Comments = () => {
   // const { id } = useParams();
   // console.log(id.slice(1));
-  const url =
-    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const url = process.env.REACT_APP_API_URL;
   const [comments, setComment] = useState([]);
   const [text, setText] = useState('');
 
@@ -192,8 +191,15 @@ const Comments = () => {
   useEffect(() => {
     const commentGet = async () => {
       try {
-        const res = await axios.get(url + '/board/5');
+        const res = await axios.get(`${url}/board/5`);
+
         setComment(res.data.commentsPosted);
+        const reverseComments = res.data.commentsPosted.sort((a, b) => {
+          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
+        });
+        console.log('res', res);
+        setComment(reverseComments);
+        return;
       } catch (err) {
         console.log('error', err);
       }
@@ -209,7 +215,7 @@ const Comments = () => {
       body: text,
     };
     try {
-      const posts = await axios.post(url + `/board/5/comment`, data);
+      const posts = await axios.post(url + '/board/5/comment', data);
       setText('');
       console.log(posts);
       // if(posts.data === " " )
@@ -232,7 +238,7 @@ const Comments = () => {
 
   const commentDelete = async () => {
     try {
-      const res = await axios.delete(url + `/comment/69`);
+      const res = await axios.delete(url + `/comment/65`);
       console.log(res);
     } catch (err) {
       console.log('error', err);
