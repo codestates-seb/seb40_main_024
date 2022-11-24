@@ -50,6 +50,7 @@ public class MemberDto {
         }
     }
     @Getter
+    @Setter
     public static class ResponseObject {
         private Long id;
         private String name;
