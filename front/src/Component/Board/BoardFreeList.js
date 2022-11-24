@@ -183,12 +183,12 @@ export const FreeBoardList = () => {
 
   //? GET
   // eslint-disable-next-line no-unused-vars
-  async function getApi() {
-    await axios
-      .get('board/1')
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(err));
-  }
+  // async function getApi() {
+  //   await axios
+  //     .get('board/1')
+  //     .then((res) => console.log(res.data))
+  //     .catch((err) => console.log(err));
+  // }
   //?
 
   //? DELET

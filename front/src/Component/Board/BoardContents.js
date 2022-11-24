@@ -160,7 +160,6 @@ const UnLikeBox = styled.div`
   justify-content: center;
   color: white;
   -webkit-text-stroke: 1.5px black;
-
   cursor: pointer;
 `;
 const TitleBox = styled.div`
