@@ -59,6 +59,7 @@ public class BoardService {
         // title and body
         verifiedBoard.setTitle(board.getTitle());
         verifiedBoard.setBody(board.getBody());
+        verifiedBoard.setTag(board.getTag());
 
         // Modified time
         verifiedBoard.setModifiedAt(LocalDateTime.now());
