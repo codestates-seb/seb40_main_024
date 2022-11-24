@@ -1,7 +1,7 @@
 import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
-import TestBoardList from './AllBoardList';
+import AllBoardList from './AllBoardList';
 import Pagination from './Pagination';
 
 const Div = styled.div`
@@ -92,8 +92,6 @@ export const FreeBoardList = () => {
     axiosData();
   }, []);
 
-  console.log(boardlist);
-
   return (
     <>
       <div>
@@ -126,14 +124,14 @@ export const FreeBoardList = () => {
           boardlist
             .slice(offset, offset + limit)
             .map((el, i) => (
-              <TestBoardList
+              <AllBoardList
                 key={i}
                 id={el.boardId}
                 title={el.title}
                 body={el.body}
                 createdAt={el.createdAt}
                 like={el.like}
-              ></TestBoardList>
+              ></AllBoardList>
             ))
         )}
         <Pagination
