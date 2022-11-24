@@ -46,6 +46,30 @@ const Div = styled.div`
   }
 `;
 
+const Label = styled.label`
+  display: flex;
+  margin-top: 15px;
+  span {
+    color: #8ec3b0;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 100px;
+  }
+`;
+
+const Select = styled.select`
+  border: 2.5px solid #9ed5c5;
+  box-sizing: border-box;
+  color: #8ec3b0;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  text-align: center;
+  outline: none;
+  margin-left: 5px;
+  margin-top: -2.5px;
+`;
+
 export const FreeBoardList = () => {
   const URL = process.env.REACT_APP_API_URL;
 
@@ -72,9 +96,10 @@ export const FreeBoardList = () => {
   return (
     <>
       <div>
-        <label>
-          페이지 당 표시할 게시물 수:&nbsp;
-          <select
+        <Label>
+          <span>페이지 당 표시할 게시물 수 :</span>
+          <div> &nbsp;</div>
+          <Select
             type="number"
             value={limit}
             onChange={({ target: { value } }) => setLimit(Number(value))}
@@ -84,8 +109,8 @@ export const FreeBoardList = () => {
             <option value="20">20</option>
             <option value="50">50</option>
             <option value="100">100</option>
-          </select>
-        </label>
+          </Select>
+        </Label>
         {loading ? (
           <Div>
             <div className="lds-ring">
