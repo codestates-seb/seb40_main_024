@@ -2,7 +2,6 @@ package com.codestates.server.asset.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
@@ -28,7 +27,6 @@ public class AssetDto {
     @Getter
     @Setter
     @AllArgsConstructor
-    @NoArgsConstructor
     public static class Patch {
 
         private long assetId;
@@ -36,7 +34,7 @@ public class AssetDto {
         @NotBlank(message = "자산을 입력하세요 ")
         private String assetType;
 
-        private long assetValue;
+//        private long assetValue;
 
         @NotNull(message = "부호와 금액을 입력하세요. ex) +3000")
         @Pattern(regexp = ("[-+]?\\d*")) // 숫자 앞에 -.+ 허용. 문자열에 최소 하나 이상의 숫자 존재해야

@@ -1,7 +1,6 @@
 package com.codestates.server.asset.entity;
 
 import com.codestates.server.member.entity.Member;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +27,7 @@ public class Asset {
 
 
 
-    @Builder
+//    @Builder
     public Asset(String assetType, Long assetValue) {
         this.assetType = assetType;
         this.assetValue = assetValue;

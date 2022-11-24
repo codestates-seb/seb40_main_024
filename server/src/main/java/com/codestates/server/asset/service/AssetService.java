@@ -31,13 +31,13 @@ public class AssetService {
 //    public Asset updateAsset(Asset asset) {
     public Asset updateAsset(Asset asset, String strValue) { // asset은 Long타입. strValue는 String)
         Asset verifiedAsset = findVerifiedAsset(asset.getAssetId());
-        verifiedAsset.setAssetValue(asset.getAssetValue());
+//        verifiedAsset.setAssetValue(asset.getAssetValue());
 
 
         // string을 long으로 형변환
         long num = Long.parseLong(strValue.substring(1));
         long newValue = 0L;
-        long oldValue = asset.getAssetValue();
+        long oldValue = verifiedAsset.getAssetValue();
 
         if (strValue.charAt(0) == '-') {
 //            return asset.getAssetValue() - Long.parseLong(num); // str -> Long으로 변환

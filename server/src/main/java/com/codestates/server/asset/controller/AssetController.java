@@ -12,7 +12,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Positive;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -77,12 +76,12 @@ public class AssetController {
     //
     // 자산 수정
     @PatchMapping("/{assetId}")
-    public ResponseEntity patchAsset(@PathVariable @Positive Long assetId,
+    public ResponseEntity patchAsset(@PathVariable("assetId") long assetId,
         @Valid @RequestBody AssetDto.Patch patch) {
 
-        Asset updatedAsset = mapper.assetPatchDtoToAsset(patch);
-        updatedAsset.setAssetId(assetId);
-        assetService.updateAsset(updatedAsset, patch.getStrValue());
+        patch.setAssetId(assetId);
+
+        Asset updatedAsset = assetService.updateAsset(mapper.assetPatchDtoToAsset(patch), patch.getStrValue());
         AssetDto.Response response = mapper.assetToAssetResponse(updatedAsset);
 
 //        patch.setAssetId(assetId);
