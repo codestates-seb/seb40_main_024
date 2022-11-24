@@ -1,6 +1,8 @@
 package com.codestates.server.asset.dto;
 
+import com.codestates.server.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -48,11 +50,14 @@ public class AssetDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Response {
 
         private long assetId;
         private String assetType;
         private long assetValue;
+        private long memberId;
+        private MemberDto.ResponseObject memberPosted;
 
 //        public void setAsset(Asset asset) {
 //            this.assetId = asset.getAssetId();

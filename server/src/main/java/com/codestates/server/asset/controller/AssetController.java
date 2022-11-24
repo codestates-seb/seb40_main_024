@@ -54,9 +54,9 @@ public class AssetController {
 
     //     자산 일부 조회
     @GetMapping("/asset/{assetId}")
-    public ResponseEntity getAsset(@PathVariable("asset_id") long assetId) {
-        Asset asset = assetService.findVerifiedAsset(assetId);
-        Response response = mapper.assetToAssetResponse(asset);
+    public ResponseEntity getAsset(@PathVariable("asset_id") @Positive long assetId) {
+        Asset asset = assetService.findAsset(assetId);
+        AssetDto.Response response = mapper.assetToAssetResponse(asset);
         return new ResponseEntity<>(
             response, HttpStatus.OK
 //            response, HttpStatus.CREATED : post일 때
@@ -77,9 +77,10 @@ public class AssetController {
 
     //
     // 자산 수정
-    @PatchMapping("asset/{assetId}")
-    public ResponseEntity patchAsset(@PathVariable("assetId") long assetId,
-        @Valid @RequestBody AssetDto.Patch patch) {
+    @PatchMapping("/member/{member_id}/asset/{assetId}")
+    public ResponseEntity patchAsset(@PathVariable("assetId") @Positive long assetId,
+                                     @PathVariable("member_id") @Positive long memberId,
+                                    @Valid @RequestBody AssetDto.Patch patch) {
 
         patch.setAssetId(assetId);
 
@@ -97,9 +98,10 @@ public class AssetController {
     }
 
     // 자산 삭제
-    @DeleteMapping("asset/{assetId}")
-    public ResponseEntity<?> deleteAsset(@PathVariable long assetId) {
-        assetService.deleteAsset(assetId);
+    @DeleteMapping("member/{member_id}/asset/{assetId}")
+    public ResponseEntity<?> deleteAsset(@PathVariable("asset_id") @Positive long assetId,
+                                            @PathVariable("member_id") @Positive long memberId) {
+        assetService.deleteAsset(assetId, memberId);
         return ResponseEntity.noContent().build();
     }
 

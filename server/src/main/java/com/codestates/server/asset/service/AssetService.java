@@ -34,6 +34,7 @@ public class AssetService {
 //    public Asset updateAsset(Asset asset) {
     public Asset updateAsset(Asset asset, String strValue) { // asset은 Long타입. strValue는 String)
         Asset verifiedAsset = findVerifiedAsset(asset.getAssetId());
+//        verifyMember 로그인 후 구현
 
 
         // string을 long으로 형변환
@@ -69,9 +70,10 @@ public class AssetService {
 
 
     @Transactional
-    public void deleteAsset(long assetId) {
+    public void deleteAsset(long assetId, long memberId) {
         Asset verifiedAsset = findVerifiedAsset(assetId);
         verifiedAsset.setAssetStatus(AssetStatus.ASSET_DELETED);
+        // 멤버 검증 필요
         repository.delete(verifiedAsset);
 
     }

@@ -32,6 +32,11 @@ public class Asset {
         this.assetType = assetType;
         this.assetValue = assetValue;
     }
+    public Asset(String assetType, Long assetValue, Member member) {
+        this.assetType = assetType;
+        this.assetValue = assetValue;
+        this.member = member;
+    }
 
 
     @Column
@@ -40,7 +45,7 @@ public class Asset {
 
 
     @ManyToOne(fetch = FetchType.LAZY) // 단방향
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "member_id")
     private Member member;
 
 

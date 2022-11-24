@@ -92,6 +92,8 @@ export const FreeBoardList = () => {
     axiosData();
   }, []);
 
+  console.log(boardlist);
+
   return (
     <>
       <div>
