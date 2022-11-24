@@ -1,7 +1,7 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import MainHome from './Pages/Home/MainHome';
-import Asset from './Pages/Asset/Asset';
+// import Asset from './Pages/Asset/Asset';
 import AssetChange from './Pages/Asset/AssetChange';
 import { LoginPage } from './Pages/Member/LoginPage';
 import { SignupPage } from './Pages/Member/SignupPage';
@@ -24,7 +24,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<MainHome />} />
-        <Route path="/asset" element={<Asset />} />
+        {/* <Route path="/asset" element={<Asset />} /> */}
         <Route path="/assetchange" element={<AssetChange />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
