@@ -18,7 +18,6 @@ import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
-import useQuery from 'use-query';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -29,16 +28,19 @@ const MainPage = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  border: 1px solid blue;
 `;
 
 const MainAssetChange = styled.div`
-  margin-top: 150px;
   margin-left: 100px;
+  margin-top: 150px;
+  margin-bottom: 150px;
 `;
 
 const MainContain = styled.div`
-  border: 1px solid red;
+  border: 1px solid blue;
+  margin-top: 165px;
+  margin-bottom: 165px;
 `;
 
 const H1 = styled.h1`
@@ -46,7 +48,16 @@ const H1 = styled.h1`
   border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
   margin-left: 13px;
-  width: 270px;
+  width: 170px;
+`;
+
+const H2 = styled.h2`
+  margin-bottom: 40px;
+  border-bottom: 5px solid #8ec3b0;
+  color: #9ed5c5;
+  margin-left: 13px;
+  width: 180px;
+  margin-top: 100px;
 `;
 
 const H3 = styled.h3`
@@ -222,19 +233,19 @@ function AssetChange() {
 
   //? PATCH
   // eslint-disable-next-line no-unused-vars
-  // const data2 = {
-  //   // eslint-disable-next-line prettier/prettier
-  //   title: "dsf222233",
-  //   // eslint-disable-next-line prettier/prettier
-  //   body: "asdfasdfasf222dfd222544",
-  // };
-  // // eslint-disable-next-line no-unused-vars
-  // async function patchApi() {
-  //   await axios
-  //     .patch(`${URL}/board/2`, data2)
-  //     .then((res) => console.log('res', res))
-  //     .catch((err) => console.log(err));
-  // }
+  const data2 = {
+    // eslint-disable-next-line prettier/prettier
+    title: "dsf222233",
+    // eslint-disable-next-line prettier/prettier
+    body: "asdfasdfasf222dfd222544",
+  };
+  // eslint-disable-next-line no-unused-vars
+  const patchApi = async () => {
+    await axios
+      .patch(`${URL}/board/33`, data2)
+      .then((res) => console.log('res', res))
+      .catch((err) => console.log(err));
+  };
   //?
 
   //? GET
@@ -246,6 +257,7 @@ function AssetChange() {
 
   useEffect(() => {
     getAssets();
+    patchApi();
   }, []);
 
   //?
@@ -442,7 +454,7 @@ function AssetChange() {
                 >
                   수정할 자산 종류를 입력해주세요
                 </Modal>
-                <H1>현재 자산 수정하기</H1>
+                <H1>현재 자산</H1>
                 {Data ? (
                   <>
                     <H3> 1 &nbsp;) </H3>
@@ -466,10 +478,28 @@ function AssetChange() {
                   </>
                 ) : (
                   <>
+                    <H3> 1 &nbsp;) </H3>
+                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                    <H3>&nbsp;총 금액: 0원</H3>
+                    <H3> 2 &nbsp;) </H3>
+                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                    <H3>&nbsp;총 금액: 0원</H3>
+                    <H3> 3 &nbsp;) </H3>
+                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                    <H3>&nbsp;총 금액: 0원</H3>
+                    <H3> 4 &nbsp;) </H3>
+                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                    <H3>&nbsp;총 금액: 0원</H3>
+                    <H3> 5 &nbsp;) </H3>
+                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                    <H3>&nbsp;총 금액: 0원</H3>
+                    <H3> 6 &nbsp;) </H3>
                     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
                     <H3>&nbsp;총 금액: 0원</H3>
                   </>
                 )}
+                {/* <H1>현재 자산</H1> */}
+                <H2>현재 자산 수정</H2>
                 <Div>
                   <Input
                     onChange={TextonChange}
@@ -522,7 +552,7 @@ function AssetChange() {
                   </Fade>
                 ) : null}
               </MainContain>
-              <MainContain>
+              {/* <MainContain>
                 <>
                   <div>ㅇㅇ</div>
                   <div>ㅇㅇ</div>
@@ -533,7 +563,7 @@ function AssetChange() {
                   <div>ㅇㅇ</div>
                   <div>ㅇㅇ</div>
                 </>
-              </MainContain>
+              </MainContain> */}
             </MainAssetChange>
           </MainPage>
         </>
