@@ -5,7 +5,9 @@ import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +18,7 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping("/member")
 @Validated
+@Log4j2
 public class MemberController {
 
     private final MemberService memberService;
@@ -43,16 +46,16 @@ public class MemberController {
     }
 
     // 회원 내 정보 수정 -> 보안인증[O]
-    @PatchMapping("/{memberId}")
-    public ResponseEntity patchMember(@PathVariable("memberId") String email,
+    @PatchMapping("/update")
+    public ResponseEntity patchMember(@AuthenticationPrincipal String email,
                                       @Valid @RequestBody MemberDto.Patch patch) {
+        log.info("email ={}", email);
         Member member = memberService.updateMember(email ,mapper.memberPatchToMember(patch));
         return ResponseEntity.ok(mapper.memberToMemberResponse(member));
     }
-
     // 패스워드 검증 구현 -> 보안인증 [O]
-    @PostMapping("{memberId}")
-    public ResponseEntity getPassword(@PathVariable("memberId") String email,
+    @PostMapping("/members")
+    public ResponseEntity getPassword(@AuthenticationPrincipal String email,
                                       @Valid @RequestBody Member member) {
         Member findMember = memberService.findPassword(email);
 
@@ -72,13 +75,13 @@ public class MemberController {
 //    }
 
     // 회원 탈퇴 구현
-    @DeleteMapping("/{memberId}")
-    public ResponseEntity deleteMember(@PathVariable("memberId") String memberId,
+    @DeleteMapping("/delete")
+    public ResponseEntity deleteMember(@AuthenticationPrincipal String email,
                                        @Valid @RequestBody Member member) {
-        Member findMember = memberService.findPassword(memberId);
+        Member findMember = memberService.findPassword(email);
 
         if (passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
-            memberService.deleteMember(memberId);
+            memberService.deleteMember(email);
             return ResponseEntity.ok().build();
         }
         else

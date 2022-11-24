@@ -1,6 +1,7 @@
 package com.codestates.server.board.dto;
 
 import com.codestates.server.comment.dto.CommentDto;
+import com.codestates.server.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -51,10 +52,11 @@ public class BoardDto {
         private String title;
         private String body;
         private int like;
-        private List<CommentDto.Response> commentsPosted;
-
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+
+        private MemberDto.Response memberPosted;
+        private List<CommentDto.Response> commentsPosted;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.codestates.server.comment.dto;
 
+import com.codestates.server.member.dto.MemberDto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -37,11 +38,9 @@ public class CommentDto {
     public static class Response {
         private long commentId;
         private String body;
-
-        // WIP: add MemberDto.Response
-
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+        private MemberDto.Response memberPosted;
     }
 
 }

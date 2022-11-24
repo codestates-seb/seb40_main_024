@@ -22,6 +22,8 @@ import useQuery from 'use-query';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+const URL = process.env.REACT_APP_API_URL;
+
 const MainPage = styled.div`
   display: flex;
   flex-direction: row;
@@ -212,7 +214,7 @@ function AssetChange() {
   // // eslint-disable-next-line no-unused-vars
   // async function postApi() {
   //   await axios
-  //     .post('/board', data1)
+  //     .post('`${URL}/board/`, data1)
   //     .then((res) => console.log(res.data))
   //     .catch((err) => console.log(err));
   // }
@@ -229,7 +231,7 @@ function AssetChange() {
   // // eslint-disable-next-line no-unused-vars
   // async function patchApi() {
   //   await axios
-  //     .patch('board/2', data2)
+  //     .patch(`${URL}/board/2`, data2)
   //     .then((res) => console.log('res', res))
   //     .catch((err) => console.log(err));
   // }
@@ -238,7 +240,7 @@ function AssetChange() {
   //? GET
   // eslint-disable-next-line no-unused-vars
   const getAssets = async () => {
-    const Datas = await axios.get('/asset');
+    const Datas = await axios.get(`${URL}/asset`);
     setData(Datas.data);
   };
 

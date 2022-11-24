@@ -4,6 +4,8 @@ import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
 import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.comment.entity.Comment;
+import com.codestates.server.member.dto.MemberDto;
+import com.codestates.server.member.entity.Member;
 import org.mapstruct.Mapper;
 
 import java.util.List;
@@ -16,15 +18,15 @@ public interface BoardMapper {
     Board boardPostToBoard(BoardDto.Post requestBody);
 
     default BoardDto.Response boardToBoardResponseDto(Board board) {
-//        Member member = board.getMember();
-
+        Member member = board.getMember();
         List<Comment> comments = board.getComments();
 
         List<CommentDto.Response> commentResponse = comments.stream()
                 .map(c -> new CommentDto.Response(c.getCommentId(),
                         c.getBody(),
                         c.getCreatedAt(),
-                        c.getModifiedAt()))
+                        c.getModifiedAt(),
+                        memberToMemberResponseDto(c.getMember())))
                 .collect(Collectors.toList());
 
         return BoardDto.Response.builder()
@@ -34,9 +36,10 @@ public interface BoardMapper {
                 .like(board.getLike())
                 .createdAt(board.getCreatedAt())
                 .modifiedAt(board.getModifiedAt())
+                .memberPosted(memberToMemberResponseDto(member))
                 .commentsPosted(commentResponse)
                 .build();
-
-        // WIP: add member info
     }
+
+    MemberDto.Response memberToMemberResponseDto(Member member);
 }
