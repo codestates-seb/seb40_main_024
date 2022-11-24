@@ -40,7 +40,7 @@ public class CommentDto {
         private String body;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private MemberDto.Response memberPosted;
+        private MemberDto.ResponseObject memberPosted;
     }
 
 }

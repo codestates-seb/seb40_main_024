@@ -7,7 +7,6 @@ import { LoginPage } from './Pages/Member/LoginPage';
 import { SignupPage } from './Pages/Member/SignupPage';
 import { ForgotPasswordPage } from './Pages/Member/ForgotPasswordPage';
 import { FreeBoardPage } from './Pages/Board/FreeBoardPage';
-import { AssetBoardPage } from './Pages/Board/AssetBoardPage';
 import FreeBoard from './Pages/Board/FreeBoard';
 import ShareBoard from './Pages/Board/ShareBoard';
 import MyPage from './Pages/Member/MyPage';
@@ -31,7 +30,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
         <Route path="/freeboard" element={<FreeBoardPage />} />
-        <Route path="/assetboard" element={<AssetBoardPage />} />
         <Route path="/freeboardpost" element={<FreeBoard />} />
         <Route path="/shareboardpost" element={<ShareBoard />} />
         <Route path="/mypage" element={<MyPage />} />

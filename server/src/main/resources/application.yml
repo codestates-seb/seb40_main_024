@@ -5,6 +5,8 @@ spring:
       path: /h2
   datasource:
     url: jdbc:h2:mem:hojuMoney
+    driver-class-name: org.h2.Driver
+    username: sa
   jpa:
     hibernate:
       ddl-auto: create  # (1) ??? ?? ??

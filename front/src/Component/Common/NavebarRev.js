@@ -175,7 +175,7 @@ export const LongNavbarBox = () => {
 
   return (
     <>
-      <MediaQuery minWidth={571} maxWidth={999999}>
+      <MediaQuery minWidth={800} maxWidth={999999}>
         <LongContainer>
           <MarkBox onClick={() => navigate('/')}></MarkBox>
           <RowDropMenuBox>
@@ -254,7 +254,7 @@ export const LongLoginNavbarBox = () => {
 
   return (
     <>
-      <MediaQuery minWidth={571} maxWidth={999999}>
+      <MediaQuery minWidth={800} maxWidth={999999}>
         <LongContainer>
           <MarkBox onClick={() => navigate('/')}></MarkBox>
           <RowDropMenuBox>
@@ -348,7 +348,7 @@ export const MiniNavbarBox = () => {
 
   return (
     <>
-      <MediaQuery minWidth={0} maxWidth={571}>
+      <MediaQuery minWidth={0} maxWidth={800}>
         <LongContainer>
           <MarkBox onClick={handleClickMark}></MarkBox>
           {Markclicked ? null : (
@@ -368,14 +368,11 @@ export const MiniNavbarBox = () => {
                     <MiniMenu onClick={handleClickAsset}>
                       자산&목표
                       <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/asset')}>
-                          현황
-                        </MenuList>
                         <MenuList onClick={() => navigate('/assetchange')}>
-                          자산수정
+                          자산현황
                         </MenuList>
                         <MenuList onClick={() => navigate('/assettargetpage')}>
-                          목표수정
+                          목표현황
                         </MenuList>
                       </MiniMenuTopList>
                     </MiniMenu>
@@ -455,7 +452,7 @@ export const MiniLoginNavbarBox = () => {
 
   return (
     <>
-      <MediaQuery minWidth={0} maxWidth={571}>
+      <MediaQuery minWidth={0} maxWidth={800}>
         <LongContainer>
           <MarkBox onClick={handleClickMark}></MarkBox>
           {Markclicked ? null : (
@@ -490,14 +487,11 @@ export const MiniLoginNavbarBox = () => {
                     <MiniMenu onClick={handleClickAsset}>
                       자산&목표
                       <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/asset')}>
-                          현황
-                        </MenuList>
                         <MenuList onClick={() => navigate('/assetchange')}>
-                          자산수정
+                          자산현황
                         </MenuList>
                         <MenuList onClick={() => navigate('/assettargetpage')}>
-                          목표수정
+                          목표현황
                         </MenuList>
                       </MiniMenuTopList>
                     </MiniMenu>

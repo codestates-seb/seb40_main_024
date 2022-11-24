@@ -55,7 +55,7 @@ public class BoardDto {
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
 
-        private MemberDto.Response memberPosted;
+        private MemberDto.ResponseObject memberPosted;
         private List<CommentDto.Response> commentsPosted;
     }
 
