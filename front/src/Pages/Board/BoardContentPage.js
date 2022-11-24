@@ -21,9 +21,9 @@ const BoardContentPage = () => {
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
   const [createdAt, setcreatedAt] = useState();
+  const [name, setName] = useState();
 
-  const URL =
-    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const Get = async () => {
       try {
@@ -31,6 +31,7 @@ const BoardContentPage = () => {
         setTitle(res.data.title);
         setBody(res.data.body);
         setcreatedAt(res.data.createdAt);
+        setName(res.data.memberPosted.name);
       } catch (e) {
         console.log(e);
       }
@@ -43,7 +44,7 @@ const BoardContentPage = () => {
       <MainPost>
         <LongLoginNavbarBox />
         <MiniLoginNavbarBox />
-        <Contents title={title} body={body} createdAt={createdAt} />
+        <Contents title={title} body={body} createdAt={createdAt} name={name} />
         <Comments />
       </MainPost>
     </>
