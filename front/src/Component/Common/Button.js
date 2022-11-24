@@ -278,8 +278,12 @@ export const ModifyCommentBtn = ({ commentPatch }) => {
     </ButtonAA>
   );
 };
-export const DeleteCommentBtn = ({ commentDelete }) => {
-  return <ButtonAA onClick={commentDelete}>삭제</ButtonAA>;
+export const DeleteCommentBtn = ({ commentDelete, id }) => {
+  return (
+    <ButtonAA onClick={commentDelete} data-id={id}>
+      삭제
+    </ButtonAA>
+  );
 };
 
 // 구독 해지 버튼

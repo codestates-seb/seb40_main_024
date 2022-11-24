@@ -10,7 +10,7 @@ import ProfileIcon from '../Member/ProfileIcon';
 // import Quill from '../Common/Quill';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 // const CommentBox = styled.div`
 //   display: flex;
@@ -169,6 +169,7 @@ const BtnBox = styled.div`
 const Comments = () => {
   // const { id } = useParams();
   // console.log(id.slice(1));
+  const { id } = useParams();
   const url = process.env.REACT_APP_API_URL;
   const [comments, setComment] = useState([]);
   const [text, setText] = useState('');
@@ -178,10 +179,15 @@ const Comments = () => {
     const data = e.target.value;
     setText(data);
     console.log(data.length);
-    if (data.length < 10) {
-      return;
-    }
+    // if (data.length < 10) {
+    //   return;
+    // }
   };
+
+  // const onClick = (e) => {
+  //   console.log(e.target.dataset);
+  //   e.target;
+  // };
 
   // const handlerSubmit = () => {
   //   setText(text);
@@ -191,13 +197,14 @@ const Comments = () => {
   useEffect(() => {
     const commentGet = async () => {
       try {
-        const res = await axios.get(`${url}/board/5`);
+        const res = await axios.get(`${url}/board/${id}`);
 
         setComment(res.data.commentsPosted);
         const reverseComments = res.data.commentsPosted.sort((a, b) => {
           return new window.Date(b.createdAt) - new window.Date(a.createdAt);
         });
         console.log('res', res);
+
         setComment(reverseComments);
         return;
       } catch (err) {
@@ -205,7 +212,7 @@ const Comments = () => {
       }
     };
     commentGet();
-  }, [comments]);
+  }, []);
   // console.log(comments);
 
   // console.log(url + `/board/${id}`);
@@ -215,7 +222,7 @@ const Comments = () => {
       body: text,
     };
     try {
-      const posts = await axios.post(url + '/board/5/comment', data);
+      const posts = await axios.post(`${url}/board/${id}/comment`, data);
       setText('');
       console.log(posts);
       // if(posts.data === " " )
@@ -226,19 +233,20 @@ const Comments = () => {
 
   const commentPatch = async () => {
     const data = {
-      body: text,
+      body: '댓글 수정테스트입니다',
     };
     try {
-      const patch = await axios.patch(url + `/comment/5`, data);
-      console.log(patch);
+      const patch = await axios.patch(url + `/comment/61`, data);
+      console.log('Patch', patch);
     } catch (err) {
       console.log('error', err);
     }
   };
 
-  const commentDelete = async () => {
+  const commentDelete = async (e) => {
     try {
-      const res = await axios.delete(url + `/comment/65`);
+      const res = await axios.delete(url + `/comment/64`);
+      console.log(e.target.dataset);
       console.log(res);
     } catch (err) {
       console.log('error', err);
@@ -275,7 +283,7 @@ const Comments = () => {
           onChange={handlerText}
         ></CommentInput>
         {/* </QuillContain> */}
-        {comments.map((c, id) => {
+        {comments.map((comment, id) => {
           return (
             <CommentContain key={id}>
               <ImageBox>
@@ -283,20 +291,24 @@ const Comments = () => {
               </ImageBox>
               <CommentBox>
                 <IdEtcBox>
-                  <Id>ID: {c.commentId}</Id>
+                  <Id>ID: {comment.commentId}</Id>
                 </IdEtcBox>
                 <EtcBox>
-                  <Date>{c.createdAt.slice(0, 10)}</Date>
-                  <At>{c.createdAt.slice(11, 19)}</At>
+                  <Date>{comment.createdAt.slice(0, 10)}</Date>
+                  <At>{comment.createdAt.slice(11, 19)}</At>
                 </EtcBox>
                 <TextBox>
-                  <p>{c.body}</p>
+                  <p>{comment.body}</p>
                 </TextBox>
               </CommentBox>
 
               <BtnBox>
                 <ModifyCommentBtn commentPatch={commentPatch} />
-                <DeleteCommentBtn commentDelete={commentDelete} />
+                <DeleteCommentBtn
+                  commentDelete={commentDelete}
+                  // dataset-id={comment.commentId}
+                  id={comment.commentId}
+                />
               </BtnBox>
             </CommentContain>
           );
