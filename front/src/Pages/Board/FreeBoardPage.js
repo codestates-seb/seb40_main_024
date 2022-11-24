@@ -84,7 +84,7 @@ export const FreeBoardPage = () => {
       <PageContainer>
         <Box>
           <PostListSpace>
-            <TitleBox>자유 커뮤니티</TitleBox>
+            <TitleBox>커뮤니티</TitleBox>
             <HeaderBox>
               <SelectBox>
                 <select name="1234" style={{ marginTop: '8px' }}>
