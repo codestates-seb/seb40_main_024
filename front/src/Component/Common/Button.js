@@ -278,8 +278,18 @@ export const UnSubscript = ({ openModal }) => {
 export const AddContentBtn = () => {
   return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
 };
-export const ModifyContentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+
+// 게시글 상세 페이지 수정, 삭제 버튼
+export const ModifyContentBtn = ({ boardId }) => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      onClick={() => navigate(`/modifyboard/${boardId}`)}
+    >
+      수정
+    </ButtonAA>
+  );
 };
 export const DeleteContentBtn = ({ Delete }) => {
   return (
@@ -317,6 +327,10 @@ export const AssetchangeBtn = () => {
 
 export const FreeBoardPostBtn = ({ Post }) => {
   return <ButtonCC onClick={Post}>작성하기</ButtonCC>;
+};
+
+export const FreeBoardPatchBtn = ({ Patch }) => {
+  return <ButtonCC onClick={Patch}>수정하기</ButtonCC>;
 };
 
 export const AssetBoardPostBtn = () => {

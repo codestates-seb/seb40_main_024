@@ -22,12 +22,14 @@ const BoardContentPage = () => {
   const [body, setBody] = useState();
   const [createdAt, setcreatedAt] = useState();
   const [name, setName] = useState();
+  const [boardId, setBoardId] = useState();
 
   const URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/board/${id}`);
+        setBoardId(res.data.boardId);
         setTitle(res.data.title);
         setBody(res.data.body);
         setcreatedAt(res.data.createdAt);
@@ -44,7 +46,13 @@ const BoardContentPage = () => {
       <MainPost>
         <LongLoginNavbarBox />
         <MiniLoginNavbarBox />
-        <Contents title={title} body={body} createdAt={createdAt} name={name} />
+        <Contents
+          boardId={boardId}
+          title={title}
+          body={body}
+          createdAt={createdAt}
+          name={name}
+        />
         <Comments />
       </MainPost>
     </>

@@ -136,12 +136,13 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Contents = ({ title, body, createdAt, name }) => {
+const Contents = ({ boardId, title, body, createdAt, name }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const data = moment(createdAt);
-  const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
+  const date = moment(createdAt);
+  const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
   const URL = process.env.REACT_APP_API_URL;
+
   const Delete = async () => {
     try {
       const res = await axios.delete(`${URL}/board/${id}`);
@@ -151,21 +152,12 @@ const Contents = ({ title, body, createdAt, name }) => {
       console.log(e);
     }
   };
-  // const Patch = async () => {
-  //   try {
-  //     const res = await axios.patch(`${URL}/board${id}`);
-  //     console.log(res);
-  //     navigate('/freeboard');
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   return (
     <>
       <TotalContent>
         <BtnContain>
-          <ModifyContentBtn />
+          <ModifyContentBtn boardId={boardId} />
           <DeleteContentBtn Delete={Delete} />
         </BtnContain>
         <ContentContain>
