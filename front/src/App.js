@@ -18,6 +18,7 @@ import AssetTartget from './Pages/Asset/AssetTargetPage';
 import PaymentConfirmPage from './Pages/Pay/PaymentConfirmPage';
 import PaymentPage from './Pages/Pay/PaymentPage';
 import SubscriptionPage from './Pages/Pay/SubscriptionPage';
+import ModifyBoard from './Pages/Board/ModifyBoard';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/myinfopage" element={<InfoPage />} />
         <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
+        <Route path="/modifyboard/:id" element={<ModifyBoard />} />
         <Route path="/assettarget" element={<AssetTargetTest />} />
         <Route path="/assettargetpage" element={<AssetTartget />} />
         {/*
