@@ -2,6 +2,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import TestBoardList from './AllBoardList';
+import Pagination from './Pagination';
 
 const Div = styled.div`
   display: flex;
@@ -46,19 +47,18 @@ const Div = styled.div`
 `;
 
 export const FreeBoardList = () => {
-  const URL =
-    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const URL = process.env.REACT_APP_API_URL;
 
   const [boardlist, setBoardlist] = useState([]);
   const [loading, setLoading] = useState(true);
-  // eslint-disable-next-line no-unused-vars
-  const [limit, setLimit] = useState(1000);
-  // eslint-disable-next-line no-unused-vars
-  const [page, setPage] = useState(1); //페이지
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1);
+  const offset = (page - 1) * limit;
+
   useEffect(() => {
     const axiosData = async () => {
       try {
-        const res = await axios.get(`${URL}/board?page=${page}&size=${limit}`);
+        const res = await axios.get(`${URL}/board/all`);
         console.log(res);
         setBoardlist(res.data._embedded.responseList);
         setLoading(false);
@@ -72,6 +72,20 @@ export const FreeBoardList = () => {
   return (
     <>
       <div>
+        <label>
+          페이지 당 표시할 게시물 수:&nbsp;
+          <select
+            type="number"
+            value={limit}
+            onChange={({ target: { value } }) => setLimit(Number(value))}
+          >
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="20">20</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </label>
         {loading ? (
           <Div>
             <div className="lds-ring">
@@ -84,7 +98,7 @@ export const FreeBoardList = () => {
         ) : (
           boardlist &&
           boardlist
-            .sort((a, b) => b.boardId - a.boardId)
+            .slice(offset, offset + limit)
             .map((el, i) => (
               <TestBoardList
                 key={i}
@@ -96,6 +110,12 @@ export const FreeBoardList = () => {
               ></TestBoardList>
             ))
         )}
+        <Pagination
+          total={boardlist.length}
+          limit={limit}
+          page={page}
+          setPage={setPage}
+        />
       </div>
     </>
   );
