@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Id;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -48,6 +49,12 @@ public class MemberDto {
             this.memberId = memberId;
         }
     }
+    @Getter
+    public static class ResponseObject {
+        private Long id;
+        private String name;
+    }
+
 
     @Getter
     @Setter
