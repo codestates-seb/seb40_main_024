@@ -19,20 +19,22 @@ public interface AssetMapper {
 
     Response assetToAssetResponse(Asset response);
 
-    default AssetDto.Response assetToAssetResponseDto(Asset asset) {
-        Member member = asset.getMember();
 
-        return AssetDto.Response.builder()
-            .assetId(asset.getAssetId())
-            .assetType(asset.getAssetType())
-            .memberPosted(memberToMemberResponseObject(member))
-            .build();
+//    AssetDto.Response assetToAssetResponse(Asset response);
 
-    }
+//    default AssetDto.Response assetToAssetResponseDto(Asset asset) {
+//        Member member = asset.getMember();
+//
+//        return AssetDto.Response.builder()
+//            .assetId(asset.getAssetId())
+//            .assetType(asset.getAssetType())
+////            .memberId(member.getMemberId())
+//            .build();
 
-//    List<Response> assetsToAssetResponses(List<Asset> responses);
+//    }
 
-    MemberDto.ResponseObject memberToMemberResponseObject(Member member);
+    List<Response> assetsToAssetResponses(List<Asset> responses);
+
 
 
 
