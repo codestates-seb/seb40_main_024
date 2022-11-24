@@ -19,9 +19,9 @@ public interface CommentMapper {
                 .body(comment.getBody())
                 .createdAt(comment.getCreatedAt())
                 .modifiedAt(comment.getModifiedAt())
-                .memberPosted(memberToMemberResponseDto(member))
+                .memberPosted(memberToMemberResponseObject(member))
                 .build();
 
     }
-    MemberDto.Response memberToMemberResponseDto(Member member);
+    MemberDto.ResponseObject memberToMemberResponseObject(Member member);
 }
