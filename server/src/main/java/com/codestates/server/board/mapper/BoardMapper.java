@@ -26,7 +26,7 @@ public interface BoardMapper {
                         c.getBody(),
                         c.getCreatedAt(),
                         c.getModifiedAt(),
-                        memberToMemberResponseDto(c.getMember())))
+                        memberToMemberResponseObject(c.getMember())))
                 .collect(Collectors.toList());
 
         return BoardDto.Response.builder()
@@ -36,10 +36,10 @@ public interface BoardMapper {
                 .like(board.getLike())
                 .createdAt(board.getCreatedAt())
                 .modifiedAt(board.getModifiedAt())
-                .memberPosted(memberToMemberResponseDto(member))
+                .memberPosted(memberToMemberResponseObject(member))
                 .commentsPosted(commentResponse)
                 .build();
     }
 
-    MemberDto.Response memberToMemberResponseDto(Member member);
+    MemberDto.ResponseObject memberToMemberResponseObject(Member member);
 }

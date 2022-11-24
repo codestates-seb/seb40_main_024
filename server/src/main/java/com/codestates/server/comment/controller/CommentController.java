@@ -36,8 +36,10 @@ public class CommentController {
         this.assembler = assembler;
     }
 
+
+    // --------------------------------------- test ------------------------------------------------
     @GetMapping("/comment/{id}")
-    public EntityModel<CommentDto.Response> getComment(@PathVariable("id") long id) {
+    public EntityModel<CommentDto.Response> getComment(@PathVariable("id") @Positive long id) {
         Comment comment = commentService.findOne(id);
         CommentDto.Response response = mapper.commentToCommentResponseDto(comment);
         return assembler.toModel(response);
@@ -52,6 +54,7 @@ public class CommentController {
         return CollectionModel.of(comments,
                 linkTo(methodOn(CommentService.class).findAll()).withSelfRel());
     }
+    // --------------------------------------- test ------------------------------------------------
 
     @PostMapping("/board/{board_id}/comment")
     public ResponseEntity<?> postComment(@Valid @RequestBody CommentDto.Post requestBody,
@@ -63,19 +66,22 @@ public class CommentController {
                 .body(entityModel);
     }
 
-    @PatchMapping("/comment/{id}")
-    public ResponseEntity<?> patchComment(@PathVariable long id, @Valid @RequestBody CommentDto.Patch requestBody) {
+    @PatchMapping("/board/{board_id}/comment/{id}")
+    public ResponseEntity<?> patchComment(@PathVariable("id") @Positive long id,
+                                          @PathVariable("board_id") @Positive long boardId,
+                                          @Valid @RequestBody CommentDto.Patch requestBody) {
         requestBody.setCommentId(id);
-        Comment comment = commentService.updateOne(mapper.commentPatchToComment(requestBody));
+        Comment comment = commentService.updateOne(mapper.commentPatchToComment(requestBody), boardId);
         EntityModel<CommentDto.Response> entityModel = assembler.toModel(mapper.commentToCommentResponseDto(comment));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
     }
 
-    @DeleteMapping("/comment/{id}")
-    public ResponseEntity<?> deleteComment(@PathVariable long id) {
-        commentService.deleteOne(id);
+    @DeleteMapping("/board/{board_id}/comment/{id}")
+    public ResponseEntity<?> deleteComment(@PathVariable("id") @Positive long id,
+                                           @PathVariable("board_id") @Positive long boardId) {
+        commentService.deleteOne(id, boardId);
         return ResponseEntity.noContent().build();
     }
     
