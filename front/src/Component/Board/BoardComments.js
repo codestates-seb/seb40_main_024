@@ -165,13 +165,25 @@ const BtnBox = styled.div`
   flex-direction: column;
   justify-content: center;
 `;
+
+const ModifyInput = styled.input`
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  padding: 5px;
+  margin-top: 20px;
+  border-top: 3px solid #def5e5;
+  border-bottom: 3px solid #def5e5;
+  line-height: normal;
+`;
+
 //http://localhost:3000/boardcontentpage/:id
 const Comments = () => {
   // const { id } = useParams();
   // console.log(id.slice(1));
   const { id } = useParams();
   const url = process.env.REACT_APP_API_URL;
-  const [comments, setComment] = useState([]);
+  const [comments, setComments] = useState([]);
   const [text, setText] = useState('');
 
   const handlerText = (e) => {
@@ -194,25 +206,7 @@ const Comments = () => {
   //   console.log('submit');
   // };
   //8080/board/{board_id}
-  useEffect(() => {
-    const commentGet = async () => {
-      try {
-        const res = await axios.get(`${url}/board/${id}`);
 
-        setComment(res.data.commentsPosted);
-        const reverseComments = res.data.commentsPosted.sort((a, b) => {
-          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
-        });
-        console.log('res', res);
-
-        setComment(reverseComments);
-        return;
-      } catch (err) {
-        console.log('error', err);
-      }
-    };
-    commentGet();
-  }, []);
   // console.log(comments);
 
   // console.log(url + `/board/${id}`);
@@ -225,34 +219,62 @@ const Comments = () => {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
       setText('');
       console.log(posts);
+      return;
       // if(posts.data === " " )
     } catch (err) {
       console.log('error', err);
     }
   };
 
-  const commentPatch = async () => {
+  const commentPatch = async (e) => {
     const data = {
       body: '댓글 수정테스트입니다',
     };
     try {
-      const patch = await axios.patch(url + `/comment/61`, data);
+      const patch = await axios.patch(
+        `${url}/board/${id}/comment/${e.target.dataset.id}`,
+        data
+      );
       console.log('Patch', patch);
+      console.log('dataset.id', e.target.dataset.id);
+      return;
     } catch (err) {
-      console.log('error', err);
+      console.log('patcherror', err);
     }
   };
 
   const commentDelete = async (e) => {
     try {
-      const res = await axios.delete(url + `/comment/64`);
-      console.log(e.target.dataset);
-      console.log(res);
+      const res = await axios.delete(
+        `${url}/board/${id}/comment/${e.target.dataset.id}`
+      );
+      console.log('dataset.id', e.target.dataset.id);
+      console.log('삭제', res);
+      return;
     } catch (err) {
-      console.log('error', err);
+      console.log('deleteerror', err);
     }
   };
+  useEffect(() => {
+    const commentGet = async () => {
+      try {
+        const res = await axios.get(`${url}/board/${id}`);
 
+        setComments(res.data.commentsPosted);
+        const reverseComments = res.data.commentsPosted.sort((a, b) => {
+          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
+        });
+        console.log('res', res);
+
+        setComments(reverseComments);
+
+        return;
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    commentGet();
+  }, [commentDelete]);
   // console.log(comments);
   // axios
   //   .get(url + '/board/2')
@@ -283,6 +305,7 @@ const Comments = () => {
           onChange={handlerText}
         ></CommentInput>
         {/* </QuillContain> */}
+        <ModifyInput></ModifyInput>
         {comments.map((comment, id) => {
           return (
             <CommentContain key={id}>
@@ -303,7 +326,10 @@ const Comments = () => {
               </CommentBox>
 
               <BtnBox>
-                <ModifyCommentBtn commentPatch={commentPatch} />
+                <ModifyCommentBtn
+                  commentPatch={commentPatch}
+                  id={comment.commentId}
+                />
                 <DeleteCommentBtn
                   commentDelete={commentDelete}
                   // dataset-id={comment.commentId}
