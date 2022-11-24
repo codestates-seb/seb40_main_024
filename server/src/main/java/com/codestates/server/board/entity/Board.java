@@ -46,6 +46,12 @@ public class Board extends Auditable {
         this.body = body;
     }
 
+    public Board(String title, String body, Member member) {
+        this.title = title;
+        this.body = body;
+        this.member = member;
+    }
+
     public enum BoardStatus {
 
         BOARD_DELETED(0, "삭제된 게시글"),
