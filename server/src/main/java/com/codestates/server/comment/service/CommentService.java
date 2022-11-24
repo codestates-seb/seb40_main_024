@@ -45,10 +45,10 @@ public class CommentService {
     }
 
     @Transactional
-    public Comment updateOne(Comment comment) {
+    public Comment updateOne(Comment comment, long boardId) {
         Comment verifiedComment = findVerifiedComment(comment.getCommentId());
-
-        verifiedComment.setBody(comment.getBody());
+        verifyBoard(boardId, verifiedComment.getBoard());  // 보드 검증
+        verifiedComment.setBody(comment.getBody());  // 내용 수정
 
         // Modified time
         verifiedComment.setModifiedAt(LocalDateTime.now());
@@ -56,13 +56,21 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteOne(Long id) {
+    public void deleteOne(Long id, long boardId) {
         Comment verifiedComment = findVerifiedComment(id);
+        verifyBoard(boardId, verifiedComment.getBoard());  // 보드 검증
         repository.delete(verifiedComment);
     }
 
     public Comment findVerifiedComment(long id) {
         Optional<Comment> optionalComment = repository.findById(id);
         return optionalComment.orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_NOT_FOUND));
+    }
+
+    // 보드 id 검증
+    public void verifyBoard(long boardId, Board commentBoard) {
+        if (! (boardId == commentBoard.getBoardId())) {
+            throw new CustomException(ExceptionCode.BOARD_NOT_MATCHED_WITH_COMMENT);
+        }
     }
 }

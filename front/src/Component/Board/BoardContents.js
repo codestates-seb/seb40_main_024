@@ -136,13 +136,13 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Contents = ({ title, body, createdAt }) => {
+const Contents = ({ boardId, title, body, createdAt, name }) => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const data = moment(createdAt);
-  const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
-  const URL =
-    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const date = moment(createdAt);
+  const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
+  const URL = process.env.REACT_APP_API_URL;
+
   const Delete = async () => {
     try {
       const res = await axios.delete(`${URL}/board/${id}`);
@@ -152,21 +152,12 @@ const Contents = ({ title, body, createdAt }) => {
       console.log(e);
     }
   };
-  // const Patch = async () => {
-  //   try {
-  //     const res = await axios.patch(`${URL}/board${id}`);
-  //     console.log(res);
-  //     navigate('/freeboard');
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   return (
     <>
       <TotalContent>
         <BtnContain>
-          <ModifyContentBtn />
+          <ModifyContentBtn boardId={boardId} />
           <DeleteContentBtn Delete={Delete} />
         </BtnContain>
         <ContentContain>
@@ -175,7 +166,7 @@ const Contents = ({ title, body, createdAt }) => {
           </ImageBox>
           <ContentBox>
             <IdEtcBox>
-              <Id>유저아이디가 들어가야하오...</Id>
+              <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
                 <LikeBox>❤</LikeBox>
