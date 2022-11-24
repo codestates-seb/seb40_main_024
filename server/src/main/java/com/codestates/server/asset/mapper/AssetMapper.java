@@ -11,11 +11,11 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface AssetMapper {
 
-    Asset assetPostDtoToAsset(AssetDto.Post requestBody);
+    Asset assetPostDtoToAsset(Post requestBody);
 
     Asset assetPatchDtoToAsset(AssetDto.Patch requestBody);
 
-    AssetDto.Response assetToAssetResponse(Asset response);
+    Response assetToAssetResponse(Asset response);
 
     List<Response> assetsToAssetResponses(List<Asset> responses);
 
