@@ -338,7 +338,7 @@ export const AssetBoardPostBtn = () => {
   return <ButtonCC onClick={() => navigate('/assetboard')}>작성하기</ButtonCC>;
 };
 
-// 현재 자상 수정하기 페이지 버튼들
+// 현재 자산 수정하기 페이지 버튼들
 export const CashBtn = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };

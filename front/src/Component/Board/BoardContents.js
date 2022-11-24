@@ -117,8 +117,8 @@ const UnLikeBox = styled.div`
 `;
 const TitleBox = styled.div`
   display: flex;
-  width: 100%;
   height: auto;
+  width: 100%;
   max-height: 200px;
   margin-left: 5px;
   padding-top: 5px;
@@ -129,6 +129,7 @@ const TitleBox = styled.div`
 const TextBox = styled.div`
   display: flex;
   height: auto;
+  max-height: 630px;
   width: 100%;
   margin-left: 5px;
   padding-top: 5px;

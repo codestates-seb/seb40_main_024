@@ -6,10 +6,10 @@ import {
 } from '../../Component/Common/NavebarRev';
 import {
   CashBtn,
-  GoldBtn,
-  DiamondBtn,
+  // GoldBtn,
+  // DiamondBtn,
   // eslint-disable-next-line no-unused-vars
-  StockBtn,
+  // StockBtn,
 } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect } from 'react';
@@ -18,6 +18,8 @@ import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
+import { FiEdit } from 'react-icons/fi';
+import { fireEvent } from '@testing-library/react';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -29,6 +31,7 @@ const MainPage = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid blue;
+  width: auto;
 `;
 
 const MainAssetChange = styled.div`
@@ -66,6 +69,15 @@ const H3 = styled.h3`
   margin-bottom: 10px;
   line-height: normal;
 `;
+const H3Title = styled.h3`
+  color: orange;
+  margin-left: 13px;
+  margin-bottom: 10px;
+  line-height: normal;
+  div {
+    cursor: pointer;
+  }
+`;
 
 const P = styled.p`
   color: red;
@@ -77,8 +89,7 @@ const P = styled.p`
 
 const Div = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: left;
   margin: 15px;
   div {
     margin-left: 20px;
@@ -200,6 +211,23 @@ const LoadingDiv = styled.div`
   }
 `;
 
+const EditButton = styled.button`
+  color: orange;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 18px;
+  border: none;
+  line-height: normal;
+  margin-left: 10px;
+  cursor: pointer;
+  :hover {
+    color: #9ed5c5;
+  }
+  :active {
+    color: yellow;
+  }
+`;
+
 function AssetChange() {
   const [TextModalopen, setTextModalopen] = useState(false);
   const [errTextModalopen, seterrTextModalopen] = useState(false);
@@ -211,7 +239,7 @@ function AssetChange() {
   // const [Stock, setStock] = useState('');
   const [Text, setText] = useState('');
   const [Data, setData] = useState('');
-  console.log(Data);
+  console.log('Data', Data);
   // console.log(Data.map((data) => console.log(data)));
   //
 
@@ -233,19 +261,19 @@ function AssetChange() {
 
   //? PATCH
   // eslint-disable-next-line no-unused-vars
-  const data2 = {
-    // eslint-disable-next-line prettier/prettier
-    title: "dsf222233",
-    // eslint-disable-next-line prettier/prettier
-    body: "asdfasdfasf222dfd222544",
-  };
-  // eslint-disable-next-line no-unused-vars
-  const patchApi = async () => {
-    await axios
-      .patch(`${URL}/board/33`, data2)
-      .then((res) => console.log('res', res))
-      .catch((err) => console.log(err));
-  };
+  // const data2 = {
+  //   // eslint-disable-next-line prettier/prettier
+  //   title: "dsf222233",
+  //   // eslint-disable-next-line prettier/prettier
+  //   body: "asdfasdfasf222dfd222544",
+  // };
+  // // eslint-disable-next-line no-unused-vars
+  // const patchApi = async () => {
+  //   await axios
+  //     .patch(`${URL}/board/33`, data2)
+  //     .then((res) => console.log('res', res))
+  //     .catch((err) => console.log(err));
+  // };
   //?
 
   //? GET
@@ -257,7 +285,7 @@ function AssetChange() {
 
   useEffect(() => {
     getAssets();
-    patchApi();
+    // patchApi();
   }, []);
 
   //?
@@ -347,46 +375,67 @@ function AssetChange() {
     ','
   );
 
-  let CashAssetValues = 0;
-  let GoldAssetValues = 0;
-  let DiahAssetValues = 0;
-  let JuAssetValues = 0;
+  let OneAssetValues = 0;
+  let TwoAssetValues = 0;
+  let ThreeAssetValues = 0;
+  let FourAssetValues = 0;
+  let FiveAssetValues = 0;
+  let SixAssetValues = 0;
+
+  let title = [];
+
   {
     Data
       ? Data.map((data) => {
-          if (data.assetType === '현금') {
-            CashAssetValues += data.assetValue;
-            return CashAssetValues;
-          }
-          if (data.assetType === '금') {
-            GoldAssetValues += data.assetValue;
-            return GoldAssetValues;
-          }
-          if (data.assetType === '다이아몬드') {
-            DiahAssetValues += data.assetValue;
-            return DiahAssetValues;
-          }
-          if (data.assetType === '주식') {
-            JuAssetValues += data.assetValue;
-            return JuAssetValues;
-          }
+          title.push(data.assetType);
+          console.log('title', title);
+        })
+      : null;
+  }
+  const AssetTitle = [...new Set(title)];
+  console.log('AssetTitle', AssetTitle[4]);
+
+  {
+    Data
+      ? Data.map((data) => {
+          return data.assetType === AssetTitle[0]
+            ? (OneAssetValues += data.assetValue)
+            : data.assetType === AssetTitle[1]
+            ? (TwoAssetValues += data.assetValue)
+            : data.assetType === AssetTitle[2]
+            ? (ThreeAssetValues += data.assetValue)
+            : data.assetType === AssetTitle[3]
+            ? (FourAssetValues += data.assetValue)
+            : data.assetType === AssetTitle[4]
+            ? (FiveAssetValues += data.assetValue)
+            : data.assetType === AssetTitle[5]
+            ? (SixAssetValues += data.assetValue)
+            : null;
         })
       : null;
   }
 
-  const CashAssetValuestarget = CashAssetValues.toString().replace(
+  const OneAssetValuestarget = OneAssetValues.toString().replace(
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
-  const GoldAssetValuestarget = GoldAssetValues.toString().replace(
+  const TwoAssetValuestarget = TwoAssetValues.toString().replace(
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
-  const DiahAssetValuestarget = DiahAssetValues.toString().replace(
+  const ThreeAssetValuestarget = ThreeAssetValues.toString().replace(
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
-  const JuAssetValuestarget = JuAssetValues.toString().replace(
+  const FourAssetValuestarget = FourAssetValues.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+  const FiveAssetValuestarget = FiveAssetValues.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+  const SixAssetValuestarget = SixAssetValues.toString().replace(
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
@@ -457,47 +506,138 @@ function AssetChange() {
                 <H1>현재 자산</H1>
                 {Data ? (
                   <>
-                    <H3> 1 &nbsp;) </H3>
-                    <H3>현금(한국돈)</H3>
-                    <H3>총 금액: &nbsp;{CashAssetValuestarget}원</H3>
-                    <H3> 2 &nbsp;) </H3>
-                    <H3>현금(한국돈)</H3>
-                    <H3>총 금액: &nbsp;{GoldAssetValuestarget}원</H3>
-                    <H3> 3 &nbsp;) </H3>
-                    <H3>현금(한국돈)</H3>
-                    <H3>총 금액: &nbsp;{DiahAssetValuestarget}원</H3>
-                    <H3> 4 &nbsp;) </H3>
-                    <H3>현금(한국돈)</H3>
-                    <H3>총 금액: &nbsp;{JuAssetValuestarget}원</H3>
-                    <H3> 5 &nbsp;) </H3>
-                    <H3>현금(한국돈)</H3>
-                    <H3>총 금액: &nbsp;{DiahAssetValuestarget}원</H3>
-                    <H3> 6 &nbsp;) </H3>
-                    <H3>현금(한국돈)</H3>
-                    <H3>총 금액: &nbsp;{JuAssetValuestarget}원</H3>
+                    <H3Title> 1 &nbsp;) </H3Title>
+                    {AssetTitle[0] === undefined ? (
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    ) : (
+                      <H3Title>
+                        {AssetTitle[0]}
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    )}
+                    <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
+
+                    <H3Title> 2 &nbsp;) </H3Title>
+                    {AssetTitle[1] === undefined ? (
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    ) : (
+                      <H3Title>
+                        {AssetTitle[1]}
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    )}
+                    <H3>총 금액: &nbsp;{TwoAssetValuestarget}원</H3>
+
+                    <H3Title> 3 &nbsp;) </H3Title>
+                    {AssetTitle[2] === undefined ? (
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    ) : (
+                      <H3Title>
+                        {AssetTitle[2]}
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    )}
+                    <H3>총 금액: &nbsp;{ThreeAssetValuestarget}원</H3>
+
+                    <H3Title> 4 &nbsp;) </H3Title>
+                    {AssetTitle[3] === undefined ? (
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    ) : (
+                      <H3Title>
+                        {AssetTitle[3]}
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    )}
+                    <H3>총 금액: &nbsp;{FourAssetValuestarget}원</H3>
+
+                    <H3Title> 5 &nbsp;) </H3Title>
+                    {AssetTitle[4] === undefined ? (
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    ) : (
+                      <H3Title>
+                        {AssetTitle[4]}
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    )}
+                    <H3>총 금액: &nbsp;{FiveAssetValuestarget}원</H3>
+
+                    <H3Title> 6 &nbsp;) </H3Title>
+                    {AssetTitle[5] === undefined ? (
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    ) : (
+                      <H3Title>
+                        {AssetTitle[5]}
+                        <EditButton onClick={openTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                      </H3Title>
+                    )}
+                    <H3>총 금액: &nbsp;{SixAssetValuestarget}원</H3>
                   </>
-                ) : (
-                  <>
-                    <H3> 1 &nbsp;) </H3>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                    <H3> 2 &nbsp;) </H3>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                    <H3> 3 &nbsp;) </H3>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                    <H3> 4 &nbsp;) </H3>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                    <H3> 5 &nbsp;) </H3>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                    <H3> 6 &nbsp;) </H3>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                  </>
-                )}
+                ) : null}
+                {/* // (
+                  //   <>
+                  //     <H3> 1 &nbsp;) </H3>
+                  //     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                  //     <H3>&nbsp;총 금액: 0원</H3>
+                  //     <H3> 2 &nbsp;) </H3>
+                  //     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                  //     <H3>&nbsp;총 금액: 0원</H3>
+                  //     <H3> 3 &nbsp;) </H3>
+                  //     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                  //     <H3>&nbsp;총 금액: 0원</H3>
+                  //     <H3> 4 &nbsp;) </H3>
+                  //     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                  //     <H3>&nbsp;총 금액: 0원</H3>
+                  //     <H3> 5 &nbsp;) </H3>
+                  //     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                  //     <H3>&nbsp;총 금액: 0원</H3>
+                  //     <H3> 6 &nbsp;) </H3>
+                  //     <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
+                  //     <H3>&nbsp;총 금액: 0원</H3>
+                  //   </>
+                  // ) */}
+
                 {/* <H1>현재 자산</H1> */}
                 <H2>현재 자산 수정</H2>
                 <Div>
@@ -507,9 +647,6 @@ function AssetChange() {
                     type="text"
                     placeholder="자산 명칭을 적어주세요. (ex. 다이아몬드)"
                   />
-                  <div>
-                    <CashBtn openModal={openTextModal}></CashBtn>
-                  </div>
                 </Div>
                 {Text && Data ? (
                   <Fade>
@@ -527,7 +664,7 @@ function AssetChange() {
                     placeholder="숫자로만 금액을 적어주세요. (ex. 10000)"
                   />
                   <div>
-                    <CashBtn openModal={openCashModal}></CashBtn>
+                    <CashBtn openModal={openCashModal}>수정</CashBtn>
                   </div>
                 </Div>
                 {Cash && Data && Reviewtarget.length <= 21 ? (

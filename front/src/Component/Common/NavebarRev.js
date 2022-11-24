@@ -162,14 +162,14 @@ export const LongNavbarBox = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
 
@@ -200,9 +200,10 @@ export const LongNavbarBox = () => {
                 </Menu>
               </>
             )}
-            {Communityclicked ? (
+            <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+            {/* {Communityclicked ? (
               <>
-                <Menu onClick={handleClickCommunity}>커뮤니티</Menu>
+                
               </>
             ) : (
               <>
@@ -219,7 +220,7 @@ export const LongNavbarBox = () => {
                   </MenuTopList>
                 </Menu>
               </>
-            )}
+            )} */}
           </RowDropMenuBox>
         </LongContainer>
       </MediaQuery>
@@ -232,22 +233,22 @@ export const LongLoginNavbarBox = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   const [Infoclicked, setInfoclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setInfoclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setInfoclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setInfoclicked(true);
     setAssetclicked(!Assetclicked);
   };
   const handleClickInfo = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
   };
 
@@ -295,9 +296,10 @@ export const LongLoginNavbarBox = () => {
                 </Menu>
               </>
             )}
-            {Communityclicked ? (
+            <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+            {/* {Communityclicked ? (
               <>
-                <Menu onClick={handleClickCommunity}>커뮤니티</Menu>
+                
               </>
             ) : (
               <>
@@ -314,7 +316,7 @@ export const LongLoginNavbarBox = () => {
                   </MenuTopList>
                 </Menu>
               </>
-            )}
+            )} */}
             <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
           </RowDropMenuBox>
         </LongContainer>
@@ -328,19 +330,19 @@ export const MiniNavbarBox = () => {
   // eslint-disable-next-line no-unused-vars
   const [Markclicked, setMarkclicked] = useState(true);
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
   const handleClickMark = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setMarkclicked(!Markclicked);
   };
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
 
@@ -379,18 +381,19 @@ export const MiniNavbarBox = () => {
                     </MiniMenu>
                   </>
                 )}
-                {Communityclicked ? (
+                <MiniMenu
+                  onClick={() => navigate('/freeboard')}
+                  style={{
+                    height: '85px',
+                    borderEndEndRadius: '5px',
+                    borderEndStartRadius: '5px',
+                  }}
+                >
+                  커뮤니티
+                </MiniMenu>
+                {/* {Communityclicked ? (
                   <>
-                    <MiniMenu
-                      onClick={handleClickCommunity}
-                      style={{
-                        height: '85px',
-                        borderEndEndRadius: '5px',
-                        borderEndStartRadius: '5px',
-                      }}
-                    >
-                      커뮤니티
-                    </MiniMenu>
+
                   </>
                 ) : (
                   <>
@@ -413,7 +416,7 @@ export const MiniNavbarBox = () => {
                       </MiniMenuTopList>
                     </MiniMenu>
                   </>
-                )}
+                )} */}
               </HamburgerDropMenuBox>
             </>
           )}
@@ -428,25 +431,25 @@ export const MiniLoginNavbarBox = () => {
   // eslint-disable-next-line no-unused-vars
   const [Markclicked, setMarkclicked] = useState(true);
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   const [Infoclicked, setInfoclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
   const handleClickMark = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setMarkclicked(!Markclicked);
   };
   const handleClickInfo = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
   };
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
 
@@ -500,9 +503,12 @@ export const MiniLoginNavbarBox = () => {
                     </MiniMenu>
                   </>
                 )}
-                {Communityclicked ? (
+                <MiniMenu onClick={() => navigate('/freeboard')}>
+                  커뮤니티
+                </MiniMenu>
+                {/* {Communityclicked ? (
                   <>
-                    <MiniMenu onClick={handleClickCommunity}>커뮤니티</MiniMenu>
+                    
                   </>
                 ) : (
                   <>
@@ -519,7 +525,7 @@ export const MiniLoginNavbarBox = () => {
                       </MiniMenuTopList>
                     </MiniMenu>
                   </>
-                )}
+                )} */}
                 <MiniMenu
                   onClick={() => navigate('/login')}
                   style={{
