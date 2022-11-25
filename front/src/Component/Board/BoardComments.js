@@ -208,25 +208,6 @@ const Comments = () => {
   // console.log(comments);
 
   // console.log(url + `/board/${id}`);
-  useEffect(() => {
-    const commentGet = async () => {
-      try {
-        const res = await axios.get(`${url}/board/${id}`);
-
-        setComments(res.data.commentsPosted);
-        const reverseComments = res.data.commentsPosted.sort((a, b) => {
-          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
-        });
-        console.log('res', res);
-
-        setComments(reverseComments);
-        return;
-      } catch (err) {
-        console.log('error', err);
-      }
-    };
-    commentGet();
-  }, []);
 
   const commentPost = async () => {
     const data = {
@@ -273,19 +254,19 @@ const Comments = () => {
     }
   };
 
-  // console.log(comments);
-  // axios
-  //   .get(url + '/board/2')
-  //   .then((res) => {
-  //     console.log('응답', res.data.commentsPosted[0].commentId);
-  //     setComment(res.data.commentsPosted);
-  //     console.log('comments', comments);
-  //   })
-  //   .catch((error) => console.log('에러', error));
+  useEffect(() => {
+    const commentGet = async () => {
+      try {
+        const res = await axios(`${url}/board/${id}`);
+        setComments(res.data.commentsPosted);
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    commentGet();
+  }, [comments]);
 
-  // useEffect(() => {
-  //   Comments();
-  // }, []);
+  const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
 
   return (
     <>
@@ -309,50 +290,51 @@ const Comments = () => {
           onChange={handlerInput}
         ></ModifyInput> ): } */}
 
-        {comments.map((comment, id) => {
-          return (
-            <>
-              <CommentContain key={id}>
-                <ImageBox>
-                  <ProfileIcon />
-                </ImageBox>
-                <>
-                  {isEditing ? (
-                    <ModifyInput
-                      type="text"
-                      value={input}
-                      onChange={handlerInput}
-                    ></ModifyInput>
-                  ) : (
-                    <CommentBox key={id}>
-                      <IdEtcBox>
-                        <Id>ID: {comment.commentId}</Id>
-                      </IdEtcBox>
-                      <EtcBox>
-                        <Date>{comment.createdAt.slice(0, 10)}</Date>
-                        <At>{comment.createdAt.slice(11, 19)}</At>
-                      </EtcBox>
-                      <TextBox>
-                        <p>{comment.body}</p>
-                      </TextBox>
-                    </CommentBox>
-                  )}
-                </>
-                <BtnBox>
-                  <ModifyCommentBtn
-                    commentPatch={commentPatch}
-                    id={comment.commentId}
-                  />
-                  <DeleteCommentBtn
-                    commentDelete={commentDelete}
-                    // dataset-id={comment.commentId}
-                    id={comment.commentId}
-                  />
-                </BtnBox>
-              </CommentContain>
-            </>
-          );
-        })}
+        {comments &&
+          sortTest.map((comment, id) => {
+            return (
+              <>
+                <CommentContain key={id}>
+                  <ImageBox>
+                    <ProfileIcon />
+                  </ImageBox>
+                  <>
+                    {isEditing ? (
+                      <ModifyInput
+                        type="text"
+                        value={input}
+                        onChange={handlerInput}
+                      ></ModifyInput>
+                    ) : (
+                      <CommentBox key={id}>
+                        <IdEtcBox>
+                          <Id>ID: {comment.commentId}</Id>
+                        </IdEtcBox>
+                        <EtcBox>
+                          <Date>{comment.createdAt.slice(0, 10)}</Date>
+                          <At>{comment.createdAt.slice(11, 19)}</At>
+                        </EtcBox>
+                        <TextBox>
+                          <p>{comment.body}</p>
+                        </TextBox>
+                      </CommentBox>
+                    )}
+                  </>
+                  <BtnBox>
+                    <ModifyCommentBtn
+                      commentPatch={commentPatch}
+                      id={comment.commentId}
+                    />
+                    <DeleteCommentBtn
+                      commentDelete={commentDelete}
+                      // dataset-id={comment.commentId}
+                      id={comment.commentId}
+                    />
+                  </BtnBox>
+                </CommentContain>
+              </>
+            );
+          })}
       </TotalComment>
     </>
   );
