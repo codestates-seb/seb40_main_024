@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class GoalDto {
@@ -22,6 +23,7 @@ public class GoalDto {
         private long goalPrice;
 
         @NotNull(message = "목표 기간을 입력하세요.")
+        @Positive(message = "목표 기간은 0 보다 큰 기간을 입력하세요.")
         private int targetLength;
     }
 
@@ -37,6 +39,7 @@ public class GoalDto {
         @NotNull(message = "변경된 금액을 입력하세요.")
         private long goalPrice;
 
+        @Positive(message = "목표 기간은 0 보다 큰 기간을 입력하세요.")
         private Integer targetLength;
     }
 
