@@ -72,9 +72,12 @@ public class Stub {
             // Asset
             String[] assetType = {"금", "다이아몬드", "주식", "현금"};
             for (int k = 1; k <= assetNum; k++) {
+                int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
+                Member postMember = memberService.findVerifiedMember(whichMember);
+
                 int assetRand = (int) (Math.random() * assetType.length);  // 랜덤 에셋 타입
                 long assetPrice = (long) (k * (Math.pow(100, assetRand)));  // 랜덤 자산 가격
-                log.info("ASSET STUB " + assetRepository.save(new Asset(assetType[assetRand], assetPrice)));
+                log.info("ASSET STUB " + assetRepository.save(new Asset(assetType[assetRand], assetPrice, postMember)));
             }
 
             // TODO: 목표자산(유저)
