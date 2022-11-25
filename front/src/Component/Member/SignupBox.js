@@ -46,6 +46,7 @@ const InputBox = styled.div`
     padding: 20px 0px 5px 0px;
     font-size: 14pt;
     width: 100%;
+    margin-bottom: 15px;
   }
   input::placeholder {
     color: transparent;
