@@ -34,11 +34,13 @@ public class GoalDto {
 
         private Long goalId;
 
+        // optional
         private String goalName;
 
         @NotNull(message = "변경된 금액을 입력하세요.")
         private long goalPrice;
 
+        // optional Integer
         @Positive(message = "목표 기간은 0 보다 큰 기간을 입력하세요.")
         private Integer targetLength;
     }
