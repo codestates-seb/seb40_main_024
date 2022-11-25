@@ -7,6 +7,8 @@ import com.codestates.server.board.repository.BoardRepository;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
+import com.codestates.server.goal.entity.Goal;
+import com.codestates.server.goal.repository.GoalRepository;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
 import com.codestates.server.member.service.MemberService;
@@ -27,7 +29,8 @@ public class Stub {
                                CommentRepository commentRepository,
                                AssetRepository assetRepository,
                                MemberRepository memberRepository,
-                               MemberService memberService) {
+                               MemberService memberService,
+                               GoalRepository goalRepository) {
 
         return args -> {
 
@@ -36,14 +39,14 @@ public class Stub {
             int commentNum = postNum * 2;
             int assetNum = 10;
             int memberNum = 10;
+            int goalNum = 15;
 
             // Member data
             for (int l = 1; l <= memberNum; l++) {
                 String email = "hoju" + l + "@gmail.com";
                 String name = "hojumoney" + l;
                 String password = "password" + l;
-                Member member = new Member(email, name, password);
-                log.info("MEMBER STUB " + memberRepository.save(member));
+                log.info("MEMBER STUB " + memberRepository.save(new Member(email, name, password)));
             }
 
             // Post data
@@ -65,19 +68,32 @@ public class Stub {
                 int boardNum = (int) (Math.random() * postNum) + 1;  // 랜덤 보드 넘버
                 String temp = "테스트 댓글 " + j + " 번";
                 Board board = boardService.findVerifiedBoard(boardNum);
-                Comment comment = new Comment(temp, postMember, board);
-                log.info("COMMENT STUB " + commentRepository.save(comment));
+                log.info("COMMENT STUB " + commentRepository.save(new Comment(temp, postMember, board)));
             }
 
             // Asset
-            String[] assetType = {"금", "다이아몬드", "주식", "현금"};
+            String[] assetType = {"금", "은", "주식", "현금"};
             for (int k = 1; k <= assetNum; k++) {
+                int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
+                Member postMember = memberService.findVerifiedMember(whichMember);
+
                 int assetRand = (int) (Math.random() * assetType.length);  // 랜덤 에셋 타입
                 long assetPrice = (long) (k * (Math.pow(100, assetRand)));  // 랜덤 자산 가격
-                log.info("ASSET STUB " + assetRepository.save(new Asset(assetType[assetRand], assetPrice)));
+                log.info("ASSET STUB " + assetRepository.save(new Asset(assetType[assetRand], assetPrice, postMember)));
             }
 
-            // TODO: 목표자산(유저)
+            // Goal
+            String[] goalName = {"포르쉐992", "감자칩", "지바겐", "리얼포스", "시드머니", "맥북프로", "저축목표"};
+            for (int m = 1; m <= goalNum; m++) {
+                // TODO: 유저 정보
+                int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
+                Member postMember = memberService.findVerifiedMember(whichMember);
+
+                int goalRand = (int) (Math.random() * goalName.length); // 랜덤 자산
+                int goalLen = (int) (Math.random() * 24) + 1; // 랜덤 기간
+                long goalPrice = (long) (m * (Math.pow(100, goalRand)));
+                log.info("GOAL STUB " + goalRepository.save(new Goal(goalName[goalRand], goalPrice, goalLen, postMember)));
+            }
         };
     }
 }

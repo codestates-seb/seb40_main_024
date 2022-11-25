@@ -31,11 +31,11 @@ public class Asset {
         this.assetValue = assetValue;
     }
 
-//    public Asset(String assetType, Long assetValue, Member member) {
-//        this.assetType = assetType;
-//        this.assetValue = assetValue;
-//        this.member = member;
-//    }
+    public Asset(String assetType, Long assetValue, Member member) {
+        this.assetType = assetType;
+        this.assetValue = assetValue;
+        this.member = member;
+    }
 
 
     @Column

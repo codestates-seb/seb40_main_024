@@ -1,9 +1,11 @@
 package com.codestates.server.goal.dto;
 
+import com.codestates.server.member.dto.MemberDto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.time.LocalDateTime;
 
 public class GoalDto {
@@ -17,10 +19,11 @@ public class GoalDto {
         @NotBlank(message = "목표를 입력하세요.")
         private String goalName;
 
-        @NotNull(message = "가격을 입력하세요.")
+        @NotNull(message = "금액을 입력하세요.")
         private long goalPrice;
 
         @NotNull(message = "목표 기간을 입력하세요.")
+        @Positive(message = "목표 기간은 0 보다 큰 기간을 입력하세요.")
         private int targetLength;
     }
 
@@ -31,14 +34,13 @@ public class GoalDto {
 
         private Long goalId;
 
-        @NotBlank(message = "목표를 입력하세요.")
         private String goalName;
 
-        @NotNull(message = "가격을 입력하세요.")
+        @NotNull(message = "변경된 금액을 입력하세요.")
         private long goalPrice;
 
-        @NotNull(message = "목표 기간을 입력하세요.")
-        private int targetLength;
+        @Positive(message = "목표 기간은 0 보다 큰 기간을 입력하세요.")
+        private Integer targetLength;
     }
 
 
@@ -55,9 +57,9 @@ public class GoalDto {
         private long calculatedPrice;
         private int completed;
 
-        // WIP: add MemberDto.Response
-
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
+
+        private MemberDto.ResponseObject memberPosted;
     }
 }
