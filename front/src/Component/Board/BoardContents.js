@@ -53,12 +53,25 @@ const ContentBox = styled.div`
 `;
 const IdEtcBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 30px;
-  padding-bottom: 5px;
+  padding-bottom: 20px;
   border-bottom: 1px solid #8ec3b0;
+  div {
+    padding-bottom: 5px;
+  }
+`;
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 40px;
+  margin-right: 10px;
+  font-size: 12px;
+  border: 3px solid #bcead5;
+  border-radius: 10px;
+  background-color: #def5e5;
 `;
 const Id = styled.div`
   display: flex;
@@ -71,8 +84,7 @@ const Id = styled.div`
 `;
 const EtcBox = styled.div`
   display: flex;
-  width: auto;
-  height: 30px;
+  margin-left: 240px;
 `;
 const Date = styled.div`
   display: flex;
@@ -123,9 +135,10 @@ const TitleBox = styled.div`
   width: 100%;
   max-height: 200px;
   margin-left: 5px;
-  margin-top: 10px;
+  margin-top: 20px;
   overflow: auto;
-  font-size: 20px;
+  font-size: 23px;
+  font-weight: 600;
 `;
 const TextBox = styled.div`
   display: flex;
@@ -147,6 +160,7 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
+  const [tag, setTag] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
@@ -190,7 +204,7 @@ const Contents = () => {
         setcreatedAt(res.data.createdAt);
         setName(res.data.memberPosted.name);
         setLike(res.data.like);
-        console.log(like);
+        setTag(res.data.tag);
       } catch (e) {
         console.log(e);
       }
@@ -211,6 +225,9 @@ const Contents = () => {
           </ImageBox>
           <ContentBox>
             <IdEtcBox>
+              <div>
+                <Tag>{tag}</Tag>
+              </div>
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
