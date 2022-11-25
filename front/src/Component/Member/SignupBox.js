@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react';
 import styled from 'styled-components';
-import { SignUpButton } from '../Common/Button';
 
 const PageContainer = styled.div`
   display: flex;
@@ -113,6 +112,35 @@ const Button = styled.div`
   padding: 5px;
   margin: 10px;
   /* border: 1px solid #0000ff; */
+  button {
+    width: 120px;
+    height: 35px;
+    position: relative;
+    border: none;
+    display: inline-block;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.25s;
+    color: #444;
+    &.success {
+      background-color: #8ec3b0;
+      :hover {
+        color: #fff;
+        letter-spacing: 1px;
+        transform: scale(1.1);
+        cursor: pointer;
+      }
+      :active {
+        position: relative;
+        top: 3px;
+      }
+    }
+    &.error {
+      background-color: rgba(0, 0, 0, 0.2);
+    }
+  }
 `;
 
 export const SignupBox = () => {
@@ -133,6 +161,8 @@ export const SignupBox = () => {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
+
+  const abc = !(isName && isEmail && isPassword && isPasswordConfirm);
 
   // 이름
   const onChangeName = useCallback((e) => {
@@ -267,11 +297,15 @@ export const SignupBox = () => {
           </InputBox>
           <ButtonBox>
             <Button>
-              <SignUpButton
+              <button
+                className={`message ${abc ? 'error' : 'success'}`}
                 disabled={
                   !(isName && isEmail && isPassword && isPasswordConfirm)
                 }
-              />
+                onClick={() => alert('회원가입 완료')}
+              >
+                회원가입 하기
+              </button>
             </Button>
           </ButtonBox>
         </Container>
