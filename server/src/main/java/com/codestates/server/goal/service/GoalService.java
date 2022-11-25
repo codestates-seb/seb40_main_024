@@ -56,7 +56,7 @@ public class GoalService {
         // Member, Goal and id verifications
         if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
         Goal verifiedGoal = findVerifiedGoal(goal.getGoalId());
-        if (verifiedGoal.getMember().getId() != memberId) throw new CustomException(ExceptionCode.COMMENT_NOT_FOUND);
+        commentMemberIdMatch(verifiedGoal, memberId);
 
         // changed price
         verifiedGoal.setGoalPrice(goal.getGoalPrice());
@@ -77,36 +77,38 @@ public class GoalService {
     public void deleteOne(long id, long memberId) {
         Goal verifiedGoal = findVerifiedGoal(id);
         if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+        commentMemberIdMatch(verifiedGoal, memberId);
 
         // DB 완전 삭제
         repository.delete(verifiedGoal);
     }
 
     @Transactional
-    public Goal increaseCompletion(Long id, long memberId) {
+    public Goal changeCompletion(long id, char operator, long memberId) {
+        // verification
         Goal verifiedGoal = findVerifiedGoal(id);
         if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+        commentMemberIdMatch(verifiedGoal, memberId);
 
         int newCompleted = verifiedGoal.getCompleted();
-        int maxLength = verifiedGoal.getTargetLength();
-        // 목표 설정 기간 보다 작은 경우에만 increase
-        verifiedGoal.setCompleted(newCompleted + 1 > maxLength ? maxLength : ++newCompleted);
-        return repository.save(verifiedGoal);
-    }
 
-    @Transactional
-    public Goal decreaseCompletion(Long id, long memberId) {
-        Goal verifiedGoal = findVerifiedGoal(id);
-        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
-
-        int completed = verifiedGoal.getCompleted();
-        // 0 보다 큰 경우에만 decrease
-        verifiedGoal.setCompleted(completed > 0 ? --completed : 0);
+        if (operator == '+') {
+            int maxLength = verifiedGoal.getTargetLength();
+            // 목표 설정 기간 보다 작은 경우에만 increase
+            verifiedGoal.setCompleted(newCompleted + 1 > maxLength ? maxLength : ++newCompleted);
+        } else {
+            // 0 보다 큰 경우에만 decrease
+            verifiedGoal.setCompleted(newCompleted > 0 ? --newCompleted : 0);
+        }
         return repository.save(verifiedGoal);
     }
 
     public Goal findVerifiedGoal(long id) {
         Optional<Goal> optionalGoal = repository.findById(id);
         return optionalGoal.orElseThrow(() -> new CustomException(ExceptionCode.GOAL_NOT_FOUND));
+    }
+
+    public void commentMemberIdMatch(Goal goal, long memberId) {
+        if (goal.getMember().getId() != memberId) throw new CustomException(ExceptionCode.GOAL_NOT_FOUND);
     }
 }

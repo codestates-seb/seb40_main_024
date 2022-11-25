@@ -89,7 +89,7 @@ public class GoalController {
     @PatchMapping("/{member_id}/goal/{id}/complete")
     public ResponseEntity<?> completedGoal(@PathVariable long id,
                                            @PathVariable("member_id") long memberId) {
-        Goal goal = goalService.increaseCompletion(id, memberId);
+        Goal goal = goalService.changeCompletion(id, '+', memberId);
         EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -99,7 +99,7 @@ public class GoalController {
     @PatchMapping("/{member_id}/goal/{id}/incomplete")
     public ResponseEntity<?> uncompletedGoal(@PathVariable long id,
                                              @PathVariable("member_id") long memberId) {
-        Goal goal = goalService.decreaseCompletion(id, memberId);
+        Goal goal = goalService.changeCompletion(id, '-', memberId);
         EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
