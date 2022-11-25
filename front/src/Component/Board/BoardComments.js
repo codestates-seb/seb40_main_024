@@ -186,35 +186,26 @@ const Comments = () => {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState('');
   const [input, setInput] = useState('');
+  const [count, setCount] = useState(0);
   const [isEditing, setEditing] = useState(false);
 
   const handlerText = (e) => {
-    // e.preventDefault();
     const data = e.target.value;
     setText(data);
-
-    // if (data.length < 10) {
-    //   return;
-    // }
   };
   const handlerInput = (e) => {
     const modification = e.target.value;
     setInput(modification);
     console.log(modification);
   };
-
-  //8080/board/{board_id}
-
-  // console.log(comments);
-
-  // console.log(url + `/board/${id}`);
+  const data = {
+    body: text,
+  };
 
   const commentPost = async () => {
-    const data = {
-      body: text,
-    };
     try {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
+      setCount((el) => el + 1);
       setText('');
       console.log('post', posts);
 
@@ -224,15 +215,16 @@ const Comments = () => {
     }
   };
 
+  const patchdata = {
+    body: '수정 테스트',
+  };
   const commentPatch = async (e) => {
-    const patchdata = {
-      body: '수정 테스트',
-    };
     try {
       const patch = await axios.patch(
         `${url}/board/${id}/comment/${e.target.dataset.id}`,
         patchdata
       );
+      setCount((el) => el + 1);
       setText(text);
       setEditing(!isEditing);
       console.log('Patch', patch);
@@ -247,6 +239,7 @@ const Comments = () => {
       const res = await axios.delete(
         `${url}/board/${id}/comment/${e.target.dataset.id}`
       );
+      setCount((el) => el + 1);
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
     } catch (err) {
@@ -254,19 +247,20 @@ const Comments = () => {
     }
   };
 
+  const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
+
   useEffect(() => {
     const commentGet = async () => {
       try {
-        const res = await axios(`${url}/board/${id}`);
+        const res = await axios.get(`${url}/board/${id}`);
         setComments(res.data.commentsPosted);
+        console.log(res);
       } catch (err) {
         console.log('error', err);
       }
     };
     commentGet();
-  }, [comments]);
-
-  const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
+  }, [count]);
 
   return (
     <>

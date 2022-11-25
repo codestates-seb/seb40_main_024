@@ -189,6 +189,7 @@ const Contents = () => {
         setcreatedAt(res.data.createdAt);
         setName(res.data.memberPosted.name);
         setLike(res.data.like);
+        console.log(like);
       } catch (e) {
         console.log(e);
       }
