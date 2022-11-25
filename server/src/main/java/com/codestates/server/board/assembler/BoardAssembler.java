@@ -4,6 +4,7 @@ import com.codestates.server.board.controller.BoardController;
 import com.codestates.server.board.dto.BoardDto;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.RepresentationModelAssembler;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -15,8 +16,8 @@ public class BoardAssembler implements RepresentationModelAssembler <BoardDto.Re
     @Override
     public EntityModel<BoardDto.Response> toModel(BoardDto.Response board) {
         return EntityModel.of(board,
-                linkTo(methodOn(BoardController.class).getBoard(board.getBoardId())).withSelfRel());
-//                linkTo(methodOn(BoardController.class).getBoards()).withRel("boards"));
+                WebMvcLinkBuilder.linkTo(methodOn(BoardController.class).getBoard(board.getBoardId())).withSelfRel(),
+                linkTo(methodOn(BoardController.class).getBoards()).withRel("boards"));
     }
 
 }
