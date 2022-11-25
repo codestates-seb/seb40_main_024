@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useState, useCallback } from 'react';
-
 import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
 
 const PageContainer = styled.div`
