@@ -186,7 +186,7 @@ const Comments = () => {
   const [comments, setComments] = useState([]);
   const [text, setText] = useState('');
   const [input, setInput] = useState('');
-  const [count, setCount] = useState(0);
+  const [render, setRender] = useState(0);
   const [isEditing, setEditing] = useState(false);
 
   const handlerText = (e) => {
@@ -205,7 +205,7 @@ const Comments = () => {
   const commentPost = async () => {
     try {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
-      setCount((el) => el + 1);
+      setRender((el) => el + 1);
       setText('');
       console.log('post', posts);
 
@@ -224,7 +224,7 @@ const Comments = () => {
         `${url}/board/${id}/comment/${e.target.dataset.id}`,
         patchdata
       );
-      setCount((el) => el + 1);
+      setRender((el) => el + 1);
       setText(text);
       setEditing(!isEditing);
       console.log('Patch', patch);
@@ -239,7 +239,7 @@ const Comments = () => {
       const res = await axios.delete(
         `${url}/board/${id}/comment/${e.target.dataset.id}`
       );
-      setCount((el) => el + 1);
+      setRender((el) => el + 1);
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
     } catch (err) {
@@ -260,7 +260,7 @@ const Comments = () => {
       }
     };
     commentGet();
-  }, [count]);
+  }, [render]);
 
   return (
     <>
