@@ -1,5 +1,8 @@
 import { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import axios from 'axios';
+import { Modal } from '../Common/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
   display: flex;
@@ -144,6 +147,9 @@ const Button = styled.div`
 `;
 
 export const SignupBox = () => {
+  const URL = process.env.REACT_APP_API_URL;
+  const navigate = useNavigate();
+
   // 이름, 이메일, 비밀번호, 비밀번호 확인
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -162,6 +168,12 @@ export const SignupBox = () => {
   const [isPassword, setIsPassword] = useState(false);
   const [isPasswordConfirm, setIsPasswordConfirm] = useState(false);
 
+  const SignUpData = {
+    email: email,
+    name: name,
+    password: password,
+  };
+  const [openModal, setOpenModal] = useState(false);
   const abc = !(isName && isEmail && isPassword && isPasswordConfirm);
 
   // 이름
@@ -194,15 +206,12 @@ export const SignupBox = () => {
 
   // 비밀번호
   const onChangePassword = useCallback((e) => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/;
     const passwordCurrent = e.target.value;
     setPassword(passwordCurrent);
 
     if (!passwordRegex.test(passwordCurrent)) {
-      setPasswordMessage(
-        '영문, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요.'
-      );
+      setPasswordMessage('영문, 숫자 조합으로 8자리 이상 입력해주세요.');
       setIsPassword(false);
     } else {
       setPasswordMessage('안전한 비밀번호 입니다.');
@@ -226,6 +235,24 @@ export const SignupBox = () => {
     },
     [password]
   );
+
+  // 회원가입 버튼
+  const onClickSubmit = async () => {
+    try {
+      const res = await axios
+        .post(`${URL}/member/`, SignUpData)
+        .then(() => setOpenModal(true));
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const closeModal = () => {
+    setOpenModal(false);
+    navigate('/login');
+  };
+
   return (
     <>
       <PageContainer>
@@ -302,11 +329,14 @@ export const SignupBox = () => {
                 disabled={
                   !(isName && isEmail && isPassword && isPasswordConfirm)
                 }
-                onClick={() => alert('회원가입 완료')}
+                onClick={onClickSubmit}
               >
                 회원가입 하기
               </button>
             </Button>
+            <Modal open={openModal} close={closeModal} header="회원가입 알림">
+              회원가입이 완료되었습니다.
+            </Modal>
           </ButtonBox>
         </Container>
       </PageContainer>
