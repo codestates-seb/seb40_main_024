@@ -133,6 +133,7 @@ export const FreeBoardList = () => {
                     body={el.body}
                     createdAt={el.createdAt}
                     like={el.like}
+                    tag={el.tag}
                   ></AllBoardList>
                 )
               )

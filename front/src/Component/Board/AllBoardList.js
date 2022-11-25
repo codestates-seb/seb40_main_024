@@ -53,10 +53,9 @@ const IdEtContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 35px;
   width: auto;
   margin-left: 10px;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 3px solid #8ec3b0;
   /* border: 1px solid #ff8000; */
@@ -65,9 +64,21 @@ const IdEtContainer = styled.div`
 const IdEtcBox = styled.div`
   display: flex;
   flex-direction: row;
-  height: 30px;
   margin-left: 8px;
   /* border: 1px solid #ff8000; */
+`;
+
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 40px;
+  margin-right: 10px;
+  font-size: 12px;
+  border: 3px solid #bcead5;
+  border-radius: 10px;
+  background-color: #def5e5;
 `;
 
 const Id = styled.div`
@@ -135,7 +146,7 @@ const Likenum = styled.div`
   /* border: 1px solid #ff8000; */
 `;
 
-function AllBoardList({ id, title, body, createdAt, like }) {
+function AllBoardList({ id, title, body, createdAt, like, tag }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
@@ -148,6 +159,7 @@ function AllBoardList({ id, title, body, createdAt, like }) {
         <Container>
           <IdEtContainer>
             <IdEtcBox>
+              <Tag>{tag}</Tag>
               <Id>{title}</Id>
             </IdEtcBox>
             <IdEtcBox>
