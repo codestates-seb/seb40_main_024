@@ -14,12 +14,12 @@ import {
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect } from 'react';
 import { Modal } from '../../Component/Common/Modal';
-import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
+import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import { FiEdit, FiDelete } from 'react-icons/fi';
-import { fireEvent } from '@testing-library/react';
+import '../../Component/Asset/Asset_A_Data.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -27,23 +27,37 @@ const URL = process.env.REACT_APP_API_URL;
 
 const MainPage = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid blue;
-  width: auto;
+  width: 100%;
+  height: 100%;
 `;
 
-const MainAssetChange = styled.div`
-  margin-left: 100px;
-  margin-top: 150px;
-  margin-bottom: 150px;
+const TopPage = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid green; */
 `;
 
 const MainContain = styled.div`
-  border: 1px solid blue;
-  margin-top: 165px;
-  margin-bottom: 165px;
+  /* border: 1px solid pink; */
+  /* margin-top: 400px; */
+`;
+
+const ChartContain = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 800px;
+  height: 800px;
+  padding: 35px;
+  /* border: 1px solid red; */
 `;
 
 const H1 = styled.h1`
@@ -65,12 +79,14 @@ const H2 = styled.h2`
 
 const H3 = styled.h3`
   color: #9ed5c5;
+  width: 300px;
   margin-left: 13px;
   margin-bottom: 10px;
   line-height: normal;
 `;
 const H3Title = styled.h3`
   color: orange;
+  width: 300px;
   margin-left: 13px;
   margin-bottom: 10px;
   line-height: normal;
@@ -113,17 +129,6 @@ const Input = styled.input`
     margin-top: 20px;
   }
 `;
-const ChartContain = styled.div`
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: 450px;
-  height: 600px;
-  margin-top: 100px;
-  border: 1px solid red;
-  /* margin-left: 120px; */
-  /* top: 300px !important; */
-`;
 
 const ChartBox = styled.div`
   display: flex;
@@ -149,9 +154,14 @@ const GraphPie = styled.div`
 `;
 
 const GraphH1 = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   height: 50px;
+  margin-top: 300px;
   width: 450px;
+  font-size: 50px;
   align-items: center;
   /* color: #9ed5c5; */
   text-align: center;
@@ -212,9 +222,29 @@ const EditButton = styled.button`
   cursor: pointer;
   :hover {
     color: #9ed5c5;
+    letter-spacing: 1px;
+    transform: scale(1.3);
   }
+
   :active {
     color: yellow;
+  }
+`;
+
+const AssetListBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  line-height: normal;
+  border: 1px solid #9ed5c5;
+  margin-bottom: 20px;
+  padding: 15px;
+  border-radius: 20px;
+  :hover {
+    color: #fff;
+    letter-spacing: 1px;
+    transform: scale(1.2);
   }
 `;
 
@@ -469,17 +499,18 @@ function AssetChange() {
       {Data ? (
         <>
           <MainPage>
-            <ChartContain>
-              <ChartBox>
-                <FirstGraph>
-                  <GraphPie>
-                    <Pie data={AssetAdata} />
-                  </GraphPie>
-                </FirstGraph>
-              </ChartBox>
-              <GraphH1>보유자산 현황</GraphH1>
-            </ChartContain>
-            <MainAssetChange>
+            <GraphH1>보유자산 현황</GraphH1>
+            <TopPage>
+              <ChartContain>
+                <ChartBox>
+                  <FirstGraph>
+                    <GraphPie>
+                      <Pie data={AssetAdata} options={pieOptions} />
+                    </GraphPie>
+                  </FirstGraph>
+                </ChartBox>
+              </ChartContain>
+
               <MainContain>
                 <Modal
                   open={Modalopen}
@@ -512,29 +543,31 @@ function AssetChange() {
                 <H1>현재 자산</H1>
                 {Data ? (
                   <>
-                    <H3Title> 1 &nbsp;) </H3Title>
-                    {AssetTitle[0] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[0]}
-                        <EditButton onClick={openTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
+                    <AssetListBox>
+                      <H3Title> 1 &nbsp;) </H3Title>
+                      {AssetTitle[0] === undefined ? (
+                        <H3Title>
+                          명칭
+                          <EditButton onClick={openTextModal}>
+                            <FiEdit />
+                          </EditButton>
+                          <EditButton onClick={deletAssetApi}>
+                            <FiDelete />
+                          </EditButton>
+                        </H3Title>
+                      ) : (
+                        <H3Title>
+                          {AssetTitle[0]}
+                          <EditButton onClick={openTextModal}>
+                            <FiEdit />
+                          </EditButton>
+                          <EditButton onClick={deletAssetApi}>
+                            <FiDelete />
+                          </EditButton>
+                        </H3Title>
+                      )}
+                      <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
+                    </AssetListBox>
 
                     <H3Title> 2 &nbsp;) </H3Title>
                     {AssetTitle[1] === undefined ? (
@@ -707,7 +740,7 @@ function AssetChange() {
                   </Fade>
                 ) : null}
               </MainContain>
-            </MainAssetChange>
+            </TopPage>
           </MainPage>
         </>
       ) : (

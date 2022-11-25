@@ -4,13 +4,7 @@ import {
   LongLoginNavbarBox,
   MiniLoginNavbarBox,
 } from '../../Component/Common/NavebarRev';
-import {
-  TitleCashBtn,
-  // GoldBtn,
-  // DiamondBtn,
-  // eslint-disable-next-line no-unused-vars
-  // StockBtn,
-} from '../../Component/Common/Button';
+import { TitleCashBtn } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect } from 'react';
 import { Modal } from '../../Component/Common/Modal';
@@ -19,7 +13,6 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import { FiEdit, FiDelete } from 'react-icons/fi';
-import '../../Component/Asset/Asset_A_Data.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -43,7 +36,16 @@ const TopPage = styled.div`
   /* border: 1px solid green; */
 `;
 
+const BottomPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+`;
+
 const MainContain = styled.div`
+  margin-left: 120px;
   /* border: 1px solid pink; */
   /* margin-top: 400px; */
 `;
@@ -56,8 +58,12 @@ const ChartContain = styled.div`
   box-sizing: border-box;
   width: 800px;
   height: 800px;
-  padding: 35px;
+  margin-right: 120px;
   /* border: 1px solid red; */
+  div {
+    width: 800px;
+    height: 800px;
+  }
 `;
 
 const H1 = styled.h1`
@@ -65,7 +71,7 @@ const H1 = styled.h1`
   border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
   margin-left: 13px;
-  width: 170px;
+  width: 200px;
 `;
 
 const H2 = styled.h2`
@@ -73,7 +79,7 @@ const H2 = styled.h2`
   border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
   margin-left: 13px;
-  width: 180px;
+  width: 190px;
   margin-top: 100px;
 `;
 
@@ -160,6 +166,7 @@ const GraphH1 = styled.h1`
   box-sizing: border-box;
   height: 50px;
   margin-top: 300px;
+  margin-bottom: 150px;
   width: 450px;
   font-size: 50px;
   align-items: center;
@@ -222,7 +229,10 @@ const EditButton = styled.button`
   cursor: pointer;
   :hover {
     color: #9ed5c5;
+    letter-spacing: 1px;
+    transform: scale(1.5);
   }
+
   :active {
     color: yellow;
   }
@@ -235,8 +245,14 @@ const AssetListBox = styled.div`
   width: 400px;
   line-height: normal;
   border: 1px solid #9ed5c5;
-  padding: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
   border-radius: 20px;
+  :hover {
+    color: #fff;
+    letter-spacing: 1px;
+    transform: scale(1.2);
+  }
 `;
 
 function AssetChange() {
@@ -531,7 +547,7 @@ function AssetChange() {
                 >
                   수정할 자산 종류를 입력해주세요
                 </Modal>
-                <H1>현재 자산</H1>
+                <H1>자산 리스트</H1>
                 {Data ? (
                   <>
                     <AssetListBox>
@@ -567,7 +583,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -577,7 +593,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -591,7 +607,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -601,7 +617,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -615,7 +631,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -625,7 +641,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -639,7 +655,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -649,7 +665,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -663,7 +679,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -673,7 +689,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -682,7 +698,7 @@ function AssetChange() {
                   </>
                 ) : null}
 
-                <H2>현재 자산 수정</H2>
+                <H2>자산 금액 수정</H2>
                 <Div>
                   <Input
                     onChange={TextonChange}

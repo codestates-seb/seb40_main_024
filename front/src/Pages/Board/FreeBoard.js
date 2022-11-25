@@ -75,11 +75,14 @@ function FreeCommunity() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
+  const [selectTag, setselectTag] = useState('');
   const URL = process.env.REACT_APP_API_URL;
   const data = {
     title: title,
     body: body,
+    tag: selectTag,
   };
+
   const Post = async () => {
     try {
       const res = await axios.post(`${URL}/board`, data);
@@ -94,6 +97,10 @@ function FreeCommunity() {
     setTitle(e.target.value);
   };
 
+  const SelectTagonChange = (e) => {
+    setselectTag(e.target.value);
+  };
+
   return (
     <>
       <LongLoginNavbarBox />
@@ -101,11 +108,10 @@ function FreeCommunity() {
       <MainPost>
         <H2>자유게시글 작성하기</H2>
         <Header>
-          <Select name="1234">
+          <Select name="1234" onChange={SelectTagonChange}>
             <option value="">카테고리</option>
-            <option value="자유">자유</option>
-            <option value="일상">일상</option>
-            <option value="정보">정보</option>
+            <option value="일반">일반</option>
+            <option value="자산">자산</option>
           </Select>
           <Input
             onChange={TitleonChange}

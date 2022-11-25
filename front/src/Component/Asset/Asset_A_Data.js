@@ -16,8 +16,11 @@ export const AssetAdata = {
         'rgba(255, 159, 64, 0.2)',
       ],
       borderRadius: 8,
+      cutout: '50%',
+      radius: '90%',
     },
   ],
+
   hoverOffset: 5,
 };
 
