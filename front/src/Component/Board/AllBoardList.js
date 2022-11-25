@@ -150,7 +150,6 @@ function AllBoardList({ id, title, body, createdAt, like }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
-
   return (
     <>
       <ListBox onClick={() => navigate(`/boardcontentpage/${id}`)}>

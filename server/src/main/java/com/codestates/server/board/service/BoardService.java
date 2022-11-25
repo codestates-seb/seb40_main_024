@@ -47,6 +47,14 @@ public class BoardService {
         return repository.findAllPaged(PageRequest.of(page, size));
     }
 
+    public Page<Board> findAllTagPost(int page, int size) {
+        return repository.findAllPost(PageRequest.of(page, size));
+    }
+
+    public Page<Board> findAllTagAsset(int page, int size) {
+        return repository.findAllAssetPost(PageRequest.of(page, size));
+    }
+
     @Transactional
     public Board createOne(Board board) {
         return repository.save(board);
@@ -59,6 +67,7 @@ public class BoardService {
         // title and body
         verifiedBoard.setTitle(board.getTitle());
         verifiedBoard.setBody(board.getBody());
+        verifiedBoard.setTag(board.getTag() != null ? board.getTag() : verifiedBoard.getTag());
 
         // Modified time
         verifiedBoard.setModifiedAt(LocalDateTime.now());
