@@ -244,20 +244,20 @@ function AssetChange() {
   //
 
   //? POST
-  // const data1 = {
-  //   // eslint-disable-next-line prettier/prettier
-  //   title: "dsf2222",
-  //   // eslint-disable-next-line prettier/prettier
-  //   body: "asdfasdfasf222dfd222",
-  // };
-  // // eslint-disable-next-line no-unused-vars
-  // async function postApi() {
-  //   await axios
-  //     .post('`${URL}/board/`, data1)
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
-  //?
+  const data1 = {
+    // eslint-disable-next-line prettier/prettier
+    assetType: '비상금',
+    assetValue: '100000',
+  };
+  // eslint-disable-next-line no-unused-vars
+  async function patchApi() {
+    await axios
+      .post(`${URL}/member/1/asset/`, data1)
+      .then((res) => console.log('post', res.data))
+      .catch((err) => console.log(err));
+  }
+
+  patchApi();
 
   //? PATCH
   // eslint-disable-next-line no-unused-vars
@@ -281,6 +281,7 @@ function AssetChange() {
   const getAssets = async () => {
     const Datas = await axios.get(`${URL}/asset`);
     setData(Datas.data);
+    console.log('res', Datas);
   };
 
   useEffect(() => {

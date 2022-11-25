@@ -162,8 +162,9 @@ const TextBox = styled.div`
 `;
 const BtnBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  gap: 10px;
 `;
 
 const ModifyInput = styled.input`
@@ -179,8 +180,6 @@ const ModifyInput = styled.input`
 
 //http://localhost:3000/boardcontentpage/:id
 const Comments = () => {
-  // const { id } = useParams();
-  // console.log(id.slice(1));
   const { id } = useParams();
   const url = process.env.REACT_APP_API_URL;
   const [comments, setComments] = useState([]);
@@ -192,10 +191,6 @@ const Comments = () => {
     // e.preventDefault();
     const data = e.target.value;
     setText(data);
-
-    // if (data.length < 10) {
-    //   return;
-    // }
   };
   const handlerInput = (e) => {
     const modification = e.target.value;
@@ -203,30 +198,21 @@ const Comments = () => {
     console.log(modification);
   };
 
-  //8080/board/{board_id}
+  const commentGet = async () => {
+    try {
+      const res = await axios.get(`${url}/board/${id}`);
 
-  // console.log(comments);
+      setComments(res.data.commentsPosted);
+      // const reverseComments = res.data.commentsPosted.sort((a, b) => {
+      //   return new window.Date(b.createdAt) - new window.Date(a.createdAt);
+      // });
+      console.log('res', res);
 
-  // console.log(url + `/board/${id}`);
-  useEffect(() => {
-    const commentGet = async () => {
-      try {
-        const res = await axios.get(`${url}/board/${id}`);
-
-        setComments(res.data.commentsPosted);
-        const reverseComments = res.data.commentsPosted.sort((a, b) => {
-          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
-        });
-        console.log('res', res);
-
-        setComments(reverseComments);
-        return;
-      } catch (err) {
-        console.log('error', err);
-      }
-    };
-    commentGet();
-  }, []);
+      // setComments(reverseComments);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
 
   const commentPost = async () => {
     const data = {
@@ -234,7 +220,7 @@ const Comments = () => {
     };
     try {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
-      setText('');
+      setText(posts.data.body);
       console.log('post', posts);
 
       // if(posts.data === " " )
@@ -252,7 +238,7 @@ const Comments = () => {
         `${url}/board/${id}/comment/${e.target.dataset.id}`,
         patchdata
       );
-      setText(text);
+      setInput(patch.data.body);
       setEditing(!isEditing);
       console.log('Patch', patch);
       console.log('dataset.id', e.target.dataset.id);
@@ -272,6 +258,30 @@ const Comments = () => {
       console.log('deleteerror', err);
     }
   };
+
+  // useEffect(() => {
+  //   const commentGet = async () => {
+  //     try {
+  //       const res = await axios.get(`${url}/board/${id}`);
+
+  //       setComments(res.data.commentsPosted);
+  //       const reverseComments = res.data.commentsPosted.sort((a, b) => {
+  //         return new window.Date(b.createdAt) - new window.Date(a.createdAt);
+  //       });
+  //       console.log('res', res);
+
+  //       setComments(reverseComments);
+  //       return;
+  //     } catch (err) {
+  //       console.log('error', err);
+  //     }
+  //   };
+  //   commentGet();
+  // }, []);
+
+  useEffect(() => {
+    commentGet();
+  }, []);
 
   // console.log(comments);
   // axios
@@ -328,6 +338,16 @@ const Comments = () => {
                       <IdEtcBox>
                         <Id>ID: {comment.commentId}</Id>
                       </IdEtcBox>
+                      {/* <BtnBox>
+                        <ModifyCommentBtn
+                          commentPatch={commentPatch}
+                          id={comment.commentId}
+                        />
+                        <DeleteCommentBtn
+                          commentDelete={commentDelete}
+                          id={comment.commentId}
+                        />
+                      </BtnBox> */}
                       <EtcBox>
                         <Date>{comment.createdAt.slice(0, 10)}</Date>
                         <At>{comment.createdAt.slice(11, 19)}</At>
@@ -345,7 +365,6 @@ const Comments = () => {
                   />
                   <DeleteCommentBtn
                     commentDelete={commentDelete}
-                    // dataset-id={comment.commentId}
                     id={comment.commentId}
                   />
                 </BtnBox>
