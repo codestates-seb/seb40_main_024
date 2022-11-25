@@ -4,6 +4,7 @@ import ProfileIcon from '../Member/ProfileIcon';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useState, useEffect } from 'react';
 
 const TotalContent = styled.div`
   display: flex;
@@ -95,7 +96,7 @@ const LikeBox = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 10px;
+  margin-right: 3px;
   line-height: normal;
   align-content: center;
   justify-content: center;
@@ -107,7 +108,7 @@ const UnLikeBox = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 10px;
+  margin-left: 3px;
   line-height: normal;
   align-content: center;
   justify-content: center;
@@ -136,11 +137,18 @@ const TextBox = styled.div`
   overflow: auto;
 `;
 
-const Contents = ({ boardId, title, body, createdAt, name }) => {
+const Contents = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [title, setTitle] = useState();
+  const [body, setBody] = useState();
+  const [createdAt, setcreatedAt] = useState();
+  const [name, setName] = useState();
+  const [boardId, setBoardId] = useState();
+  const [like, setLike] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
+
   const URL = process.env.REACT_APP_API_URL;
 
   const Delete = async () => {
@@ -152,6 +160,41 @@ const Contents = ({ boardId, title, body, createdAt, name }) => {
       console.log(e);
     }
   };
+
+  const Patchlike = async () => {
+    try {
+      const res = await axios.patch(`${URL}/board/${id}/like`);
+      setLike(res.data.like);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const Patchdislike = async () => {
+    try {
+      const res = await axios.patch(`${URL}/board/${id}/dislike`);
+      setLike(res.data.like);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const Get = async () => {
+      try {
+        const res = await axios.get(`${URL}/board/${id}`);
+        setBoardId(res.data.boardId);
+        setTitle(res.data.title);
+        setBody(res.data.body);
+        setcreatedAt(res.data.createdAt);
+        setName(res.data.memberPosted.name);
+        setLike(res.data.like);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    Get();
+  }, []);
 
   return (
     <>
@@ -169,8 +212,9 @@ const Contents = ({ boardId, title, body, createdAt, name }) => {
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
-                <LikeBox>❤</LikeBox>
-                <UnLikeBox>❤</UnLikeBox>
+                <LikeBox onClick={Patchlike}>❤</LikeBox>
+                {like}
+                <UnLikeBox onClick={Patchdislike}>❤</UnLikeBox>
               </EtcBox>
             </IdEtcBox>
             <TitleBox>{title}</TitleBox>

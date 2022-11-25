@@ -185,76 +185,29 @@ const Comments = () => {
   const url = process.env.REACT_APP_API_URL;
   const [comments, setComments] = useState([]);
   const [text, setText] = useState('');
+  const [input, setInput] = useState('');
+  const [isEditing, setEditing] = useState(false);
 
   const handlerText = (e) => {
     // e.preventDefault();
     const data = e.target.value;
     setText(data);
-    console.log(data.length);
+
     // if (data.length < 10) {
     //   return;
     // }
   };
+  const handlerInput = (e) => {
+    const modification = e.target.value;
+    setInput(modification);
+    console.log(modification);
+  };
 
-  // const onClick = (e) => {
-  //   console.log(e.target.dataset);
-  //   e.target;
-  // };
-
-  // const handlerSubmit = () => {
-  //   setText(text);
-  //   console.log('submit');
-  // };
   //8080/board/{board_id}
 
   // console.log(comments);
 
   // console.log(url + `/board/${id}`);
-
-  const commentPost = async () => {
-    const data = {
-      body: text,
-    };
-    try {
-      const posts = await axios.post(`${url}/board/${id}/comment`, data);
-      setText('');
-      console.log(posts);
-      return;
-      // if(posts.data === " " )
-    } catch (err) {
-      console.log('error', err);
-    }
-  };
-
-  const commentPatch = async (e) => {
-    const data = {
-      body: '댓글 수정테스트입니다',
-    };
-    try {
-      const patch = await axios.patch(
-        `${url}/board/${id}/comment/${e.target.dataset.id}`,
-        data
-      );
-      console.log('Patch', patch);
-      console.log('dataset.id', e.target.dataset.id);
-      return;
-    } catch (err) {
-      console.log('patcherror', err);
-    }
-  };
-
-  const commentDelete = async (e) => {
-    try {
-      const res = await axios.delete(
-        `${url}/board/${id}/comment/${e.target.dataset.id}`
-      );
-      console.log('dataset.id', e.target.dataset.id);
-      console.log('삭제', res);
-      return;
-    } catch (err) {
-      console.log('deleteerror', err);
-    }
-  };
   useEffect(() => {
     const commentGet = async () => {
       try {
@@ -267,14 +220,59 @@ const Comments = () => {
         console.log('res', res);
 
         setComments(reverseComments);
-
         return;
       } catch (err) {
         console.log('error', err);
       }
     };
     commentGet();
-  }, [commentDelete]);
+  }, []);
+
+  const commentPost = async () => {
+    const data = {
+      body: text,
+    };
+    try {
+      const posts = await axios.post(`${url}/board/${id}/comment`, data);
+      setText('');
+      console.log('post', posts);
+
+      // if(posts.data === " " )
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
+  const commentPatch = async (e) => {
+    const patchdata = {
+      body: '수정 테스트',
+    };
+    try {
+      const patch = await axios.patch(
+        `${url}/board/${id}/comment/${e.target.dataset.id}`,
+        patchdata
+      );
+      setText(text);
+      setEditing(!isEditing);
+      console.log('Patch', patch);
+      console.log('dataset.id', e.target.dataset.id);
+    } catch (err) {
+      console.log('patcherror', err);
+    }
+  };
+
+  const commentDelete = async (e) => {
+    try {
+      const res = await axios.delete(
+        `${url}/board/${id}/comment/${e.target.dataset.id}`
+      );
+      console.log('dataset.id', e.target.dataset.id);
+      console.log('삭제', res);
+    } catch (err) {
+      console.log('deleteerror', err);
+    }
+  };
+
   // console.log(comments);
   // axios
   //   .get(url + '/board/2')
@@ -305,38 +303,54 @@ const Comments = () => {
           onChange={handlerText}
         ></CommentInput>
         {/* </QuillContain> */}
-        <ModifyInput></ModifyInput>
+        {/* {isEditing ?        (<ModifyInput
+          type="text"
+          value={input}
+          onChange={handlerInput}
+        ></ModifyInput> ): } */}
+
         {comments.map((comment, id) => {
           return (
-            <CommentContain key={id}>
-              <ImageBox>
-                <ProfileIcon />
-              </ImageBox>
-              <CommentBox>
-                <IdEtcBox>
-                  <Id>ID: {comment.commentId}</Id>
-                </IdEtcBox>
-                <EtcBox>
-                  <Date>{comment.createdAt.slice(0, 10)}</Date>
-                  <At>{comment.createdAt.slice(11, 19)}</At>
-                </EtcBox>
-                <TextBox>
-                  <p>{comment.body}</p>
-                </TextBox>
-              </CommentBox>
-
-              <BtnBox>
-                <ModifyCommentBtn
-                  commentPatch={commentPatch}
-                  id={comment.commentId}
-                />
-                <DeleteCommentBtn
-                  commentDelete={commentDelete}
-                  // dataset-id={comment.commentId}
-                  id={comment.commentId}
-                />
-              </BtnBox>
-            </CommentContain>
+            <>
+              <CommentContain key={id}>
+                <ImageBox>
+                  <ProfileIcon />
+                </ImageBox>
+                <>
+                  {isEditing ? (
+                    <ModifyInput
+                      type="text"
+                      value={input}
+                      onChange={handlerInput}
+                    ></ModifyInput>
+                  ) : (
+                    <CommentBox key={id}>
+                      <IdEtcBox>
+                        <Id>ID: {comment.commentId}</Id>
+                      </IdEtcBox>
+                      <EtcBox>
+                        <Date>{comment.createdAt.slice(0, 10)}</Date>
+                        <At>{comment.createdAt.slice(11, 19)}</At>
+                      </EtcBox>
+                      <TextBox>
+                        <p>{comment.body}</p>
+                      </TextBox>
+                    </CommentBox>
+                  )}
+                </>
+                <BtnBox>
+                  <ModifyCommentBtn
+                    commentPatch={commentPatch}
+                    id={comment.commentId}
+                  />
+                  <DeleteCommentBtn
+                    commentDelete={commentDelete}
+                    // dataset-id={comment.commentId}
+                    id={comment.commentId}
+                  />
+                </BtnBox>
+              </CommentContain>
+            </>
           );
         })}
       </TotalComment>

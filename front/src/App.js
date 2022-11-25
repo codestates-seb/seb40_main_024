@@ -7,7 +7,6 @@ import { LoginPage } from './Pages/Member/LoginPage';
 import { SignupPage } from './Pages/Member/SignupPage';
 import { ForgotPasswordPage } from './Pages/Member/ForgotPasswordPage';
 import { FreeBoardPage } from './Pages/Board/FreeBoardPage';
-// import { AssetBoardPage } from './Pages/Board/AssetBoardPage';
 import FreeBoard from './Pages/Board/FreeBoard';
 import ShareBoard from './Pages/Board/ShareBoard';
 import MyPage from './Pages/Member/MyPage';
@@ -19,7 +18,7 @@ import PaymentConfirmPage from './Pages/Pay/PaymentConfirmPage';
 import PaymentPage from './Pages/Pay/PaymentPage';
 import SubscriptionPage from './Pages/Pay/SubscriptionPage';
 import ModifyBoard from './Pages/Board/ModifyBoard';
-import AllBoardList from './Component/Board/AllBoardList';
+// import AllBoardList from './Component/Board/AllBoardList';
 
 function App() {
   return (
@@ -32,7 +31,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
         <Route path="/freeboard" element={<FreeBoardPage />} />
-        <Route path="/assetboard" element={<AllBoardList />} />
         <Route path="/freeboardpost" element={<FreeBoard />} />
         <Route path="/shareboardpost" element={<ShareBoard />} />
         <Route path="/mypage" element={<MyPage />} />
