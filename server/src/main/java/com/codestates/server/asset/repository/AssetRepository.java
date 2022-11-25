@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 @Repository
 public interface AssetRepository extends JpaRepository<Asset, Long> {
 
-    @Query(nativeQuery = true, value ="select * from Member where member_id = :assetId")
-    List<Member> findAssets(long assetId);
+//    @Query(nativeQuery = true, value ="select * from Member where member_id = :assetId")
+//    List<Member> findAssets(long assetId);
 
 
 }
