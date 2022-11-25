@@ -18,6 +18,7 @@ import PaymentConfirmPage from './Pages/Pay/PaymentConfirmPage';
 import PaymentPage from './Pages/Pay/PaymentPage';
 import SubscriptionPage from './Pages/Pay/SubscriptionPage';
 import ModifyBoard from './Pages/Board/ModifyBoard';
+// import AllBoardList from './Component/Board/AllBoardList';
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
         <Route path="/modifyboard/:id" element={<ModifyBoard />} />
         <Route path="/assettarget" element={<AssetTargetTest />} />
         <Route path="/assettargetpage" element={<AssetTartget />} />
+
         {/*
         subscriptionpage는 ?
         paymentpage는 결제하는 페이지
