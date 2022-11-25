@@ -168,12 +168,13 @@ export const NavSignUpButton = () => {
   );
 };
 
-export const SignUpButton = () => {
+export const SignUpButton = ({ disabled }) => {
   const navigate = useNavigate();
   return (
     <ButtonCC
       style={{ marginRight: '20px', marginTop: '10px', borderRadius: '40px' }}
       onClick={() => navigate('/login')}
+      disabled={disabled}
     >
       회원가입하기
     </ButtonCC>
