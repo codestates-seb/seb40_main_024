@@ -32,6 +32,9 @@ public class GoalService {
 
     @Transactional
     public Goal createOne(Goal goal) {
+
+        // 로그인된 멤버 정보 추가
+
         Goal newGoal = new Goal(goal.getGoalId(), goal.getGoalName(), goal.getGoalPrice(), goal.getTargetLength());
         return repository.save(newGoal);
     }
@@ -39,13 +42,16 @@ public class GoalService {
     @Transactional
     public Goal updateOne(Goal goal) {
         Goal verifiedGoal = findVerifiedGoal(goal.getGoalId());
-        // 수정 부
-        verifiedGoal.setGoalName(goal.getGoalName());
+
+        // changed price
         verifiedGoal.setGoalPrice(goal.getGoalPrice());
-        verifiedGoal.setTargetLength(goal.getTargetLength());
+
+        // optionally changed values
+        verifiedGoal.setGoalName(goal.getGoalName() != null ? goal.getGoalName() : verifiedGoal.getGoalName());
+        verifiedGoal.setTargetLength(goal.getTargetLength() > 0 ? goal.getTargetLength() : verifiedGoal.getTargetLength());
+
+        // new monthly price
         verifiedGoal.setCalculatedPrice(goal.getGoalPrice() / verifiedGoal.getTargetLength());
-//        Goal newGoal = new Goal(verifiedGoal.getGoalId(), verifiedGoal.getGoalName(),
-//                verifiedGoal.getGoalPrice(), verifiedGoal.getTargetLength());
 
         // Modified time
         verifiedGoal.setModifiedAt(LocalDateTime.now());

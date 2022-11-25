@@ -7,7 +7,6 @@ import com.codestates.server.board.repository.BoardRepository;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
-import com.codestates.server.goal.entity.Goal;
 import com.codestates.server.goal.repository.GoalRepository;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
@@ -92,7 +91,7 @@ public class Stub {
                 int goalRand = (int) (Math.random() * goalName.length); // 랜덤 자산
                 int goalLen = (int) (Math.random() * 24) + 1; // 랜덤 기간
                 long goalPrice = (long) (m * (Math.pow(100, goalRand)));
-                log.info("GOAL STUB " + goalRepository.save(new Goal(goalName[goalRand], goalPrice, goalLen)));
+//                log.info("GOAL STUB " + goalRepository.save(new Goal(goalName[goalRand], goalPrice, goalLen)));
             }
         };
     }
