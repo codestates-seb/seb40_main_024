@@ -36,7 +36,7 @@ public class Board extends Auditable {
     private BoardTag tag;
 
     @Column
-    @Enumerated(EnumType.ORDINAL)  // STRING?
+    @Enumerated(EnumType.STRING)
     private BoardStatus boardStatus = BoardStatus.BOARD_POSTED;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -55,18 +55,14 @@ public class Board extends Auditable {
 
     public enum BoardStatus {
 
-        BOARD_DELETED(0, "삭제된 게시글"),
+        BOARD_DELETED("삭제된 게시글"),
 
-        BOARD_POSTED(1, "일반 게시글");
-
-        @Getter
-        private final int statusCode;
+        BOARD_POSTED("일반 게시글");
 
         @Getter
         private final String status;
 
-        BoardStatus(int statusCode, String status) {
-            this.statusCode = statusCode;
+        BoardStatus(String status) {
             this.status = status;
         }
     }
