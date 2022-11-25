@@ -4,6 +4,8 @@ import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.goal.entity.Goal;
 import com.codestates.server.goal.repository.GoalRepository;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.repository.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +19,11 @@ import java.util.Optional;
 public class GoalService {
     
     private final GoalRepository repository;
+    private final MemberRepository memberRepository;
 
-    public GoalService(GoalRepository repository) {
+    public GoalService(GoalRepository repository, MemberRepository memberRepository) {
         this.repository = repository;
+        this.memberRepository = memberRepository;
     }
 
     public Goal findOne(long id) {
@@ -30,18 +34,29 @@ public class GoalService {
         return new ArrayList<>(repository.findAll());
     }
 
+    public List<Goal> findByMember(long memberId) {
+        memberRepository.findById(memberId).orElseThrow(() ->
+                new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+        return new ArrayList<>(repository.findAllByMemberId(memberId));
+    }
+
     @Transactional
-    public Goal createOne(Goal goal) {
+    public Goal createOne(Goal goal, long memberId) {
+        Optional<Member> member = memberRepository.findById(memberId);
 
-        // 로그인된 멤버 정보 추가
+        Goal newGoal = new Goal(goal.getGoalName(), goal.getGoalPrice(), goal.getTargetLength(),
+                member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
 
-        Goal newGoal = new Goal(goal.getGoalId(), goal.getGoalName(), goal.getGoalPrice(), goal.getTargetLength());
         return repository.save(newGoal);
     }
 
     @Transactional
-    public Goal updateOne(Goal goal) {
+    public Goal updateOne(Goal goal, long memberId) {
+
+        // Member, Goal and id verifications
+        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
         Goal verifiedGoal = findVerifiedGoal(goal.getGoalId());
+        if (verifiedGoal.getMember().getId() != memberId) throw new CustomException(ExceptionCode.COMMENT_NOT_FOUND);
 
         // changed price
         verifiedGoal.setGoalPrice(goal.getGoalPrice());
@@ -59,15 +74,19 @@ public class GoalService {
     }
 
     @Transactional
-    public void deleteOne(Long id) {
+    public void deleteOne(long id, long memberId) {
         Goal verifiedGoal = findVerifiedGoal(id);
+        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+
         // DB 완전 삭제
         repository.delete(verifiedGoal);
     }
 
     @Transactional
-    public Goal increaseCompletion(Long id) {
+    public Goal increaseCompletion(Long id, long memberId) {
         Goal verifiedGoal = findVerifiedGoal(id);
+        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+
         int newCompleted = verifiedGoal.getCompleted();
         int maxLength = verifiedGoal.getTargetLength();
         // 목표 설정 기간 보다 작은 경우에만 increase
@@ -76,8 +95,10 @@ public class GoalService {
     }
 
     @Transactional
-    public Goal decreaseCompletion(Long id) {
+    public Goal decreaseCompletion(Long id, long memberId) {
         Goal verifiedGoal = findVerifiedGoal(id);
+        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+
         int completed = verifiedGoal.getCompleted();
         // 0 보다 큰 경우에만 decrease
         verifiedGoal.setCompleted(completed > 0 ? --completed : 0);

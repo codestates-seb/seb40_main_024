@@ -35,20 +35,12 @@ public class Goal extends Auditable {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    public Goal(Long goalId, String goalName, long goalPrice, int targetLength) {
-        this.goalId = goalId;
-        this.goalName = goalName;
-        this.goalPrice = goalPrice;
-        this.targetLength = targetLength;
-        // 옵션 1 -> 목표 월 저축액 산출
-        this.calculatedPrice = goalPrice / targetLength;
-    }
-
     public Goal(String goalName, long goalPrice, int targetLength, Member member) {
         this.goalName = goalName;
         this.goalPrice = goalPrice;
         this.member = member;
         this.targetLength = targetLength;
+        // 옵션 1 -> 목표 월 저축액 산출
         this.calculatedPrice = goalPrice / targetLength;
     }
 }

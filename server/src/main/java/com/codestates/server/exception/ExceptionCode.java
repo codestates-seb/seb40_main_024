@@ -7,7 +7,7 @@ public enum ExceptionCode {
 
     //유저
     DUPLICATE_MEMBER(409, "해당 아이디는 이미 존재합니다."),
-    MEMBER_NOT_FOUND(404, "존재하지 않는 아이디 입니다."),
+    MEMBER_NOT_FOUND(404, "존재하지 않는 멤버 입니다."),
     DUPLICATE_RESOURCE(409, "데이터가 이미 존재합니다"),
     USER_EXISTS(409, "User exists"),
 

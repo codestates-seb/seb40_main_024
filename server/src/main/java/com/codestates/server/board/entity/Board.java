@@ -56,7 +56,6 @@ public class Board extends Auditable {
     public enum BoardStatus {
 
         BOARD_DELETED("삭제된 게시글"),
-
         BOARD_POSTED("일반 게시글");
 
         @Getter
