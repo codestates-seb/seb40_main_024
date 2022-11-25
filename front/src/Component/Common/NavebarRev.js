@@ -162,20 +162,20 @@ export const LongNavbarBox = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
-  // eslint-disable-next-line prettier/prettier, no-unused-vars
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const [Communityclicked, setCommunityclicked] = useState(true);
+  // eslint-disable-next-line prettier/prettier
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
 
   return (
     <>
-      <MediaQuery minWidth={571} maxWidth={999999}>
+      <MediaQuery minWidth={800} maxWidth={999999}>
         <LongContainer>
           <MarkBox onClick={() => navigate('/')}></MarkBox>
           <RowDropMenuBox>
@@ -201,6 +201,26 @@ export const LongNavbarBox = () => {
               </>
             )}
             <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+            {/* {Communityclicked ? (
+              <>
+                
+              </>
+            ) : (
+              <>
+                <Menu onClick={handleClickCommunity}>
+                  커뮤니티
+                  <MenuTopList>
+                    <MenuList onClick={() => navigate('/freeboard')}>
+                      자유게시판
+                    </MenuList>
+                    <MenuList onClick={() => navigate('/assetboard')}>
+                      <p>자산공유</p>
+                      <p>게시판</p>
+                    </MenuList>
+                  </MenuTopList>
+                </Menu>
+              </>
+            )} */}
           </RowDropMenuBox>
         </LongContainer>
       </MediaQuery>
@@ -213,28 +233,28 @@ export const LongLoginNavbarBox = () => {
   const navigate = useNavigate();
   // eslint-disable-next-line no-unused-vars
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   const [Infoclicked, setInfoclicked] = useState(true);
-  // eslint-disable-next-line prettier/prettier, no-unused-vars
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setInfoclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // eslint-disable-next-line prettier/prettier
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setInfoclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setInfoclicked(true);
     setAssetclicked(!Assetclicked);
   };
   const handleClickInfo = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
   };
 
   return (
     <>
-      <MediaQuery minWidth={571} maxWidth={999999}>
+      <MediaQuery minWidth={800} maxWidth={999999}>
         <LongContainer>
           <MarkBox onClick={() => navigate('/')}></MarkBox>
           <RowDropMenuBox>
@@ -277,6 +297,26 @@ export const LongLoginNavbarBox = () => {
               </>
             )}
             <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+            {/* {Communityclicked ? (
+              <>
+                
+              </>
+            ) : (
+              <>
+                <Menu onClick={handleClickCommunity}>
+                  커뮤니티
+                  <MenuTopList>
+                    <MenuList onClick={() => navigate('/freeboard')}>
+                      자유게시판
+                    </MenuList>
+                    <MenuList onClick={() => navigate('/assetboard')}>
+                      <p>자산공유</p>
+                      <p>게시판</p>
+                    </MenuList>
+                  </MenuTopList>
+                </Menu>
+              </>
+            )} */}
             <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
           </RowDropMenuBox>
         </LongContainer>
@@ -290,26 +330,25 @@ export const MiniNavbarBox = () => {
   // eslint-disable-next-line no-unused-vars
   const [Markclicked, setMarkclicked] = useState(true);
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
   const handleClickMark = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setMarkclicked(!Markclicked);
   };
-  // eslint-disable-next-line no-unused-vars
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
 
   return (
     <>
-      <MediaQuery minWidth={0} maxWidth={571}>
+      <MediaQuery minWidth={0} maxWidth={800}>
         <LongContainer>
           <MarkBox onClick={handleClickMark}></MarkBox>
           {Markclicked ? null : (
@@ -329,20 +368,16 @@ export const MiniNavbarBox = () => {
                     <MiniMenu onClick={handleClickAsset}>
                       자산&목표
                       <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/asset')}>
-                          현황
-                        </MenuList>
                         <MenuList onClick={() => navigate('/assetchange')}>
-                          자산수정
+                          자산현황
                         </MenuList>
                         <MenuList onClick={() => navigate('/assettargetpage')}>
-                          목표수정
+                          목표현황
                         </MenuList>
                       </MiniMenuTopList>
                     </MiniMenu>
                   </>
                 )}
-
                 <MiniMenu
                   onClick={() => navigate('/freeboard')}
                   style={{
@@ -353,6 +388,32 @@ export const MiniNavbarBox = () => {
                 >
                   커뮤니티
                 </MiniMenu>
+                {/* {Communityclicked ? (
+                  <>
+
+                  </>
+                ) : (
+                  <>
+                    <MiniMenu
+                      onClick={handleClickCommunity}
+                      style={{
+                        borderEndEndRadius: '5px',
+                        borderEndStartRadius: '5px',
+                      }}
+                    >
+                      커뮤니티
+                      <MiniMenuTopList>
+                        <MenuList onClick={() => navigate('/freeboard')}>
+                          자유게시판
+                        </MenuList>
+                        <MenuList onClick={() => navigate('/assetboard')}>
+                          <p>자산공유</p>
+                          <p>게시판</p>
+                        </MenuList>
+                      </MiniMenuTopList>
+                    </MiniMenu>
+                  </>
+                )} */}
               </HamburgerDropMenuBox>
             </>
           )}
@@ -367,32 +428,31 @@ export const MiniLoginNavbarBox = () => {
   // eslint-disable-next-line no-unused-vars
   const [Markclicked, setMarkclicked] = useState(true);
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Communityclicked, setCommunityclicked] = useState(true);
+  // const [Communityclicked, setCommunityclicked] = useState(true);
   const [Infoclicked, setInfoclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
   const handleClickMark = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setMarkclicked(!Markclicked);
   };
   const handleClickInfo = () => {
     setAssetclicked(true);
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
   };
-  // eslint-disable-next-line no-unused-vars
-  const handleClickCommunity = () => {
-    setAssetclicked(true);
-    setCommunityclicked(!Communityclicked);
-  };
+  // const handleClickCommunity = () => {
+  //   setAssetclicked(true);
+  //   setCommunityclicked(!Communityclicked);
+  // };
   const handleClickAsset = () => {
-    setCommunityclicked(true);
+    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
 
   return (
     <>
-      <MediaQuery minWidth={0} maxWidth={571}>
+      <MediaQuery minWidth={0} maxWidth={800}>
         <LongContainer>
           <MarkBox onClick={handleClickMark}></MarkBox>
           {Markclicked ? null : (
@@ -427,14 +487,11 @@ export const MiniLoginNavbarBox = () => {
                     <MiniMenu onClick={handleClickAsset}>
                       자산&목표
                       <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/asset')}>
-                          현황
-                        </MenuList>
                         <MenuList onClick={() => navigate('/assetchange')}>
-                          자산수정
+                          자산현황
                         </MenuList>
                         <MenuList onClick={() => navigate('/assettargetpage')}>
-                          목표수정
+                          목표현황
                         </MenuList>
                       </MiniMenuTopList>
                     </MiniMenu>
@@ -443,6 +500,26 @@ export const MiniLoginNavbarBox = () => {
                 <MiniMenu onClick={() => navigate('/freeboard')}>
                   커뮤니티
                 </MiniMenu>
+                {/* {Communityclicked ? (
+                  <>
+                    
+                  </>
+                ) : (
+                  <>
+                    <MiniMenu onClick={handleClickCommunity}>
+                      커뮤니티
+                      <MiniMenuTopList>
+                        <MenuList onClick={() => navigate('/freeboard')}>
+                          자유게시판
+                        </MenuList>
+                        <MenuList onClick={() => navigate('/assetboard')}>
+                          <p>자산공유</p>
+                          <p>게시판</p>
+                        </MenuList>
+                      </MiniMenuTopList>
+                    </MiniMenu>
+                  </>
+                )} */}
                 <MiniMenu
                   onClick={() => navigate('/login')}
                   style={{

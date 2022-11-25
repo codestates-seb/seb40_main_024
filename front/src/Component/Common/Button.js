@@ -168,12 +168,13 @@ export const NavSignUpButton = () => {
   );
 };
 
-export const SignUpButton = () => {
+export const SignUpButton = ({ disabled }) => {
   const navigate = useNavigate();
   return (
     <ButtonCC
       style={{ marginRight: '20px', marginTop: '10px', borderRadius: '40px' }}
       onClick={() => navigate('/login')}
+      disabled={disabled}
     >
       회원가입하기
     </ButtonCC>
@@ -358,7 +359,7 @@ export const AssetBoardPostBtn = () => {
   return <ButtonCC onClick={() => navigate('/assetboard')}>작성하기</ButtonCC>;
 };
 
-// 현재 자상 수정하기 페이지 버튼들
+// 현재 자산 수정하기 페이지 버튼들
 export const CashBtn = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };

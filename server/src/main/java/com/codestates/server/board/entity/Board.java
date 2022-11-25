@@ -3,6 +3,7 @@ package com.codestates.server.board.entity;
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,6 +31,10 @@ public class Board extends Auditable {
     @Column(name = "likes")
     private int like = 0;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BoardTag tag;
+
     @Column
     @Enumerated(EnumType.ORDINAL)  // STRING?
     private BoardStatus boardStatus = BoardStatus.BOARD_POSTED;
@@ -41,14 +46,10 @@ public class Board extends Auditable {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    public Board(String title, String body) {
+    public Board(String title, String body, BoardTag tag, Member member) {
         this.title = title;
         this.body = body;
-    }
-
-    public Board(String title, String body, Member member) {
-        this.title = title;
-        this.body = body;
+        this.tag = tag;
         this.member = member;
     }
 
@@ -67,6 +68,20 @@ public class Board extends Auditable {
         BoardStatus(int statusCode, String status) {
             this.statusCode = statusCode;
             this.status = status;
+        }
+    }
+
+    public enum BoardTag {
+
+        POST("일반"),
+        ASSET("자산");
+
+        @Getter
+        @JsonValue
+        private final String tag;
+
+        BoardTag(String tag) {
+            this.tag = tag;
         }
     }
 }

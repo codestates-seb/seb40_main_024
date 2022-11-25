@@ -24,8 +24,8 @@ public enum ExceptionCode {
     // 게시글
     BOARD_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
     BOARD_DELETED(405, "삭제된 게시물 입니다."),
-    LIKE_NOT_ACCEPTED(400, "회원당 한번만 좋아요를 누를 수 있습니다."),
     BOARD_NOT_MATCHED_WITH_COMMENT(404, "해당 게시글에서 해당 코멘트를 찾을 수 없습니다. ID를 확인해 주세요."),
+    TAG_NOT_FOUND(400, "존재하지 않는 태그입니다. '일반', '자산' 중 선택하세요."),
 
     // 댓글
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),

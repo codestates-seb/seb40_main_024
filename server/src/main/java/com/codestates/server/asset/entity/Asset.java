@@ -4,6 +4,7 @@ import com.codestates.server.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.Builder;
 
 import javax.persistence.*;
 
@@ -25,18 +26,16 @@ public class Asset {
     private long assetValue; // long은 null값 불가능
 
 
-
-
-//    @Builder
     public Asset(String assetType, Long assetValue) {
         this.assetType = assetType;
         this.assetValue = assetValue;
     }
-    public Asset(String assetType, Long assetValue, Member member) {
-        this.assetType = assetType;
-        this.assetValue = assetValue;
-        this.member = member;
-    }
+
+//    public Asset(String assetType, Long assetValue, Member member) {
+//        this.assetType = assetType;
+//        this.assetValue = assetValue;
+//        this.member = member;
+//    }
 
 
     @Column
@@ -48,9 +47,6 @@ public class Asset {
     @JoinColumn(name = "member_id")
     private Member member;
 
-
-//    @Column
-//    @Enumerated(EnumType.ORDINAL)
 
     @Enumerated(EnumType.STRING)
     private AssetStatus assetStatus = AssetStatus.ASSET_POSTED;

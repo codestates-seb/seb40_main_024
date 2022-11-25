@@ -51,8 +51,9 @@ public class Stub {
                 int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
                 Member postMember = memberService.findVerifiedMember(whichMember);
 
-                String temp = "테스트 게시글 " + i + " 번";
-                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", postMember);
+                String temp = "테스트 게시글 " + i + " 번";  // 제목
+                Board.BoardTag tag = (whichMember % 2 == 0 ? Board.BoardTag.POST : Board.BoardTag.ASSET);  // 랜덤 태그
+                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", tag, postMember);
                 log.info("BOARD STUB " + boardRepository.save(board));
             }
 
@@ -75,6 +76,8 @@ public class Stub {
                 long assetPrice = (long) (k * (Math.pow(100, assetRand)));  // 랜덤 자산 가격
                 log.info("ASSET STUB " + assetRepository.save(new Asset(assetType[assetRand], assetPrice)));
             }
+
+            // TODO: 목표자산(유저)
         };
     }
 }
