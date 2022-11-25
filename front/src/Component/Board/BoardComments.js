@@ -208,30 +208,28 @@ const Comments = () => {
   // console.log(comments);
 
   // console.log(url + `/board/${id}`);
-  useEffect(() => {
-    const commentGet = async () => {
-      try {
-        const res = await axios.get(`${url}/board/${id}`);
 
+  const commentGet = async () => {
+    await axios
+      .get(`${url}/board/${id}`)
+      .then((res) => {
         setComments(res.data.commentsPosted);
         const reverseComments = res.data.commentsPosted.sort((a, b) => {
-          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
+          new window.Date(b.createdAt) - new window.Date(a.createdAt);
         });
-        console.log('res', res);
-
         setComments(reverseComments);
-        return;
-      } catch (err) {
+      })
+      .catch((err) => {
         console.log('error', err);
-      }
-    };
-    commentGet();
-  }, []);
+      });
+  };
 
+  console.log('setComments', setComments);
+
+  const data = {
+    body: text,
+  };
   const commentPost = async () => {
-    const data = {
-      body: text,
-    };
     try {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
       setText('');
@@ -242,11 +240,10 @@ const Comments = () => {
       console.log('error', err);
     }
   };
-
+  const patchdata = {
+    body: '수정 테스트',
+  };
   const commentPatch = async (e) => {
-    const patchdata = {
-      body: '수정 테스트',
-    };
     try {
       const patch = await axios.patch(
         `${url}/board/${id}/comment/${e.target.dataset.id}`,
@@ -282,10 +279,9 @@ const Comments = () => {
   //     console.log('comments', comments);
   //   })
   //   .catch((error) => console.log('에러', error));
-
-  // useEffect(() => {
-  //   Comments();
-  // }, []);
+  useEffect(() => {
+    commentGet();
+  }, []);
 
   return (
     <>

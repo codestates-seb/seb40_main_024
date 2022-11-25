@@ -239,8 +239,6 @@ function AssetChange() {
   const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
   const [SixAssetTitle, setSixAssetTitle] = useState(0);
 
-  console.log('Data', Data);
-  console.log(Text, Cash);
   // console.log(Data.map((data) => console.log(data)));
   //
 
@@ -257,12 +255,12 @@ function AssetChange() {
     assetValue: Cash,
   };
   // eslint-disable-next-line no-unused-vars
-  async function postAssetApi() {
+  const postAssetApi = async () => {
     await axios
       .post(`${URL}member/1/asset`, Postdata)
       .then((res) => openCashModal())
       .catch((err) => console.log(err));
-  }
+  };
   //?
 
   //? PATCH
@@ -294,13 +292,15 @@ function AssetChange() {
     setData(Datas.data);
   };
 
-  useEffect(() => {
-    getAssets();
-  }, []);
+  // setData(Datas.data);
 
-  useEffect(() => {
-    getAssets();
-  }, [postAssetApi]);
+  // useEffect(() => {
+  //   getAssets();
+  // }, [Data]);
+
+  // useEffect(() => {
+  //   getAssets();
+  // }, [postAssetApi]);
   //?
 
   //? DELET
@@ -376,8 +376,6 @@ function AssetChange() {
     }
   }
 
-  console.log('AssetTitle', AssetTitle);
-
   let OneAsset = 0;
   let TwoAsset = 0;
   let ThreeAsset = 0;
@@ -429,7 +427,6 @@ function AssetChange() {
     AssetTitle[4],
     AssetTitle[5],
   ]);
-  console.log('ThreeAssetTitle', ThreeAssetTitle);
 
   // {
   //   Data
@@ -467,6 +464,17 @@ function AssetChange() {
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
+  useEffect(() => {
+    getAssets();
+  });
+
+  useEffect(() => {
+    console.log('cash');
+  }, [Cash]);
+
+  useEffect(() => {
+    console.log('text');
+  }, [Text]);
 
   return (
     <>
