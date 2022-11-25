@@ -1,4 +1,3 @@
-// import { useState } from 'react';
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import {
@@ -8,9 +7,10 @@ import {
 } from '../Common/Button';
 // eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
-import Quill from '../Common/Quill';
-// import axios from 'axios';
-// import { useEffect } from 'react';
+// import Quill from '../Common/Quill';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 // const CommentBox = styled.div`
 //   display: flex;
@@ -68,12 +68,12 @@ const BtnContain = styled.div`
   margin-left: 700px;
   margin-bottom: 10px;
 `;
-const QuillContain = styled.div`
-  display: flex;
-  width: 800px;
-  height: auto;
-  margin-bottom: 20px;
-`;
+// const QuillContain = styled.div`
+//   display: flex;
+//   width: 800px;
+//   height: auto;
+//   margin-bottom: 20px;
+// `;
 const CommentContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -98,6 +98,17 @@ const CommentBox = styled.div`
   margin-left: 20px;
   margin-right: 20px;
   /* border: 1px solid black; */
+`;
+
+const CommentInput = styled.input`
+  width: 100%;
+  height: 200px;
+  border: 3px solid #def5e5;
+  border-radius: 10px;
+  :focus {
+    outline: none;
+  }
+  font-size: 17px;
 `;
 const IdEtcBox = styled.div`
   display: flex;
@@ -155,102 +166,193 @@ const BtnBox = styled.div`
   justify-content: center;
 `;
 
+const ModifyInput = styled.input`
+  display: flex;
+  flex-direction: row;
+  width: auto;
+  padding: 5px;
+  margin-top: 20px;
+  border-top: 3px solid #def5e5;
+  border-bottom: 3px solid #def5e5;
+  line-height: normal;
+`;
+
+//http://localhost:3000/boardcontentpage/:id
 const Comments = () => {
-  // const data = {
-  //   goalName: '미니 JCW',
-  //   goalPrice: 10000000,
-  //   targetLength: 40,
-  // };
+  // const { id } = useParams();
+  // console.log(id.slice(1));
+  const { id } = useParams();
+  const url = process.env.REACT_APP_API_URL;
+  const [comments, setComments] = useState([]);
+  const [text, setText] = useState('');
+  const [input, setInput] = useState('');
+  const [isEditing, setEditing] = useState(false);
+
+  const handlerText = (e) => {
+    // e.preventDefault();
+    const data = e.target.value;
+    setText(data);
+
+    // if (data.length < 10) {
+    //   return;
+    // }
+  };
+  const handlerInput = (e) => {
+    const modification = e.target.value;
+    setInput(modification);
+    console.log(modification);
+  };
+
+  //8080/board/{board_id}
+
+  // console.log(comments);
+
+  // console.log(url + `/board/${id}`);
+  useEffect(() => {
+    const commentGet = async () => {
+      try {
+        const res = await axios.get(`${url}/board/${id}`);
+
+        setComments(res.data.commentsPosted);
+        const reverseComments = res.data.commentsPosted.sort((a, b) => {
+          return new window.Date(b.createdAt) - new window.Date(a.createdAt);
+        });
+        console.log('res', res);
+
+        setComments(reverseComments);
+        return;
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    commentGet();
+  }, []);
+
+  const commentPost = async () => {
+    const data = {
+      body: text,
+    };
+    try {
+      const posts = await axios.post(`${url}/board/${id}/comment`, data);
+      setText('');
+      console.log('post', posts);
+
+      // if(posts.data === " " )
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
+  const commentPatch = async (e) => {
+    const patchdata = {
+      body: '수정 테스트',
+    };
+    try {
+      const patch = await axios.patch(
+        `${url}/board/${id}/comment/${e.target.dataset.id}`,
+        patchdata
+      );
+      setText(text);
+      setEditing(!isEditing);
+      console.log('Patch', patch);
+      console.log('dataset.id', e.target.dataset.id);
+    } catch (err) {
+      console.log('patcherror', err);
+    }
+  };
+
+  const commentDelete = async (e) => {
+    try {
+      const res = await axios.delete(
+        `${url}/board/${id}/comment/${e.target.dataset.id}`
+      );
+      console.log('dataset.id', e.target.dataset.id);
+      console.log('삭제', res);
+    } catch (err) {
+      console.log('deleteerror', err);
+    }
+  };
+
+  // console.log(comments);
   // axios
-  //   .get('https://dry-moons-try-112-171-1-144.loca.lt/comment')
-  //   .then((response) => {
-  //     const { data } = response;
-  //     console.log('응답', data);
+  //   .get(url + '/board/2')
+  //   .then((res) => {
+  //     console.log('응답', res.data.commentsPosted[0].commentId);
+  //     setComment(res.data.commentsPosted);
+  //     console.log('comments', comments);
   //   })
   //   .catch((error) => console.log('에러', error));
+
+  // useEffect(() => {
+  //   Comments();
+  // }, []);
 
   return (
     <>
       <TotalComment>
         <BtnContain>
-          <AddCommentBtn />
+          <AddCommentBtn commentPost={commentPost} />
+          {/* <AddCommentBtn /> */}
         </BtnContain>
-        <QuillContain>
-          <Quill />
-        </QuillContain>
-        <CommentContain>
-          <ImageBox>
-            <ProfileIcon />
-          </ImageBox>
-          <CommentBox>
-            <IdEtcBox>
-              <Id>여기에는 ID 입력</Id>
-              <EtcBox>
-                <Date>2022-11-01</Date>
-                <At>22:12:12</At>
-              </EtcBox>
-            </IdEtcBox>
-            <TextBox>
-              여기에는 작성된 댓글보여주기
-              {/* <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기
-              <br />
-              여기에는 작성된 댓글보여주기 */}
-            </TextBox>
-          </CommentBox>
-          <BtnBox>
-            <ModifyCommentBtn />
-            <DeleteCommentBtn />
-          </BtnBox>
-        </CommentContain>
+        {/* <QuillContain> */}
+        <CommentInput
+          type="text"
+          value={text}
+          // value={text || ''}
+          placeholder="댓글을 작성해주세요."
+          onChange={handlerText}
+        ></CommentInput>
+        {/* </QuillContain> */}
+        {/* {isEditing ?        (<ModifyInput
+          type="text"
+          value={input}
+          onChange={handlerInput}
+        ></ModifyInput> ): } */}
+
+        {comments.map((comment, id) => {
+          return (
+            <>
+              <CommentContain key={id}>
+                <ImageBox>
+                  <ProfileIcon />
+                </ImageBox>
+                <>
+                  {isEditing ? (
+                    <ModifyInput
+                      type="text"
+                      value={input}
+                      onChange={handlerInput}
+                    ></ModifyInput>
+                  ) : (
+                    <CommentBox key={id}>
+                      <IdEtcBox>
+                        <Id>ID: {comment.commentId}</Id>
+                      </IdEtcBox>
+                      <EtcBox>
+                        <Date>{comment.createdAt.slice(0, 10)}</Date>
+                        <At>{comment.createdAt.slice(11, 19)}</At>
+                      </EtcBox>
+                      <TextBox>
+                        <p>{comment.body}</p>
+                      </TextBox>
+                    </CommentBox>
+                  )}
+                </>
+                <BtnBox>
+                  <ModifyCommentBtn
+                    commentPatch={commentPatch}
+                    id={comment.commentId}
+                  />
+                  <DeleteCommentBtn
+                    commentDelete={commentDelete}
+                    // dataset-id={comment.commentId}
+                    id={comment.commentId}
+                  />
+                </BtnBox>
+              </CommentContain>
+            </>
+          );
+        })}
       </TotalComment>
     </>
   );

@@ -194,7 +194,7 @@ const Contents = () => {
       }
     };
     Get();
-  }, [Patchlike]);
+  }, []);
 
   return (
     <>

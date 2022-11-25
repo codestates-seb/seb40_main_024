@@ -261,14 +261,34 @@ export const SignOutBtn = () => {
     <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
   );
 };
-export const AddCommentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
+export const AddCommentBtn = ({ commentPost }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      type="submit"
+      onClick={commentPost}
+    >
+      작성
+    </ButtonAA>
+  );
 };
-export const ModifyCommentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+export const ModifyCommentBtn = ({ commentPatch, id }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      onClick={commentPatch}
+      data-id={id}
+    >
+      수정
+    </ButtonAA>
+  );
 };
-export const DeleteCommentBtn = () => {
-  return <ButtonAA>삭제</ButtonAA>;
+export const DeleteCommentBtn = ({ commentDelete, id }) => {
+  return (
+    <ButtonAA onClick={commentDelete} data-id={id}>
+      삭제
+    </ButtonAA>
+  );
 };
 
 // 구독 해지 버튼

@@ -52,12 +52,8 @@ public class BoardController {
                                     @Positive @RequestParam int size) {
 
         Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
-        List<Board> listedBoards = pagedBoards.getContent();
+        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
 
-        List<EntityModel<BoardDto.Response>> boards = listedBoards.stream()
-                .map(mapper::boardToBoardResponseDto)
-                .map(assembler::toModel)
-                .collect(Collectors.toList());
 //
 //        return CollectionModel.of(boards,
 //                linkTo(methodOn(BoardService.class).findAllByPage(page - 1, size)).withSelfRel());
@@ -123,6 +119,35 @@ public class BoardController {
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
+    }
+
+    @GetMapping("/post")
+    public ResponseEntity getBoardsPost(@Positive @RequestParam int page,
+                                    @Positive @RequestParam int size) {
+
+        Page<Board> pagedBoards = boardService.findAllTagPost(page - 1, size);
+        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
+    }
+
+    @GetMapping("/asset")
+    public ResponseEntity getBoardsAsset(@Positive @RequestParam int page,
+                                        @Positive @RequestParam int size) {
+
+        Page<Board> pagedBoards = boardService.findAllTagAsset(page - 1, size);
+        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
+
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
+    }
+
+    public List<EntityModel<BoardDto.Response>> pagedBoards(List<Board> listedBoards) {
+        return listedBoards.stream()
+                .map(mapper::boardToBoardResponseDto)
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
     }
 
 }
