@@ -11,7 +11,7 @@ const TotalContent = styled.div`
   flex-direction: column;
   padding: 20px;
   width: 850px;
-  min-height: 800px;
+  min-height: 400px;
   margin-top: 100px;
   border: 3px solid #9ed5c5;
   border-radius: 10px;
@@ -37,17 +37,18 @@ const ContentContain = styled.div`
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-left: 20px;
+  padding: 20px;
 `;
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 700px;
+  height: fit-content;
+  max-height: 400px;
   width: 100%;
   margin: 10px;
   margin-left: 20px;
   margin-right: 20px;
-  border-bottom: 2px solid #8ec3b0;
+  padding: 10px;
   /* border: 1px solid black; */
 `;
 const IdEtcBox = styled.div`
@@ -57,7 +58,7 @@ const IdEtcBox = styled.div`
   width: 100%;
   height: 30px;
   padding-bottom: 5px;
-  border-bottom: 2px solid #8ec3b0;
+  border-bottom: 1px solid #8ec3b0;
 `;
 const Id = styled.div`
   display: flex;
@@ -122,8 +123,7 @@ const TitleBox = styled.div`
   width: 100%;
   max-height: 200px;
   margin-left: 5px;
-  padding-top: 5px;
-  border-bottom: 2px solid #8ec3b0;
+  margin-top: 10px;
   overflow: auto;
   font-size: 20px;
 `;
@@ -131,10 +131,11 @@ const TextBox = styled.div`
   display: flex;
   height: auto;
   max-height: 630px;
-  width: 100%;
+  max-width: 600px;
   margin-left: 5px;
   padding-top: 5px;
   overflow: auto;
+  margin-top: 15px;
 `;
 
 const Contents = () => {
