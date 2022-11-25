@@ -96,13 +96,6 @@ const Div = styled.div`
   }
 `;
 
-// const Btn = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin-top: 40px;
-// `;
-
 const Input = styled.input`
   width: 300px;
   height: 30px;
@@ -115,10 +108,6 @@ const Input = styled.input`
   color: #9ed5c5;
   font-weight: 700;
   border-bottom: 3px solid #9ed5c5;
-  /* ::-webkit-outer-spin-button,
-  ::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  } */
   ::placeholder {
     color: #777;
     margin-top: 20px;
@@ -169,6 +158,7 @@ const GraphH1 = styled.h1`
   text-shadow: 1px 1px 2px #bcead5;
   color: #bcead5;
 `;
+
 const LoadingDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -248,9 +238,7 @@ function AssetChange() {
   const [FourAssetTitle, setFourAssetTitle] = useState(0);
   const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
   const [SixAssetTitle, setSixAssetTitle] = useState(0);
-
-  console.log('Data', Data);
-  console.log(Text, Cash);
+  console.log(Data);
   // console.log(Data.map((data) => console.log(data)));
   //
 
@@ -267,12 +255,12 @@ function AssetChange() {
     assetValue: Cash,
   };
   // eslint-disable-next-line no-unused-vars
-  async function postAssetApi() {
+  const postAssetApi = async () => {
     await axios
       .post(`${URL}member/1/asset`, Postdata)
       .then((res) => openCashModal())
       .catch((err) => console.log(err));
-  }
+  };
   //?
 
   //? PATCH
@@ -299,28 +287,20 @@ function AssetChange() {
 
   //? GET
   // eslint-disable-next-line no-unused-vars
-  const getAssets = async () => {
+  const getAssetsApi = async () => {
     const Datas = await axios.get(`${URL}/asset`);
     setData(Datas.data);
   };
-
-  useEffect(() => {
-    getAssets();
-  }, []);
-
-  useEffect(() => {
-    getAssets();
-  }, [postAssetApi]);
   //?
 
   //? DELET
   // eslint-disable-next-line no-unused-vars
-  // async function deletApi() {
-  //   await axios
-  //     .delete('/asset/{asset_id}')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
+  async function deletAssetApi() {
+    await axios
+      .delete(`${URL}member/1/asset/4`)
+      .then((res) => openCashModal())
+      .catch((err) => console.log(err));
+  }
   //?
 
   const openTextModal = () => {
@@ -370,7 +350,6 @@ function AssetChange() {
   );
 
   let title = [];
-
   {
     Data
       ? Data.map((data) => {
@@ -378,15 +357,12 @@ function AssetChange() {
         })
       : null;
   }
-
   const AssetTitle = [...new Set(title)];
   if (AssetTitle.length < 7) {
     for (let i = 0; i < 7 - AssetTitle.length; i++) {
       AssetTitle.push(undefined);
     }
   }
-
-  console.log('AssetTitle', AssetTitle);
 
   let OneAsset = 0;
   let TwoAsset = 0;
@@ -423,7 +399,7 @@ function AssetChange() {
     setFiveAssetValues(FiveAsset);
     setSixAssetValues(SixAsset);
   }, [OneAsset, TwoAsset, ThreeAsset, FourAsset, FiveAsset, SixAsset]);
-
+  console.log('FourAsset', FourAsset);
   useEffect(() => {
     setOneAssetTitle(AssetTitle[0]);
     setTwoAssetTitle(AssetTitle[1]);
@@ -439,7 +415,6 @@ function AssetChange() {
     AssetTitle[4],
     AssetTitle[5],
   ]);
-  console.log('ThreeAssetTitle', ThreeAssetTitle);
 
   // {
   //   Data
@@ -477,6 +452,15 @@ function AssetChange() {
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
+
+  useEffect(() => {
+    getAssetsApi();
+  }, []);
+  useEffect(() => {
+    getAssetsApi();
+  }, [Modalopen]);
+  useEffect(() => {}, [Text]);
+  useEffect(() => {}, [Cash]);
 
   return (
     <>
@@ -535,7 +519,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -545,7 +529,7 @@ function AssetChange() {
                         <EditButton onClick={openTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>

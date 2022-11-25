@@ -14,12 +14,12 @@ import {
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect } from 'react';
 import { Modal } from '../../Component/Common/Modal';
-import { AssetAdata } from '../../Component/Asset/Asset_A_Data';
+import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import { FiEdit, FiDelete } from 'react-icons/fi';
-import { fireEvent } from '@testing-library/react';
+import '../../Component/Asset/Asset_A_Data.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -27,23 +27,37 @@ const URL = process.env.REACT_APP_API_URL;
 
 const MainPage = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   border: 1px solid blue;
-  width: auto;
+  width: 100%;
+  height: 100%;
 `;
 
-const MainAssetChange = styled.div`
-  margin-left: 100px;
-  margin-top: 150px;
-  margin-bottom: 150px;
+const TopPage = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid green; */
 `;
 
 const MainContain = styled.div`
-  border: 1px solid blue;
-  margin-top: 165px;
-  margin-bottom: 165px;
+  /* border: 1px solid pink; */
+  /* margin-top: 400px; */
+`;
+
+const ChartContain = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 800px;
+  height: 800px;
+  padding: 35px;
+  /* border: 1px solid red; */
 `;
 
 const H1 = styled.h1`
@@ -65,12 +79,14 @@ const H2 = styled.h2`
 
 const H3 = styled.h3`
   color: #9ed5c5;
+  width: 300px;
   margin-left: 13px;
   margin-bottom: 10px;
   line-height: normal;
 `;
 const H3Title = styled.h3`
   color: orange;
+  width: 300px;
   margin-left: 13px;
   margin-bottom: 10px;
   line-height: normal;
@@ -113,17 +129,6 @@ const Input = styled.input`
     margin-top: 20px;
   }
 `;
-const ChartContain = styled.div`
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  width: 450px;
-  height: 600px;
-  margin-top: 100px;
-  border: 1px solid red;
-  /* margin-left: 120px; */
-  /* top: 300px !important; */
-`;
 
 const ChartBox = styled.div`
   display: flex;
@@ -149,9 +154,14 @@ const GraphPie = styled.div`
 `;
 
 const GraphH1 = styled.h1`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   box-sizing: border-box;
   height: 50px;
+  margin-top: 300px;
   width: 450px;
+  font-size: 50px;
   align-items: center;
   /* color: #9ed5c5; */
   text-align: center;
@@ -218,6 +228,17 @@ const EditButton = styled.button`
   }
 `;
 
+const AssetListBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 400px;
+  line-height: normal;
+  border: 1px solid #9ed5c5;
+  padding: 10px;
+  border-radius: 20px;
+`;
+
 function AssetChange() {
   const [TextModalopen, setTextModalopen] = useState(false);
   const [errTextModalopen, seterrTextModalopen] = useState(false);
@@ -238,7 +259,7 @@ function AssetChange() {
   const [FourAssetTitle, setFourAssetTitle] = useState(0);
   const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
   const [SixAssetTitle, setSixAssetTitle] = useState(0);
-
+  console.log(Data);
   // console.log(Data.map((data) => console.log(data)));
   //
 
@@ -287,30 +308,20 @@ function AssetChange() {
 
   //? GET
   // eslint-disable-next-line no-unused-vars
-  const getAssets = async () => {
+  const getAssetsApi = async () => {
     const Datas = await axios.get(`${URL}/asset`);
     setData(Datas.data);
   };
-
-  // setData(Datas.data);
-
-  // useEffect(() => {
-  //   getAssets();
-  // }, [Data]);
-
-  // useEffect(() => {
-  //   getAssets();
-  // }, [postAssetApi]);
   //?
 
   //? DELET
   // eslint-disable-next-line no-unused-vars
-  // async function deletApi() {
-  //   await axios
-  //     .delete('/asset/{asset_id}')
-  //     .then((res) => console.log(res.data))
-  //     .catch((err) => console.log(err));
-  // }
+  async function deletAssetApi() {
+    await axios
+      .delete(`${URL}member/1/asset/4`)
+      .then((res) => openCashModal())
+      .catch((err) => console.log(err));
+  }
   //?
 
   const openTextModal = () => {
@@ -360,7 +371,6 @@ function AssetChange() {
   );
 
   let title = [];
-
   {
     Data
       ? Data.map((data) => {
@@ -368,7 +378,6 @@ function AssetChange() {
         })
       : null;
   }
-
   const AssetTitle = [...new Set(title)];
   if (AssetTitle.length < 7) {
     for (let i = 0; i < 7 - AssetTitle.length; i++) {
@@ -411,7 +420,7 @@ function AssetChange() {
     setFiveAssetValues(FiveAsset);
     setSixAssetValues(SixAsset);
   }, [OneAsset, TwoAsset, ThreeAsset, FourAsset, FiveAsset, SixAsset]);
-
+  console.log('FourAsset', FourAsset);
   useEffect(() => {
     setOneAssetTitle(AssetTitle[0]);
     setTwoAssetTitle(AssetTitle[1]);
@@ -464,17 +473,15 @@ function AssetChange() {
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
-  useEffect(() => {
-    getAssets();
-  });
 
   useEffect(() => {
-    console.log('cash');
-  }, [Cash]);
-
+    getAssetsApi();
+  }, []);
   useEffect(() => {
-    console.log('text');
-  }, [Text]);
+    getAssetsApi();
+  }, [Modalopen]);
+  useEffect(() => {}, [Text]);
+  useEffect(() => {}, [Cash]);
 
   return (
     <>
@@ -483,17 +490,18 @@ function AssetChange() {
       {Data ? (
         <>
           <MainPage>
-            <ChartContain>
-              <ChartBox>
-                <FirstGraph>
-                  <GraphPie>
-                    <Pie data={AssetAdata} />
-                  </GraphPie>
-                </FirstGraph>
-              </ChartBox>
-              <GraphH1>보유자산 현황</GraphH1>
-            </ChartContain>
-            <MainAssetChange>
+            <GraphH1>보유자산 현황</GraphH1>
+            <TopPage>
+              <ChartContain>
+                <ChartBox>
+                  <FirstGraph>
+                    <GraphPie>
+                      <Pie data={AssetAdata} options={pieOptions} />
+                    </GraphPie>
+                  </FirstGraph>
+                </ChartBox>
+              </ChartContain>
+
               <MainContain>
                 <Modal
                   open={Modalopen}
@@ -526,29 +534,31 @@ function AssetChange() {
                 <H1>현재 자산</H1>
                 {Data ? (
                   <>
-                    <H3Title> 1 &nbsp;) </H3Title>
-                    {AssetTitle[0] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[0]}
-                        <EditButton onClick={openTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
+                    <AssetListBox>
+                      <H3Title> 1 &nbsp;) </H3Title>
+                      {AssetTitle[0] === undefined ? (
+                        <H3Title>
+                          명칭
+                          <EditButton onClick={openTextModal}>
+                            <FiEdit />
+                          </EditButton>
+                          <EditButton onClick={deletAssetApi}>
+                            <FiDelete />
+                          </EditButton>
+                        </H3Title>
+                      ) : (
+                        <H3Title>
+                          {AssetTitle[0]}
+                          <EditButton onClick={openTextModal}>
+                            <FiEdit />
+                          </EditButton>
+                          <EditButton onClick={deletAssetApi}>
+                            <FiDelete />
+                          </EditButton>
+                        </H3Title>
+                      )}
+                      <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
+                    </AssetListBox>
 
                     <H3Title> 2 &nbsp;) </H3Title>
                     {AssetTitle[1] === undefined ? (
@@ -721,7 +731,7 @@ function AssetChange() {
                   </Fade>
                 ) : null}
               </MainContain>
-            </MainAssetChange>
+            </TopPage>
           </MainPage>
         </>
       ) : (

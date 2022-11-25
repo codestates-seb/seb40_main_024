@@ -198,34 +198,11 @@ const Comments = () => {
     setInput(modification);
     console.log(modification);
   };
-
-  //8080/board/{board_id}
-
-  // console.log(comments);
-
-  // console.log(url + `/board/${id}`);
-
-  // const commentGet = async () => {
-  //   await axios
-  //     .get(`${url}/board/${id}`)
-  //     .then((res) => {
-  //       setComments(res.data.commentsPosted);
-  //       const reverseComments = res.data.commentsPosted.sort((a, b) => {
-  //         new window.Date(b.createdAt) - new window.Date(a.createdAt);
-  //       });
-  //       setComments(reverseComments);
-  //     })
-  //     .catch((err) => {
-  //       console.log('error', err);
-  //     });
-  // };
-
-  console.log('setComments', setComments);
+  const data = {
+    body: text,
+  };
 
   const commentPost = async () => {
-    const data = {
-      body: text,
-    };
     try {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
       setRender((el) => el + 1);
@@ -238,10 +215,10 @@ const Comments = () => {
     }
   };
 
+  const patchdata = {
+    body: '수정 테스트',
+  };
   const commentPatch = async (e) => {
-    const patchdata = {
-      body: '수정 테스트',
-    };
     try {
       const patch = await axios.patch(
         `${url}/board/${id}/comment/${e.target.dataset.id}`,
