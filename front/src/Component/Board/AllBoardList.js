@@ -13,8 +13,11 @@ const ListBox = styled.div`
   border-top: 3px solid #def5e5;
   border-bottom: 3px solid #def5e5;
   margin-top: 20px;
-  margin-bottom: -17px;
+  margin-bottom: 25px;
   cursor: pointer;
+  :hover {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
 `;
 
 const ImageBox = styled.div`
@@ -75,20 +78,6 @@ const Id = styled.div`
   line-height: normal;
   color: #444;
   font-size: 17px;
-`;
-
-// eslint-disable-next-line no-unused-vars
-const At = styled.div`
-  display: flex;
-  font-size: 10px;
-  height: 30px;
-  align-items: center;
-  line-height: normal;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: #444;
-  font-size: 13px;
-  /* border: 1px solid #ff8000; */
 `;
 
 const Date = styled.div`
