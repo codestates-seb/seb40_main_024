@@ -39,8 +39,12 @@ public class Goal extends Auditable {
         this.targetLength = targetLength;
         // 옵션 1 -> 목표 월 저축액 산출
         this.calculatedPrice = goalPrice / targetLength;
+    }
 
-        // necessary?
-        this.completed = 0;
+    public Goal(String goalName, long goalPrice, int targetLength) {
+        this.goalName = goalName;
+        this.goalPrice = goalPrice;
+        this.targetLength = targetLength;
+        this.calculatedPrice = goalPrice / targetLength;
     }
 }
