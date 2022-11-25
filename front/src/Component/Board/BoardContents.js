@@ -95,16 +95,6 @@ const Date = styled.div`
   align-content: center;
   justify-content: center;
 `;
-// eslint-disable-next-line no-unused-vars
-const At = styled.div`
-  display: flex;
-  width: auto;
-  height: 30px;
-  margin-right: 10px;
-  line-height: normal;
-  align-content: center;
-  justify-content: center;
-`;
 const LikeBox = styled.div`
   display: flex;
   width: auto;
@@ -198,13 +188,14 @@ const Contents = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/board/${id}`);
+        console.log(res);
         setBoardId(res.data.boardId);
         setTitle(res.data.title);
         setBody(res.data.body);
         setcreatedAt(res.data.createdAt);
-        setName(res.data.memberPosted.name);
-        setLike(res.data.like);
         setTag(res.data.tag);
+        setLike(res.data.like);
+        setName(res.data.memberPosted.name);
       } catch (e) {
         console.log(e);
       }
