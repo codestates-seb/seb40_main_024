@@ -4,6 +4,7 @@ import {
   AddCommentBtn,
   ModifyCommentBtn,
   DeleteCommentBtn,
+  CompleteBtn,
 } from '../Common/Button';
 // eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
@@ -167,28 +168,27 @@ const BtnBox = styled.div`
   gap: 10px;
 `;
 
-const ModifyInput = styled.input`
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  padding: 5px;
-  margin-top: 20px;
-  border-top: 3px solid #def5e5;
-  border-bottom: 3px solid #def5e5;
-  line-height: normal;
-`;
+// const ModifyBox = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   width: auto;
+//   padding: 5px;
+//   margin-top: 20px;
+//   border-top: 3px solid #def5e5;
+//   border-bottom: 3px solid #def5e5;
+//   line-height: normal;
+// `;
 
-//http://localhost:3000/boardcontentpage/:id
 const Comments = () => {
   const { id } = useParams();
   const url = process.env.REACT_APP_API_URL;
   const [comments, setComments] = useState([]);
   const [text, setText] = useState('');
   const [input, setInput] = useState('');
+  const [render, setRender] = useState(0);
   const [isEditing, setEditing] = useState(false);
 
   const handlerText = (e) => {
-    // e.preventDefault();
     const data = e.target.value;
     setText(data);
   };
@@ -198,50 +198,43 @@ const Comments = () => {
     console.log(modification);
   };
 
-  const commentGet = async () => {
-    try {
-      const res = await axios.get(`${url}/board/${id}`);
+  const handlerClickEdit = (e) => {
+    console.log('click', isEditing);
+    setEditing(e.target.dataset.id);
+    console.log(e.target.dataset.id);
+    console.log(isEditing);
+    console.log(e.target.dataset.id === isEditing);
+  };
 
-      setComments(res.data.commentsPosted);
-      // const reverseComments = res.data.commentsPosted.sort((a, b) => {
-      //   return new window.Date(b.createdAt) - new window.Date(a.createdAt);
-      // });
-      console.log('res', res);
-
-      // setComments(reverseComments);
-    } catch (err) {
-      console.log('error', err);
-    }
+  const data = {
+    body: text,
   };
 
   const commentPost = async () => {
-    const data = {
-      body: text,
-    };
     try {
       const posts = await axios.post(`${url}/board/${id}/comment`, data);
-      setText(posts.data.body);
+      setRender((el) => el + 1);
+      setText('');
       console.log('post', posts);
-
-      // if(posts.data === " " )
     } catch (err) {
       console.log('error', err);
     }
   };
 
+  const patchdata = {
+    body: input,
+  };
   const commentPatch = async (e) => {
-    const patchdata = {
-      body: '수정 테스트',
-    };
     try {
       const patch = await axios.patch(
         `${url}/board/${id}/comment/${e.target.dataset.id}`,
         patchdata
       );
-      setInput(patch.data.body);
-      setEditing(!isEditing);
+      setRender((el) => el + 1);
+      setInput(e.target.value);
+      console.log(e.target.value);
+      setEditing(e.target.dataset.id);
       console.log('Patch', patch);
-      console.log('dataset.id', e.target.dataset.id);
     } catch (err) {
       console.log('patcherror', err);
     }
@@ -252,6 +245,7 @@ const Comments = () => {
       const res = await axios.delete(
         `${url}/board/${id}/comment/${e.target.dataset.id}`
       );
+      setRender((el) => el + 1);
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
     } catch (err) {
@@ -259,119 +253,101 @@ const Comments = () => {
     }
   };
 
-  // useEffect(() => {
-  //   const commentGet = async () => {
-  //     try {
-  //       const res = await axios.get(`${url}/board/${id}`);
-
-  //       setComments(res.data.commentsPosted);
-  //       const reverseComments = res.data.commentsPosted.sort((a, b) => {
-  //         return new window.Date(b.createdAt) - new window.Date(a.createdAt);
-  //       });
-  //       console.log('res', res);
-
-  //       setComments(reverseComments);
-  //       return;
-  //     } catch (err) {
-  //       console.log('error', err);
-  //     }
-  //   };
-  //   commentGet();
-  // }, []);
+  const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
 
   useEffect(() => {
+    const commentGet = async () => {
+      try {
+        const res = await axios.get(`${url}/board/${id}`);
+        setComments(res.data.commentsPosted);
+        console.log(res);
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
     commentGet();
-  }, []);
-
-  // console.log(comments);
-  // axios
-  //   .get(url + '/board/2')
-  //   .then((res) => {
-  //     console.log('응답', res.data.commentsPosted[0].commentId);
-  //     setComment(res.data.commentsPosted);
-  //     console.log('comments', comments);
-  //   })
-  //   .catch((error) => console.log('에러', error));
-
-  // useEffect(() => {
-  //   Comments();
-  // }, []);
+  }, [render]);
 
   return (
     <>
       <TotalComment>
         <BtnContain>
           <AddCommentBtn commentPost={commentPost} />
-          {/* <AddCommentBtn /> */}
         </BtnContain>
-        {/* <QuillContain> */}
+
         <CommentInput
           type="text"
           value={text}
-          // value={text || ''}
           placeholder="댓글을 작성해주세요."
           onChange={handlerText}
         ></CommentInput>
-        {/* </QuillContain> */}
-        {/* {isEditing ?        (<ModifyInput
-          type="text"
-          value={input}
-          onChange={handlerInput}
-        ></ModifyInput> ): } */}
 
-        {comments.map((comment, id) => {
-          return (
-            <>
-              <CommentContain key={id}>
-                <ImageBox>
-                  <ProfileIcon />
-                </ImageBox>
-                <>
-                  {isEditing ? (
-                    <ModifyInput
-                      type="text"
-                      value={input}
-                      onChange={handlerInput}
-                    ></ModifyInput>
-                  ) : (
-                    <CommentBox key={id}>
-                      <IdEtcBox>
-                        <Id>ID: {comment.commentId}</Id>
-                      </IdEtcBox>
-                      {/* <BtnBox>
-                        <ModifyCommentBtn
-                          commentPatch={commentPatch}
-                          id={comment.commentId}
-                        />
-                        <DeleteCommentBtn
-                          commentDelete={commentDelete}
-                          id={comment.commentId}
-                        />
-                      </BtnBox> */}
-                      <EtcBox>
-                        <Date>{comment.createdAt.slice(0, 10)}</Date>
-                        <At>{comment.createdAt.slice(11, 19)}</At>
-                      </EtcBox>
-                      <TextBox>
-                        <p>{comment.body}</p>
-                      </TextBox>
-                    </CommentBox>
-                  )}
-                </>
-                <BtnBox>
-                  <ModifyCommentBtn
-                    commentPatch={commentPatch}
-                    id={comment.commentId}
-                  />
-                  <DeleteCommentBtn
-                    commentDelete={commentDelete}
-                    id={comment.commentId}
-                  />
-                </BtnBox>
-              </CommentContain>
-            </>
-          );
-        })}
+        {comments &&
+          sortTest.map((comment, i) => {
+            return (
+              <>
+                <CommentContain key={i}>
+                  <ImageBox>
+                    <ProfileIcon />
+                  </ImageBox>
+                  <>
+                    {isEditing ? (
+                      <>
+                        <CommentBox id={comment.commentId}>
+                          <IdEtcBox>
+                            <Id>ID: {comment.commentId}</Id>
+                          </IdEtcBox>
+                          <EtcBox>
+                            <Date>{comment.createdAt.slice(0, 10)}</Date>
+                            <At>{comment.createdAt.slice(11, 19)}</At>
+                          </EtcBox>
+                          <TextBox>
+                            <p>
+                              <input
+                                name="body"
+                                type="text"
+                                value={input}
+                                onChange={handlerInput}
+                              ></input>
+                            </p>
+                          </TextBox>
+                        </CommentBox>
+                        <BtnBox>
+                          <CompleteBtn commentPatch={commentPatch} />
+                        </BtnBox>
+                      </>
+                    ) : (
+                      <>
+                        <CommentBox>
+                          <IdEtcBox>
+                            <Id>ID: {comment.commentId}</Id>
+                          </IdEtcBox>
+                          <EtcBox>
+                            <Date>{comment.createdAt.slice(0, 10)}</Date>
+                            <At>{comment.createdAt.slice(11, 19)}</At>
+                          </EtcBox>
+                          <TextBox>
+                            <p>{comment.body}</p>
+                          </TextBox>
+                        </CommentBox>
+                        <BtnBox>
+                          <ModifyCommentBtn
+                            key={i}
+                            id={comment.commentId}
+                            handlerClickEdit={handlerClickEdit}
+                          />
+                          <DeleteCommentBtn
+                            commentDelete={commentDelete}
+                            id={comment.commentId}
+                          />
+                        </BtnBox>
+                      </>
+                    )}
+                  </>
+                </CommentContain>
+              </>
+            );
+          })}
       </TotalComment>
     </>
   );

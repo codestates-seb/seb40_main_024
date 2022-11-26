@@ -272,11 +272,11 @@ export const AddCommentBtn = ({ commentPost }) => {
     </ButtonAA>
   );
 };
-export const ModifyCommentBtn = ({ commentPatch, id }) => {
+export const ModifyCommentBtn = ({ id, handlerClickEdit }) => {
   return (
     <ButtonAA
       style={{ marginBottom: '10px' }}
-      onClick={commentPatch}
+      onClick={handlerClickEdit}
       data-id={id}
     >
       수정
@@ -287,6 +287,18 @@ export const DeleteCommentBtn = ({ commentDelete, id }) => {
   return (
     <ButtonAA onClick={commentDelete} data-id={id}>
       삭제
+    </ButtonAA>
+  );
+};
+
+export const CompleteBtn = ({ commentPatch, id }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      onClick={commentPatch}
+      data-id={id}
+    >
+      완료
     </ButtonAA>
   );
 };
