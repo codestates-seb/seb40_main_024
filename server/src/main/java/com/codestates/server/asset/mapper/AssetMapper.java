@@ -7,33 +7,46 @@ import com.codestates.server.asset.entity.Asset;
 
 import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AssetMapper {
 
-    Asset assetPostDtoToAsset(Post requestBody);
+    default Asset assetPostDtoToAsset(AssetDto.Post requestBody) {
+        Asset postAsset = new Asset();
+
+        postAsset.setAssetType(requestBody.getAssetType());
+        postAsset.setAssetValue(requestBody.getAssetValue());
+
+        return postAsset;
+    }
 
     Asset assetPatchDtoToAsset(AssetDto.Patch requestBody);
 
-    Response assetToAssetResponse(Asset response);
+//    Response assetToAssetResponse(Asset response);
 
 
 //    AssetDto.Response assetToAssetResponse(Asset response);
 
-//    default AssetDto.Response assetToAssetResponseDto(Asset asset) {
-//        Member member = asset.getMember();
-//
-//        return AssetDto.Response.builder()
-//            .assetId(asset.getAssetId())
-//            .assetType(asset.getAssetType())
-////            .memberId(member.getMemberId())
-//            .build();
+    default AssetDto.Response assetToAssetResponse(Asset asset) {
+        Member member = asset.getMember();
 
-//    }
+        return AssetDto.Response.builder()
+            .assetId(asset.getAssetId())
+            .assetType(asset.getAssetType())
+            .assetValue(asset.getAssetValue())
+            .createdAt(asset.getCreatedAt())
+            .modifiedAt(asset.getModifiedAt())
+            .memberPosted(memberToMemberResponseObject(member))
+            .build();
 
-    List<Response> assetsToAssetResponses(List<Asset> responses);
+    }
+
+    MemberDto.ResponseObject memberToMemberResponseObject(Member member);
+
+//    List<Response> assetsToAssetResponses(List<Asset> responses);
 
 
 
