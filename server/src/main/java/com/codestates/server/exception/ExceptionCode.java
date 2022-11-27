@@ -32,6 +32,7 @@ public enum ExceptionCode {
 
     // 자산
     ASSET_NOT_FOUND(404, "존재하지 않는 자산입니다."),
+    ASSET_DELETED(405, "삭제된 자산입니다."),
 
     // 목표 자산
     GOAL_NOT_FOUND(404, "존재하지 않는 목표 자산입니다.");

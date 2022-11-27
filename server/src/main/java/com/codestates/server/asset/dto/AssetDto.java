@@ -1,6 +1,8 @@
 package com.codestates.server.asset.dto;
 
 import com.codestates.server.member.dto.MemberDto;
+import com.codestates.server.member.entity.Member;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +27,18 @@ public class AssetDto {
 //        String currency = getCurrency().
 //        @Size(min = 1, message = "최소 단위는 1 입니다")
         private long assetValue;
-    }
+
+//        @NotBlank(message = "+ / - 중 태그를 선택하세요.")
+//        private String tag;
+
+        private Long memberId;
+//
+//        public Member getMember() {
+//            Member member = new Member();
+//            member.getId();
+//            return member;
+        }
+
 
     @Getter
     @Setter
@@ -41,6 +54,9 @@ public class AssetDto {
         @Pattern(regexp = ("[-+]?\\d*")) // 숫자 앞에 -.+ 허용. 문자열에 최소 하나 이상의 숫자 존재해야
 //        @Size(min = 1, message = "최소 단위는 1 입니다")
         private String strValue;
+
+
+
     }
 
 
@@ -53,8 +69,11 @@ public class AssetDto {
         private long assetId;
         private String assetType;
         private long assetValue;
-        private long memberId;
+//        private long memberId;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
 
+        private MemberDto.ResponseObject memberPosted;
 
     }
 

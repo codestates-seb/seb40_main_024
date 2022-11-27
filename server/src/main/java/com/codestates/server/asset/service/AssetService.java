@@ -6,6 +6,7 @@ import com.codestates.server.asset.repository.AssetRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.service.MemberService;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
@@ -32,6 +33,10 @@ public class AssetService {
     @Transactional
     public Asset updateAsset(Asset asset, String strValue) { // asset은 Long타입. strValue는 String)
         Asset verifiedAsset = findVerifiedAsset(asset.getAssetId());
+
+        Optional.ofNullable(asset.getAssetType())
+            .ifPresent(assetType -> findVerifiedAsset(asset.getAssetId()).setAssetType(assetType));
+
 
         // string을 long으로 형변환
         long num = Long.parseLong(strValue.substring(1));
@@ -69,6 +74,13 @@ public class AssetService {
 
     }
 
+    public List<Asset> findAllPatched() {
+        return repository.findAllPatched();
+    }
+
+//    public List<Asset> findAllTagAsset() {
+//        return repository.findAllTagPost();
+//    }
 
     public Asset findVerifiedAsset(long assetId) {
         Optional<Asset> optionalAsset = repository.findById(assetId);
