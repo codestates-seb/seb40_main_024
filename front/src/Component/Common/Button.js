@@ -385,3 +385,10 @@ export const DiamondBtn = ({ openModal }) => {
 export const StockBtn = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };
+
+// Error Page
+
+export const ErrorBtn = () => {
+  const navigate = useNavigate();
+  return <ButtonCC onClick={() => navigate('/')}>나가기</ButtonCC>;
+};
