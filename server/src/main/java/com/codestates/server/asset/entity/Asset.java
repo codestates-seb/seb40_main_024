@@ -1,6 +1,10 @@
 package com.codestates.server.asset.entity;
 
+import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
+import com.fasterxml.jackson.annotation.JsonValue;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +16,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Asset {
+public class Asset extends Auditable {
 
     @Id
     @Column(name = "asset_Id")
@@ -31,12 +35,13 @@ public class Asset {
         this.assetValue = assetValue;
     }
 
+//    public Asset(String assetType, Long assetValue, Member member, AssetTag tag) {
     public Asset(String assetType, Long assetValue, Member member) {
         this.assetType = assetType;
         this.assetValue = assetValue;
         this.member = member;
+//        this.tag = tag;
     }
-
 
     @Column
     private String strValue; // string을 long으로 형변환
@@ -46,6 +51,12 @@ public class Asset {
     @ManyToOne(fetch = FetchType.LAZY) // 단방향
     @JoinColumn(name = "member_id")
     private Member member;
+    public void setMember(Member member) {
+        this.member = member;
+    }
+
+//    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
+//    private List<Asset> assets = new ArrayList<>();
 
 
     @Enumerated(EnumType.STRING)
@@ -77,10 +88,31 @@ public class Asset {
         this.member = member; // 직접 연관관계 매핑 (먼저 매핑된 상태에서)
         member.getAssets().add(this);
     }
-
+//
+//    @Column(nullable = false)
+//    @Enumerated(EnumType.STRING)
+//    private AssetTag tag;
+//
+//    public enum AssetTag {
+//        plus("+"),
+//        minus("-");
+//
+//        @Getter
+//        @JsonValue
+//        private final String tag;
+//
+//        AssetTag(String tag) {
+//            this.tag = tag;
+//        }
+//    }
 
 
 }
+
+
+
+
+
 //
 //// 서브 클래스로 받아오는 게 맞을지?
 //@Enumerated
