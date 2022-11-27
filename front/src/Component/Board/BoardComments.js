@@ -234,6 +234,7 @@ const Comments = () => {
       setInput(e.target.value);
       console.log(e.target.value);
       setEditing(e.target.dataset.id);
+      console.log('dataset.id', e.target.dataset.id);
       console.log('Patch', patch);
     } catch (err) {
       console.log('patcherror', err);
@@ -291,7 +292,7 @@ const Comments = () => {
                     <ProfileIcon />
                   </ImageBox>
                   <>
-                    {isEditing ? (
+                    {isEditing === comment.commentId ? (
                       <>
                         <CommentBox id={comment.commentId}>
                           <IdEtcBox>
@@ -313,7 +314,10 @@ const Comments = () => {
                           </TextBox>
                         </CommentBox>
                         <BtnBox>
-                          <CompleteBtn commentPatch={commentPatch} />
+                          <CompleteBtn
+                            commentPatch={commentPatch}
+                            id={comment.commentId}
+                          />
                         </BtnBox>
                       </>
                     ) : (

@@ -11,7 +11,7 @@ const TotalContent = styled.div`
   flex-direction: column;
   padding: 20px;
   width: 850px;
-  min-height: 800px;
+  min-height: 400px;
   margin-top: 100px;
   border: 3px solid #9ed5c5;
   border-radius: 10px;
@@ -37,27 +37,41 @@ const ContentContain = styled.div`
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-left: 20px;
+  padding: 20px;
 `;
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 700px;
+  height: fit-content;
+  max-height: 400px;
   width: 100%;
   margin: 10px;
   margin-left: 20px;
   margin-right: 20px;
-  border-bottom: 2px solid #8ec3b0;
+  padding: 10px;
   /* border: 1px solid black; */
 `;
 const IdEtcBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #8ec3b0;
+  div {
+    padding-bottom: 5px;
+  }
+`;
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 30px;
-  padding-bottom: 5px;
-  border-bottom: 2px solid #8ec3b0;
+  min-width: 40px;
+  margin-right: 10px;
+  font-size: 12px;
+  border: 3px solid #bcead5;
+  border-radius: 10px;
+  background-color: #def5e5;
 `;
 const Id = styled.div`
   display: flex;
@@ -70,24 +84,13 @@ const Id = styled.div`
 `;
 const EtcBox = styled.div`
   display: flex;
-  width: auto;
-  height: 30px;
+  margin-left: 240px;
 `;
 const Date = styled.div`
   display: flex;
   width: auto;
   height: 30px;
   margin-right: 20px;
-  line-height: normal;
-  align-content: center;
-  justify-content: center;
-`;
-// eslint-disable-next-line no-unused-vars
-const At = styled.div`
-  display: flex;
-  width: auto;
-  height: 30px;
-  margin-right: 10px;
   line-height: normal;
   align-content: center;
   justify-content: center;
@@ -122,19 +125,20 @@ const TitleBox = styled.div`
   width: 100%;
   max-height: 200px;
   margin-left: 5px;
-  padding-top: 5px;
-  border-bottom: 2px solid #8ec3b0;
+  margin-top: 20px;
   overflow: auto;
-  font-size: 20px;
+  font-size: 23px;
+  font-weight: 600;
 `;
 const TextBox = styled.div`
   display: flex;
   height: auto;
   max-height: 630px;
-  width: 100%;
+  max-width: 600px;
   margin-left: 5px;
   padding-top: 5px;
   overflow: auto;
+  margin-top: 15px;
 `;
 
 const Contents = () => {
@@ -146,6 +150,7 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
+  const [tag, setTag] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
@@ -183,13 +188,14 @@ const Contents = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/board/${id}`);
+        console.log(res);
         setBoardId(res.data.boardId);
         setTitle(res.data.title);
         setBody(res.data.body);
         setcreatedAt(res.data.createdAt);
-        setName(res.data.memberPosted.name);
+        setTag(res.data.tag);
         setLike(res.data.like);
-        console.log(like);
+        setName(res.data.memberPosted.name);
       } catch (e) {
         console.log(e);
       }
@@ -210,6 +216,9 @@ const Contents = () => {
           </ImageBox>
           <ContentBox>
             <IdEtcBox>
+              <div>
+                <Tag>{tag}</Tag>
+              </div>
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>

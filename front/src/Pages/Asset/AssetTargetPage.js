@@ -40,7 +40,7 @@ const ChartContain = styled.div`
 const ChartBox = styled.div`
   display: flex;
   box-sizing: border-box;
-  width: 700px;
+  width: 750px;
   height: 350px;
   /* margin-left: 120px; */
   /* top: 300px !important; */
@@ -52,10 +52,11 @@ const BoxContain = styled.div`
   display: inline-block;
   align-items: center;
   box-sizing: border-box;
-  width: 700px;
+  width: 650px;
   height: 1000px;
   top: 30px !important;
   left: 300px;
+  margin-left: 100px;
 `;
 
 const GraphH1 = styled.h1`
@@ -160,7 +161,6 @@ const AssetTargetPage = () => {
             </>
           )}
 
-          {/* <PlusBtn HandlerAdd={HandlerAdd} /> */}
           <BoxContain>
             {countList.map((count, id) => (
               <AssetSetting
@@ -184,3 +184,55 @@ const AssetTargetPage = () => {
 };
 
 export default AssetTargetPage;
+
+// return (
+//   <>
+//     <LongLoginNavbarBox />
+//     {/* <MiniNavbarBox /> */}
+//     <PageContain>
+//       <ChartContain className="ScrollActive">
+//         <ChartBox>
+//           <AssetBdata
+//             goal={goal}
+//             monthly={monthly}
+//             extended={extended}
+//             period={period}
+//           />
+//         </ChartBox>
+//         <GraphH1>목표 현황</GraphH1>
+//       </ChartContain>
+
+//       <div className="Contain">
+//         {countList.length === 6 ? (
+//           <>
+//             <PlusBtn disabled />
+//           </>
+//         ) : (
+//           <>
+//             <PlusBtn HandlerAdd={HandlerAdd} />
+//           </>
+//         )}
+
+//         <BoxContain>
+//           {countList.map((count, id) => (
+//             <AssetSetting
+//               count={count}
+//               key={id}
+//               HandlerRemove={HandlerRemove}
+//               HandlerAddCount={HandlerAddCount}
+//               setGoal={setGoal}
+//               setExtended={setExtended}
+//               setPeriod={setPeriod}
+//               target={target}
+//               savings={savings}
+//               // period={period}
+//             />
+//           ))}
+//         </BoxContain>
+//       </div>
+//     </PageContain>
+//   </>
+// );
+// };
+
+// export default AssetTargetPage;

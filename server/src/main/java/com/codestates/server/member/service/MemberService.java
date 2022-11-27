@@ -4,6 +4,7 @@ package com.codestates.server.member.service;
 import com.codestates.server.auth.event.MemberRegistrationApplicationEvent;
 import com.codestates.server.auth.utils.CustomAuthorityUtils;
 import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
@@ -97,7 +98,7 @@ public class MemberService {
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())
-            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+            throw new BusinessLogicException(ExceptionCode.DUPLICATE_MEMBER);
     }
 
     public Long findMemberId(String email) {

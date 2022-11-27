@@ -1,14 +1,12 @@
 package com.codestates.server.goal.entity;
 
 import com.codestates.server.audit.Auditable;
+import com.codestates.server.member.entity.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -32,15 +30,17 @@ public class Goal extends Auditable {
     // 성취도
     private int completed = 0;
 
-    public Goal(Long goalId, String goalName, long goalPrice, int targetLength) {
-        this.goalId = goalId;
+    // 멤버 쪽 OneToMany 업데이트 확인 후 테스트 필요
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public Goal(String goalName, long goalPrice, int targetLength, Member member) {
         this.goalName = goalName;
         this.goalPrice = goalPrice;
+        this.member = member;
         this.targetLength = targetLength;
         // 옵션 1 -> 목표 월 저축액 산출
         this.calculatedPrice = goalPrice / targetLength;
-
-        // necessary?
-        this.completed = 0;
     }
 }
