@@ -169,9 +169,15 @@ export const LongNavbarBox = () => {
   const handleClickAsset = () => {
     setAssetclicked(!Assetclicked);
   };
+
   const handleClickInfo = () => {
     setAssetclicked(true);
     setInfoclicked(!Infoclicked);
+  };
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    navigate('/');
   };
 
   return (
@@ -249,7 +255,7 @@ export const LongNavbarBox = () => {
                 </>
               )}
               <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
-              <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
+              <Menu onClick={logoutHandler}>로그아웃</Menu>
             </RowDropMenuBox>
           </LongContainer>
         )}
@@ -281,10 +287,16 @@ export const MiniNavbarBox = () => {
     // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
   };
+
   const handleClickInfo = () => {
     setAssetclicked(true);
     // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
+  };
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    navigate('/');
   };
 
   return (
@@ -388,7 +400,7 @@ export const MiniNavbarBox = () => {
                     커뮤니티
                   </MiniMenu>
                   <MiniMenu
-                    onClick={() => navigate('/login')}
+                    onClick={logoutHandler}
                     style={{
                       height: '85px',
                       borderEndEndRadius: '5px',
