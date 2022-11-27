@@ -150,9 +150,10 @@ const Likenum = styled.div`
 
 export const BoardList = () => {
   const navigate = useNavigate();
+
   return (
     <>
-      <ListBox onClick={() => navigate('/boardcontentpage')}>
+      <ListBox onClick={() => navigate('/boardcontentpage/:id')}>
         <ImageBox>
           <Image>IMG</Image>
         </ImageBox>

@@ -99,12 +99,14 @@ export const NavAssetContentsButton = () => {
 export const NavFreeContentsButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonBB
-      onClick={() => navigate('/freeboardpost')}
-      style={{ marginLeft: '100px' }}
-    >
-      <p style={{ width: '120px' }}>게시글 작성</p>
-    </ButtonBB>
+    <>
+      <ButtonBB
+        onClick={() => navigate('/freeboardpost')}
+        style={{ marginLeft: '100px' }}
+      >
+        <p style={{ width: '120px' }}>게시글 작성</p>
+      </ButtonBB>
+    </>
   );
 };
 
@@ -168,12 +170,13 @@ export const NavSignUpButton = () => {
   );
 };
 
-export const SignUpButton = () => {
+export const SignUpButton = ({ disabled }) => {
   const navigate = useNavigate();
   return (
     <ButtonCC
       style={{ marginRight: '20px', marginTop: '10px', borderRadius: '40px' }}
       onClick={() => navigate('/login')}
+      disabled={disabled}
     >
       회원가입하기
     </ButtonCC>
@@ -260,14 +263,34 @@ export const SignOutBtn = () => {
     <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
   );
 };
-export const AddCommentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
+export const AddCommentBtn = ({ commentPost }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      type="submit"
+      onClick={commentPost}
+    >
+      작성
+    </ButtonAA>
+  );
 };
-export const ModifyCommentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+export const ModifyCommentBtn = ({ commentPatch, id }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      onClick={commentPatch}
+      data-id={id}
+    >
+      수정
+    </ButtonAA>
+  );
 };
-export const DeleteCommentBtn = () => {
-  return <ButtonAA>삭제</ButtonAA>;
+export const DeleteCommentBtn = ({ commentDelete, id }) => {
+  return (
+    <ButtonAA onClick={commentDelete} data-id={id}>
+      삭제
+    </ButtonAA>
+  );
 };
 
 // 구독 해지 버튼
@@ -278,8 +301,18 @@ export const UnSubscript = ({ openModal }) => {
 export const AddContentBtn = () => {
   return <ButtonAA style={{ marginBottom: '10px' }}>작성</ButtonAA>;
 };
-export const ModifyContentBtn = () => {
-  return <ButtonAA style={{ marginBottom: '10px' }}>수정</ButtonAA>;
+
+// 게시글 상세 페이지 수정, 삭제 버튼
+export const ModifyContentBtn = ({ boardId }) => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      onClick={() => navigate(`/modifyboard/${boardId}`)}
+    >
+      수정
+    </ButtonAA>
+  );
 };
 export const DeleteContentBtn = ({ Delete }) => {
   return (
@@ -319,14 +352,26 @@ export const FreeBoardPostBtn = ({ Post }) => {
   return <ButtonCC onClick={Post}>작성하기</ButtonCC>;
 };
 
+export const FreeBoardPatchBtn = ({ Patch }) => {
+  return <ButtonCC onClick={Patch}>수정하기</ButtonCC>;
+};
+
 export const AssetBoardPostBtn = () => {
   const navigate = useNavigate();
   return <ButtonCC onClick={() => navigate('/assetboard')}>작성하기</ButtonCC>;
 };
 
-// 현재 자상 수정하기 페이지 버튼들
-export const CashBtn = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+// 현재 자산 수정하기 페이지 버튼들
+export const TitleCashBtn = ({ postAssetApi }) => {
+  return (
+    <ButtonAA
+      onClick={() => {
+        postAssetApi();
+      }}
+    >
+      수정
+    </ButtonAA>
+  );
 };
 
 export const GoldBtn = ({ openModal }) => {

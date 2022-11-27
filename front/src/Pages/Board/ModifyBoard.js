@@ -4,10 +4,10 @@ import {
   LongNavbarBox,
   MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
-import { FreeBoardPostBtn } from '../../Component/Common/Button';
+import { FreeBoardPatchBtn } from '../../Component/Common/Button';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const MainPost = styled.div`
   display: flex;
@@ -50,18 +50,6 @@ const Header = styled.div`
   padding: 30px;
 `;
 
-const Select = styled.select`
-  border: 2.5px solid #9ed5c5;
-  box-sizing: border-box;
-  color: #8ec3b0;
-  border-radius: 10px;
-  font-weight: 700;
-  font-size: 14px;
-  text-align: center;
-  outline: none;
-  padding: 5px;
-`;
-
 const Btn = styled.div`
   margin-top: 100px;
 `;
@@ -71,34 +59,42 @@ const QuillBox = styled.div`
   height: 300px;
 `;
 
-function FreeCommunity() {
+function ModifyBoard() {
+  const { id } = useParams();
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
+  const [getTitle, setGetTitle] = useState('');
   const [body, setBody] = useState('');
-  const [selectTag, setselectTag] = useState('');
   const URL = process.env.REACT_APP_API_URL;
   const data = {
-    title: title,
+    title: getTitle,
     body: body,
-    tag: selectTag,
   };
 
-  const Post = async () => {
+  useEffect(() => {
+    const Get = async () => {
+      try {
+        const res = await axios.get(`${URL}/board/${id}`);
+        setGetTitle(res.data.title);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    Get();
+  }, []);
+
+  const Patch = async () => {
     try {
-      const res = await axios.post(`${URL}/board`, data);
+      const res = await axios.patch(`${URL}/board/${id}`, data);
       console.log(res);
-      navigate('/freeboard');
+      navigate(`/boardcontentpage/${id}`);
     } catch (e) {
       console.log(e);
     }
   };
 
   const TitleonChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const SelectTagonChange = (e) => {
-    setselectTag(e.target.value);
+    setGetTitle(e.target.value);
   };
 
   return (
@@ -106,28 +102,24 @@ function FreeCommunity() {
       <LongNavbarBox />
       <MiniNavbarBox />
       <MainPost>
-        <H2>자유게시글 작성하기</H2>
+        <H2>게시글 수정하기</H2>
         <Header>
-          <Select name="1234" onChange={SelectTagonChange}>
-            <option value="">카테고리</option>
-            <option value="일반">일반</option>
-            <option value="자산">자산</option>
-          </Select>
           <Input
             onChange={TitleonChange}
             type="text"
-            placeholder="제목을 입력해주세요"
+            placeholder="수정할 제목을 입력해주세요"
+            value={getTitle}
           />
         </Header>
         <QuillBox>
           <Quill setBody={setBody} />
         </QuillBox>
         <Btn>
-          <FreeBoardPostBtn Post={Post}></FreeBoardPostBtn>
+          <FreeBoardPatchBtn Patch={Patch}></FreeBoardPatchBtn>
         </Btn>
       </MainPost>
     </>
   );
 }
 
-export default FreeCommunity;
+export default ModifyBoard;

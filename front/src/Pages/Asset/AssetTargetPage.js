@@ -4,8 +4,8 @@ import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
 import {
-  LongLoginNavbarBox,
-  // ,MiniNavbarBox
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 
 const PageContain = styled.div`
@@ -77,28 +77,35 @@ const GraphH1 = styled.h1`
 // `;
 
 const AssetTargetPage = () => {
-  const [countList, setCountList] = useState([0]);
-  // console.log('countList', countList.length);
-  const HandlerAdd = () => {
-    let countArr = [...countList];
-    let counter = countArr.slice(-1)[0];
-    counter += 1;
-    countArr.push(counter.length); // index 사용 X
-    // countArr[counter] = counter	// index 사용 시 윗줄 대신 사용
-    console.log('countArr', countArr);
-    setCountList(countArr);
-  };
-  const HandlerRemove = (id) => {
-    setCountList(countList.filter((user) => user.id !== id));
-    console.log('handler', countList);
-  };
-
   const [goal, setGoal] = useState('현금'); // 명칭
   const [extended, setExtended] = useState(''); // 목표금액
   const [period, setPeriod] = useState(''); // 기간
   const [savings, setSavings] = useState(''); // 저축횟수
   // eslint-disable-next-line no-unused-vars
   // const [texttarget, setTexttarget] = useState(''); // 횟수별 저축액
+  const [countList, setCountList] = useState([
+    { goal: '자동차', extended: '목표금액', period: '기간' },
+  ]);
+  // console.log('countList', countList.length);
+  const HandlerAdd = () => {
+    // let countArr = [...countList];
+    // let counter = countArr.slice(-1)[0];
+    // counter += 1;
+    // countArr.push(counter.length);
+    // index 사용 X
+    // countArr[counter] = counter	// index 사용 시 윗줄 대신 사용
+    // console.log('countArr', countArr);
+    // setCountList(countArr);
+    setCountList([
+      ...countList,
+      { goal: goal, extended: extended, period: period },
+    ]);
+  };
+  const HandlerRemove = (id) => {
+    setCountList(countList.filter((user) => user.id !== id));
+    console.log('handler', countList);
+  };
+
   let monthly = Math.floor(extended / period);
   if (isNaN(monthly)) {
     monthly = 0;
@@ -127,8 +134,8 @@ const AssetTargetPage = () => {
 
   return (
     <>
-      <LongLoginNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <PageContain>
         <ChartContain className="ScrollActive">
           <ChartBox>

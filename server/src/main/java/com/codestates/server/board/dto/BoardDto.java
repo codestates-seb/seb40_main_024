@@ -1,5 +1,6 @@
 package com.codestates.server.board.dto;
 
+import com.codestates.server.board.entity.Board;
 import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,7 @@ public class BoardDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Post {
 
         @NotBlank(message = "제목을 입력하세요.")
@@ -25,11 +27,15 @@ public class BoardDto {
         @NotBlank(message = "내용을 입력하세요.")
         @Size(min = 10, message = "내용은 10자 이상 입력하세요.")
         private String body;
+
+        @NotBlank(message = "일반 / 자산 - 태그를 선택하세요.")
+        private String tag;
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Patch {
 
         private long boardId;
@@ -40,6 +46,8 @@ public class BoardDto {
         @NotBlank(message = "내용을 입력하세요.")
         @Size(min = 10, message = "내용은 10자 이상 입력하세요.")
         private String body;
+
+        private String tag;
     }
 
 
@@ -52,10 +60,12 @@ public class BoardDto {
         private String title;
         private String body;
         private int like;
+        private Board.BoardTag tag;
+
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
 
-        private MemberDto.Response memberPosted;
+        private MemberDto.ResponseObject memberPosted;
         private List<CommentDto.Response> commentsPosted;
     }
 

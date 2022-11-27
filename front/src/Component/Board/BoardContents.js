@@ -4,13 +4,14 @@ import ProfileIcon from '../Member/ProfileIcon';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useState, useEffect } from 'react';
 
 const TotalContent = styled.div`
   display: flex;
   flex-direction: column;
   padding: 20px;
   width: 850px;
-  min-height: 800px;
+  min-height: 400px;
   margin-top: 100px;
   border: 3px solid #9ed5c5;
   border-radius: 10px;
@@ -36,27 +37,41 @@ const ContentContain = styled.div`
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-left: 20px;
+  padding: 20px;
 `;
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
-  height: 700px;
+  height: fit-content;
+  max-height: 400px;
   width: 100%;
   margin: 10px;
   margin-left: 20px;
   margin-right: 20px;
-  border-bottom: 2px solid #8ec3b0;
+  padding: 10px;
   /* border: 1px solid black; */
 `;
 const IdEtcBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
   width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #8ec3b0;
+  div {
+    padding-bottom: 5px;
+  }
+`;
+const Tag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 30px;
-  padding-bottom: 5px;
-  border-bottom: 2px solid #8ec3b0;
+  min-width: 40px;
+  margin-right: 10px;
+  font-size: 12px;
+  border: 3px solid #bcead5;
+  border-radius: 10px;
+  background-color: #def5e5;
 `;
 const Id = styled.div`
   display: flex;
@@ -69,8 +84,7 @@ const Id = styled.div`
 `;
 const EtcBox = styled.div`
   display: flex;
-  width: auto;
-  height: 30px;
+  margin-left: 240px;
 `;
 const Date = styled.div`
   display: flex;
@@ -81,21 +95,11 @@ const Date = styled.div`
   align-content: center;
   justify-content: center;
 `;
-// eslint-disable-next-line no-unused-vars
-const At = styled.div`
-  display: flex;
-  width: auto;
-  height: 30px;
-  margin-right: 10px;
-  line-height: normal;
-  align-content: center;
-  justify-content: center;
-`;
 const LikeBox = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 10px;
+  margin-right: 3px;
   line-height: normal;
   align-content: center;
   justify-content: center;
@@ -107,42 +111,51 @@ const UnLikeBox = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 10px;
+  margin-left: 3px;
   line-height: normal;
   align-content: center;
   justify-content: center;
   color: white;
   -webkit-text-stroke: 1.5px black;
-
   cursor: pointer;
 `;
 const TitleBox = styled.div`
   display: flex;
-  width: 100%;
   height: auto;
+  width: 100%;
   max-height: 200px;
   margin-left: 5px;
-  padding-top: 5px;
-  border-bottom: 2px solid #8ec3b0;
+  margin-top: 20px;
   overflow: auto;
-  font-size: 20px;
+  font-size: 23px;
+  font-weight: 600;
 `;
 const TextBox = styled.div`
   display: flex;
   height: auto;
-  width: 100%;
+  max-height: 630px;
+  max-width: 600px;
   margin-left: 5px;
   padding-top: 5px;
   overflow: auto;
+  margin-top: 15px;
 `;
 
-const Contents = ({ title, body, createdAt }) => {
+const Contents = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const data = moment(createdAt);
-  const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
-  const URL =
-    'http://ec2-43-201-26-98.ap-northeast-2.compute.amazonaws.com:8080';
+  const [title, setTitle] = useState();
+  const [body, setBody] = useState();
+  const [createdAt, setcreatedAt] = useState();
+  const [name, setName] = useState();
+  const [boardId, setBoardId] = useState();
+  const [like, setLike] = useState();
+  const [tag, setTag] = useState();
+  const date = moment(createdAt);
+  const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
+
+  const URL = process.env.REACT_APP_API_URL;
+
   const Delete = async () => {
     try {
       const res = await axios.delete(`${URL}/board/${id}`);
@@ -152,21 +165,49 @@ const Contents = ({ title, body, createdAt }) => {
       console.log(e);
     }
   };
-  // const Patch = async () => {
-  //   try {
-  //     const res = await axios.patch(`${URL}/board${id}`);
-  //     console.log(res);
-  //     navigate('/freeboard');
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+
+  const Patchlike = async () => {
+    try {
+      const res = await axios.patch(`${URL}/board/${id}/like`);
+      setLike(res.data.like);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  const Patchdislike = async () => {
+    try {
+      const res = await axios.patch(`${URL}/board/${id}/dislike`);
+      setLike(res.data.like);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const Get = async () => {
+      try {
+        const res = await axios.get(`${URL}/board/${id}`);
+        console.log(res);
+        setBoardId(res.data.boardId);
+        setTitle(res.data.title);
+        setBody(res.data.body);
+        setcreatedAt(res.data.createdAt);
+        setTag(res.data.tag);
+        setLike(res.data.like);
+        setName(res.data.memberPosted.name);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    Get();
+  }, []);
 
   return (
     <>
       <TotalContent>
         <BtnContain>
-          <ModifyContentBtn />
+          <ModifyContentBtn boardId={boardId} />
           <DeleteContentBtn Delete={Delete} />
         </BtnContain>
         <ContentContain>
@@ -175,11 +216,15 @@ const Contents = ({ title, body, createdAt }) => {
           </ImageBox>
           <ContentBox>
             <IdEtcBox>
-              <Id>유저아이디가 들어가야하오...</Id>
+              <div>
+                <Tag>{tag}</Tag>
+              </div>
+              <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
-                <LikeBox>❤</LikeBox>
-                <UnLikeBox>❤</UnLikeBox>
+                <LikeBox onClick={Patchlike}>❤</LikeBox>
+                {like}
+                <UnLikeBox onClick={Patchdislike}>❤</UnLikeBox>
               </EtcBox>
             </IdEtcBox>
             <TitleBox>{title}</TitleBox>
