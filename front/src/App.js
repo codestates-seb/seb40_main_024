@@ -1,4 +1,5 @@
 import './App.css';
+import { useContext } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import MainHome from './Pages/Home/MainHome';
 // import Asset from './Pages/Asset/Asset';
@@ -18,27 +19,45 @@ import PaymentConfirmPage from './Pages/Pay/PaymentConfirmPage';
 import PaymentPage from './Pages/Pay/PaymentPage';
 import SubscriptionPage from './Pages/Pay/SubscriptionPage';
 import ModifyBoard from './Pages/Board/ModifyBoard';
+import AuthContext from './store/AuthContext';
+import { Error } from './Pages/ErrorPage/Error';
 // import AllBoardList from './Component/Board/AllBoardList';
 
 function App() {
+  const authCtx = useContext(AuthContext);
+
   return (
     <>
       <Routes>
+        <Route path="*" element={<Error />}></Route>
         <Route path="/" element={<MainHome />} />
         {/* <Route path="/asset" element={<Asset />} /> */}
-        <Route path="/assetchange" element={<AssetChange />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
         <Route path="/freeboard" element={<FreeBoardPage />} />
-        <Route path="/freeboardpost" element={<FreeBoard />} />
+
+        {authCtx.isLoggedIn && (
+          <Route path="/assetchange" element={<AssetChange />} />
+        )}
+        {authCtx.isLoggedIn && (
+          <Route path="/freeboardpost" element={<FreeBoard />} />
+        )}
         <Route path="/shareboardpost" element={<ShareBoard />} />
-        <Route path="/mypage" element={<MyPage />} />
-        <Route path="/myinfopage" element={<InfoPage />} />
+        {authCtx.isLoggedIn && <Route path="/mypage" element={<MyPage />} />}
+        {authCtx.isLoggedIn && (
+          <Route path="/myinfopage" element={<InfoPage />} />
+        )}
         <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
-        <Route path="/modifyboard/:id" element={<ModifyBoard />} />
-        <Route path="/assettarget" element={<AssetTargetTest />} />
-        <Route path="/assettargetpage" element={<AssetTartget />} />
+        {authCtx.isLoggedIn && (
+          <Route path="/modifyboard/:id" element={<ModifyBoard />} />
+        )}
+        {authCtx.isLoggedIn && (
+          <Route path="/assettarget" element={<AssetTargetTest />} />
+        )}
+        {authCtx.isLoggedIn && (
+          <Route path="/assettargetpage" element={<AssetTartget />} />
+        )}
 
         {/*
         subscriptionpage는 ?
