@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import axios from 'axios';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useContext } from 'react';
 import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
+import AuthContext from '../../store/AuthContext';
 
 const PageContainer = styled.div`
   display: flex;
@@ -146,6 +147,7 @@ const Button2 = styled.div`
 `;
 
 export const LoginBox = () => {
+  const authCtx = useContext(AuthContext);
   const URL = process.env.REACT_APP_API_URL;
 
   const [email, setEmail] = useState('');
@@ -195,8 +197,12 @@ export const LoginBox = () => {
   };
   const PostLogin = async () => {
     try {
-      const res = await axios.patch(`${URL}/member/login`, DataLogin);
-      console.log(res);
+      const req = await axios.post(`${URL}/member/login`, DataLogin);
+      console.log(req);
+      // const TokenTest = req.config.headers.get('Authorization');
+      // console.log(TokenTest);
+      // console.log(req.config.headers);
+      authCtx.login();
     } catch (e) {
       console.log(e);
     }
