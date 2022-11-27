@@ -281,26 +281,26 @@ function AssetChange() {
 
   // console.log(Data.map((data) => console.log(data)));
 
-  const Postlogindata = {
-    email: 'name33@gmail.com',
-    password: 'name33name33',
-  };
-  // eslint-disable-next-line no-unused-vars
-  const postloginApi = async () => {
-    await axios
-      .post(`${URL}/member/login`, Postlogindata)
-      .then((res) => {
-        const { accessToken } = res.headers.authorization;
+  // const Postlogindata = {
+  //   email: 'name33@gmail.com',
+  //   password: 'name33name33',
+  // };
+  // // eslint-disable-next-line no-unused-vars
+  // const postloginApi = async () => {
+  //   await axios
+  //     .post(`${URL}/member/login`, Postlogindata)
+  //     .then((res) => {
+  //       const { accessToken } = res.headers.authorization;
 
-        // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        axios.defaults.headers.common[
-          'Authorization'
-        ] = `Bearer ${accessToken}`;
+  //       // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+  //       axios.defaults.headers.common[
+  //         'Authorization'
+  //       ] = `Bearer ${accessToken}`;
 
-        console.log(res.headers.authorization, { accessToken });
-      })
-      .catch((err) => openCashModal());
-  };
+  //       console.log(res.headers.authorization, { accessToken });
+  //     })
+  //     .catch((err) => openCashModal());
+  // };
   //  {
   // const { accessToken } = res.headers.authorization;
 
@@ -520,7 +520,7 @@ function AssetChange() {
 
   useEffect(() => {
     getAssetsApi();
-    postloginApi();
+    // postloginApi();
     console.log(Data);
   }, []);
 
