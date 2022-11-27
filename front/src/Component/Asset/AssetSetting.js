@@ -83,7 +83,8 @@ const TextBox = styled.div`
 //   font-size: 16px;
 // `;
 const AssetSetting = ({
-  target,
+  // target,
+  targetAmount,
   goal,
   extended,
   period,
@@ -141,7 +142,7 @@ const AssetSetting = ({
             value={period}
           />
           목표달성을 위한 매달 저축액은?
-          <TextBox>{target}원!</TextBox>
+          <TextBox>{targetAmount}원!</TextBox>
           {countList.length === 6 ? (
             <>
               <PlusBtn disabled />

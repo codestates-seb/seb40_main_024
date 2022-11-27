@@ -82,12 +82,13 @@ const TextBox = styled.div`
 //   font-size: 16px;
 // `;
 const AssetList = ({
-  HandlerRemove,
-  post,
+  //   HandlerRemove,
+  //   post,
+  goalDelete,
   setGoal,
   setExtended,
   setPeriod,
-
+  id,
   goal,
   extended,
   period,
@@ -122,9 +123,11 @@ const AssetList = ({
               size="2x"
               color="grey"
               cursor="pointer"
-              onClick={() => {
-                HandlerRemove(post);
-              }}
+              onClick={goalDelete}
+              data-id={id}
+              //   onClick={() => {
+              //     HandlerRemove(post);
+              //   }}
             ></FontAwesomeIcon>
           </div>
           <Header>나의 목표</Header>
