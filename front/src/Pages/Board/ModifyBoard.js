@@ -1,8 +1,8 @@
 import Quill from '../../Component/Common/Quill';
 import styled from 'styled-components';
 import {
-  LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import { FreeBoardPatchBtn } from '../../Component/Common/Button';
 import axios from 'axios';
@@ -99,8 +99,8 @@ function ModifyBoard() {
 
   return (
     <>
-      <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <MainPost>
         <H2>게시글 수정하기</H2>
         <Header>

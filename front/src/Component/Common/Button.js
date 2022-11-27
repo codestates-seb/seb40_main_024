@@ -99,12 +99,14 @@ export const NavAssetContentsButton = () => {
 export const NavFreeContentsButton = () => {
   const navigate = useNavigate();
   return (
-    <ButtonBB
-      onClick={() => navigate('/freeboardpost')}
-      style={{ marginLeft: '100px' }}
-    >
-      <p style={{ width: '120px' }}>게시글 작성</p>
-    </ButtonBB>
+    <>
+      <ButtonBB
+        onClick={() => navigate('/freeboardpost')}
+        style={{ marginLeft: '100px' }}
+      >
+        <p style={{ width: '120px' }}>게시글 작성</p>
+      </ButtonBB>
+    </>
   );
 };
 

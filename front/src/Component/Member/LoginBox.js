@@ -1,6 +1,10 @@
 import styled from 'styled-components';
-import { useState, useCallback } from 'react';
+import axios from 'axios';
+import { useState, useCallback, useContext } from 'react';
 import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
+import { Modal } from '../Common/Modal';
+import AuthContext from '../../store/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
   display: flex;
@@ -145,8 +149,12 @@ const Button2 = styled.div`
 `;
 
 export const LoginBox = () => {
+  const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const URL = process.env.REACT_APP_API_URL;
+  const [Modalopen, setModalopen] = useState(false);
+
   const [email, setEmail] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [password, setPassword] = useState('');
 
   const [emailMessage, setEmailMessage] = useState('');
@@ -182,10 +190,34 @@ export const LoginBox = () => {
       setPasswordMessage('영문, 숫자 조합으로 8자리 이상 입력해주세요.');
       setIsPassword(false);
     } else {
-      setPasswordMessage('안전한 비밀번호 입니다.');
+      setPasswordMessage('');
       setIsPassword(true);
     }
   }, []);
+
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+    navigate('/', { replace: true });
+  };
+
+  const DataLogin = {
+    email: email,
+    password: password,
+  };
+  const PostLogin = async () => {
+    try {
+      const req = await axios.post(`${URL}/member/login`, DataLogin);
+      const reqToken = req.headers.get('authorization');
+      authCtx.login(reqToken);
+      openModal();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <PageContainer>
@@ -228,6 +260,7 @@ export const LoginBox = () => {
             <button
               className={`message ${abc ? 'error' : 'success'}`}
               disabled={!(isEmail && isPassword)}
+              onClick={PostLogin}
             >
               로그인 하기
             </button>
@@ -237,6 +270,9 @@ export const LoginBox = () => {
             <NavSignUpButton />
           </Button2>
         </ButtonBox>
+        <Modal open={Modalopen} close={closeModal} header="로그인 알림">
+          로그인 성공하셨습니다.
+        </Modal>
       </Container>
     </PageContainer>
   );

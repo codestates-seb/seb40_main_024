@@ -1,8 +1,8 @@
 import Contents from '../../Component/Board/BoardContents';
 import Comments from '../../Component/Board/BoardComments';
 import {
-  LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
 
@@ -58,8 +58,8 @@ const BoardContentPage = () => {
   return (
     <>
       <MainPost>
-        <LongLoginNavbarBox />
-        <MiniLoginNavbarBox />
+        <LongNavbarBox />
+        <MiniNavbarBox />
         <Contents />
         <Comments />
       </MainPost>
