@@ -2,7 +2,9 @@ package com.codestates.server.comment.service;
 
 import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.service.BoardService;
+import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.comment.entity.Comment;
+import com.codestates.server.comment.mapper.CommentMapper;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
@@ -10,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,46 +20,51 @@ import java.util.Optional;
 public class CommentService {
 
     private final CommentRepository repository;
+    private final CommentMapper mapper;
     private final BoardService boardService;
 
     // WIP: 맴버 구현 끝난 후 (멤버 서비스 등 필요) + 로그인 유저 verification 필요
 
-    public CommentService(CommentRepository repository, BoardService boardService) {
+    public CommentService(CommentRepository repository, CommentMapper mapper, BoardService boardService) {
         this.repository = repository;
+        this.mapper = mapper;
         this.boardService = boardService;
     }
 
-    public Comment findOne(long id) {
-        return findVerifiedComment(id);
+    public CommentDto.Response findOne(long id) {
+        return mapper.commentToCommentResponseDto(findVerifiedComment(id));
     }
 
-    public List<Comment> findAll() {
-        return new ArrayList<>(repository.findAll());
+    public List<CommentDto.Response> findAll() {
+        return mapper.commentsToCommentResponses(repository.findAll());
     }
 
     @Transactional
-    public Comment createOne(Comment comment, long boardId) {
+    public CommentDto.Response createOne(CommentDto.Post postComment, long boardId) {
         Board board = boardService.findVerifiedBoard(boardId);
+        Comment comment = mapper.commentPostToComment(postComment);
         comment.setBoard(board);
-        board.getComments().add(comment);
-        return repository.save(comment);
+        board.getComments().add(comment); // board repo?
+        return mapper.commentToCommentResponseDto(repository.save(comment));
     }
 
     @Transactional
-    public Comment updateOne(Comment comment, long boardId) {
+    public CommentDto.Response updateOne(CommentDto.Patch patchComment, long boardId) {
+        Comment comment = mapper.commentPatchToComment(patchComment);
+
         Comment verifiedComment = findVerifiedComment(comment.getCommentId());
-        verifyBoard(boardId, verifiedComment.getBoard());  // 보드 검증
-        verifiedComment.setBody(comment.getBody());  // 내용 수정
+        verifyBoard(boardId, verifiedComment.getBoard());
+        verifiedComment.setBody(comment.getBody());  // body
 
         // Modified time
         verifiedComment.setModifiedAt(LocalDateTime.now());
-        return repository.save(verifiedComment);
+        return mapper.commentToCommentResponseDto(repository.save(verifiedComment));
     }
 
     @Transactional
     public void deleteOne(Long id, long boardId) {
         Comment verifiedComment = findVerifiedComment(id);
-        verifyBoard(boardId, verifiedComment.getBoard());  // 보드 검증
+        verifyBoard(boardId, verifiedComment.getBoard());
         repository.delete(verifiedComment);
     }
 
@@ -67,7 +73,6 @@ public class CommentService {
         return optionalComment.orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_NOT_FOUND));
     }
 
-    // 보드 id 검증
     public void verifyBoard(long boardId, Board commentBoard) {
         if (! (boardId == commentBoard.getBoardId())) {
             throw new CustomException(ExceptionCode.BOARD_NOT_MATCHED_WITH_COMMENT);
