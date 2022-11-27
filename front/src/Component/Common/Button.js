@@ -362,8 +362,16 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const CashBtn = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+export const TitleCashBtn = ({ postAssetApi }) => {
+  return (
+    <ButtonAA
+      onClick={() => {
+        postAssetApi();
+      }}
+    >
+      수정
+    </ButtonAA>
+  );
 };
 
 export const GoldBtn = ({ openModal }) => {

@@ -2,6 +2,12 @@ package com.codestates.server.goal.repository;
 
 import com.codestates.server.goal.entity.Goal;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface GoalRepository extends JpaRepository<Goal, Long> {
+
+    @Query(nativeQuery = true, value = "select * from Goal where Member_id = :id")
+    List<Goal> findAllByMemberId(long id);
 }
