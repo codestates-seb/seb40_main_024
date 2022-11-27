@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import axios from 'axios';
 import { useState, useCallback } from 'react';
 import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
 
@@ -145,8 +146,9 @@ const Button2 = styled.div`
 `;
 
 export const LoginBox = () => {
+  const URL = process.env.REACT_APP_API_URL;
+
   const [email, setEmail] = useState('');
-  // eslint-disable-next-line no-unused-vars
   const [password, setPassword] = useState('');
 
   const [emailMessage, setEmailMessage] = useState('');
@@ -182,10 +184,23 @@ export const LoginBox = () => {
       setPasswordMessage('영문, 숫자 조합으로 8자리 이상 입력해주세요.');
       setIsPassword(false);
     } else {
-      setPasswordMessage('안전한 비밀번호 입니다.');
+      setPasswordMessage('');
       setIsPassword(true);
     }
   }, []);
+
+  const DataLogin = {
+    email: email,
+    password: password,
+  };
+  const PostLogin = async () => {
+    try {
+      const res = await axios.patch(`${URL}/member/login`, DataLogin);
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <PageContainer>
@@ -228,6 +243,7 @@ export const LoginBox = () => {
             <button
               className={`message ${abc ? 'error' : 'success'}`}
               disabled={!(isEmail && isPassword)}
+              onClick={PostLogin}
             >
               로그인 하기
             </button>
