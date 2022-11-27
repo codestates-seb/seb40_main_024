@@ -2,7 +2,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import { useState, useCallback, useContext } from 'react';
 import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
+import { Modal } from '../Common/Modal';
 import AuthContext from '../../store/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const PageContainer = styled.div`
   display: flex;
@@ -147,8 +149,10 @@ const Button2 = styled.div`
 `;
 
 export const LoginBox = () => {
+  const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const URL = process.env.REACT_APP_API_URL;
+  const [Modalopen, setModalopen] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -191,6 +195,15 @@ export const LoginBox = () => {
     }
   }, []);
 
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+    navigate('/');
+  };
+
   const DataLogin = {
     email: email,
     password: password,
@@ -198,11 +211,9 @@ export const LoginBox = () => {
   const PostLogin = async () => {
     try {
       const req = await axios.post(`${URL}/member/login`, DataLogin);
-      console.log(req);
-      // const TokenTest = req.config.headers.get('Authorization');
-      // console.log(TokenTest);
-      // console.log(req.config.headers);
-      authCtx.login();
+      const reqToken = req.headers.get('authorization');
+      authCtx.login(reqToken);
+      openModal();
     } catch (e) {
       console.log(e);
     }
@@ -259,6 +270,9 @@ export const LoginBox = () => {
             <NavSignUpButton />
           </Button2>
         </ButtonBox>
+        <Modal open={Modalopen} close={closeModal} header="로그인 알림">
+          로그인 성공하셨습니다.
+        </Modal>
       </Container>
     </PageContainer>
   );

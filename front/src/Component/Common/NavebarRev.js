@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import MediaQuery from 'react-responsive';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mark from './Img/mark.png';
+import AuthContext from '../../store/AuthContext';
 
 const LongContainer = styled.header`
   display: flex;
@@ -160,69 +161,99 @@ const MenuList = styled.li`
 
 export const LongNavbarBox = () => {
   const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   const [Assetclicked, setAssetclicked] = useState(true);
-  // const [Communityclicked, setCommunityclicked] = useState(true);
-  // eslint-disable-next-line prettier/prettier
-  // const handleClickCommunity = () => {
-  //   setAssetclicked(true);
-  //   setCommunityclicked(!Communityclicked);
-  // };
+  const [Infoclicked, setInfoclicked] = useState(true);
+
   const handleClickAsset = () => {
-    // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
+  };
+  const handleClickInfo = () => {
+    setAssetclicked(true);
+    // setCommunityclicked(true);
+    setInfoclicked(!Infoclicked);
   };
 
   return (
     <>
       <MediaQuery minWidth={800} maxWidth={999999}>
-        <LongContainer>
-          <MarkBox onClick={() => navigate('/')}></MarkBox>
-          <RowDropMenuBox>
-            <Menu onClick={() => navigate('/login')}>로그인</Menu>
-            <Menu onClick={() => navigate('/signup')}>회원가입</Menu>
-            {Assetclicked ? (
-              <>
-                <Menu onClick={handleClickAsset}>자산&목표</Menu>
-              </>
-            ) : (
-              <>
-                <Menu onClick={handleClickAsset}>
-                  자산&목표
-                  <MenuTopList>
-                    <MenuList onClick={() => navigate('/assetchange')}>
-                      자산현황
-                    </MenuList>
-                    <MenuList onClick={() => navigate('/assettargetpage')}>
-                      목표현황
-                    </MenuList>
-                  </MenuTopList>
-                </Menu>
-              </>
-            )}
-            <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
-            {/* {Communityclicked ? (
-              <>
-                
-              </>
-            ) : (
-              <>
-                <Menu onClick={handleClickCommunity}>
-                  커뮤니티
-                  <MenuTopList>
-                    <MenuList onClick={() => navigate('/freeboard')}>
-                      자유게시판
-                    </MenuList>
-                    <MenuList onClick={() => navigate('/assetboard')}>
-                      <p>자산공유</p>
-                      <p>게시판</p>
-                    </MenuList>
-                  </MenuTopList>
-                </Menu>
-              </>
-            )} */}
-          </RowDropMenuBox>
-        </LongContainer>
+        {!isLoggedIn && (
+          <LongContainer>
+            <MarkBox onClick={() => navigate('/')}></MarkBox>
+            <RowDropMenuBox>
+              <Menu onClick={() => navigate('/login')}>로그인</Menu>
+              <Menu onClick={() => navigate('/signup')}>회원가입</Menu>
+              {Assetclicked ? (
+                <>
+                  <Menu onClick={handleClickAsset}>자산&목표</Menu>
+                </>
+              ) : (
+                <>
+                  <Menu onClick={handleClickAsset}>
+                    자산&목표
+                    <MenuTopList>
+                      <MenuList onClick={() => navigate('/assetchange')}>
+                        자산현황
+                      </MenuList>
+                      <MenuList onClick={() => navigate('/assettargetpage')}>
+                        목표현황
+                      </MenuList>
+                    </MenuTopList>
+                  </Menu>
+                </>
+              )}
+              <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+            </RowDropMenuBox>
+          </LongContainer>
+        )}
+        {isLoggedIn && (
+          <LongContainer>
+            <MarkBox onClick={() => navigate('/')}></MarkBox>
+            <RowDropMenuBox>
+              {Infoclicked ? (
+                <>
+                  <Menu onClick={handleClickInfo}>마이페이지</Menu>
+                </>
+              ) : (
+                <>
+                  <Menu onClick={handleClickInfo}>
+                    마이페이지
+                    <MenuTopList>
+                      <MenuList onClick={() => navigate('/mypage')}>
+                        마이페이지
+                      </MenuList>
+                      <MenuList onClick={() => navigate('/myinfopage')}>
+                        회원정보수정
+                      </MenuList>
+                    </MenuTopList>
+                  </Menu>
+                </>
+              )}
+              {Assetclicked ? (
+                <>
+                  <Menu onClick={handleClickAsset}>자산&목표</Menu>
+                </>
+              ) : (
+                <>
+                  <Menu onClick={handleClickAsset}>
+                    자산&목표
+                    <MenuTopList>
+                      <MenuList onClick={() => navigate('/assetchange')}>
+                        자산현황
+                      </MenuList>
+                      <MenuList onClick={() => navigate('/assettargetpage')}>
+                        목표현황
+                      </MenuList>
+                    </MenuTopList>
+                  </Menu>
+                </>
+              )}
+              <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+              <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
+            </RowDropMenuBox>
+          </LongContainer>
+        )}
       </MediaQuery>
     </>
   );
@@ -297,26 +328,6 @@ export const LongLoginNavbarBox = () => {
               </>
             )}
             <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
-            {/* {Communityclicked ? (
-              <>
-                
-              </>
-            ) : (
-              <>
-                <Menu onClick={handleClickCommunity}>
-                  커뮤니티
-                  <MenuTopList>
-                    <MenuList onClick={() => navigate('/freeboard')}>
-                      자유게시판
-                    </MenuList>
-                    <MenuList onClick={() => navigate('/assetboard')}>
-                      <p>자산공유</p>
-                      <p>게시판</p>
-                    </MenuList>
-                  </MenuTopList>
-                </Menu>
-              </>
-            )} */}
             <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
           </RowDropMenuBox>
         </LongContainer>
