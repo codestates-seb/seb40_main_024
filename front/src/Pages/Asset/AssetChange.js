@@ -278,29 +278,29 @@ function AssetChange() {
   const [FourAssetTitle, setFourAssetTitle] = useState(0);
   const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
   const [SixAssetTitle, setSixAssetTitle] = useState(0);
-
+  console.log(Data);
   // console.log(Data.map((data) => console.log(data)));
 
-  // const Postlogindata = {
-  //   email: 'name33@gmail.com',
-  //   password: 'name33name33',
-  // };
-  // // eslint-disable-next-line no-unused-vars
-  // const postloginApi = async () => {
-  //   await axios
-  //     .post(`${URL}/member/login`, Postlogindata)
-  //     .then((res) => {
-  //       const { accessToken } = res.headers.authorization;
+  const Postlogindata = {
+    email: 'name33@gmail.com',
+    password: 'name33name33',
+  };
+  // eslint-disable-next-line no-unused-vars
+  const postloginApi = async () => {
+    await axios
+      .post(`${URL}/member/login`, Postlogindata)
+      .then((res) => {
+        // const { accessToken } = res.headers.authorization;
 
-  //       // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-  //       axios.defaults.headers.common[
-  //         'Authorization'
-  //       ] = `Bearer ${accessToken}`;
+        // // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        // axios.defaults.headers.common[
+        //   'Authorization'
+        // ] = `Bearer ${accessToken}`;
 
-  //       console.log(res.headers.authorization, { accessToken });
-  //     })
-  //     .catch((err) => openCashModal());
-  // };
+        console.log(res);
+      })
+      .catch((err) => openCashModal());
+  };
   //  {
   // const { accessToken } = res.headers.authorization;
 
@@ -521,7 +521,6 @@ function AssetChange() {
   useEffect(() => {
     getAssetsApi();
     // postloginApi();
-    console.log(Data);
   }, []);
 
   useEffect(() => {
@@ -616,7 +615,7 @@ function AssetChange() {
                 {Data ? (
                   <>
                     <AssetListBox>
-                      <H3Title> 1 &nbsp;) </H3Title>
+                      <H3Title style={{ marginTop: '10px' }}>1 &nbsp;)</H3Title>
                       {AssetTitle[0] === undefined ? (
                         <H3Title>
                           명칭
@@ -641,7 +640,7 @@ function AssetChange() {
                       <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
                     </AssetListBox>
 
-                    <H3Title> 2 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 2 &nbsp;) </H3Title>
                     {AssetTitle[1] === undefined ? (
                       <H3Title>
                         명칭
@@ -665,7 +664,7 @@ function AssetChange() {
                     )}
                     <H3>총 금액: &nbsp;{TwoAssetValuestarget}원</H3>
 
-                    <H3Title> 3 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 3 &nbsp;) </H3Title>
                     {AssetTitle[2] === undefined ? (
                       <H3Title>
                         명칭
@@ -689,7 +688,7 @@ function AssetChange() {
                     )}
                     <H3>총 금액: &nbsp;{ThreeAssetValuestarget}원</H3>
 
-                    <H3Title> 4 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 4 &nbsp;) </H3Title>
                     {AssetTitle[3] === undefined ? (
                       <H3Title>
                         명칭
@@ -713,7 +712,7 @@ function AssetChange() {
                     )}
                     <H3>총 금액: &nbsp;{FourAssetValuestarget}원</H3>
 
-                    <H3Title> 5 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 5 &nbsp;) </H3Title>
                     {AssetTitle[4] === undefined ? (
                       <H3Title>
                         명칭
@@ -737,7 +736,7 @@ function AssetChange() {
                     )}
                     <H3>총 금액: &nbsp;{FiveAssetValuestarget}원</H3>
 
-                    <H3Title> 6 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 6 &nbsp;) </H3Title>
                     {AssetTitle[5] === undefined ? (
                       <H3Title>
                         명칭

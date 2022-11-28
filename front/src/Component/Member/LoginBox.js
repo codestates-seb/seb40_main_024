@@ -162,8 +162,9 @@ export const LoginBox = () => {
 
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
-
+  console.log(authCtx);
   const abc = !(isEmail && isPassword);
+
   // 이메일
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -208,12 +209,19 @@ export const LoginBox = () => {
     email: email,
     password: password,
   };
+
+  // eslint-disable-next-line no-unused-vars
+  const JWT_EXPIRY_TIME = 24 * 3600 * 1000;
+
   const PostLogin = async () => {
     try {
       const req = await axios.post(`${URL}/member/login`, DataLogin);
       const reqToken = req.headers.get('authorization');
+      // const reqRefreshToken = req.headers.get('Refresh');
       authCtx.login(reqToken);
       openModal();
+      // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
+      console.log('req.headers', req.headers);
     } catch (e) {
       console.log(e);
     }
