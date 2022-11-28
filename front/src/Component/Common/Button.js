@@ -210,25 +210,25 @@ export const ButtonSignup = () => {
 };
 
 //목표수정 페이지
-export const PlusBtn = ({ HandlerAdd }) => {
+export const SaveBtn = ({ HandlerAdd }) => {
   return (
-    <ButtonBB onClick={HandlerAdd} style={{ marginTop: '90px' }}>
-      목표 추가
-    </ButtonBB>
+    <ButtonCC onClick={HandlerAdd} style={{ marginBottom: '30px' }}>
+      Saving
+    </ButtonCC>
   );
 };
 
-export const SaveBtn = ({ savings, handlerModal }) => {
+export const PlusBtn = ({ savings, goalPost }) => {
   return (
-    <ButtonBB
+    <ButtonCC
       type="number"
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={handlerModal}
+      onClick={goalPost}
     >
       START
-    </ButtonBB>
+    </ButtonCC>
   );
 };
 //마이페이지, 회원정보수정
@@ -274,11 +274,11 @@ export const AddCommentBtn = ({ commentPost }) => {
     </ButtonAA>
   );
 };
-export const ModifyCommentBtn = ({ commentPatch, id }) => {
+export const ModifyCommentBtn = ({ id, handlerClickEdit }) => {
   return (
     <ButtonAA
       style={{ marginBottom: '10px' }}
-      onClick={commentPatch}
+      onClick={handlerClickEdit}
       data-id={id}
     >
       수정
@@ -289,6 +289,18 @@ export const DeleteCommentBtn = ({ commentDelete, id }) => {
   return (
     <ButtonAA onClick={commentDelete} data-id={id}>
       삭제
+    </ButtonAA>
+  );
+};
+
+export const CompleteBtn = ({ commentPatch, id }) => {
+  return (
+    <ButtonAA
+      style={{ marginBottom: '10px' }}
+      onClick={commentPatch}
+      data-id={id}
+    >
+      완료
     </ButtonAA>
   );
 };

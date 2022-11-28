@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import styled from 'styled-components';
 import {
-  LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import {
   TitleCashBtn,
@@ -494,8 +494,9 @@ function AssetChange() {
 
   return (
     <>
-      <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      <LongNavbarBox />
+      <MiniNavbarBox />
+
       {Data ? (
         <>
           <MainPage>
@@ -745,8 +746,8 @@ function AssetChange() {
         </>
       ) : (
         <>
-          <LongLoginNavbarBox />
-          <MiniLoginNavbarBox />
+          <LongNavbarBox />
+          <MiniNavbarBox />
           <LoadingDiv>
             <div className="lds-ring">
               <div></div>
