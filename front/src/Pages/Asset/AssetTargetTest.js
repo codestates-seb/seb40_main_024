@@ -118,6 +118,7 @@ const AssetTargetPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [target, setTarget] = useState('');
   const [savings, setSavings] = useState(''); // 저축횟수
+
   // eslint-disable-next-line no-unused-vars
   // const [texttarget, setTexttarget] = useState(''); // 횟수별 저축액
   // const [countList, setCountList] = useState([
@@ -152,6 +153,8 @@ const AssetTargetPage = () => {
   } else if (monthly === Infinity) {
     monthly = 0;
   }
+
+  // const [targetAmount, setTargetAmount] = useState(monthly);
 
   const targetAmount = monthly
     .toString()
@@ -206,39 +209,51 @@ const AssetTargetPage = () => {
 
   // const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
 
-  useEffect(() => {
-    const goalGet = async () => {
-      try {
-        const res = await axios.get(`${url}1/goal`);
-        // console.log('get', res.data._embedded.responseList);
-        console.log(res);
-      } catch (err) {
-        console.log('error', err);
-      }
-    };
-    goalGet();
-  }, []);
+  // useEffect(() => {
+  const goalGet = async () => {
+    try {
+      const res = await axios.get(`${url}1/goal`);
+      // setGoal(res.data._embedded.responseList.goalName); //responseList오류
+      // setExtended(res.data._embedded.responseList.goalPrice);
+      // setPeriod(res.data._embedded.responseList.targetLength);
+      // setTarget(res.data._embedded.responseList.calculatedPrice);
+      console.log('get', res.data._embedded.responseList[0].goalId);
+      console.log(res);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
+
+  // }, []);
 
   const goalPost = async () => {
     const data = {
       goalName: goal,
       goalPrice: extended,
       targetLength: period,
+      calculatedPrice: targetAmount,
     };
     try {
       const res = await axios.post(`${url}1/goal`, data);
-      // setGoal(res.data._embedded.responseList.goalName);//responseList오류
+      // setGoal(res.data._embedded.responseList.goalName); //responseList오류
       // setExtended(res.data._embedded.responseList.goalPrice);
       // setPeriod(res.data._embedded.responseList.targetLength);
       // setTarget(res.data._embedded.responseList.calculatedPrice);
       setGoal('');
       setExtended('');
       setPeriod('');
+
       setTarget('');
       setCountList([
         ...countList,
-        { goal: goal, extended: extended, period: period, target: target },
+        {
+          goal: goal,
+          extended: extended,
+          period: period,
+          targetAmount: targetAmount,
+        },
       ]);
+      console.log(countList);
       console.log('post', res);
       // console.log('post', res.data._embedded.responseList);
     } catch (err) {
@@ -247,7 +262,7 @@ const AssetTargetPage = () => {
   };
   const goalDelete = async (e) => {
     try {
-      const res = await axios.delete(`${url}/1/goal/38`);
+      const res = await axios.delete(`${url}/1/goal/22`);
 
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
@@ -257,6 +272,7 @@ const AssetTargetPage = () => {
   };
 
   useEffect(() => {
+    goalGet();
     goalPost();
   }, [setGoal, setExtended, setPeriod]);
 
@@ -294,6 +310,7 @@ const AssetTargetPage = () => {
                 monthly={monthly}
                 extended={extended}
                 period={period}
+                countList={countList}
               />
             </ChartBox>
           </ChartContain>
@@ -337,6 +354,9 @@ const AssetTargetPage = () => {
                   count={count}
                   key={id}
                   id={count.goalId}
+                  goal={goal}
+                  extended={extended}
+                  period={period}
                   HandlerRemove={HandlerRemove}
                   HandlerAddCount={HandlerAddCount}
                   setGoal={setGoal}
@@ -344,8 +364,9 @@ const AssetTargetPage = () => {
                   setPeriod={setPeriod}
                   target={target}
                   savings={savings}
-                  period={period}
                   goalDelete={goalDelete}
+                  targetAmount={targetAmount}
+                  // setTargetAmount={setTargetAmount}
                 ></AssetList>
               ))}
             </BoxContain>

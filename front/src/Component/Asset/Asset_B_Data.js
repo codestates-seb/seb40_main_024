@@ -31,7 +31,7 @@ export const AssetBdata = ({ extended, period, goal }) => {
       amt: 2400,
     },
     {
-      name: 'Page B',
+      name: '목표2',
       목표율: 100,
       현재: 10,
       amt: 2210,

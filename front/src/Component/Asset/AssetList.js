@@ -84,6 +84,7 @@ const TextBox = styled.div`
 const AssetList = ({
   //   HandlerRemove,
   //   post,
+  count,
   goalDelete,
   setGoal,
   setExtended,
@@ -92,6 +93,8 @@ const AssetList = ({
   goal,
   extended,
   period,
+  targetAmount,
+  setTargetAmount,
 }) => {
   const [save, setSave] = useState(false);
   // const [count, setCount] = useState(1);
@@ -111,6 +114,7 @@ const AssetList = ({
   //   const handlerCloseModal = () => {
   //     setSave(false);
   //   };
+
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -136,7 +140,9 @@ const AssetList = ({
             type="text"
             onChange={(e) => setGoal(e.target.value)}
             value={goal}
-          />
+          >
+            {count.goal}
+          </SettingInput>
           목표 금액(원)
           <SettingInput
             placeholder="30,000,000원"
@@ -144,7 +150,7 @@ const AssetList = ({
             onChange={(e) => setExtended(e.target.value)}
             value={extended}
           >
-            {extended}
+            {count.extended}
           </SettingInput>
           목표 기간(개월)
           <SettingInput
@@ -152,9 +158,16 @@ const AssetList = ({
             type="number"
             onChange={(e) => setPeriod(e.target.value)}
             value={period}
-          />
+          >
+            {count.period}
+          </SettingInput>
           목표달성을 위한 매달 저축액은?
-          <TextBox>원!</TextBox>
+          <TextBox
+            onChange={(e) => setTargetAmount(e.target.value)}
+            value={targetAmount}
+          >
+            {count.targetAmount}원!
+          </TextBox>
           <SaveBtn handlerModal={handlerModal}></SaveBtn>
         </ComponentContain>
       </div>
