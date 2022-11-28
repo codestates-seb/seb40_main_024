@@ -223,7 +223,6 @@ export const LoginBox = () => {
       const reqToken = req.headers.get('authorization');
       // const reqRefreshToken = req.headers.get('Refresh');
       authCtx.login(reqToken);
-
       openModal();
       // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
     } catch (e) {

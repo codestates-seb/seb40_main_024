@@ -6,6 +6,8 @@ const AuthContext = createContext({
   // eslint-disable-next-line no-unused-vars
   login: (token) => {},
   logout: () => {},
+  // eslint-disable-next-line no-unused-vars
+  parseJwt: (token) => {},
 });
 
 export const AuthContextProvider = (props) => {
@@ -26,11 +28,26 @@ export const AuthContextProvider = (props) => {
     localStorage.removeItem('token');
   };
 
+  const parseJwtHandler = (token) => {
+    let base64Url = token.split('.')[1];
+    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    let jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(function (c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join('')
+    );
+    return JSON.parse(jsonPayload);
+  };
+
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
+    parseJwt: parseJwtHandler(token),
   };
 
   return (

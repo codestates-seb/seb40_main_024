@@ -256,33 +256,6 @@ const AssetListBox = styled.div`
   }
 `;
 
-// export const tokenDescrambling = () => {
-//   const authCtx = useContext(AuthContext);
-//   let token = authCtx.token;
-//   console.log(token);
-//   useEffect(() => {
-//     parseJwt(token);
-//     console.log(parseJwt(token));
-//   }, []);
-
-//   const parseJwt = (token) => {
-//     let base64Url = token.split('.')[1];
-//     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-//     let jsonPayload = decodeURIComponent(
-//       window
-//         .atob(base64)
-//         .split('')
-//         .map((c) => {
-//           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-//         })
-//         .join('')
-//     );
-//     return JSON.parse(jsonPayload);
-//   };
-//   parseJwt(token);
-//   console.log(parseJwt(token));
-// };
-
 function AssetChange() {
   const authCtx = useContext(AuthContext);
   const [TextModalopen, setTextModalopen] = useState(false);
@@ -295,58 +268,9 @@ function AssetChange() {
   const [EditText, setEditText] = useState('');
   const [Data, setData] = useState('');
 
-  const [OneAssetValues, setOneAssetValues] = useState(0);
-  const [TwoAssetValues, setTwoAssetValues] = useState(0);
-  const [ThreeAssetValues, setThreeAssetValues] = useState(0);
-  const [FourAssetValues, setFourAssetValues] = useState(0);
-  const [FiveAssetValues, setFiveAssetValues] = useState(0);
-  const [SixAssetValues, setSixAssetValues] = useState(0);
-  const [OneAssetTitle, setOneAssetTitle] = useState(0);
-  const [TwoAssetTitle, setTwoAssetTitle] = useState(0);
-  const [ThreeAssetTitle, setThreeAssetTitle] = useState(0);
-  const [FourAssetTitle, setFourAssetTitle] = useState(0);
-  const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
-  const [SixAssetTitle, setSixAssetTitle] = useState(0);
-  console.log(authCtx);
-  // console.log(Data.map((data) => console.log(data)));
-
-  const Postlogindata = {
-    email: 'name33@gmail.com',
-    password: 'name33name33',
-  };
-  // eslint-disable-next-line no-unused-vars
-  const postloginApi = async () => {
-    await axios
-      .post(`${URL}/member/login`, Postlogindata)
-      .then((res) => {
-        // const { accessToken } = res.headers.authorization;
-
-        // // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-        // axios.defaults.headers.common[
-        //   'Authorization'
-        // ] = `Bearer ${accessToken}`;
-
-        console.log(res);
-      })
-      .catch((err) => openCashModal());
-  };
-  //  {
-  // const { accessToken } = res.headers.authorization;
-
-  // // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
-  // axios.defaults.headers.common[
-  //   'Authorization'
-  // ] = `Bearer ${accessToken}`;
-  // })
+  console.log(authCtx.parseJwt.id);
 
   //? POST
-  // const Postdata = {
-  //   // eslint-disable-next-line prettier/prettier
-  //   assetType: Cash,
-  //   // eslint-disable-next-line prettier/prettier
-  //   assetValue: Text
-  // };
-
   const Postdata = {
     assetType: Text,
     assetValue: Cash,
@@ -380,7 +304,7 @@ function AssetChange() {
   // eslint-disable-next-line no-unused-vars
   const getAssetsApi = async () => {
     await axios
-      .get(`${URL}/asset`)
+      .get(`${URL}/member/${authCtx.parseJwt.id}`)
       .then((res) => setData(res.data))
       .catch((err) => console.log(err));
   };
@@ -443,114 +367,23 @@ function AssetChange() {
     ','
   );
 
-  let title = [];
-  {
-    Data
-      ? Data.map((data) => {
-          title.push(data.assetType);
-        })
-      : null;
-  }
-  const AssetTitle = [...new Set(title)];
-  if (AssetTitle.length < 7) {
-    for (let i = 0; i < 7 - AssetTitle.length; i++) {
-      AssetTitle.push(undefined);
-    }
-  }
-
-  let OneAsset = 0;
-  let TwoAsset = 0;
-  let ThreeAsset = 0;
-  let FourAsset = 0;
-  let FiveAsset = 0;
-  let SixAsset = 0;
-
-  {
-    Data
-      ? Data.map((data) => {
-          return data.assetType === AssetTitle[0]
-            ? (OneAsset += data.assetValue)
-            : data.assetType === AssetTitle[1]
-            ? (TwoAsset += data.assetValue)
-            : data.assetType === AssetTitle[2]
-            ? (ThreeAsset += data.assetValue)
-            : data.assetType === AssetTitle[3]
-            ? (FourAsset += data.assetValue)
-            : data.assetType === AssetTitle[4]
-            ? (FiveAsset += data.assetValue)
-            : data.assetType === AssetTitle[5]
-            ? (SixAsset += data.assetValue)
-            : null;
-        })
-      : null;
-  }
-
-  useEffect(() => {
-    setOneAssetValues(OneAsset);
-    setTwoAssetValues(TwoAsset);
-    setThreeAssetValues(ThreeAsset);
-    setFourAssetValues(FourAsset);
-    setFiveAssetValues(FiveAsset);
-    setSixAssetValues(SixAsset);
-  }, [OneAsset, TwoAsset, ThreeAsset, FourAsset, FiveAsset, SixAsset]);
-
-  useEffect(() => {
-    setOneAssetTitle(AssetTitle[0]);
-    setTwoAssetTitle(AssetTitle[1]);
-    setThreeAssetTitle(AssetTitle[2]);
-    setFourAssetTitle(AssetTitle[3]);
-    setFiveAssetTitle(AssetTitle[4]);
-    setSixAssetTitle(AssetTitle[5]);
-  }, [
-    AssetTitle[0],
-    AssetTitle[1],
-    AssetTitle[2],
-    AssetTitle[3],
-    AssetTitle[4],
-    AssetTitle[5],
-  ]);
-
+  // let title = [];
   // {
   //   Data
-  //     ? AssetTitle.map((title, idx) => {
-  //         return title === Text ? A
-  //         //   ? (TextCashTotal = data.assetValue + Cash)
-  //         //   : null;
-  //         console.log(title, idx);
+  //     ? Data.map((data) => {
+  //         title.push(data.assetType);
   //       })
   //     : null;
   // }
-  // console.log('TextCashTotal', TextCashTotal);
-
-  const OneAssetValuestarget = OneAssetValues.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-  const TwoAssetValuestarget = TwoAssetValues.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-  const ThreeAssetValuestarget = ThreeAssetValues.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-  const FourAssetValuestarget = FourAssetValues.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-  const FiveAssetValuestarget = FiveAssetValues.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-  const SixAssetValuestarget = SixAssetValues.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-  let token = authCtx.token;
+  // const AssetTitle = [...new Set(title)];
+  // if (AssetTitle.length < 7) {
+  //   for (let i = 0; i < 7 - AssetTitle.length; i++) {
+  //     AssetTitle.push(undefined);
+  //   }
+  // }
 
   useEffect(() => {
     getAssetsApi();
-    // postloginApi();
   }, []);
 
   useEffect(() => {
@@ -644,30 +477,30 @@ function AssetChange() {
                   <>
                     <AssetListBox>
                       <H3Title style={{ marginTop: '10px' }}>1 &nbsp;)</H3Title>
-                      {AssetTitle[0] === undefined ? (
-                        <H3Title>
-                          명칭
-                          <EditButton onClick={openEditTextModal}>
-                            <FiEdit />
-                          </EditButton>
-                          <EditButton onClick={deletAssetApi}>
-                            <FiDelete />
-                          </EditButton>
-                        </H3Title>
-                      ) : (
-                        <H3Title>
-                          {AssetTitle[0]}
-                          <EditButton onClick={openEditTextModal}>
-                            <FiEdit />
-                          </EditButton>
-                          <EditButton onClick={deletAssetApi}>
-                            <FiDelete />
-                          </EditButton>
-                        </H3Title>
-                      )}
-                      <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
+                      {/* {AssetTitle[0] === undefined ? ( */}
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openEditTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                        <EditButton onClick={deletAssetApi}>
+                          <FiDelete />
+                        </EditButton>
+                      </H3Title>
+                      {/* ) : ( */}
+                      <H3Title>
+                        명칭
+                        <EditButton onClick={openEditTextModal}>
+                          <FiEdit />
+                        </EditButton>
+                        <EditButton onClick={deletAssetApi}>
+                          <FiDelete />
+                        </EditButton>
+                      </H3Title>
+                      {/* )} */}
+                      <H3>총 금액: &nbsp;원</H3>
                     </AssetListBox>
-
+                    {/* 
                     <H3Title style={{ marginTop: '10px' }}> 2 &nbsp;) </H3Title>
                     {AssetTitle[1] === undefined ? (
                       <H3Title>
@@ -690,7 +523,7 @@ function AssetChange() {
                         </EditButton>
                       </H3Title>
                     )}
-                    <H3>총 금액: &nbsp;{TwoAssetValuestarget}원</H3>
+                    <H3>총 금액: &nbsp;원</H3>
 
                     <H3Title style={{ marginTop: '10px' }}> 3 &nbsp;) </H3Title>
                     {AssetTitle[2] === undefined ? (
@@ -714,7 +547,7 @@ function AssetChange() {
                         </EditButton>
                       </H3Title>
                     )}
-                    <H3>총 금액: &nbsp;{ThreeAssetValuestarget}원</H3>
+                    <H3>총 금액: &nbsp;원</H3>
 
                     <H3Title style={{ marginTop: '10px' }}> 4 &nbsp;) </H3Title>
                     {AssetTitle[3] === undefined ? (
@@ -738,7 +571,7 @@ function AssetChange() {
                         </EditButton>
                       </H3Title>
                     )}
-                    <H3>총 금액: &nbsp;{FourAssetValuestarget}원</H3>
+                    <H3>총 금액: &nbsp;원</H3>
 
                     <H3Title style={{ marginTop: '10px' }}> 5 &nbsp;) </H3Title>
                     {AssetTitle[4] === undefined ? (
@@ -762,7 +595,7 @@ function AssetChange() {
                         </EditButton>
                       </H3Title>
                     )}
-                    <H3>총 금액: &nbsp;{FiveAssetValuestarget}원</H3>
+                    <H3>총 금액: &nbsp;원</H3>
 
                     <H3Title style={{ marginTop: '10px' }}> 6 &nbsp;) </H3Title>
                     {AssetTitle[5] === undefined ? (
@@ -786,7 +619,7 @@ function AssetChange() {
                         </EditButton>
                       </H3Title>
                     )}
-                    <H3>총 금액: &nbsp;{SixAssetValuestarget}원</H3>
+                    <H3>총 금액: &nbsp;원</H3> */}
                   </>
                 ) : null}
 
@@ -861,132 +694,3 @@ function AssetChange() {
 }
 
 export default AssetChange;
-
-// {
-/* <H3>현재 보유 금: 90,000</H3>
-            <Div>
-              <Input
-                onChange={GoldonChange}
-                value={Gold}
-                type="number"
-                placeholder="수정할 현금을 적어주세요"
-              />
-              <div>
-                <GoldBtn openModal={openGoldModal}></GoldBtn>
-              </div>
-            </Div>
-            {Gold ? (
-              <Fade>
-                <P>{`수정할 금 은 ${Goldtarget} 원 입니다.`}</P>
-              </Fade>
-            ) : null}
-            <H3>현재 보유 다이아몬드: 10,000</H3>
-            <Div>
-              <Input
-                onChange={DiamondonChange}
-                value={Diamond}
-                type="number"
-                placeholder="수정할 현금을 적어주세요"
-              />
-              <div>
-                <DiamondBtn openModal={openDiamondModal}></DiamondBtn>
-              </div>
-            </Div>
-            {Diamond ? (
-              <Fade>
-                <P>{`수정할 다이아몬드는 ${Diamondtarget} 원 입니다.`}</P>
-              </Fade>
-            ) : null}
-            <H3>현재 보유 주식: 10,000</H3>
-            <Div>
-              <Input
-                onChange={StockonChange}
-                value={Stock}
-                type="number"
-                placeholder="수정할 현금을 적어주세요"
-              />
-              <div>
-                <StockBtn openModal={openStockModal}></StockBtn>
-              </div>
-            </Div>
-            {Stock ? (
-              <Fade>
-                <P>{`수정할 주식은 ${Stocktarget} 원 입니다.`}</P>
-              </Fade>
-            ) : null} */
-// }
-// {
-/* <Btn>
-              <AssetchangeBtn />
-            </Btn> */
-// }
-
-// {
-/* {Data.map((data) => {
-                  if (data.assetType === '현금') {
-                    CashAssetValues += data.assetValue;
-                  }
-                })}
-                <div>띄어쓰기</div>
-                {Data.map((data) => (
-                  <>
-                    <H3>{data.assetType}</H3>
-                    <H3>총 금액: {data.assetValue}원</H3>
-                  </>
-                ))} */
-// }
-// {
-/* {Data ? (
-                  Data.map((data) => {
-                    <>
-                      <div key={data.assetId}>
-                        <H3>{data.assetType}</H3>
-                        <H3>총 금액: {data.assetValue}원</H3>
-                      </div>
-                    </>;
-                  })
-                ) : (
-                  <>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                  </>
-                )} */
-// }
-// {
-/* 
-                {Data ? (
-                  <>
-                    <H3>{Data[1].assetType}</H3>
-                    <H3>총 금액: {Data[1].assetValue}원</H3>
-                  </>
-                ) : (
-                  <>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                  </>
-                )}
-
-                {Data ? (
-                  <>
-                    <H3>{Data[2].assetType}</H3>
-                    <H3>총 금액: {Data[2].assetValue}원</H3>
-                  </>
-                ) : (
-                  <>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                  </>
-                )}
-
-                {Data ? (
-                  <>
-                    <H3>{Data[3].assetType}</H3>
-                    <H3>총 금액: {Data[3].assetValue}원</H3>
-                  </>
-                ) : (
-                  <>
-                    <H3>&nbsp;&lt;&nbsp;자산명칭&nbsp;&gt;&nbsp;</H3>
-                    <H3>&nbsp;총 금액: 0원</H3>
-                  </>
-                )} */
-// }

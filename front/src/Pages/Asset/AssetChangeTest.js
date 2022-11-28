@@ -4,22 +4,16 @@ import {
   LongNavbarBox,
   MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
-import {
-  TitleCashBtn,
-  // GoldBtn,
-  // DiamondBtn,
-  // eslint-disable-next-line no-unused-vars
-  // StockBtn,
-} from '../../Component/Common/Button';
+import { TitleCashBtn } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
-import { useState, useEffect } from 'react';
-import { Modal } from '../../Component/Common/Modal';
+import { useState, useEffect, useContext } from 'react';
+import { Modal, AssetTextEditModal } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import { FiEdit, FiDelete } from 'react-icons/fi';
-// import '../../Component/Asset/Asset_A_Data.css';
+import AuthContext from '../../store/AuthContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -43,7 +37,16 @@ const TopPage = styled.div`
   /* border: 1px solid green; */
 `;
 
+const BottomPage = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid green;
+`;
+
 const MainContain = styled.div`
+  margin-left: 120px;
   /* border: 1px solid pink; */
   /* margin-top: 400px; */
 `;
@@ -56,8 +59,12 @@ const ChartContain = styled.div`
   box-sizing: border-box;
   width: 800px;
   height: 800px;
-  padding: 35px;
+  margin-right: 120px;
   /* border: 1px solid red; */
+  div {
+    width: 800px;
+    height: 800px;
+  }
 `;
 
 const H1 = styled.h1`
@@ -65,7 +72,7 @@ const H1 = styled.h1`
   border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
   margin-left: 13px;
-  width: 170px;
+  width: 200px;
 `;
 
 const H2 = styled.h2`
@@ -73,7 +80,7 @@ const H2 = styled.h2`
   border-bottom: 5px solid #8ec3b0;
   color: #9ed5c5;
   margin-left: 13px;
-  width: 180px;
+  width: 190px;
   margin-top: 100px;
 `;
 
@@ -160,6 +167,7 @@ const GraphH1 = styled.h1`
   box-sizing: border-box;
   height: 50px;
   margin-top: 300px;
+  margin-bottom: 150px;
   width: 450px;
   font-size: 50px;
   align-items: center;
@@ -223,7 +231,7 @@ const EditButton = styled.button`
   :hover {
     color: #9ed5c5;
     letter-spacing: 1px;
-    transform: scale(1.3);
+    transform: scale(1.5);
   }
 
   :active {
@@ -248,14 +256,45 @@ const AssetListBox = styled.div`
   }
 `;
 
+// export const tokenDescrambling = () => {
+//   const authCtx = useContext(AuthContext);
+//   let token = authCtx.token;
+//   console.log(token);
+//   useEffect(() => {
+//     parseJwt(token);
+//     console.log(parseJwt(token));
+//   }, []);
+
+//   const parseJwt = (token) => {
+//     let base64Url = token.split('.')[1];
+//     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     let jsonPayload = decodeURIComponent(
+//       window
+//         .atob(base64)
+//         .split('')
+//         .map((c) => {
+//           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//         })
+//         .join('')
+//     );
+//     return JSON.parse(jsonPayload);
+//   };
+//   parseJwt(token);
+//   console.log(parseJwt(token));
+// };
+
 function AssetChange() {
+  const authCtx = useContext(AuthContext);
   const [TextModalopen, setTextModalopen] = useState(false);
   const [errTextModalopen, seterrTextModalopen] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
+
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
+  const [EditText, setEditText] = useState('');
   const [Data, setData] = useState('');
+
   const [OneAssetValues, setOneAssetValues] = useState(0);
   const [TwoAssetValues, setTwoAssetValues] = useState(0);
   const [ThreeAssetValues, setThreeAssetValues] = useState(0);
@@ -268,9 +307,37 @@ function AssetChange() {
   const [FourAssetTitle, setFourAssetTitle] = useState(0);
   const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
   const [SixAssetTitle, setSixAssetTitle] = useState(0);
-  console.log(Data);
+  console.log(authCtx);
   // console.log(Data.map((data) => console.log(data)));
-  //
+
+  const Postlogindata = {
+    email: 'name33@gmail.com',
+    password: 'name33name33',
+  };
+  // eslint-disable-next-line no-unused-vars
+  const postloginApi = async () => {
+    await axios
+      .post(`${URL}/member/login`, Postlogindata)
+      .then((res) => {
+        // const { accessToken } = res.headers.authorization;
+
+        // // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+        // axios.defaults.headers.common[
+        //   'Authorization'
+        // ] = `Bearer ${accessToken}`;
+
+        console.log(res);
+      })
+      .catch((err) => openCashModal());
+  };
+  //  {
+  // const { accessToken } = res.headers.authorization;
+
+  // // API 요청하는 콜마다 헤더에 accessToken 담아 보내도록 설정
+  // axios.defaults.headers.common[
+  //   'Authorization'
+  // ] = `Bearer ${accessToken}`;
+  // })
 
   //? POST
   // const Postdata = {
@@ -289,37 +356,33 @@ function AssetChange() {
     await axios
       .post(`${URL}member/1/asset`, Postdata)
       .then((res) => openCashModal())
-      .catch((err) => console.log(err));
+      .catch((err) => openCashModal());
   };
   //?
 
   //? PATCH
   // eslint-disable-next-line no-unused-vars
-  // const data2 = {
-  //   // eslint-disable-next-line prettier/prettier
-  //   assetType: Text,
-  //   // eslint-disable-next-line prettier/prettier
-  //   assetValue: Cash,
-  // };
-  // const Patchdata = {
-  //   assetType: '비상금',
-  //   assetValue: '+100000',
-  // };
+  const Patchdata = {
+    assetType: EditText,
+    strValue: '+1000',
+  };
 
-  // // eslint-disable-next-line no-unused-vars
-  // const patchApi = async () => {
-  //   await axios
-  //     .patch(`${URL}member/0/asset/3`, Patchdata)
-  //     .then((res) => openCashModal())
-  //     .catch((err) => console.log(err));
-  // };
+  // eslint-disable-next-line no-unused-vars
+  const patchAssetsApi = async () => {
+    await axios
+      .patch(`${URL}/member/1/asset/1`, Patchdata)
+      .then((res) => openEditTextModal())
+      .catch((err) => console.log(err));
+  };
   //?
 
   //? GET
   // eslint-disable-next-line no-unused-vars
   const getAssetsApi = async () => {
-    const Datas = await axios.get(`${URL}/asset`);
-    setData(Datas.data);
+    await axios
+      .get(`${URL}/asset`)
+      .then((res) => setData(res.data))
+      .catch((err) => console.log(err));
   };
   //?
 
@@ -327,31 +390,29 @@ function AssetChange() {
   // eslint-disable-next-line no-unused-vars
   async function deletAssetApi() {
     await axios
-      .delete(`${URL}member/1/asset/4`)
+      .delete(`${URL}/member/1/asset/4`)
       .then((res) => openCashModal())
       .catch((err) => console.log(err));
   }
   //?
 
-  const openTextModal = () => {
-    if (Text) {
-      setTextModalopen(true);
-    } else {
-      seterrTextModalopen(true);
-    }
+  const openEditTextModal = () => {
+    setTextModalopen(true);
   };
+
   const openCashModal = () => {
-    if (Cash) {
-      setModalopen(true);
-    } else {
-      seterrModalopen(true);
-    }
+    Text && Cash && isNaN(Cash) === false
+      ? setModalopen(true)
+      : Text || Cash || isNaN(Cash) === true
+      ? seterrModalopen(true)
+      : null;
   };
 
   const closeModal = () => {
     setModalopen(false);
     setTextModalopen(false);
   };
+
   const errcloseModal = () => {
     seterrModalopen(false);
     seterrTextModalopen(false);
@@ -359,6 +420,9 @@ function AssetChange() {
 
   const TextonChange = (e) => {
     setText(e.target.value);
+  };
+  const EditTextonChange = (e) => {
+    setEditText(e.target.value);
   };
 
   const CashonChange = (e) => {
@@ -429,7 +493,7 @@ function AssetChange() {
     setFiveAssetValues(FiveAsset);
     setSixAssetValues(SixAsset);
   }, [OneAsset, TwoAsset, ThreeAsset, FourAsset, FiveAsset, SixAsset]);
-  console.log('FourAsset', FourAsset);
+
   useEffect(() => {
     setOneAssetTitle(AssetTitle[0]);
     setTwoAssetTitle(AssetTitle[1]);
@@ -482,21 +546,21 @@ function AssetChange() {
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
+  let token = authCtx.token;
 
   useEffect(() => {
     getAssetsApi();
+    // postloginApi();
   }, []);
+
   useEffect(() => {
     getAssetsApi();
-  }, [Modalopen]);
-  useEffect(() => {}, [Text]);
-  useEffect(() => {}, [Cash]);
+  }, [Modalopen, TextModalopen, errTextModalopen, errModalopen, Text, Cash]);
 
   return (
     <>
       <LongNavbarBox />
       <MiniNavbarBox />
-
       {Data ? (
         <>
           <MainPage>
@@ -520,36 +584,70 @@ function AssetChange() {
                 >
                   자산 금액이 수정 되었습니다.
                 </Modal>
+
                 <Modal
                   open={errModalopen}
                   close={errcloseModal}
                   header="자산 금액 오류 알림"
                 >
-                  수정할 자산 금액을 숫자로만 입력해주세요
+                  <p>
+                    오류 : 수정할 자산명칭 및 자산 금액을 &#34; , &#34; 없이
+                  </p>
+                  <p style={{ marginLeft: '42px', marginTop: '10px' }}>
+                    숫자로만 입력해주세요.
+                  </p>
                 </Modal>
+
                 <Modal
                   open={TextModalopen}
                   close={closeModal}
                   header="자산 종류 수정 알림"
                 >
-                  자산 종류가 수정 되었습니다.
+                  변경할 자산 명칭 ( 현재 자산 명칭 : {Data[0].assetType})
+                  <Div>
+                    <Input
+                      onChange={EditTextonChange}
+                      value={EditText}
+                      type="text"
+                      placeholder="변경하실 자산 명칭을 적어주세요. (ex. 다이아몬드)"
+                    />
+                  </Div>
                 </Modal>
+
+                <AssetTextEditModal
+                  open={TextModalopen}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={patchAssetsApi}
+                >
+                  변경할 자산 명칭 ( 현재 자산 명칭 : {Text} )
+                  <Div>
+                    <Input
+                      onChange={EditTextonChange}
+                      value={EditText}
+                      type="text"
+                      placeholder="변경하실 자산 명칭을 적어주세요. (ex. 다이아몬드)"
+                    />
+                  </Div>
+                </AssetTextEditModal>
+
                 <Modal
                   open={errTextModalopen}
                   close={errcloseModal}
                   header="자산 종류 오류 알림"
                 >
-                  수정할 자산 종류를 입력해주세요
+                  오류 : 수정할 자산 종류를 입력해주세요
                 </Modal>
-                <H1>현재 자산</H1>
+
+                <H1>자산 리스트</H1>
                 {Data ? (
                   <>
                     <AssetListBox>
-                      <H3Title> 1 &nbsp;) </H3Title>
+                      <H3Title style={{ marginTop: '10px' }}>1 &nbsp;)</H3Title>
                       {AssetTitle[0] === undefined ? (
                         <H3Title>
                           명칭
-                          <EditButton onClick={openTextModal}>
+                          <EditButton onClick={openEditTextModal}>
                             <FiEdit />
                           </EditButton>
                           <EditButton onClick={deletAssetApi}>
@@ -559,7 +657,7 @@ function AssetChange() {
                       ) : (
                         <H3Title>
                           {AssetTitle[0]}
-                          <EditButton onClick={openTextModal}>
+                          <EditButton onClick={openEditTextModal}>
                             <FiEdit />
                           </EditButton>
                           <EditButton onClick={deletAssetApi}>
@@ -570,120 +668,120 @@ function AssetChange() {
                       <H3>총 금액: &nbsp;{OneAssetValuestarget}원</H3>
                     </AssetListBox>
 
-                    <H3Title> 2 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 2 &nbsp;) </H3Title>
                     {AssetTitle[1] === undefined ? (
                       <H3Title>
                         명칭
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     ) : (
                       <H3Title>
                         {AssetTitle[1]}
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     )}
                     <H3>총 금액: &nbsp;{TwoAssetValuestarget}원</H3>
 
-                    <H3Title> 3 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 3 &nbsp;) </H3Title>
                     {AssetTitle[2] === undefined ? (
                       <H3Title>
                         명칭
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     ) : (
                       <H3Title>
                         {AssetTitle[2]}
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     )}
                     <H3>총 금액: &nbsp;{ThreeAssetValuestarget}원</H3>
 
-                    <H3Title> 4 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 4 &nbsp;) </H3Title>
                     {AssetTitle[3] === undefined ? (
                       <H3Title>
                         명칭
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     ) : (
                       <H3Title>
                         {AssetTitle[3]}
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     )}
                     <H3>총 금액: &nbsp;{FourAssetValuestarget}원</H3>
 
-                    <H3Title> 5 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 5 &nbsp;) </H3Title>
                     {AssetTitle[4] === undefined ? (
                       <H3Title>
                         명칭
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     ) : (
                       <H3Title>
                         {AssetTitle[4]}
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     )}
                     <H3>총 금액: &nbsp;{FiveAssetValuestarget}원</H3>
 
-                    <H3Title> 6 &nbsp;) </H3Title>
+                    <H3Title style={{ marginTop: '10px' }}> 6 &nbsp;) </H3Title>
                     {AssetTitle[5] === undefined ? (
                       <H3Title>
                         명칭
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
                     ) : (
                       <H3Title>
                         {AssetTitle[5]}
-                        <EditButton onClick={openTextModal}>
+                        <EditButton onClick={openEditTextModal}>
                           <FiEdit />
                         </EditButton>
-                        <EditButton>
+                        <EditButton onClick={deletAssetApi}>
                           <FiDelete />
                         </EditButton>
                       </H3Title>
@@ -692,7 +790,7 @@ function AssetChange() {
                   </>
                 ) : null}
 
-                <H2>현재 자산 수정</H2>
+                <H2>자산 금액 수정</H2>
                 <Div>
                   <Input
                     onChange={TextonChange}
