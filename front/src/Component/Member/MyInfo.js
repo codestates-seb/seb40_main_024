@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import Profile from '../../Component/Member/Profile';
 import { NameUpdateBtn } from '../../Component/Common/Button';
+import AuthContext from '../../store/AuthContext';
+import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
 
 const MyPageContain = styled.div`
   display: flex;
@@ -109,12 +112,22 @@ const Div = styled.div`
 `;
 
 const MyInfo = () => {
-  const UserData = [
-    {
-      name: 'Hong',
-      email: 'hong024@gmail.com',
-    },
-  ];
+  const URL = process.env.REACT_APP_API_URL;
+  const authCtx = useContext(AuthContext);
+  const [Decode] = useState(authCtx.parseJwt);
+  const [username, setUsername] = useState();
+
+  useEffect(() => {
+    const Get = async () => {
+      try {
+        const res = await axios.get(`${URL}/member/${Decode.id}`);
+        setUsername(res.data.name);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    Get();
+  }, []);
 
   return (
     <MyPageContain>
@@ -131,10 +144,10 @@ const MyInfo = () => {
             <DivBox>
               <UserInfoHead>회원정보</UserInfoHead>
               <div className="input-box">
-                <div>{UserData[0].name}</div>
+                <div>{username}</div>
               </div>
               <div className="input-box">
-                <div>{UserData[0].email}</div>
+                <div>{Decode.email}</div>
               </div>
             </DivBox>
           </UserInfo>
@@ -142,10 +155,6 @@ const MyInfo = () => {
         <UserInfo>
           <UserInfoHead>구독 현황 확인</UserInfoHead>
           <InfoBox>2022.11.01 ~ 2022.11.30</InfoBox>
-        </UserInfo>
-        <UserInfo>
-          <UserInfoHead>내가 쓴 글</UserInfoHead>
-          <InfoBox>* 오늘 너무 빨리간다 시간이</InfoBox>
         </UserInfo>
       </Div>
     </MyPageContain>

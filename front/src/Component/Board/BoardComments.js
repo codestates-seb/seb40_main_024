@@ -314,10 +314,12 @@ const Comments = () => {
                           </TextBox>
                         </CommentBox>
                         <BtnBox>
-                          <CompleteBtn
-                            commentPatch={commentPatch}
-                            id={comment.commentId}
-                          />
+                          {CompleteBtn.id === CommentBox.id && (
+                            <CompleteBtn
+                              commentPatch={commentPatch}
+                              id={comment.commentId}
+                            />
+                          )}
                         </BtnBox>
                       </>
                     ) : (
