@@ -47,7 +47,7 @@ export const AuthContextProvider = (props) => {
     isLoggedIn: userIsLoggedIn,
     login: loginHandler,
     logout: logoutHandler,
-    parseJwt: parseJwtHandler(token),
+    parseJwt: userIsLoggedIn ? parseJwtHandler(token) : null,
   };
 
   return (
