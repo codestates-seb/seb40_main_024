@@ -6,8 +6,8 @@ import {
   UnSubscript,
 } from '../../Component/Common/Button';
 import { Modal } from '../Common/Modal';
-import { useState } from 'react';
-// eslint-disable-next-line no-unused-vars
+import AuthContext from '../../store/AuthContext';
+import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
 const MyPageContain = styled.div`
@@ -92,10 +92,9 @@ const DivBtn2 = styled.div`
 `;
 
 const MyInfoUpdate = () => {
-  // axios
-  //   .get('https://dry-moons-try-112-171-1-144.loca.lt/board/1')
-  //   .then((res) => console.log(res));
-
+  const URL = process.env.REACT_APP_API_URL;
+  const authCtx = useContext(AuthContext);
+  const [Decode] = useState(authCtx.parseJwt);
   const [Modalopen, setModalopen] = useState(false);
   const [unSub, setunSUb] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
@@ -136,6 +135,46 @@ const MyInfoUpdate = () => {
     setUserpassword(e.target.value);
   };
 
+  const UpdateData = {
+    email: useremail,
+    name: username,
+    password: userpassword,
+  };
+
+  const UserPatch = async () => {
+    try {
+      const req = await axios.patch(`${URL}/member/update`, UpdateData);
+      openModal();
+      console.log(req);
+    } catch (e) {
+      openModal();
+      console.log(e);
+    }
+  };
+
+  const UserDelete = async () => {
+    try {
+      const req = await axios.delete(`${URL}/member/delete/${Decode.id}`);
+      openModal();
+      console.log(req);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const UserGet = async () => {
+      try {
+        const res = await axios.get(`${URL}/member/${Decode.id}`);
+        setUsername(res.data.name);
+        setUseremail(res.data.email);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    UserGet();
+  }, []);
+
   return (
     <MyPageContain>
       <PageHeader>회원정보수정</PageHeader>
@@ -156,12 +195,13 @@ const MyInfoUpdate = () => {
                 placeholder="이메일"
               />
               <Input
+                type="password"
                 value={userpassword}
                 onChange={UserPasswordonChange}
                 placeholder="비밀번호"
               />
               <DivBtn>
-                <ReviseBtn openModal={openModal} />
+                <ReviseBtn UserPatch={UserPatch} />
               </DivBtn>
             </div>
           </UserInfo>
@@ -173,7 +213,7 @@ const MyInfoUpdate = () => {
             <UnSubscript openModal={openUnSub} />
           </InfoBox>
           <DivBtn2>
-            <SignOutBtn />
+            <SignOutBtn UserDelete={UserDelete} />
           </DivBtn2>
         </UserInfo>
         <Modal open={Modalopen} close={closeModal} header="정보수정 알림">

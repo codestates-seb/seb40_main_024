@@ -255,13 +255,11 @@ export const ProfileBtn = () => {
   return <ButtonBB>프로필 수정</ButtonBB>;
 };
 
-export const ReviseBtn = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>변경</ButtonAA>;
+export const ReviseBtn = ({ UserPatch }) => {
+  return <ButtonAA onClick={UserPatch}>변경</ButtonAA>;
 };
-export const SignOutBtn = () => {
-  return (
-    <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
-  );
+export const SignOutBtn = ({ UserDelete }) => {
+  return <ButtonCC onClick={UserDelete}>회원 탈퇴</ButtonCC>;
 };
 export const AddCommentBtn = ({ commentPost }) => {
   return (

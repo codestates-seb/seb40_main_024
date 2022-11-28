@@ -121,7 +121,6 @@ const MyInfo = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/member/${Decode.id}`);
-        console.log(res);
         setUsername(res.data.name);
       } catch (e) {
         console.log(e);
@@ -156,10 +155,6 @@ const MyInfo = () => {
         <UserInfo>
           <UserInfoHead>구독 현황 확인</UserInfoHead>
           <InfoBox>2022.11.01 ~ 2022.11.30</InfoBox>
-        </UserInfo>
-        <UserInfo>
-          <UserInfoHead>내가 쓴 글</UserInfoHead>
-          <InfoBox>* 오늘 너무 빨리간다 시간이</InfoBox>
         </UserInfo>
       </Div>
     </MyPageContain>
