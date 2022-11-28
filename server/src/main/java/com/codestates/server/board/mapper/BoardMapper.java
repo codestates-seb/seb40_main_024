@@ -72,6 +72,7 @@ public interface BoardMapper {
                 .boardId(board.getBoardId())
                 .title(board.getTitle())
                 .body(board.getBody())
+                .view(board.getView())
                 .like(board.getLike())
                 .tag(board.getTag())
                 .createdAt(board.getCreatedAt())

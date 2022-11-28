@@ -36,6 +36,7 @@ public class BoardService {
         if (verifiedBoard.getBoardStatus() == Board.BoardStatus.BOARD_DELETED) {
             throw new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND);
         }
+        repository.updateView(id);
         return verifiedBoard;
     }
 
