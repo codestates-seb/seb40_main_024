@@ -4,8 +4,8 @@ import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
 import { PlusBtn } from '../../Component/Common/Button';
 import {
-  LongLoginNavbarBox,
-  // ,MiniNavbarBox
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 
 const PageContain = styled.div`
@@ -134,8 +134,8 @@ const AssetTargetPage = () => {
 
   return (
     <>
-      <LongLoginNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <PageContain>
         <ChartContain className="ScrollActive">
           <ChartBox>

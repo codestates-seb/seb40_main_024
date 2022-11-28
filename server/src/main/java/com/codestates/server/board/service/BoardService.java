@@ -76,24 +76,15 @@ public class BoardService {
     }
 
     @Transactional
-    public Board increaseLike(Board board) {
+    public Board changeLike(Board board, char operator) {
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
-
-        // increase 1 like
         int like = board.getLike();
-        verifiedBoard.setLike(++like);
 
-        return repository.save(verifiedBoard);
-    }
-
-    @Transactional
-    public Board decreaseLike(Board board) {
-        Board verifiedBoard = findVerifiedBoard(board.getBoardId());
-
-        // decrease 1 like
-        int like = board.getLike();
-        verifiedBoard.setLike(like > 0 ? --like : 0);
-
+        if (operator == '1') {
+            verifiedBoard.setLike(++like);  // increase 1 like
+        } else {
+            verifiedBoard.setLike(like > 0 ? --like : 0);  // decrease 1 like (no - value)
+        }
         return repository.save(verifiedBoard);
     }
 

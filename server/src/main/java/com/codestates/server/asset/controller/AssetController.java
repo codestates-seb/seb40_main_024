@@ -5,9 +5,13 @@ import com.codestates.server.asset.dto.AssetDto.Response;
 import com.codestates.server.asset.entity.Asset;
 import com.codestates.server.asset.mapper.AssetMapper;
 import com.codestates.server.asset.service.AssetService;
+import com.codestates.server.dto.MultiResponseDto;
+import com.codestates.server.dto.SingleResponseDto;
+import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.service.MemberService;
 import javax.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -49,6 +53,18 @@ public class AssetController {
         );
     }
 
+    // 자산 전체 조회
+
+//    @GetMapping("/asset")
+//    public ResponseEntity getAssets(@Positive @RequestParam int page,
+//        @Positive @RequestParam int size) {
+//        Page<Asset> pageAssets = assetService.findAssets(page - 1, size);
+//        List<Asset> assets = pageAssets.getContent();
+//        return new ResponseEntity<>(
+//            new MultiResponseDto<>(mapper.assetsToAssetResponses(assets), pageAssets), HttpStatus.OK
+//        );
+//    }
+
 
 
 
@@ -57,8 +73,7 @@ public class AssetController {
     public ResponseEntity getAsset(@PathVariable long assetId) {
         Asset asset = assetService.findVerifiedAsset(assetId);
         AssetDto.Response response = mapper.assetToAssetResponse(asset);
-        return new ResponseEntity<>(
-            response, HttpStatus.OK
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK
 //            response, HttpStatus.CREATED : post일 때
         );
     }
@@ -69,10 +84,7 @@ public class AssetController {
         @PathVariable("member_id") @Positive long memberId) {
         Asset asset = assetService.createAsset(mapper.assetPostDtoToAsset(requestBody), memberId);
         AssetDto.Response response = mapper.assetToAssetResponse(asset);
-//        AssetDto.Response response = mapper.assetToAssetResponse(asset);
-        log.info("response{}=",response);
-        return new ResponseEntity<>(
-            response, HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     //
@@ -86,8 +98,7 @@ public class AssetController {
         Asset updatedAsset = assetService.updateAsset(mapper.assetPatchDtoToAsset(patch), patch.getStrValue());
         AssetDto.Response response = mapper.assetToAssetResponse(updatedAsset);
 
-        return new ResponseEntity<>(
-            response, HttpStatus.OK
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK
         );
     }
 

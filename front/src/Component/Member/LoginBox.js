@@ -202,7 +202,7 @@ export const LoginBox = () => {
 
   const closeModal = () => {
     setModalopen(false);
-    navigate('/');
+    navigate('/', { replace: true });
   };
 
   const DataLogin = {

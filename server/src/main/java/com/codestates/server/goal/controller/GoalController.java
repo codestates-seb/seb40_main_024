@@ -2,8 +2,6 @@ package com.codestates.server.goal.controller;
 
 import com.codestates.server.goal.assembler.GoalAssembler;
 import com.codestates.server.goal.dto.GoalDto;
-import com.codestates.server.goal.entity.Goal;
-import com.codestates.server.goal.mapper.GoalMapper;
 import com.codestates.server.goal.service.GoalService;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -25,31 +23,25 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class GoalController {
 
     private final GoalService goalService;
-
-    private final GoalMapper mapper;
-
     private final GoalAssembler assembler;
 
-    public GoalController(GoalService goalService, GoalMapper mapper, GoalAssembler assembler) {
+    public GoalController(GoalService goalService, GoalAssembler assembler) {
         this.goalService = goalService;
-        this.mapper = mapper;
         this.assembler = assembler;
     }
 
     // --------------------------------------- test ------------------------------------------------
     @GetMapping("/goal/{id}")
     public EntityModel<GoalDto.Response> getGoal(@PathVariable("id") long id) {
-        Goal goal = goalService.findOne(id);
-        GoalDto.Response response = mapper.goalToGoalResponseDto(goal);
-        return assembler.toModel(response);
+        return assembler.toModel(goalService.findOne(id));
     }
 
     @GetMapping("/goal")
     public CollectionModel<EntityModel<GoalDto.Response>> getGoals() {
         List<EntityModel<GoalDto.Response>> goals = goalService.findAll().stream()
-                .map(mapper::goalToGoalResponseDto)
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
+
         return CollectionModel.of(goals,
                 linkTo(methodOn(GoalService.class).findAll()).withSelfRel());
     }
@@ -58,9 +50,9 @@ public class GoalController {
     @GetMapping("/{member_id}/goal")
     public CollectionModel<EntityModel<GoalDto.Response>> getGoalsByMember(@PathVariable("member_id") long memberId) {
         List<EntityModel<GoalDto.Response>> goals = goalService.findByMember(memberId).stream()
-                .map(mapper::goalToGoalResponseDto)
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
+
         return CollectionModel.of(goals,
                 linkTo(methodOn(GoalService.class).findAll()).withSelfRel());
     }
@@ -68,8 +60,9 @@ public class GoalController {
     @PostMapping("/{member_id}/goal")
     public ResponseEntity<?> postGoal(@Valid @RequestBody GoalDto.Post requestBody,
                                       @PathVariable("member_id") long memberId) {
-        Goal goal = goalService.createOne(mapper.goalPostToGoal(requestBody), memberId);
-        EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
+        EntityModel<GoalDto.Response> entityModel =
+                assembler.toModel(goalService.createOne(requestBody, memberId));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -79,8 +72,9 @@ public class GoalController {
     public ResponseEntity<?> patchGoal(@PathVariable long id, @Valid @RequestBody GoalDto.Patch requestBody,
                                        @PathVariable("member_id") long memberId) {
         requestBody.setGoalId(id);
-        Goal goal = goalService.updateOne(mapper.goalPatchToGoal(requestBody), memberId);
-        EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
+        EntityModel<GoalDto.Response> entityModel =
+                assembler.toModel(goalService.updateOne(requestBody, memberId));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -89,8 +83,9 @@ public class GoalController {
     @PatchMapping("/{member_id}/goal/{id}/complete")
     public ResponseEntity<?> completedGoal(@PathVariable long id,
                                            @PathVariable("member_id") long memberId) {
-        Goal goal = goalService.changeCompletion(id, '+', memberId);
-        EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
+        EntityModel<GoalDto.Response> entityModel =
+                assembler.toModel(goalService.changeCompletion(id, '1', memberId));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -99,8 +94,9 @@ public class GoalController {
     @PatchMapping("/{member_id}/goal/{id}/incomplete")
     public ResponseEntity<?> uncompletedGoal(@PathVariable long id,
                                              @PathVariable("member_id") long memberId) {
-        Goal goal = goalService.changeCompletion(id, '-', memberId);
-        EntityModel<GoalDto.Response> entityModel = assembler.toModel(mapper.goalToGoalResponseDto(goal));
+        EntityModel<GoalDto.Response> entityModel =
+                assembler.toModel(goalService.changeCompletion(id, '0', memberId));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);

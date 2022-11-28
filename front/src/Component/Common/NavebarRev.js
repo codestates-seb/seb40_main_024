@@ -170,10 +170,15 @@ export const LongNavbarBox = () => {
   const handleClickAsset = () => {
     setAssetclicked(!Assetclicked);
   };
+
   const handleClickInfo = () => {
     setAssetclicked(true);
-    // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
+  };
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    navigate('/');
   };
 
   return (
@@ -251,7 +256,7 @@ export const LongNavbarBox = () => {
                 </>
               )}
               <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
-              <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
+              <Menu onClick={logoutHandler}>로그아웃</Menu>
             </RowDropMenuBox>
           </LongContainer>
         )}
@@ -260,86 +265,12 @@ export const LongNavbarBox = () => {
   );
 };
 
-export const LongLoginNavbarBox = () => {
-  // eslint-disable-next-line no-unused-vars
-  const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
-  const [Assetclicked, setAssetclicked] = useState(true);
-  // const [Communityclicked, setCommunityclicked] = useState(true);
-  const [Infoclicked, setInfoclicked] = useState(true);
-  // eslint-disable-next-line prettier/prettier
-  // const handleClickCommunity = () => {
-  //   setAssetclicked(true);
-  //   setInfoclicked(true);
-  //   setCommunityclicked(!Communityclicked);
-  // };
-  const handleClickAsset = () => {
-    // setCommunityclicked(true);
-    setInfoclicked(true);
-    setAssetclicked(!Assetclicked);
-  };
-  const handleClickInfo = () => {
-    setAssetclicked(true);
-    // setCommunityclicked(true);
-    setInfoclicked(!Infoclicked);
-  };
-
-  return (
-    <>
-      <MediaQuery minWidth={800} maxWidth={999999}>
-        <LongContainer>
-          <MarkBox onClick={() => navigate('/')}></MarkBox>
-          <RowDropMenuBox>
-            {Infoclicked ? (
-              <>
-                <Menu onClick={handleClickInfo}>마이페이지</Menu>
-              </>
-            ) : (
-              <>
-                <Menu onClick={handleClickInfo}>
-                  마이페이지
-                  <MenuTopList>
-                    <MenuList onClick={() => navigate('/mypage')}>
-                      마이페이지
-                    </MenuList>
-                    <MenuList onClick={() => navigate('/myinfopage')}>
-                      회원정보수정
-                    </MenuList>
-                  </MenuTopList>
-                </Menu>
-              </>
-            )}
-            {Assetclicked ? (
-              <>
-                <Menu onClick={handleClickAsset}>자산&목표</Menu>
-              </>
-            ) : (
-              <>
-                <Menu onClick={handleClickAsset}>
-                  자산&목표
-                  <MenuTopList>
-                    <MenuList onClick={() => navigate('/assetchange')}>
-                      자산현황
-                    </MenuList>
-                    <MenuList onClick={() => navigate('/assettargetpage')}>
-                      목표현황
-                    </MenuList>
-                  </MenuTopList>
-                </Menu>
-              </>
-            )}
-            <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
-            <Menu onClick={() => navigate('/login')}>로그아웃</Menu>
-          </RowDropMenuBox>
-        </LongContainer>
-      </MediaQuery>
-    </>
-  );
-};
-
 export const MiniNavbarBox = () => {
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const isLoggedIn = authCtx.isLoggedIn;
   // eslint-disable-next-line no-unused-vars
+  const [Infoclicked, setInfoclicked] = useState(true);
   const [Markclicked, setMarkclicked] = useState(true);
   const [Assetclicked, setAssetclicked] = useState(true);
   // const [Communityclicked, setCommunityclicked] = useState(true);
@@ -358,194 +289,132 @@ export const MiniNavbarBox = () => {
     setAssetclicked(!Assetclicked);
   };
 
-  return (
-    <>
-      <MediaQuery minWidth={0} maxWidth={800}>
-        <LongContainer>
-          <MarkBox onClick={handleClickMark}></MarkBox>
-          {Markclicked ? null : (
-            <>
-              <HamburgerDropMenuBox>
-                <MiniMenu onClick={() => navigate('/')}>홈</MiniMenu>
-                <MiniMenu onClick={() => navigate('/login')}>로그인</MiniMenu>
-                <MiniMenu onClick={() => navigate('/signup')}>
-                  회원가입
-                </MiniMenu>
-                {Assetclicked ? (
-                  <>
-                    <MiniMenu onClick={handleClickAsset}>자산&목표</MiniMenu>
-                  </>
-                ) : (
-                  <>
-                    <MiniMenu onClick={handleClickAsset}>
-                      자산&목표
-                      <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/assetchange')}>
-                          자산현황
-                        </MenuList>
-                        <MenuList onClick={() => navigate('/assettargetpage')}>
-                          목표현황
-                        </MenuList>
-                      </MiniMenuTopList>
-                    </MiniMenu>
-                  </>
-                )}
-                <MiniMenu
-                  onClick={() => navigate('/freeboard')}
-                  style={{
-                    height: '85px',
-                    borderEndEndRadius: '5px',
-                    borderEndStartRadius: '5px',
-                  }}
-                >
-                  커뮤니티
-                </MiniMenu>
-                {/* {Communityclicked ? (
-                  <>
-
-                  </>
-                ) : (
-                  <>
-                    <MiniMenu
-                      onClick={handleClickCommunity}
-                      style={{
-                        borderEndEndRadius: '5px',
-                        borderEndStartRadius: '5px',
-                      }}
-                    >
-                      커뮤니티
-                      <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/freeboard')}>
-                          자유게시판
-                        </MenuList>
-                        <MenuList onClick={() => navigate('/assetboard')}>
-                          <p>자산공유</p>
-                          <p>게시판</p>
-                        </MenuList>
-                      </MiniMenuTopList>
-                    </MiniMenu>
-                  </>
-                )} */}
-              </HamburgerDropMenuBox>
-            </>
-          )}
-        </LongContainer>
-      </MediaQuery>
-    </>
-  );
-};
-
-export const MiniLoginNavbarBox = () => {
-  const navigate = useNavigate();
-  // eslint-disable-next-line no-unused-vars
-  const [Markclicked, setMarkclicked] = useState(true);
-  const [Assetclicked, setAssetclicked] = useState(true);
-  // const [Communityclicked, setCommunityclicked] = useState(true);
-  const [Infoclicked, setInfoclicked] = useState(true);
-  // eslint-disable-next-line prettier/prettier
-  const handleClickMark = () => {
-    setAssetclicked(true);
-    // setCommunityclicked(true);
-    setMarkclicked(!Markclicked);
-  };
   const handleClickInfo = () => {
     setAssetclicked(true);
     // setCommunityclicked(true);
     setInfoclicked(!Infoclicked);
   };
-  // const handleClickCommunity = () => {
-  //   setAssetclicked(true);
-  //   setCommunityclicked(!Communityclicked);
-  // };
-  const handleClickAsset = () => {
-    // setCommunityclicked(true);
-    setAssetclicked(!Assetclicked);
+
+  const logoutHandler = () => {
+    authCtx.logout();
+    navigate('/');
   };
 
   return (
     <>
       <MediaQuery minWidth={0} maxWidth={800}>
-        <LongContainer>
-          <MarkBox onClick={handleClickMark}></MarkBox>
-          {Markclicked ? null : (
-            <>
-              <HamburgerDropMenuBox>
-                <MiniMenu onClick={() => navigate('/')}>홈</MiniMenu>
-                {Infoclicked ? (
-                  <>
-                    <MiniMenu onClick={handleClickInfo}>마이페이지</MiniMenu>
-                  </>
-                ) : (
-                  <>
-                    <MiniMenu onClick={handleClickInfo}>
-                      마이페이지
-                      <MenuTopList>
-                        <MenuList onClick={() => navigate('/mypage')}>
-                          마이페이지
-                        </MenuList>
-                        <MenuList onClick={() => navigate('/myinfopage')}>
-                          회원정보수정
-                        </MenuList>
-                      </MenuTopList>
-                    </MiniMenu>
-                  </>
-                )}
-                {Assetclicked ? (
-                  <>
-                    <MiniMenu onClick={handleClickAsset}>자산&목표</MiniMenu>
-                  </>
-                ) : (
-                  <>
-                    <MiniMenu onClick={handleClickAsset}>
-                      자산&목표
-                      <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/assetchange')}>
-                          자산현황
-                        </MenuList>
-                        <MenuList onClick={() => navigate('/assettargetpage')}>
-                          목표현황
-                        </MenuList>
-                      </MiniMenuTopList>
-                    </MiniMenu>
-                  </>
-                )}
-                <MiniMenu onClick={() => navigate('/freeboard')}>
-                  커뮤니티
-                </MiniMenu>
-                {/* {Communityclicked ? (
-                  <>
-                    
-                  </>
-                ) : (
-                  <>
-                    <MiniMenu onClick={handleClickCommunity}>
-                      커뮤니티
-                      <MiniMenuTopList>
-                        <MenuList onClick={() => navigate('/freeboard')}>
-                          자유게시판
-                        </MenuList>
-                        <MenuList onClick={() => navigate('/assetboard')}>
-                          <p>자산공유</p>
-                          <p>게시판</p>
-                        </MenuList>
-                      </MiniMenuTopList>
-                    </MiniMenu>
-                  </>
-                )} */}
-                <MiniMenu
-                  onClick={() => navigate('/login')}
-                  style={{
-                    height: '85px',
-                    borderEndEndRadius: '5px',
-                    borderEndStartRadius: '5px',
-                  }}
-                >
-                  로그아웃
-                </MiniMenu>
-              </HamburgerDropMenuBox>
-            </>
-          )}
-        </LongContainer>
+        {!isLoggedIn && (
+          <LongContainer>
+            <MarkBox onClick={handleClickMark}></MarkBox>
+            {Markclicked ? null : (
+              <>
+                <HamburgerDropMenuBox>
+                  <MiniMenu onClick={() => navigate('/')}>홈</MiniMenu>
+                  <MiniMenu onClick={() => navigate('/login')}>로그인</MiniMenu>
+                  <MiniMenu onClick={() => navigate('/signup')}>
+                    회원가입
+                  </MiniMenu>
+                  {Assetclicked ? (
+                    <>
+                      <MiniMenu onClick={handleClickAsset}>자산&목표</MiniMenu>
+                    </>
+                  ) : (
+                    <>
+                      <MiniMenu onClick={handleClickAsset}>
+                        자산&목표
+                        <MiniMenuTopList>
+                          <MenuList onClick={() => navigate('/assetchange')}>
+                            자산현황
+                          </MenuList>
+                          <MenuList
+                            onClick={() => navigate('/assettargetpage')}
+                          >
+                            목표현황
+                          </MenuList>
+                        </MiniMenuTopList>
+                      </MiniMenu>
+                    </>
+                  )}
+                  <MiniMenu
+                    onClick={() => navigate('/freeboard')}
+                    style={{
+                      height: '85px',
+                      borderEndEndRadius: '5px',
+                      borderEndStartRadius: '5px',
+                    }}
+                  >
+                    커뮤니티
+                  </MiniMenu>
+                </HamburgerDropMenuBox>
+              </>
+            )}
+          </LongContainer>
+        )}
+        {isLoggedIn && (
+          <LongContainer>
+            <MarkBox onClick={handleClickMark}></MarkBox>
+            {Markclicked ? null : (
+              <>
+                <HamburgerDropMenuBox>
+                  <MiniMenu onClick={() => navigate('/')}>홈</MiniMenu>
+                  {Infoclicked ? (
+                    <>
+                      <MiniMenu onClick={handleClickInfo}>마이페이지</MiniMenu>
+                    </>
+                  ) : (
+                    <>
+                      <MiniMenu onClick={handleClickInfo}>
+                        마이페이지
+                        <MenuTopList>
+                          <MenuList onClick={() => navigate('/mypage')}>
+                            마이페이지
+                          </MenuList>
+                          <MenuList onClick={() => navigate('/myinfopage')}>
+                            회원정보수정
+                          </MenuList>
+                        </MenuTopList>
+                      </MiniMenu>
+                    </>
+                  )}
+                  {Assetclicked ? (
+                    <>
+                      <MiniMenu onClick={handleClickAsset}>자산&목표</MiniMenu>
+                    </>
+                  ) : (
+                    <>
+                      <MiniMenu onClick={handleClickAsset}>
+                        자산&목표
+                        <MiniMenuTopList>
+                          <MenuList onClick={() => navigate('/assetchange')}>
+                            자산현황
+                          </MenuList>
+                          <MenuList
+                            onClick={() => navigate('/assettargetpage')}
+                          >
+                            목표현황
+                          </MenuList>
+                        </MiniMenuTopList>
+                      </MiniMenu>
+                    </>
+                  )}
+                  <MiniMenu onClick={() => navigate('/freeboard')}>
+                    커뮤니티
+                  </MiniMenu>
+                  <MiniMenu
+                    onClick={logoutHandler}
+                    style={{
+                      height: '85px',
+                      borderEndEndRadius: '5px',
+                      borderEndStartRadius: '5px',
+                    }}
+                  >
+                    로그아웃
+                  </MiniMenu>
+                </HamburgerDropMenuBox>
+              </>
+            )}
+          </LongContainer>
+        )}
       </MediaQuery>
     </>
   );
