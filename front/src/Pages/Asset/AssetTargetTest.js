@@ -207,13 +207,29 @@ const AssetTargetPage = () => {
   //     console.log('patcherror', err);
   //   }
   // };
-
+  const patchdata = {
+    goalName: '미니 JCW1', // 옵셔널
+    goalPrice: 4000000,
+    targetLength: 20, // 옵셔널
+  };
   // const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
+  const goalPatch = async () => {
+    try {
+      const res = await axios.patch(`${url}/1/goal/1`, patchdata);
+      // setGoal(res.data._embedded.responseList.goalName); //responseList오류
+      // setExtended(res.data._embedded.responseList.goalPrice);
+      // setPeriod(res.data._embedded.responseList.targetLength);
+      // setTarget(res.data._embedded.responseList.calculatedPrice);
+      console.log(res);
+    } catch (err) {
+      console.log('error', err);
+    }
+  };
 
   // useEffect(() => {
   const goalGet = async () => {
     try {
-      const res = await axios.get(`${url}1/goal`);
+      const res = await axios.get(`${url}/1/goal`);
       // setGoal(res.data._embedded.responseList.goalName); //responseList오류
       // setExtended(res.data._embedded.responseList.goalPrice);
       // setPeriod(res.data._embedded.responseList.targetLength);
@@ -235,7 +251,7 @@ const AssetTargetPage = () => {
       calculatedPrice: targetAmount,
     };
     try {
-      const res = await axios.post(`${url}1/goal`, data);
+      const res = await axios.post(`${url}/1/goal`, data);
       // setGoal(res.data._embedded.responseList.goalName); //responseList오류
       // setExtended(res.data._embedded.responseList.goalPrice);
       // setPeriod(res.data._embedded.responseList.targetLength);
@@ -273,10 +289,14 @@ const AssetTargetPage = () => {
       console.log('deleteerror', err);
     }
   };
+  useEffect(() => {
+    goalPatch();
+  }, []);
 
   useEffect(() => {
     goalGet();
     goalPost();
+    goalPatch();
   }, [setGoal, setExtended, setPeriod]);
 
   return (

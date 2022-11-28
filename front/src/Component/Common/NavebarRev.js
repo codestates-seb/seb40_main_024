@@ -165,7 +165,7 @@ export const LongNavbarBox = () => {
   const isLoggedIn = authCtx.isLoggedIn;
   const [Assetclicked, setAssetclicked] = useState(true);
   const [Infoclicked, setInfoclicked] = useState(true);
-  console.log('authCtx', authCtx);
+  // console.log('authCtx', authCtx);
 
   const handleClickAsset = () => {
     setAssetclicked(!Assetclicked);

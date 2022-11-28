@@ -6,13 +6,14 @@ import {
 } from '../../Component/Common/NavebarRev';
 import { TitleCashBtn } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Modal, AssetTextEditModal } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import { FiEdit, FiDelete } from 'react-icons/fi';
+import AuthContext from '../../store/AuthContext';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -255,7 +256,35 @@ const AssetListBox = styled.div`
   }
 `;
 
+// export const tokenDescrambling = () => {
+//   const authCtx = useContext(AuthContext);
+//   let token = authCtx.token;
+//   console.log(token);
+//   useEffect(() => {
+//     parseJwt(token);
+//     console.log(parseJwt(token));
+//   }, []);
+
+//   const parseJwt = (token) => {
+//     let base64Url = token.split('.')[1];
+//     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//     let jsonPayload = decodeURIComponent(
+//       window
+//         .atob(base64)
+//         .split('')
+//         .map((c) => {
+//           return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//         })
+//         .join('')
+//     );
+//     return JSON.parse(jsonPayload);
+//   };
+//   parseJwt(token);
+//   console.log(parseJwt(token));
+// };
+
 function AssetChange() {
+  const authCtx = useContext(AuthContext);
   const [TextModalopen, setTextModalopen] = useState(false);
   const [errTextModalopen, seterrTextModalopen] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
@@ -278,7 +307,7 @@ function AssetChange() {
   const [FourAssetTitle, setFourAssetTitle] = useState(0);
   const [FiveAssetTitle, setFiveAssetTitle] = useState(0);
   const [SixAssetTitle, setSixAssetTitle] = useState(0);
-  console.log(Data);
+  console.log(authCtx);
   // console.log(Data.map((data) => console.log(data)));
 
   const Postlogindata = {
@@ -517,6 +546,7 @@ function AssetChange() {
     /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
     ','
   );
+  let token = authCtx.token;
 
   useEffect(() => {
     getAssetsApi();
@@ -526,8 +556,6 @@ function AssetChange() {
   useEffect(() => {
     getAssetsApi();
   }, [Modalopen, TextModalopen, errTextModalopen, errModalopen, Text, Cash]);
-  // useEffect(() => {}, [Text]);
-  // useEffect(() => {}, [Cash]);
 
   return (
     <>
