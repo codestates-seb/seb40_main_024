@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class Stub {
@@ -30,7 +31,8 @@ public class Stub {
                                AssetRepository assetRepository,
                                MemberRepository memberRepository,
                                MemberService memberService,
-                               GoalRepository goalRepository) {
+                               GoalRepository goalRepository,
+                               PasswordEncoder passwordEncoder) {
 
         return args -> {
 
@@ -46,7 +48,8 @@ public class Stub {
                 String email = "hoju" + l + "@gmail.com";
                 String name = "hojumoney" + l;
                 String password = "password" + l;
-                log.info("MEMBER STUB " + memberRepository.save(new Member(email, name, password)));
+                String encoded = passwordEncoder.encode(password);
+                log.info("MEMBER STUB " + memberRepository.save(new Member(email, name, encoded)));
             }
 
             // Post data
