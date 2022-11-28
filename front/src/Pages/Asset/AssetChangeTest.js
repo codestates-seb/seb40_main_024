@@ -19,7 +19,7 @@ import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import axios from 'axios';
 import { FiEdit, FiDelete } from 'react-icons/fi';
-import '../../Component/Asset/Asset_A_Data.css';
+// import '../../Component/Asset/Asset_A_Data.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
