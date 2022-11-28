@@ -26,7 +26,7 @@ public interface BoardMapper {
                 break;
             }
         }
-        if (postBoard.getTag() == null) throw new CustomException(ExceptionCode.TAG_NOT_FOUND);
+        if (postBoard.getTag() == null) throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
 
         postBoard.setTitle(requestBody.getTitle());
         postBoard.setBody(requestBody.getBody());
@@ -46,7 +46,7 @@ public interface BoardMapper {
                     break;
                 }
             }
-            if (patchBoard.getTag() == null) throw new CustomException(ExceptionCode.TAG_NOT_FOUND);
+            if (patchBoard.getTag() == null) throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
         }
         patchBoard.setBoardId(requestBody.getBoardId());
         patchBoard.setTitle(requestBody.getTitle());

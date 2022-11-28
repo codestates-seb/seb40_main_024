@@ -6,6 +6,8 @@ import com.codestates.server.board.entity.Board;
 import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.dto.MultiResponseDto;
+import com.codestates.server.exception.CustomException;
+import com.codestates.server.exception.ExceptionCode;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -48,14 +50,11 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity getBoards(@Positive @RequestParam int page,
+    public ResponseEntity getBoardsPaged(@Positive @RequestParam int page,
                                     @Positive @RequestParam int size) {
 
         Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
         List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
-
-//        return CollectionModel.of(boards,
-//                linkTo(methodOn(BoardService.class).findAllByPage(page - 1, size)).withSelfRel());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
@@ -94,30 +93,27 @@ public class BoardController {
                 .body(entityModel);
     }
 
+    @PatchMapping("/{id}/{like}")
+    public ResponseEntity<?> likeBoard(@PathVariable("id") @Positive long id,
+                                       @PathVariable("like") String like) {
+
+        Board board = boardService.findVerifiedBoard(id);
+
+        char operator = like.equals("like") ? '1' : like.equals("dislike") ? '0' : 'x';
+        if (operator == 'x') throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
+
+        boardService.changeLike(board, operator);
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBoard(@PathVariable long id) {
         boardService.deleteOne(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @PatchMapping("/{id}/like")
-    public ResponseEntity<?> likeBoard(@PathVariable long id) {
-        Board board = boardService.findVerifiedBoard(id);
-        boardService.changeLike(board, '1');
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
-    }
-
-    @PatchMapping("/{id}/dislike")
-    public ResponseEntity<?> dislikeBoard(@PathVariable long id) {
-        Board board = boardService.findVerifiedBoard(id);
-        boardService.changeLike(board, '0');
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
     }
 
     @GetMapping("/post")
