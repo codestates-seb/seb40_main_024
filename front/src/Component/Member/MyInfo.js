@@ -330,8 +330,11 @@ const MyInfo = () => {
         </ListContain>
         <UserInfo>
           <UserInfoHead>구독 현황 확인</UserInfoHead>
-          <InfoBox>2022.11.01 ~ 2022.11.30</InfoBox>
-          <UnSubscript openModal={openUnSub} />
+          <InfoBox>
+            신문구독중
+            <br /> 2022.11.01 ~ 2022.11.30
+            <UnSubscript openModal={openUnSub} />
+          </InfoBox>
           <Modal open={unSub} close={closeModal} header="구독 해지 알림">
             구독이 해지 되었습니다
           </Modal>

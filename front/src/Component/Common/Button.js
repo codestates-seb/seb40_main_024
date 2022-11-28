@@ -296,7 +296,11 @@ export const CompleteBtn = ({ commentPatch, id }) => {
 
 // 구독 해지 버튼
 export const UnSubscript = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>해지</ButtonAA>;
+  return (
+    <ButtonAA style={{ marginLeft: '5px' }} onClick={openModal}>
+      해지
+    </ButtonAA>
+  );
 };
 
 export const AddContentBtn = () => {
