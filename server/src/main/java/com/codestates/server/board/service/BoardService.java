@@ -47,12 +47,9 @@ public class BoardService {
         return repository.findAllPaged(PageRequest.of(page, size));
     }
 
-    public Page<Board> findAllTagPost(int page, int size) {
-        return repository.findAllPost(PageRequest.of(page, size));
-    }
-
-    public Page<Board> findAllTagAsset(int page, int size) {
-        return repository.findAllAssetPost(PageRequest.of(page, size));
+    public Page<Board> findAllByTag(int page, int size, char operator) {
+        return operator == 'p' ? repository.findAllPost(PageRequest.of(page, size))
+                : repository.findAllAssetPost(PageRequest.of(page, size));
     }
 
     @Transactional
