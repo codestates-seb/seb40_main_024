@@ -4,9 +4,10 @@ import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
 // import { PlusBtn } from '../../Component/Common/Button';
 import {
-  LongLoginNavbarBox,
-  // ,MiniNavbarBox
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
+// import { LongLoginNavbarBox } from '../../Component/Common/NavebarRev';
 import AssetList from '../../Component/Asset/AssetList';
 import axios from 'axios';
 
@@ -255,7 +256,8 @@ const AssetTargetPage = () => {
       ]);
       console.log(countList);
       console.log('post', res);
-
+      if (countList.length > 6) return;
+      alert('최대 6개의 목표를 설정할 수 있습니다');
       // console.log('post', res.data._embedded.responseList);
     } catch (err) {
       console.log('error', err);
@@ -279,8 +281,8 @@ const AssetTargetPage = () => {
 
   return (
     <>
-      <LongLoginNavbarBox />
-      {/* <MiniNavbarBox /> */}
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <>
         <GuideBox>
           <h2 className="TextHeader">목표 작성을 위한 안내</h2>

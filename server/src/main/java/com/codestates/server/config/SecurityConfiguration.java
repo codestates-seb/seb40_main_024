@@ -89,7 +89,7 @@ public class SecurityConfiguration {
         configuration.addAllowedHeader("*");
         configuration.setMaxAge(3600L);
         configuration.setAllowCredentials(true);
-//        configuration.addExposedHeader("Authorization");
+        configuration.addExposedHeader("Authorization");
 //        configuration.addExposedHeader("refreshToken");
 
 

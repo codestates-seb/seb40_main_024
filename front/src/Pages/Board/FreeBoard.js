@@ -1,8 +1,8 @@
 import Quill from '../../Component/Common/Quill';
 import styled from 'styled-components';
 import {
-  LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import { FreeBoardPostBtn } from '../../Component/Common/Button';
 import axios from 'axios';
@@ -103,8 +103,8 @@ function FreeCommunity() {
 
   return (
     <>
-      <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <MainPost>
         <H2>자유게시글 작성하기</H2>
         <Header>

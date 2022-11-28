@@ -54,7 +54,6 @@ public class BoardController {
         Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
         List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
 
-//
 //        return CollectionModel.of(boards,
 //                linkTo(methodOn(BoardService.class).findAllByPage(page - 1, size)).withSelfRel());
 
@@ -104,7 +103,7 @@ public class BoardController {
     @PatchMapping("/{id}/like")
     public ResponseEntity<?> likeBoard(@PathVariable long id) {
         Board board = boardService.findVerifiedBoard(id);
-        boardService.increaseLike(board);
+        boardService.changeLike(board, '1');
         EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -114,7 +113,7 @@ public class BoardController {
     @PatchMapping("/{id}/dislike")
     public ResponseEntity<?> dislikeBoard(@PathVariable long id) {
         Board board = boardService.findVerifiedBoard(id);
-        boardService.decreaseLike(board);
+        boardService.changeLike(board, '0');
         EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

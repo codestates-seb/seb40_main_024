@@ -292,7 +292,7 @@ const Comments = () => {
                     <ProfileIcon />
                   </ImageBox>
                   <>
-                    {isEditing === comment.commentId ? (
+                    {isEditing ? (
                       <>
                         <CommentBox id={comment.commentId}>
                           <IdEtcBox>

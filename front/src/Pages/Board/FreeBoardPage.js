@@ -1,6 +1,6 @@
 import {
-  LongLoginNavbarBox,
-  MiniLoginNavbarBox,
+  LongNavbarBox,
+  MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
 import { FreeBoardList } from '../../Component/Board/BoardFreeList';
@@ -79,8 +79,8 @@ const SelectBox = styled.div`
 export const FreeBoardPage = () => {
   return (
     <>
-      <LongLoginNavbarBox />
-      <MiniLoginNavbarBox />
+      <LongNavbarBox />
+      <MiniNavbarBox />
       <PageContainer>
         <Box>
           <PostListSpace>
