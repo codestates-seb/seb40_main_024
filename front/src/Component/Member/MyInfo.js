@@ -121,6 +121,7 @@ const MyInfo = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/member/${Decode.id}`);
+        console.log(res);
         setUsername(res.data.name);
       } catch (e) {
         console.log(e);

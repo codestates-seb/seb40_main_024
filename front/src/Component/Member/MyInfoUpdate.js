@@ -98,6 +98,8 @@ const MyInfoUpdate = () => {
   const [Modalopen, setModalopen] = useState(false);
   const [unSub, setunSUb] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
+  const [SignOut, setSignOut] = useState(false);
+  const [errSignOut, setErrSignOut] = useState(false);
   const [username, setUsername] = useState();
   const [useremail, setUseremail] = useState();
   const [userpassword, setUserpassword] = useState();
@@ -114,12 +116,19 @@ const MyInfoUpdate = () => {
     setunSUb(true);
   };
 
+  const openSignOut = () => {
+    setSignOut(true);
+  };
+
+  const openErrSignOut = () => {
+    setErrSignOut(true);
+  };
+
   const closeModal = () => {
     setModalopen(false);
     setunSUb(false);
-  };
-
-  const errcloseModal = () => {
+    setSignOut(false);
+    setErrSignOut(false);
     seterrModalopen(false);
   };
 
@@ -154,10 +163,11 @@ const MyInfoUpdate = () => {
 
   const UserDelete = async () => {
     try {
-      const req = await axios.delete(`${URL}/member/delete/${Decode.id}`);
-      openModal();
+      const req = await axios.delete(`${URL}/member/delete`);
+      openSignOut();
       console.log(req);
     } catch (e) {
+      openErrSignOut();
       console.log(e);
     }
   };
@@ -219,11 +229,17 @@ const MyInfoUpdate = () => {
         <Modal open={Modalopen} close={closeModal} header="정보수정 알림">
           회원 정보가 수정되었습니다.
         </Modal>
-        <Modal open={errModalopen} close={errcloseModal} header="오류 알림">
+        <Modal open={errModalopen} close={closeModal} header="오류 알림">
           회원 정보를 정확히 입력해주세요.
         </Modal>
         <Modal open={unSub} close={closeModal} header="구독 해지 알림">
           구독이 해지 되었습니다
+        </Modal>
+        <Modal open={SignOut} close={closeModal} header="회원탈퇴 알림">
+          회원탈퇴가 완료되었습니다.
+        </Modal>
+        <Modal open={errSignOut} close={closeModal} header="회원탈퇴 오류">
+          회원탈퇴가 정상적으로 처리되지 않았습니다.
         </Modal>
       </Div>
     </MyPageContain>
