@@ -60,7 +60,7 @@ const ButtonCC = styled.button`
   text-decoration: none;
   font-weight: 800;
   font-size: 20px;
-  /* transition: 0.25s; */
+  transition: 0.25s;
   color: #444;
   stroke: #000000;
   background-color: #8ec3b0;
@@ -238,17 +238,8 @@ export const SavingsBtn = () => {
 };
 
 // 회원 정보 수정
-export const NameUpdateBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <ButtonBB
-      onClick={() => {
-        navigate('/myinfopage');
-      }}
-    >
-      회원정보 수정
-    </ButtonBB>
-  );
+export const NameUpdateBtn = ({ openModify }) => {
+  return <ButtonCC onClick={openModify}>회원정보 수정</ButtonCC>;
 };
 
 export const ProfileBtn = () => {
