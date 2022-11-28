@@ -54,7 +54,7 @@ public class BoardController {
                                     @Positive @RequestParam int size) {
 
         Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
-        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
+        List<EntityModel<BoardDto.Response>> boards = boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
@@ -65,10 +65,7 @@ public class BoardController {
     public CollectionModel<EntityModel<BoardDto.Response>> getBoards() {
 
         List<Board> boards = boardService.findAll();
-        List<EntityModel<BoardDto.Response>> response = boards.stream()
-                .map(mapper::boardToBoardResponseDto)
-                .map(assembler::toModel)
-                .collect(Collectors.toList());
+        List<EntityModel<BoardDto.Response>> response = boardStream(boards);
 
         return CollectionModel.of(response,
                 linkTo(methodOn(BoardService.class).findAll()).withSelfRel());
@@ -116,29 +113,21 @@ public class BoardController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/post")
-    public ResponseEntity getBoardsPost(@Positive @RequestParam int page,
-                                    @Positive @RequestParam int size) {
+    @GetMapping("/tag/{tag}")
+    public ResponseEntity getBoardsByTag(@Positive @RequestParam int page, @Positive @RequestParam int size,
+                                         @PathVariable("tag") String tag) {
 
-        Page<Board> pagedBoards = boardService.findAllTagPost(page - 1, size);
-        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
+        char operator = tag.equals("post") ? 'p' : tag.equals("asset") ? 'a' : 'x';
+        if (operator == 'x') throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
 
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
-    }
-
-    @GetMapping("/asset")
-    public ResponseEntity getBoardsAsset(@Positive @RequestParam int page,
-                                        @Positive @RequestParam int size) {
-
-        Page<Board> pagedBoards = boardService.findAllTagAsset(page - 1, size);
-        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
+        Page<Board> pagedBoards = boardService.findAllByTag(page - 1, size, operator);
+        List<EntityModel<BoardDto.Response>> boards = boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
     }
 
-    public List<EntityModel<BoardDto.Response>> pagedBoards(List<Board> listedBoards) {
+    public List<EntityModel<BoardDto.Response>> boardStream(List<Board> listedBoards) {
         return listedBoards.stream()
                 .map(mapper::boardToBoardResponseDto)
                 .map(assembler::toModel)
