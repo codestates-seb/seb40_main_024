@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface GoalRepository extends JpaRepository<Goal, Long> {
 
-    @Query(nativeQuery = true, value = "select * from Goal where Member_id = :id")
+    @Query("select g from Goal g where g.member.id = :id")
     List<Goal> findAllByMemberId(long id);
 }

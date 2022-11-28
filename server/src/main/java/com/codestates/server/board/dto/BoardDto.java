@@ -59,6 +59,7 @@ public class BoardDto {
         private long boardId;
         private String title;
         private String body;
+        private int view;
         private int like;
         private Board.BoardTag tag;
 
