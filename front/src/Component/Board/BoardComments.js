@@ -4,6 +4,7 @@ import {
   AddCommentBtn,
   ModifyCommentBtn,
   DeleteCommentBtn,
+  CompleteBtn,
 } from '../Common/Button';
 // eslint-disable-next-line no-unused-vars
 import ProfileIcon from '../Member/ProfileIcon';
@@ -162,25 +163,23 @@ const TextBox = styled.div`
 `;
 const BtnBox = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-const ModifyInput = styled.input`
-  display: flex;
   flex-direction: row;
-  width: auto;
-  padding: 5px;
-  margin-top: 20px;
-  border-top: 3px solid #def5e5;
-  border-bottom: 3px solid #def5e5;
-  line-height: normal;
+  justify-content: center;
+  gap: 10px;
 `;
 
-//http://localhost:3000/boardcontentpage/:id
+// const ModifyBox = styled.div`
+//   display: flex;
+//   flex-direction: row;
+//   width: auto;
+//   padding: 5px;
+//   margin-top: 20px;
+//   border-top: 3px solid #def5e5;
+//   border-bottom: 3px solid #def5e5;
+//   line-height: normal;
+// `;
+
 const Comments = () => {
-  // const { id } = useParams();
-  // console.log(id.slice(1));
   const { id } = useParams();
   const url = process.env.REACT_APP_API_URL;
   const [comments, setComments] = useState([]);
@@ -198,6 +197,15 @@ const Comments = () => {
     setInput(modification);
     console.log(modification);
   };
+
+  const handlerClickEdit = (e) => {
+    console.log('click', isEditing);
+    setEditing(e.target.dataset.id);
+    console.log(e.target.dataset.id);
+    console.log(isEditing);
+    console.log(e.target.dataset.id === isEditing);
+  };
+
   const data = {
     body: text,
   };
@@ -208,15 +216,13 @@ const Comments = () => {
       setRender((el) => el + 1);
       setText('');
       console.log('post', posts);
-
-      // if(posts.data === " " )
     } catch (err) {
       console.log('error', err);
     }
   };
 
   const patchdata = {
-    body: '수정 테스트',
+    body: input,
   };
   const commentPatch = async (e) => {
     try {
@@ -225,10 +231,11 @@ const Comments = () => {
         patchdata
       );
       setRender((el) => el + 1);
-      setText(text);
-      setEditing(!isEditing);
-      console.log('Patch', patch);
+      setInput(e.target.value);
+      console.log(e.target.value);
+      setEditing(e.target.dataset.id);
       console.log('dataset.id', e.target.dataset.id);
+      console.log('Patch', patch);
     } catch (err) {
       console.log('patcherror', err);
     }
@@ -267,64 +274,80 @@ const Comments = () => {
       <TotalComment>
         <BtnContain>
           <AddCommentBtn commentPost={commentPost} />
-          {/* <AddCommentBtn /> */}
         </BtnContain>
-        {/* <QuillContain> */}
+
         <CommentInput
           type="text"
           value={text}
-          // value={text || ''}
           placeholder="댓글을 작성해주세요."
           onChange={handlerText}
         ></CommentInput>
-        {/* </QuillContain> */}
-        {/* {isEditing ?        (<ModifyInput
-          type="text"
-          value={input}
-          onChange={handlerInput}
-        ></ModifyInput> ): } */}
 
         {comments &&
-          sortTest.map((comment, id) => {
+          sortTest.map((comment, i) => {
             return (
               <>
-                <CommentContain key={id}>
+                <CommentContain key={i}>
                   <ImageBox>
                     <ProfileIcon />
                   </ImageBox>
                   <>
                     {isEditing ? (
-                      <ModifyInput
-                        type="text"
-                        value={input}
-                        onChange={handlerInput}
-                      ></ModifyInput>
+                      <>
+                        <CommentBox id={comment.commentId}>
+                          <IdEtcBox>
+                            <Id>ID: {comment.commentId}</Id>
+                          </IdEtcBox>
+                          <EtcBox>
+                            <Date>{comment.createdAt.slice(0, 10)}</Date>
+                            <At>{comment.createdAt.slice(11, 19)}</At>
+                          </EtcBox>
+                          <TextBox>
+                            <p>
+                              <input
+                                name="body"
+                                type="text"
+                                value={input}
+                                onChange={handlerInput}
+                              ></input>
+                            </p>
+                          </TextBox>
+                        </CommentBox>
+                        <BtnBox>
+                          <CompleteBtn
+                            commentPatch={commentPatch}
+                            id={comment.commentId}
+                          />
+                        </BtnBox>
+                      </>
                     ) : (
-                      <CommentBox key={id}>
-                        <IdEtcBox>
-                          <Id>ID: {comment.commentId}</Id>
-                        </IdEtcBox>
-                        <EtcBox>
-                          <Date>{comment.createdAt.slice(0, 10)}</Date>
-                          <At>{comment.createdAt.slice(11, 19)}</At>
-                        </EtcBox>
-                        <TextBox>
-                          <p>{comment.body}</p>
-                        </TextBox>
-                      </CommentBox>
+                      <>
+                        <CommentBox>
+                          <IdEtcBox>
+                            <Id>ID: {comment.commentId}</Id>
+                          </IdEtcBox>
+                          <EtcBox>
+                            <Date>{comment.createdAt.slice(0, 10)}</Date>
+                            <At>{comment.createdAt.slice(11, 19)}</At>
+                          </EtcBox>
+                          <TextBox>
+                            <p>{comment.body}</p>
+                          </TextBox>
+                        </CommentBox>
+                        <BtnBox>
+                          <ModifyCommentBtn
+                            key={i}
+                            id={comment.commentId}
+                            handlerClickEdit={handlerClickEdit}
+                          />
+                          <DeleteCommentBtn
+                            commentDelete={commentDelete}
+                            id={comment.commentId}
+                          />
+                        </BtnBox>
+                      </>
                     )}
                   </>
-                  <BtnBox>
-                    <ModifyCommentBtn
-                      commentPatch={commentPatch}
-                      id={comment.commentId}
-                    />
-                    <DeleteCommentBtn
-                      commentDelete={commentDelete}
-                      // dataset-id={comment.commentId}
-                      id={comment.commentId}
-                    />
-                  </BtnBox>
                 </CommentContain>
               </>
             );
