@@ -111,3 +111,37 @@ export const Modal = (props) => {
     </Div>
   );
 };
+
+export const AssetTextEditModal = (props) => {
+  const { open, close, header, api } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={api}>
+                Edit
+              </button>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
