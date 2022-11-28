@@ -9,6 +9,6 @@ import java.util.List;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     // 게시물 연관 댓글
-    @Query(nativeQuery = true, value = "select * from Comment where board_id = :id")
+    @Query("select c from Comment c where c.board.boardId = :id")
     List<Comment> findAll(long id);
 }
