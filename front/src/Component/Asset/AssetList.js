@@ -17,9 +17,15 @@ const ComponentContain = styled.div`
   .trashicon {
     margin-left: 500px;
   }
+  .p {
+    font-size: 17px;
+    font-weight: 500;
+  }
 `;
 
-const Header = styled.h3``;
+const Header = styled.h3`
+  margin-bottom: 10px;
+`;
 
 const SettingInput = styled.div`
   box-sizing: border-box;
@@ -27,9 +33,10 @@ const SettingInput = styled.div`
   width: 400px;
   height: 60px;
   margin: 10px;
-  font-size: 20px;
+  font-size: 25px;
   border-bottom: solid 2px #9ed5c5;
-
+  margin-top: 20px;
+  color: grey;
   &:focus {
     outline: none;
     border-color: #8ec3b0;
@@ -143,25 +150,25 @@ const AssetList = ({
           >
             {count.goal}
           </SettingInput>
-          목표 금액(원)
+          <p className="p">목표 금액</p>
           <SettingInput
             placeholder="30,000,000원"
             type="number"
             onChange={(e) => setExtended(e.target.value)}
             value={extended}
           >
-            {count.extended}
+            {count.extended} 원
           </SettingInput>
-          목표 기간(개월)
+          <p className="p">목표 기간</p>
           <SettingInput
             placeholder="12개월"
             type="number"
             onChange={(e) => setPeriod(e.target.value)}
             value={period}
           >
-            {count.period}
+            {count.period} 개월
           </SettingInput>
-          목표달성을 위한 매달 저축액은?
+          <p className="p">목표달성을 위한 매달 저축액은?</p>
           <TextBox
             onChange={(e) => setTargetAmount(e.target.value)}
             value={targetAmount}

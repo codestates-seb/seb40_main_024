@@ -144,7 +144,7 @@ const AssetTargetPage = () => {
   //   ]);
   // };
   const HandlerRemove = (id) => {
-    setCountList(countList.filter((user) => user.id !== id));
+    setCountList(countList.filter((goalId) => goalId.id !== id));
     console.log('handler', countList);
   };
 
@@ -213,7 +213,7 @@ const AssetTargetPage = () => {
   // useEffect(() => {
   const goalGet = async () => {
     try {
-      const res = await axios.get(`${url}1/goal`);
+      const res = await axios.get(`${url}/1/goal`);
       // setGoal(res.data._embedded.responseList.goalName); //responseList오류
       // setExtended(res.data._embedded.responseList.goalPrice);
       // setPeriod(res.data._embedded.responseList.targetLength);
@@ -235,7 +235,7 @@ const AssetTargetPage = () => {
       calculatedPrice: targetAmount,
     };
     try {
-      const res = await axios.post(`${url}1/goal`, data);
+      const res = await axios.post(`${url}/1/goal`, data);
       // setGoal(res.data._embedded.responseList.goalName); //responseList오류
       // setExtended(res.data._embedded.responseList.goalPrice);
       // setPeriod(res.data._embedded.responseList.targetLength);
@@ -243,7 +243,6 @@ const AssetTargetPage = () => {
       setGoal('');
       setExtended('');
       setPeriod('');
-
       setTarget('');
       setCountList([
         ...countList,
@@ -265,7 +264,10 @@ const AssetTargetPage = () => {
   };
   const goalDelete = async (e) => {
     try {
-      const res = await axios.delete(`${url}/1/goal/22`);
+      const res = await axios.delete(
+        `${url}/1/goal/${res.data._embedded.responseList[0].goalId}`
+      );
+      console.log('handler', countList);
 
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
@@ -277,6 +279,7 @@ const AssetTargetPage = () => {
   useEffect(() => {
     goalGet();
     goalPost();
+    goalDelete();
   }, [setGoal, setExtended, setPeriod]);
 
   return (
