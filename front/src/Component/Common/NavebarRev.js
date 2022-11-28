@@ -164,15 +164,9 @@ export const LongNavbarBox = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   const [Assetclicked, setAssetclicked] = useState(true);
-  const [Infoclicked, setInfoclicked] = useState(true);
 
   const handleClickAsset = () => {
     setAssetclicked(!Assetclicked);
-  };
-
-  const handleClickInfo = () => {
-    setAssetclicked(true);
-    setInfoclicked(!Infoclicked);
   };
 
   const logoutHandler = () => {
@@ -216,25 +210,7 @@ export const LongNavbarBox = () => {
           <LongContainer>
             <MarkBox onClick={() => navigate('/')}></MarkBox>
             <RowDropMenuBox>
-              {Infoclicked ? (
-                <>
-                  <Menu onClick={handleClickInfo}>마이페이지</Menu>
-                </>
-              ) : (
-                <>
-                  <Menu onClick={handleClickInfo}>
-                    마이페이지
-                    <MenuTopList>
-                      <MenuList onClick={() => navigate('/mypage')}>
-                        마이페이지
-                      </MenuList>
-                      <MenuList onClick={() => navigate('/myinfopage')}>
-                        회원정보수정
-                      </MenuList>
-                    </MenuTopList>
-                  </Menu>
-                </>
-              )}
+              <Menu onClick={() => navigate('/mypage')}>마이페이지</Menu>
               {Assetclicked ? (
                 <>
                   <Menu onClick={handleClickAsset}>자산&목표</Menu>
@@ -286,12 +262,6 @@ export const MiniNavbarBox = () => {
   const handleClickAsset = () => {
     // setCommunityclicked(true);
     setAssetclicked(!Assetclicked);
-  };
-
-  const handleClickInfo = () => {
-    setAssetclicked(true);
-    // setCommunityclicked(true);
-    setInfoclicked(!Infoclicked);
   };
 
   const logoutHandler = () => {
@@ -356,25 +326,9 @@ export const MiniNavbarBox = () => {
               <>
                 <HamburgerDropMenuBox>
                   <MiniMenu onClick={() => navigate('/')}>홈</MiniMenu>
-                  {Infoclicked ? (
-                    <>
-                      <MiniMenu onClick={handleClickInfo}>마이페이지</MiniMenu>
-                    </>
-                  ) : (
-                    <>
-                      <MiniMenu onClick={handleClickInfo}>
-                        마이페이지
-                        <MenuTopList>
-                          <MenuList onClick={() => navigate('/mypage')}>
-                            마이페이지
-                          </MenuList>
-                          <MenuList onClick={() => navigate('/myinfopage')}>
-                            회원정보수정
-                          </MenuList>
-                        </MenuTopList>
-                      </MiniMenu>
-                    </>
-                  )}
+                  <MiniMenu onClick={() => navigate('/mypage')}>
+                    마이페이지
+                  </MiniMenu>
                   {Assetclicked ? (
                     <>
                       <MiniMenu onClick={handleClickAsset}>자산&목표</MiniMenu>

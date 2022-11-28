@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 import Profile from '../../Component/Member/Profile';
-import { NameUpdateBtn } from '../../Component/Common/Button';
+import {
+  ReviseBtn,
+  SignOutBtn,
+  UnSubscript,
+  NameUpdateBtn,
+} from '../../Component/Common/Button';
+import AuthContext from '../../store/AuthContext';
+import { useContext, useEffect, useState } from 'react';
+import axios from 'axios';
+import { Modal } from '../Common/Modal';
 
 const MyPageContain = styled.div`
   display: flex;
@@ -14,6 +23,7 @@ const MyPageContain = styled.div`
   }
 `;
 
+// eslint-disable-next-line no-unused-vars
 const BtnStyle = styled.div`
   display: flex;
   justify-content: end;
@@ -90,7 +100,6 @@ const DivBox = styled.div`
 
 const UserInfo = styled.div`
   width: 300px;
-  padding: 30px;
   margin-left: 50px;
 `;
 
@@ -102,19 +111,151 @@ const UserInfoHead = styled.h4`
 
 const InfoBox = styled.div``;
 
+const Input = styled.input`
+  width: 230px;
+  height: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  color: #444;
+  font-weight: 700;
+  border-bottom: 3px solid #9ed5c5;
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  ::placeholder {
+    color: #999;
+  }
+`;
+
 const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`;
+
+const MainBtn = styled.div`
+  margin-top: 30px;
+`;
+
+const DivBtn = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
 `;
 
 const MyInfo = () => {
-  const UserData = [
-    {
-      name: 'Hong',
-      email: 'hong024@gmail.com',
-    },
-  ];
+  const URL = process.env.REACT_APP_API_URL;
+  const authCtx = useContext(AuthContext);
+  const [Decode] = useState(authCtx.parseJwt);
+
+  // 모달관련
+  const [unSub, setunSUb] = useState(false);
+  const [Modify, setModify] = useState(false);
+  const [SignOut, setSignOut] = useState(false);
+  const [Modalopen, setModalopen] = useState(false);
+  const [errSignOut, setErrSignOut] = useState(false);
+  const [errModalopen, seterrModalopen] = useState(false);
+  const [errModalopenModify, seterrModalopenModify] = useState(false);
+
+  // 회원정보
+  const [username, setUsername] = useState();
+  const [useremail, setUseremail] = useState();
+  const [userpassword, setUserpassword] = useState();
+
+  const openModal = () => {
+    if (username && useremail && userpassword) {
+      setModalopen(true);
+    } else {
+      seterrModalopen(true);
+    }
+  };
+
+  const openUnSub = () => {
+    setunSUb(true);
+  };
+
+  const openSignOut = () => {
+    setSignOut(true);
+  };
+
+  const openErrModify = () => {
+    seterrModalopenModify(true);
+  };
+
+  const openErrSignOut = () => {
+    setErrSignOut(true);
+  };
+
+  const openModify = () => {
+    setModify(true);
+  };
+
+  const closeModal = () => {
+    setunSUb(false);
+    setModify(false);
+    setSignOut(false);
+    setModalopen(false);
+    setErrSignOut(false);
+    seterrModalopen(false);
+    seterrModalopenModify(false);
+  };
+
+  const UserNameonChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const UserEmailonChange = (e) => {
+    setUseremail(e.target.value);
+  };
+
+  const UserPasswordonChange = (e) => {
+    setUserpassword(e.target.value);
+  };
+
+  const UpdateData = {
+    email: useremail,
+    name: username,
+    password: userpassword,
+  };
+
+  const UserPatch = async () => {
+    try {
+      const req = await axios.patch(`${URL}/member/update`, UpdateData);
+      openModal();
+      console.log(req);
+    } catch (e) {
+      openErrModify();
+      console.log(e);
+    }
+  };
+
+  const UserDelete = async () => {
+    try {
+      const req = await axios.delete(`${URL}/member/delete`);
+      openSignOut();
+      console.log(req);
+    } catch (e) {
+      openErrSignOut();
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    const Get = async () => {
+      try {
+        const res = await axios.get(`${URL}/member/${Decode.id}`);
+        console.log(res);
+        setUsername(res.data.name);
+        setUseremail(res.data.email);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    Get();
+  }, []);
 
   return (
     <MyPageContain>
@@ -122,30 +263,91 @@ const MyInfo = () => {
       <div className="profileStyle">
         <Profile>profile</Profile>
       </div>
-      <BtnStyle>
-        <NameUpdateBtn />
-      </BtnStyle>
       <Div>
         <ListContain>
           <UserInfo>
             <DivBox>
-              <UserInfoHead>회원정보</UserInfoHead>
+              <UserInfoHead>
+                <span>회원정보</span>
+              </UserInfoHead>
               <div className="input-box">
-                <div>{UserData[0].name}</div>
+                <div>{username}</div>
               </div>
               <div className="input-box">
-                <div>{UserData[0].email}</div>
+                <div>{Decode.email}</div>
               </div>
+              <MainBtn>
+                <NameUpdateBtn openModify={openModify}>수정하기</NameUpdateBtn>
+              </MainBtn>
+              <MainBtn>
+                <SignOutBtn UserDelete={UserDelete} />
+              </MainBtn>
             </DivBox>
           </UserInfo>
+          <Modal open={Modify} close={closeModal} header="회원정보 수정">
+            <Div>
+              <ListContain>
+                <UserInfo>
+                  <div>
+                    <UserInfoHead>회원정보 변경</UserInfoHead>
+                    <Input
+                      value={username}
+                      onChange={UserNameonChange}
+                      placeholder="이름"
+                    />
+                    <Input
+                      value={useremail}
+                      onChange={UserEmailonChange}
+                      placeholder="이메일"
+                    />
+                    <Input
+                      type="password"
+                      value={userpassword}
+                      onChange={UserPasswordonChange}
+                      placeholder="비밀번호"
+                    />
+                    <DivBtn>
+                      <ReviseBtn UserPatch={UserPatch} />
+                    </DivBtn>
+                  </div>
+                </UserInfo>
+              </ListContain>
+              <Modal open={Modalopen} close={closeModal} header="정보수정 알림">
+                회원 정보가 수정되었습니다.
+              </Modal>
+              <Modal open={errModalopen} close={closeModal} header="오류 알림">
+                회원 정보를 정확히 입력해주세요.
+              </Modal>
+              <Modal
+                open={errModalopenModify}
+                close={closeModal}
+                header="회원정보 오류알림"
+              >
+                회원정보가 정상적으로 수정되지 않았습니다.
+              </Modal>
+            </Div>
+          </Modal>
         </ListContain>
         <UserInfo>
           <UserInfoHead>구독 현황 확인</UserInfoHead>
-          <InfoBox>2022.11.01 ~ 2022.11.30</InfoBox>
-        </UserInfo>
-        <UserInfo>
-          <UserInfoHead>내가 쓴 글</UserInfoHead>
-          <InfoBox>* 오늘 너무 빨리간다 시간이</InfoBox>
+          <InfoBox>
+            신문구독중
+            <br /> 2022.11.01 ~ 2022.11.30
+            <UnSubscript openModal={openUnSub} />
+          </InfoBox>
+          <Modal open={unSub} close={closeModal} header="구독 해지 알림">
+            구독이 해지 되었습니다
+          </Modal>
+          <Modal open={SignOut} close={closeModal} header="회원탈퇴 알림">
+            회원탈퇴가 완료되었습니다.
+          </Modal>
+          <Modal
+            open={errSignOut}
+            close={closeModal}
+            header="회원탈퇴 오류알림"
+          >
+            회원탈퇴가 정상적으로 처리되지 않았습니다.
+          </Modal>
         </UserInfo>
       </Div>
     </MyPageContain>

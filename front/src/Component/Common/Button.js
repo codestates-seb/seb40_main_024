@@ -60,7 +60,7 @@ const ButtonCC = styled.button`
   text-decoration: none;
   font-weight: 800;
   font-size: 20px;
-  /* transition: 0.25s; */
+  transition: 0.25s;
   color: #444;
   stroke: #000000;
   background-color: #8ec3b0;
@@ -238,30 +238,19 @@ export const SavingsBtn = () => {
 };
 
 // 회원 정보 수정
-export const NameUpdateBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <ButtonBB
-      onClick={() => {
-        navigate('/myinfopage');
-      }}
-    >
-      회원정보 수정
-    </ButtonBB>
-  );
+export const NameUpdateBtn = ({ openModify }) => {
+  return <ButtonCC onClick={openModify}>회원정보 수정</ButtonCC>;
 };
 
 export const ProfileBtn = () => {
   return <ButtonBB>프로필 수정</ButtonBB>;
 };
 
-export const ReviseBtn = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>변경</ButtonAA>;
+export const ReviseBtn = ({ UserPatch }) => {
+  return <ButtonAA onClick={UserPatch}>변경</ButtonAA>;
 };
-export const SignOutBtn = () => {
-  return (
-    <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
-  );
+export const SignOutBtn = ({ UserDelete }) => {
+  return <ButtonCC onClick={UserDelete}>회원 탈퇴</ButtonCC>;
 };
 export const AddCommentBtn = ({ commentPost }) => {
   return (
@@ -307,7 +296,11 @@ export const CompleteBtn = ({ commentPatch, id }) => {
 
 // 구독 해지 버튼
 export const UnSubscript = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>해지</ButtonAA>;
+  return (
+    <ButtonAA style={{ marginLeft: '5px' }} onClick={openModal}>
+      해지
+    </ButtonAA>
+  );
 };
 
 export const AddContentBtn = () => {
