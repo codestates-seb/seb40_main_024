@@ -75,7 +75,9 @@ public class AssetDto {
 
         private MemberDto.ResponseObject memberPosted;
 
+
     }
+
 
 
 }
