@@ -255,6 +255,7 @@ const AssetTargetPage = () => {
       ]);
       console.log(countList);
       console.log('post', res);
+
       // console.log('post', res.data._embedded.responseList);
     } catch (err) {
       console.log('error', err);
