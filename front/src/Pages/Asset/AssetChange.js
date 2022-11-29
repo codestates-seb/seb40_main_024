@@ -7,7 +7,12 @@ import {
 import { TitleCashBtn } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect, useContext } from 'react';
-import { Modal, AssetTextEditModal } from '../../Component/Common/Modal';
+import {
+  Modal,
+  AutoModal,
+  AssetTextEditModal,
+  AssetDeleteEditModal,
+} from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
@@ -24,8 +29,10 @@ const MainPage = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 100%;
+  min-width: 1510px;
+  margin-bottom: 60px;
   height: 100%;
 `;
 
@@ -256,19 +263,328 @@ const AssetListBox = styled.div`
   }
 `;
 
-function AssetChange() {
+export const AssetChange = () => {
   const authCtx = useContext(AuthContext);
   const [TextModalopen, setTextModalopen] = useState(false);
   const [errTextModalopen, seterrTextModalopen] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
+  const [DelModalopen, setDelModalopen] = useState(false);
+  const [errDelModalopen, seterrDelModalopen] = useState(false);
 
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
   const [EditText, setEditText] = useState('');
-  const [Data, setData] = useState('');
+  const [AssetDatas, setAssetDatas] = useState('');
+  const [check, setCheck] = useState(false);
 
-  console.log(authCtx.parseJwt.id);
+  const memberid = authCtx.parseJwt.id;
+  const assetDatas = AssetDatas.data;
+
+  const checkHandler = () => {
+    setCheck(true);
+    useEffect(() => {
+      setTimeout(() => {
+        setCheck(false);
+        window.location.reload();
+      }, 0);
+    });
+  };
+
+  const openEditTextModal = () => {
+    setTextModalopen(true);
+  };
+  const openerrModal = () => {
+    seterrModalopen(true);
+  };
+
+  const openerrDeletModal = () => {
+    seterrDelModalopen(true);
+  };
+
+  const openDeleteModal = () => {
+    setDelModalopen(true);
+  };
+
+  const openCashModal = () => {
+    Text && Cash && isNaN(Cash) === false
+      ? setModalopen(true)
+      : Text || Cash || isNaN(Cash) === true
+      ? seterrTextModalopen(true)
+      : null;
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+    setTextModalopen(false);
+    setDelModalopen(false);
+  };
+
+  const errcloseModal = () => {
+    seterrModalopen(false);
+    seterrTextModalopen(false);
+    seterrDelModalopen(false);
+  };
+
+  const TextonChange = (e) => {
+    setText(e.target.value);
+  };
+
+  const EditTextonChange = (e) => {
+    setEditText(e.target.value);
+  };
+
+  const CashonChange = (e) => {
+    setCash(e.target.value);
+  };
+
+  const assetData = [];
+  {
+    assetDatas
+      ? assetDatas.forEach((el) =>
+          el.memberPosted.id === memberid ? assetData.push(el) : null
+        )
+      : null;
+  }
+  // console.log('assetData', assetData);
+  const assetType = [];
+  {
+    assetData ? assetData.forEach((el) => assetType.push(el.assetType)) : null;
+  }
+  const AssetType = [...new Set(assetType)];
+
+  if (AssetType[0] !== undefined && AssetType.length < 7) {
+    for (let i = 0; i <= 9 - AssetType.length; i++) {
+      AssetType.push('명칭');
+    }
+  }
+
+  const assetId = [];
+  {
+    assetDatas
+      ? assetData.forEach((el) => {
+          assetId.push(el.assetId);
+        })
+      : null;
+  }
+
+  const assetDataBox = [...assetData];
+
+  if (assetData[0] !== undefined && assetDataBox.length < 7) {
+    for (let i = 0; i <= 9 - assetDataBox.length; i++) {
+      assetDataBox.push(undefined);
+    }
+  }
+
+  if (assetDataBox.length === 0) {
+    for (let i = 0; i <= 6; i++) {
+      assetDataBox.push(undefined);
+    }
+  }
+
+  const assetData1 = [];
+  const assetData2 = [];
+  const assetData3 = [];
+  const assetData4 = [];
+  const assetData5 = [];
+  const assetData6 = [];
+
+  {
+    assetData.map((el) => {
+      if (el !== undefined && el.assetType === AssetType[0]) {
+        assetData1.push(el);
+      }
+    });
+  }
+
+  {
+    assetData.map((el) => {
+      if (el !== undefined && el.assetType === AssetType[1]) {
+        assetData2.push(el);
+      }
+    });
+  }
+  {
+    assetData.map((el) => {
+      if (el !== undefined && el.assetType === AssetType[2]) {
+        assetData3.push(el);
+      }
+    });
+  }
+  {
+    assetData.map((el) => {
+      if (el !== undefined && el.assetType === AssetType[3]) {
+        assetData4.push(el);
+      }
+    });
+  }
+  {
+    assetData.map((el) => {
+      if (el !== undefined && el.assetType === AssetType[4]) {
+        assetData5.push(el);
+      }
+    });
+  }
+  {
+    assetData.map((el) => {
+      if (el !== undefined && el.assetType === AssetType[5]) {
+        assetData6.push(el);
+      }
+    });
+  }
+
+  const AssetIds1 = [];
+  const AssetIds2 = [];
+  const AssetIds3 = [];
+  const AssetIds4 = [];
+  const AssetIds5 = [];
+  const AssetIds6 = [];
+  console.log('AssetIds1', AssetIds1);
+  {
+    assetData1.map((e) => {
+      AssetIds1.push(e.assetId);
+    });
+  }
+  {
+    assetData2.map((e) => {
+      AssetIds2.push(e.assetId);
+    });
+  }
+  {
+    assetData3.map((e) => {
+      AssetIds3.push(e.assetId);
+    });
+  }
+  {
+    assetData4.map((e) => {
+      AssetIds4.push(e.assetId);
+    });
+  }
+  {
+    assetData5.map((e) => {
+      AssetIds5.push(e.assetId);
+    });
+  }
+  {
+    assetData6.map((e) => {
+      AssetIds6.push(e.assetId);
+    });
+  }
+
+  const assetValueBox = [];
+  const assetValueNumBox = [];
+  let assetValue1 = 0;
+  let assetValue2 = 0;
+  let assetValue3 = 0;
+  let assetValue4 = 0;
+  let assetValue5 = 0;
+  let assetValue6 = 0;
+
+  {
+    assetData1.map((el) => {
+      if (el !== undefined) {
+        assetValue1 += el.assetValue;
+      }
+    });
+  }
+  assetValueBox.push(
+    assetValue1.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+  );
+  assetValueNumBox.push(assetValue1);
+
+  {
+    assetData2.map((el) => {
+      if (el !== undefined) {
+        assetValue2 += el.assetValue;
+      }
+    });
+  }
+  assetValueBox.push(
+    assetValue2.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+  );
+  assetValueNumBox.push(assetValue2);
+  {
+    assetData3.map((el) => {
+      if (el !== undefined) {
+        assetValue3 += el.assetValue;
+      }
+    });
+  }
+  assetValueBox.push(
+    assetValue3.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+  );
+  assetValueNumBox.push(assetValue3);
+  {
+    assetData4.map((el) => {
+      if (el !== undefined) {
+        assetValue4 += el.assetValue;
+      }
+    });
+  }
+  assetValueBox.push(
+    assetValue4.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+  );
+  assetValueNumBox.push(assetValue4);
+  {
+    assetData5.map((el) => {
+      if (el !== undefined) {
+        assetValue5 += el.assetValue;
+      }
+    });
+  }
+  assetValueBox.push(
+    assetValue5.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+  );
+  assetValueNumBox.push(assetValue5);
+  {
+    assetData6.map((el) => {
+      if (el !== undefined) {
+        assetValue6 += el.assetValue;
+      }
+    });
+  }
+  assetValueBox.push(
+    assetValue6.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+  );
+  assetValueNumBox.push(assetValue6);
+
+  const Cashtarget = Cash.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+
+  let reviewcash = 0;
+  {
+    AssetType.map((el, key) => {
+      if (el === Text) {
+        reviewcash = assetValueNumBox[key];
+      }
+    });
+  }
+
+  let ReviewCash = reviewcash + Number(Cash);
+  const Reviewtarget = ReviewCash.toString().replace(
+    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+    ','
+  );
+
+  if (AssetType.length === 0) {
+    for (let i = 0; i <= 6; i++) {
+      AssetType.push('명칭');
+    }
+  }
+
+  if (assetValueBox.length >= 7) {
+    assetValueBox.length = 6;
+  }
+
+  if (assetDataBox.length >= 7) {
+    assetDataBox.length = 6;
+  }
+
+  if (AssetType.length >= 7) {
+    AssetType.length = 6;
+  }
 
   //? POST
   const Postdata = {
@@ -278,7 +594,7 @@ function AssetChange() {
   // eslint-disable-next-line no-unused-vars
   const postAssetApi = async () => {
     await axios
-      .post(`${URL}member/1/asset`, Postdata)
+      .post(`${URL}/member/${memberid}/asset`, Postdata)
       .then((res) => openCashModal())
       .catch((err) => openCashModal());
   };
@@ -294,107 +610,198 @@ function AssetChange() {
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi = async () => {
     await axios
-      .patch(`${URL}/member/1/asset/1`, Patchdata)
-      .then((res) => openEditTextModal())
-      .catch((err) => console.log(err));
+      .patch(`${URL}/member/${memberid}/asset/1`, Patchdata)
+      .then((res) => closeModal())
+      .catch((err) => openerrModal());
   };
   //?
 
   //? GET
-  // eslint-disable-next-line no-unused-vars
-  const getAssetsApi = async () => {
+  const getAssetApi = async () => {
     await axios
-      .get(`${URL}/member/${authCtx.parseJwt.id}`)
-      .then((res) => setData(res.data))
+      .get(`${URL}/asset`)
+      .then((res) => setAssetDatas(res))
       .catch((err) => console.log(err));
   };
   //?
 
   //? DELET
   // eslint-disable-next-line no-unused-vars
-  async function deletAssetApi() {
-    await axios
-      .delete(`${URL}/member/1/asset/4`)
-      .then((res) => openCashModal())
-      .catch((err) => console.log(err));
+  let Deletedata = '';
+  {
+    AssetIds1.forEach((e) => {
+      Deletedata = String(e);
+    });
   }
+
+  const deletAssetApi = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
   //?
 
-  const openEditTextModal = () => {
-    setTextModalopen(true);
-  };
-
-  const openCashModal = () => {
-    Text && Cash && isNaN(Cash) === false
-      ? setModalopen(true)
-      : Text || Cash || isNaN(Cash) === true
-      ? seterrModalopen(true)
-      : null;
-  };
-
-  const closeModal = () => {
-    setModalopen(false);
-    setTextModalopen(false);
-  };
-
-  const errcloseModal = () => {
-    seterrModalopen(false);
-    seterrTextModalopen(false);
-  };
-
-  const TextonChange = (e) => {
-    setText(e.target.value);
-  };
-  const EditTextonChange = (e) => {
-    setEditText(e.target.value);
-  };
-
-  const CashonChange = (e) => {
-    setCash(e.target.value);
-  };
-
-  const Cashtarget = Cash.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
-
-  let ReviewCash = 0;
-  if (Cashtarget) {
-    ReviewCash = Data[0].assetValue + Number(Cash);
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  let Deletedata1 = '';
+  {
+    AssetIds1.forEach((e) => {
+      Deletedata1 = String(e);
+    });
   }
-  const Reviewtarget = ReviewCash.toString().replace(
-    /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-    ','
-  );
 
-  // let title = [];
-  // {
-  //   Data
-  //     ? Data.map((data) => {
-  //         title.push(data.assetType);
-  //       })
-  //     : null;
-  // }
-  // const AssetTitle = [...new Set(title)];
-  // if (AssetTitle.length < 7) {
-  //   for (let i = 0; i < 7 - AssetTitle.length; i++) {
-  //     AssetTitle.push(undefined);
-  //   }
-  // }
+  const deletAssetApi1 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata1}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
+  console.log(`${Deletedata}`);
+  console.log('AssetIds1', AssetIds1);
+  console.log('AssetIds2', AssetIds2);
+  console.log('AssetIds3', AssetIds3);
+  console.log('AssetIds4', AssetIds4);
+  console.log('AssetIds5', AssetIds5);
+  console.log('AssetIds6', AssetIds6);
+
+  // //? DELET
+  // // eslint-disable-next-line no-unused-vars
+  // const deletAssetApi = async () => {
+  //   await axios
+  //     .delete(
+  //       `${URL}/member/${memberid}/asset/${AssetIds4[AssetIds4.length - 1]}`
+  //     )
+  //     .then((res) => closeModal())
+  //     .catch((err) => openerrDeletModal());
+  // };
+  // //?
+
+  // //? DELET
+  // // eslint-disable-next-line no-unused-vars
+  // const deletAssetApi2 = async () => {
+  //   await axios
+  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
+  //     .then((res) => closeModal())
+  //     .catch((err) => openerrDeletModal());
+  // };
+  // //?
+
+  // //? DELET
+  // // eslint-disable-next-line no-unused-vars
+  // const deletAssetApi3 = async () => {
+  //   await axios
+  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
+  //     .then((res) => closeModal())
+  //     .catch((err) => openerrDeletModal());
+  // };
+  // //?
+
+  // //? DELET
+  // // eslint-disable-next-line no-unused-vars
+  // const deletAssetApi4 = async () => {
+  //   await axios
+  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
+  //     .then((res) => closeModal())
+  //     .catch((err) => openerrDeletModal());
+  // };
+  // //?
+
+  // //? DELET
+  // // eslint-disable-next-line no-unused-vars
+  // const deletAssetApi5 = async () => {
+  //   await axios
+  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
+  //     .then((res) => closeModal())
+  //     .catch((err) => openerrDeletModal());
+  // };
+  // //?
+
+  // //? DELET
+  // // eslint-disable-next-line no-unused-vars
+  // const deletAssetApi6 = async () => {
+  //   await axios
+  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
+  //     .then((res) => closeModal())
+  //     .catch((err) => openerrDeletModal());
+  // };
+  //?
 
   useEffect(() => {
-    getAssetsApi();
+    getAssetApi();
   }, []);
 
   useEffect(() => {
-    getAssetsApi();
-  }, [Modalopen, TextModalopen, errTextModalopen, errModalopen, Text, Cash]);
+    getAssetApi();
+  }, [
+    Modalopen,
+    TextModalopen,
+    errTextModalopen,
+    errModalopen,
+    DelModalopen,
+    errDelModalopen,
+  ]);
+
+  const addData = () => {
+    {
+      AssetAdata.datasets[0].data = [];
+
+      AssetAdata.labels = AssetType;
+      PercentassetValueNumBox.map((e) => {
+        AssetAdata.datasets[0].data.push(e);
+      });
+    }
+  };
+  let TotalassetValueNumBox = 0;
+  {
+    assetValueNumBox.map((e) => (TotalassetValueNumBox += e));
+  }
+  // console.log('TotalassetValueNumBox', TotalassetValueNumBox);
+  if (TotalassetValueNumBox === 0) {
+    assetValueNumBox.unshift(1);
+  }
+
+  let PercentassetValueNumBox = [];
+
+  assetValueNumBox.map((e) => {
+    let assetValueNum = (e / TotalassetValueNumBox) * 100;
+    PercentassetValueNumBox.push(assetValueNum.toFixed(1));
+  });
+
+  if (
+    PercentassetValueNumBox[0] === 'Infinity' ||
+    isNaN(PercentassetValueNumBox[0]) === true
+  ) {
+    PercentassetValueNumBox.shift();
+    PercentassetValueNumBox.unshift(1);
+  }
+  // console.log('assetDatas', assetDatas);
+  addData();
+
+  const AssetList = AssetType.map((e, key) => (
+    <>
+      <AssetListBox key={e}>
+        <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
+        <H3Title>
+          {e}
+          <EditButton onClick={openEditTextModal}>
+            <FiEdit />
+          </EditButton>
+          <EditButton onClick={openDeleteModal}>
+            <FiDelete />
+          </EditButton>
+        </H3Title>
+        <H3 key={key}>총 금액: {assetValueBox[key]} 원</H3>
+      </AssetListBox>
+    </>
+  ));
 
   return (
     <>
       <LongNavbarBox />
       <MiniNavbarBox />
-      {Data ? (
+      {AssetDatas ? (
         <>
           <MainPage>
             <GraphH1>보유자산 현황</GraphH1>
@@ -410,50 +817,36 @@ function AssetChange() {
               </ChartContain>
 
               <MainContain>
-                <Modal
-                  open={Modalopen}
-                  close={closeModal}
-                  header="자산 금액 수정 알림"
-                >
-                  자산 금액이 수정 되었습니다.
-                </Modal>
-
-                <Modal
-                  open={errModalopen}
-                  close={errcloseModal}
-                  header="자산 금액 오류 알림"
-                >
-                  <p>
-                    오류 : 수정할 자산명칭 및 자산 금액을 &#34; , &#34; 없이
-                  </p>
-                  <p style={{ marginLeft: '42px', marginTop: '10px' }}>
-                    숫자로만 입력해주세요.
-                  </p>
-                </Modal>
-
-                <Modal
-                  open={TextModalopen}
+                <AssetDeleteEditModal
+                  open={DelModalopen}
                   close={closeModal}
                   header="자산 종류 수정 알림"
+                  api={deletAssetApi1}
+                  handler={checkHandler}
                 >
-                  변경할 자산 명칭 ( 현재 자산 명칭 : {Data[0].assetType})
                   <Div>
-                    <Input
-                      onChange={EditTextonChange}
-                      value={EditText}
-                      type="text"
-                      placeholder="변경하실 자산 명칭을 적어주세요. (ex. 다이아몬드)"
-                    />
+                    <p>선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
-                </Modal>
+                </AssetDeleteEditModal>
 
+                <AssetDeleteEditModal
+                  open={DelModalopen}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={deletAssetApi1}
+                  handler={checkHandler}
+                >
+                  <Div>
+                    <p>선택하신 자산을 삭제하시겠습니까? </p>
+                  </Div>
+                </AssetDeleteEditModal>
                 <AssetTextEditModal
                   open={TextModalopen}
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={patchAssetsApi}
                 >
-                  변경할 자산 명칭 ( 현재 자산 명칭 : {Text} )
+                  변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
                     <Input
                       onChange={EditTextonChange}
@@ -464,164 +857,46 @@ function AssetChange() {
                   </Div>
                 </AssetTextEditModal>
 
+                <AutoModal
+                  open={Modalopen}
+                  close={closeModal}
+                  header="자산 금액 수정 알림"
+                >
+                  자산 금액이 수정 되었습니다.
+                </AutoModal>
+
                 <Modal
                   open={errTextModalopen}
+                  close={errcloseModal}
+                  header="자산 금액 오류 알림"
+                >
+                  <p>오류 : 수정할 자산명칭 및 자산 금액을 확인해 주시기 </p>
+                  <p style={{ marginLeft: '42px', marginTop: '10px' }}>
+                    바랍니다.
+                  </p>
+                </Modal>
+
+                <Modal
+                  open={errModalopen}
                   close={errcloseModal}
                   header="자산 종류 오류 알림"
                 >
                   오류 : 수정할 자산 종류를 입력해주세요
                 </Modal>
 
+                <AutoModal
+                  open={errDelModalopen}
+                  close={errcloseModal}
+                  header="자산 종류 오류 알림"
+                >
+                  <p>오류 : 현재 등록 된 자산 데이터가 없습니다. </p>
+                  <p style={{ marginLeft: '42px', marginTop: '10px' }}>
+                    아래 자산금액수정을 진행해 주시기 바랍니다.
+                  </p>
+                </AutoModal>
+
                 <H1>자산 리스트</H1>
-                {Data ? (
-                  <>
-                    <AssetListBox>
-                      <H3Title style={{ marginTop: '10px' }}>1 &nbsp;)</H3Title>
-                      {/* {AssetTitle[0] === undefined ? ( */}
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                      {/* ) : ( */}
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                      {/* )} */}
-                      <H3>총 금액: &nbsp;원</H3>
-                    </AssetListBox>
-                    {/* 
-                    <H3Title style={{ marginTop: '10px' }}> 2 &nbsp;) </H3Title>
-                    {AssetTitle[1] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[1]}
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;원</H3>
-
-                    <H3Title style={{ marginTop: '10px' }}> 3 &nbsp;) </H3Title>
-                    {AssetTitle[2] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[2]}
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;원</H3>
-
-                    <H3Title style={{ marginTop: '10px' }}> 4 &nbsp;) </H3Title>
-                    {AssetTitle[3] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[3]}
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;원</H3>
-
-                    <H3Title style={{ marginTop: '10px' }}> 5 &nbsp;) </H3Title>
-                    {AssetTitle[4] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[4]}
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;원</H3>
-
-                    <H3Title style={{ marginTop: '10px' }}> 6 &nbsp;) </H3Title>
-                    {AssetTitle[5] === undefined ? (
-                      <H3Title>
-                        명칭
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    ) : (
-                      <H3Title>
-                        {AssetTitle[5]}
-                        <EditButton onClick={openEditTextModal}>
-                          <FiEdit />
-                        </EditButton>
-                        <EditButton onClick={deletAssetApi}>
-                          <FiDelete />
-                        </EditButton>
-                      </H3Title>
-                    )}
-                    <H3>총 금액: &nbsp;원</H3> */}
-                  </>
-                ) : null}
+                {AssetList}
 
                 <H2>자산 금액 수정</H2>
                 <Div>
@@ -632,9 +907,14 @@ function AssetChange() {
                     placeholder="자산 명칭을 적어주세요. (ex. 다이아몬드)"
                   />
                 </Div>
-                {Text && Data ? (
+                {Text && AssetDatas ? (
                   <Fade>
-                    <P>{`* 반영될 자산명칭: "${Text}"`}</P>
+                    {Text === '명칭' ? (
+                      <P
+                        style={{ color: 'blue' }}
+                      >{`🚨 반영될 자산명칭이 "명칭"이면 버튼 비활성화됩니다."`}</P>
+                    ) : null}
+                    <P>{`✨ 반영될 자산명칭: "${Text}"`}</P>
                   </Fade>
                 ) : null}
                 <Div>
@@ -645,12 +925,12 @@ function AssetChange() {
                     placeholder="숫자로만 금액을 적어주세요. (ex. 10000)"
                   />
                   <div>
-                    <TitleCashBtn postAssetApi={postAssetApi}>
+                    <TitleCashBtn Text={Text} postAssetApi={postAssetApi}>
                       수정
                     </TitleCashBtn>
                   </div>
                 </Div>
-                {Cash && Data && Reviewtarget.length <= 21 ? (
+                {Cash && AssetDatas && Reviewtarget.length <= 21 ? (
                   <Fade>
                     <P
                       style={{ color: 'blue' }}
@@ -659,16 +939,16 @@ function AssetChange() {
                     <P>{`✔ 수정 후 금액 자리수 : ${Reviewtarget.length}자리`}</P>
                     <P>{`✔ 숫자만 기입 + " , " 포함 21자리까지 금액수정이 가능합니다.`}</P>
                   </Fade>
-                ) : Cash && Data && Reviewtarget.length >= 22 ? (
+                ) : Cash && AssetDatas && Reviewtarget.length >= 22 ? (
                   <Fade>
-                    <P>{`✔ 수정 후 금액 자리수 : ${Reviewtarget.length}자리`}</P>
-                    <P>{`✔ " , " 포함 21자리까지 금액수정이 가능합니다.`}</P>
+                    <P>{`🚨 수정 후 금액 자리수 : ${Reviewtarget.length}자리`}</P>
+                    <P>{`🚨 " , " 포함 21자리까지 금액수정이 가능합니다.`}</P>
                     <P
                       style={{ color: 'blue' }}
-                    >{`✔   현재 수정금액 자리수가 22자리 이상입니다.`}</P>
+                    >{`🚨 현재 수정금액 자리수가 22자리 이상입니다.`}</P>
                     <P
                       style={{ color: 'blue' }}
-                    >{`✔  반영금액을 수정해주세요.`}</P>
+                    >{`🚨 반영금액을 수정해주세요.`}</P>
                   </Fade>
                 ) : null}
               </MainContain>
@@ -691,6 +971,4 @@ function AssetChange() {
       )}
     </>
   );
-}
-
-export default AssetChange;
+};

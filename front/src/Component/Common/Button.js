@@ -372,12 +372,13 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi }) => {
+export const TitleCashBtn = ({ postAssetApi, Text }) => {
   return (
     <ButtonAA
       onClick={() => {
         postAssetApi();
       }}
+      disabled={String(Text) === '명칭'}
     >
       수정
     </ButtonAA>
