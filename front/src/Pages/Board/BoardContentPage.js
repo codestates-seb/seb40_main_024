@@ -1,5 +1,6 @@
 import Contents from '../../Component/Board/BoardContents';
-import Comments from '../../Component/Board/BoardComments';
+// import Comments from '../../Component/Board/BoardComments';
+import ComTest from '../../Component/Board/ComTest';
 import {
   LongNavbarBox,
   MiniNavbarBox,
@@ -61,7 +62,7 @@ const BoardContentPage = () => {
         <LongNavbarBox />
         <MiniNavbarBox />
         <Contents />
-        <Comments />
+        <ComTest />
       </MainPost>
     </>
   );

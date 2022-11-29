@@ -159,7 +159,7 @@ const Contents = () => {
   const Delete = async () => {
     try {
       const res = await axios.delete(`${URL}/board/${id}`);
-      console.log(res);
+      console(res);
       navigate('/freeboard');
     } catch (e) {
       console.log(e);
@@ -188,7 +188,6 @@ const Contents = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/board/${id}`);
-        console.log(res);
         setBoardId(res.data.boardId);
         setTitle(res.data.title);
         setBody(res.data.body);
