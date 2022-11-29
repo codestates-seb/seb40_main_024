@@ -210,9 +210,9 @@ export const ButtonSignup = () => {
 };
 
 //목표수정 페이지
-export const SaveBtn = ({ HandlerAdd }) => {
+export const SaveBtn = ({ openSavingModal }) => {
   return (
-    <ButtonCC onClick={HandlerAdd} style={{ marginBottom: '30px' }}>
+    <ButtonCC onClick={openSavingModal} style={{ marginBottom: '30px' }}>
       Saving
     </ButtonCC>
   );
@@ -231,6 +231,21 @@ export const PlusBtn = ({ savings, goalPost }) => {
     </ButtonCC>
   );
 };
+export const EditGoalBtn = ({ id, openModify }) => {
+  return (
+    <ButtonAA data-id={id} onClick={openModify}>
+      수정
+    </ButtonAA>
+  );
+};
+export const DeleteGoalBtn = ({ id, goalDelete }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalDelete}>
+      삭제
+    </ButtonAA>
+  );
+};
+
 //마이페이지, 회원정보수정
 
 export const SavingsBtn = () => {

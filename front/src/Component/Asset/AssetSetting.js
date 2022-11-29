@@ -16,6 +16,10 @@ const ComponentContain = styled.div`
   .trashicon {
     margin-left: 500px;
   }
+  .p {
+    font-size: 17px;
+    font-weight: 500;
+  }
 `;
 
 const Header = styled.h3`
@@ -127,21 +131,21 @@ const AssetSetting = ({
             onChange={handlerGoal}
             value={goal}
           />
-          목표 금액(원)
+          <p className="p">목표 금액(원)</p>
           <SettingInput
             placeholder="30,000,000원"
             type="number"
             onChange={handlerExtended}
             value={extended}
           />
-          목표 기간(개월)
+          <p className="p">목표 기간(개월)</p>
           <SettingInput
             placeholder="12개월"
             type="number"
             onChange={handlerPeriod}
             value={period}
           />
-          목표달성을 위한 매달 저축액은?
+          <p className="p">목표달성을 위한 매달 저축액은?</p>
           <TextBox>{targetAmount}원!</TextBox>
           {countList.length === 6 ? (
             <>
