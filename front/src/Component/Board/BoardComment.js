@@ -17,6 +17,7 @@ const TotalComment = styled.div`
   border: 3px solid #9ed5c5;
   border-radius: 10px;
   margin-top: 30px;
+  margin-bottom: 30px;
 `;
 
 const CommentContain = styled.div`
