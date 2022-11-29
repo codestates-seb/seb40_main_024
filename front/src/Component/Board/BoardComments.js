@@ -186,7 +186,7 @@ const Comments = () => {
   const [text, setText] = useState('');
   const [input, setInput] = useState('');
   const [render, setRender] = useState(0);
-  const [isEditing, setEditing] = useState(false);
+  const [isEditing, setEditing] = useState('');
 
   const handlerText = (e) => {
     const data = e.target.value;
@@ -292,9 +292,9 @@ const Comments = () => {
                     <ProfileIcon />
                   </ImageBox>
                   <>
-                    {isEditing ? (
+                    {isEditing === comment.commentId ? (
                       <>
-                        <CommentBox id={comment.commentId}>
+                        <CommentBox data-id={comment.commentId}>
                           <IdEtcBox>
                             <Id>ID: {comment.commentId}</Id>
                           </IdEtcBox>
