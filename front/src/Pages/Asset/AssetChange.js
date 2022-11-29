@@ -460,7 +460,7 @@ export const AssetChange = () => {
   const AssetIds4 = [];
   const AssetIds5 = [];
   const AssetIds6 = [];
-  console.log('AssetIds1', AssetIds1);
+
   {
     assetData1.map((e) => {
       AssetIds1.push(e.assetId);
@@ -863,6 +863,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={deletAssetApi2}
+                  AssetIds2={AssetIds2}
                 >
                   <Div>
                     <p>2 선택하신 자산이 삭제하시겠습니까? </p>
@@ -874,6 +875,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={deletAssetApi3}
+                  AssetIds3={AssetIds3}
                 >
                   <Div>
                     <p>3 선택하신 자산이 삭제하시겠습니까? </p>
@@ -885,6 +887,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={deletAssetApi4}
+                  AssetIds4={AssetIds4}
                 >
                   <Div>
                     <p>4 선택하신 자산이 삭제하시겠습니까? </p>
@@ -896,6 +899,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={deletAssetApi5}
+                  AssetIds5={AssetIds5}
                 >
                   <Div>
                     <p>5 선택하신 자산이 삭제하시겠습니까? </p>
@@ -907,6 +911,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={deletAssetApi6}
+                  AssetIds6={AssetIds6}
                 >
                   <Div>
                     <p>6 선택하신 자산이 삭제하시겠습니까? </p>
@@ -970,22 +975,22 @@ export const AssetChange = () => {
 
                 <H1>자산 리스트</H1>
                 {AssetList}
-                <EditButton class="1" onClick={DelModalopenHandler1}>
+                <EditButton className="1" onClick={DelModalopenHandler1}>
                   1 <FiDelete />
                 </EditButton>
-                <EditButton class="2" onClick={DelModalopenHandler2}>
+                <EditButton className="2" onClick={DelModalopenHandler2}>
                   2 <FiDelete />
                 </EditButton>
-                <EditButton class="3" onClick={DelModalopenHandler3}>
+                <EditButton className="3" onClick={DelModalopenHandler3}>
                   3 <FiDelete />
                 </EditButton>
-                <EditButton class="4" onClick={DelModalopenHandler4}>
+                <EditButton className="4" onClick={DelModalopenHandler4}>
                   4 <FiDelete />
                 </EditButton>
-                <EditButton class="5" onClick={DelModalopenHandler5}>
+                <EditButton className="5" onClick={DelModalopenHandler5}>
                   5 <FiDelete />
                 </EditButton>
-                <EditButton class="6" onClick={DelModalopenHandler6}>
+                <EditButton className="6" onClick={DelModalopenHandler6}>
                   6 <FiDelete />
                 </EditButton>
                 {/* <EditButton onClick={openDeleteModal}>

@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-
+// eslint-disable-next-line no-unused-vars
+import { useState, useEffect } from 'react';
+// import { useState,t, useContext } from 'react';
 const Div = styled.div`
   .modal {
     display: none;
@@ -190,8 +191,54 @@ export const AssetTextEditModal = (props) => {
   );
 };
 
-export const AssetDeleteEditModal = (props) => {
-  const { open, close, header, api } = props;
+// export const AssetDeleteEditModal = (props) => {
+//   const { open, close, header, api } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const [check, setCheck] = useState(false);
+
+//   const checkHandler = () => {
+//     setCheck(true);
+//     setTimeout(() => {
+//       setCheck(false);
+//       window.location.reload();
+//     }, 5);
+//   };
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close" onClick={close}>
+//                 &times;
+//               </button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button
+//                 className="close"
+//                 onClick={(() => close, checkHandler, api)}
+//               >
+//                 Delete
+//               </button>
+//               <button
+//                 className="close"
+//                 onClick={close}
+//                 style={{ marginLeft: '20px' }}
+//               >
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+export const AssetDeleteEditModal1 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api, AssetIds1 } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -199,6 +246,9 @@ export const AssetDeleteEditModal = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
+      api();
+    }, 0);
+    setTimeout(() => {
       window.location.reload();
     }, 5);
   };
@@ -215,64 +265,7 @@ export const AssetDeleteEditModal = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
-                Delete
-              </button>
-              <button
-                className="close"
-                onClick={close}
-                style={{ marginLeft: '20px' }}
-              >
-                close
-              </button>
-            </footer>
-          </section>
-        ) : null}
-      </div>
-    </Div>
-  );
-};
-export const AssetDeleteEditModal1 = (props) => {
-  // eslint-disable-next-line no-unused-vars
-
-  // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds1 } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [check, setCheck] = useState(false);
-  // console.log(api);
-  // console.log(AssetIds1.length);
-
-  const checkHandler = () => {
-    setCheck(true);
-    setTimeout(() => {
-      if (check === false) {
-        for (let i = 0; i < AssetIds1.length; i++) {
-          api();
-        }
-      }
-    }, 5);
-  };
-
-  return (
-    <Div>
-      <div className={open ? 'openModal modal' : 'modal'}>
-        {open ? (
-          <section>
-            <header>
-              {header}
-              <button className="close" onClick={close}>
-                &times;
-              </button>
-            </header>
-            <main>{props.children}</main>
-            <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
+              <button className="close" onClick={(() => close, checkHandler)}>
                 Delete
               </button>
               <button
@@ -290,7 +283,8 @@ export const AssetDeleteEditModal1 = (props) => {
   );
 };
 export const AssetDeleteEditModal2 = (props) => {
-  const { open, close, header, api } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api, AssetIds2 } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -298,6 +292,9 @@ export const AssetDeleteEditModal2 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
+      api();
+    }, 0);
+    setTimeout(() => {
       window.location.reload();
     }, 5);
   };
@@ -314,10 +311,7 @@ export const AssetDeleteEditModal2 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
+              <button className="close" onClick={(() => close, checkHandler)}>
                 Delete
               </button>
               <button
@@ -335,7 +329,8 @@ export const AssetDeleteEditModal2 = (props) => {
   );
 };
 export const AssetDeleteEditModal3 = (props) => {
-  const { open, close, header, api } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api, AssetIds3 } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -343,6 +338,9 @@ export const AssetDeleteEditModal3 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
+      api();
+    }, 0);
+    setTimeout(() => {
       window.location.reload();
     }, 5);
   };
@@ -359,10 +357,7 @@ export const AssetDeleteEditModal3 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
+              <button className="close" onClick={(() => close, checkHandler)}>
                 Delete
               </button>
               <button
@@ -380,7 +375,8 @@ export const AssetDeleteEditModal3 = (props) => {
   );
 };
 export const AssetDeleteEditModal4 = (props) => {
-  const { open, close, header, api } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api, AssetIds4 } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -388,6 +384,9 @@ export const AssetDeleteEditModal4 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
+      api();
+    }, 0);
+    setTimeout(() => {
       window.location.reload();
     }, 5);
   };
@@ -404,10 +403,7 @@ export const AssetDeleteEditModal4 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
+              <button className="close" onClick={(() => close, checkHandler)}>
                 Delete
               </button>
               <button
@@ -425,7 +421,8 @@ export const AssetDeleteEditModal4 = (props) => {
   );
 };
 export const AssetDeleteEditModal5 = (props) => {
-  const { open, close, header, api } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api, AssetIds5 } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -433,6 +430,9 @@ export const AssetDeleteEditModal5 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
+      api();
+    }, 0);
+    setTimeout(() => {
       window.location.reload();
     }, 5);
   };
@@ -449,10 +449,7 @@ export const AssetDeleteEditModal5 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
+              <button className="close" onClick={(() => close, checkHandler)}>
                 Delete
               </button>
               <button
@@ -470,7 +467,8 @@ export const AssetDeleteEditModal5 = (props) => {
   );
 };
 export const AssetDeleteEditModal6 = (props) => {
-  const { open, close, header, api } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api, AssetIds6 } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -478,6 +476,9 @@ export const AssetDeleteEditModal6 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
+      api();
+    }, 0);
+    setTimeout(() => {
       window.location.reload();
     }, 5);
   };
@@ -494,10 +495,7 @@ export const AssetDeleteEditModal6 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button
-                className="close"
-                onClick={(() => close, checkHandler, api)}
-              >
+              <button className="close" onClick={(() => close, checkHandler)}>
                 Delete
               </button>
               <button
@@ -547,3 +545,36 @@ export const GoalModifygModal = (props) => {
     </Div>
   );
 };
+// export const AutoModal = (props) => {
+//   const { open, close, header } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const [check, setCheck] = useState(false);
+
+//   const checkHandler = () => {
+//     setCheck(true);
+//     setTimeout(() => {
+//       setCheck(false);
+//       window.location.reload();
+//     }, 5);
+//   };
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close">&times;</button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={(() => close, checkHandler)}>
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
