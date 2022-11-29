@@ -27,12 +27,9 @@ const GuideBox = styled.div`
   margin-left: 250px;
   margin-bottom: 50px;
   color: grey;
-
   .TextHeader {
     text-align: center;
-
     color: #9ed5c5;
-
     width: 550px;
   }
   .Text {
@@ -48,7 +45,6 @@ const PageContain = styled.div`
   flex-direction: row;
   justify-content: center;
   /* display: inline-block; */
-
   align-items: center;
   /* position: relative; */
   box-sizing: border-box;

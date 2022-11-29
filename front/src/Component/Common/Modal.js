@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useState } from 'react';
 
 const Div = styled.div`
   .modal {
@@ -8,8 +9,8 @@ const Div = styled.div`
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 99;
     background-color: rgba(0, 0, 0, 0.6);
+    z-index: '999999';
   }
   .modal button {
     outline: none;
@@ -95,9 +96,7 @@ export const Modal = (props) => {
           <section>
             <header>
               {header}
-              <button className="close" onClick={close}>
-                &times;
-              </button>
+              <button className="close">&times;</button>
             </header>
             <main>{props.children}</main>
             <footer>
@@ -112,9 +111,51 @@ export const Modal = (props) => {
   );
 };
 
+export const AutoModal = (props) => {
+  const { open, close, header } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
+
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+      window.location.reload();
+    }, 5);
+  };
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close">&times;</button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={(() => close, checkHandler)}>
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
 export const AssetTextEditModal = (props) => {
   const { open, close, header, api } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
 
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+      window.location.reload();
+    }, 5);
+  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -128,7 +169,10 @@ export const AssetTextEditModal = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="close" onClick={api}>
+              <button
+                className="close"
+                onClick={(() => close, api, checkHandler)}
+              >
                 Edit
               </button>
               <button
@@ -146,6 +190,72 @@ export const AssetTextEditModal = (props) => {
   );
 };
 
+export const AssetDeleteEditModal = (props) => {
+  const { open, close, header, api } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={(() => close, api)}>
+                Delete
+              </button>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
+export const AssetDeleteEditModal1 = (props) => {
+  const { open, close, header, api } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={(() => close, api)}>
+                Delete
+              </button>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
 export const GoalModifygModal = (props) => {
   const { open, close, header, goalPatch, id } = props;
 
