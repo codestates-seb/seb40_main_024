@@ -59,6 +59,9 @@ const MiddleDiv = styled.div`
   .div5 {
     text-align: center;
     height: 400px;
+    span {
+      font-size: 20px;
+    }
   }
   button {
     margin: 10px;
