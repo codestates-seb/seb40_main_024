@@ -20,7 +20,7 @@
 
 ## Document
 
-- [전체 구현 목록 & 담당](https://github.com/orgs/codestates-seb/projects/262)
+- [전체 구현 목록 & 담당](https://github.com/codestates-seb/seb40_main_024/issues/103)
 
 
 ## Commit convention
