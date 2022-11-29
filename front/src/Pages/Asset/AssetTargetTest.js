@@ -2,12 +2,10 @@ import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
-// import { PlusBtn } from '../../Component/Common/Button';
 import {
   LongNavbarBox,
   MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
-// import { LongLoginNavbarBox } from '../../Component/Common/NavebarRev';
 import AssetList from '../../Component/Asset/AssetList';
 import axios from 'axios';
 
@@ -24,7 +22,7 @@ const GuideBox = styled.div`
   border-top: 5px solid #8ec3b0;
   border-bottom: 5px solid #8ec3b0;
   margin-top: 80px;
-  margin-left: 250px;
+  margin-left: 300px;
   margin-bottom: 50px;
   color: grey;
 
@@ -105,12 +103,6 @@ const GraphH1 = styled.h1`
   font-size: 40px;
 `;
 
-// const PlusButton = styled.button`
-//   width: 200px;
-//   height: 60px;
-//   margin-left: 680px;
-// `;
-
 const AssetTargetPage = () => {
   const tokenAxios = () => {
     const loginData = {
@@ -131,35 +123,12 @@ const AssetTargetPage = () => {
   const [period, setPeriod] = useState(''); // 기간
   // eslint-disable-next-line no-unused-vars
   const [target, setTarget] = useState('');
-  const [savings, setSavings] = useState(''); // 저축횟수
   const [render, setRender] = useState(0);
   const [goalName, setGoalName] = useState('');
   const [goalPrice, setGoalPrice] = useState('');
   const [targetLength, setTargetLength] = useState('');
-
-  // eslint-disable-next-line no-unused-vars
-  // const [texttarget, setTexttarget] = useState(''); // 횟수별 저축액
-  // const [countList, setCountList] = useState([
-  //   { goal: '자동차', extended: '목표금액', period: '기간' },
-  // ]);
-
+  const [up, setUp] = useState(0); //저축횟수
   const [countList, setCountList] = useState([]);
-
-  // console.log('countList', countList.length);
-  // const HandlerAdd = () => {
-  //   // let countArr = [...countList];
-  //   // let counter = countArr.slice(-1)[0];
-  //   // counter += 1;
-  //   // countArr.push(counter.length);
-  //   // index 사용 X
-  //   // countArr[counter] = counter	// index 사용 시 윗줄 대신 사용
-  //   // console.log('countArr', countArr);
-  //   // setCountList(countArr);
-
-  const HandlerRemove = (id) => {
-    setCountList(countList.filter((goalId) => goalId.id !== id));
-    console.log('handler', countList);
-  };
 
   let monthly = Math.floor(extended / period);
   if (isNaN(monthly)) {
@@ -176,11 +145,6 @@ const AssetTargetPage = () => {
     percentage = 0;
   }
 
-  const HandlerAddCount = () => {
-    let countArr = countArr + 1;
-    setSavings(countArr);
-    setPeriod('');
-  };
   const handlerGoal = (e) => {
     setGoal(e.target.value);
   };
@@ -205,11 +169,23 @@ const AssetTargetPage = () => {
     setTargetLength(e.target.value);
   };
 
+  // const HandlerAddCount = () => {
+  //   setUp(up + 1);
+  //   if (up + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
+  // };
+
+  // const HandlerDownCount = () => {
+  //   setUp(up - 1);
+  //   if (up - 1 < 0) return;
+  // };
+
   useEffect(() => {
     const goalGet = async () => {
       try {
         const res = await axios.get(`${url}/1/goal`);
         setCountList(res.data._embedded.responseList);
+        setUp(res.data._embedded.responseList.completed);
+        setUp(res.data._embedded.responseList.incompleted);
         console.log('get', res);
         console.log('responseList', res.data._embedded.responseList);
       } catch (err) {
@@ -271,14 +247,44 @@ const AssetTargetPage = () => {
         patchdata
       );
       setRender((el) => el + 1);
-      setGoal('');
-      setExtended('');
-      setPeriod('');
-      setTarget('');
+      // setGoal(goalName);
+      // setExtended(goalPrice);
+      // setPeriod(targetLength);
+
       console.log('patch', res);
       console.log('patchId', e.target.dataset.id);
     } catch (err) {
       console.log('patcherror', err);
+    }
+  };
+
+  // {member_id}/goal/{goal_id}/complete
+
+  const goalUpPatch = async (e) => {
+    try {
+      const res = await axios.patch(
+        `${url}/1/goal/${e.target.dataset.id}/complete`
+      );
+      setUp(res.data.completed);
+      console.log(res.data.completed);
+      console.log('up', res);
+      console.log('patchId', e.target.dataset.id);
+    } catch (err) {
+      console.log('up', err);
+    }
+  };
+
+  const goalDownPatch = async (e) => {
+    try {
+      const res = await axios.patch(
+        `${url}/1/goal/${e.target.dataset.id}/incomplete`
+      );
+      setUp(res.data.completed);
+      console.log(res.data.completed);
+      console.log('down', res);
+      console.log('patchId', e.target.dataset.id);
+    } catch (err) {
+      console.log('up', err);
     }
   };
 
@@ -343,24 +349,15 @@ const AssetTargetPage = () => {
               <AssetSetting
                 goalPost={goalPost}
                 countList={countList}
-                // HandlerAdd={HandlerAdd}
                 handlerGoal={handlerGoal}
                 handlerExtended={handlerExtended}
                 handlerPeriod={handlerPeriod}
                 handlerTarget={handlerTarget}
-                // HandlerRemove={HandlerRemove}
-                // HandlerAddCount={HandlerAddCount}//저축횟수
                 goal={goal}
                 extended={extended}
                 period={period}
                 target={target}
                 targetAmount={targetAmount}
-                // setGoal={setGoal}
-                // setExtended={setExtended}
-                // setPeriod={setPeriod}
-                // target={target}
-                // savings={savings}
-                // period={period}
               />
               {countList.map((count, id) => (
                 <AssetList
@@ -370,20 +367,19 @@ const AssetTargetPage = () => {
                   goal={goal}
                   extended={extended}
                   period={period}
-                  HandlerRemove={HandlerRemove}
-                  HandlerAddCount={HandlerAddCount}
                   setGoal={setGoal}
                   setExtended={setExtended}
                   setPeriod={setPeriod}
                   target={target}
-                  savings={savings}
                   goalDelete={goalDelete}
                   targetAmount={targetAmount}
                   goalPatch={goalPatch}
                   goalNameonChange={goalNameonChange}
                   goalPriceonChange={goalPriceonChange}
                   targetLengthonChange={targetLengthonChange}
-                  // setTargetAmount={setTargetAmount}
+                  goalUpPatch={goalUpPatch}
+                  up={up}
+                  goalDownPatch={goalDownPatch}
                 ></AssetList>
               ))}
             </BoxContain>

@@ -146,7 +146,7 @@ export const AssetTextEditModal = (props) => {
   );
 };
 
-export const GoalModifygModal = (props) => {
+export const GoalModifyModal = (props) => {
   const { open, close, header, goalPatch, id } = props;
 
   return (
@@ -171,6 +171,37 @@ export const GoalModifygModal = (props) => {
                 style={{ marginLeft: '20px' }}
               >
                 close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
+
+export const SavingModal = (props) => {
+  const { open, close, header } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                저장
               </button>
             </footer>
           </section>

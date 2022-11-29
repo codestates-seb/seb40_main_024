@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { SaveBtn, EditGoalBtn, DeleteGoalBtn } from '../Common/Button';
-import { GoalModifygModal, Modal } from '../../Component/Common/Modal';
+import {
+  GoalModifyModal,
+  Modal,
+  SavingModal,
+} from '../../Component/Common/Modal';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -138,6 +142,25 @@ const Input = styled.input`
     color: #999;
   }
 `;
+
+// const Text = styled.div`
+//   width: 230px;
+//   height: 50px;
+//   border-top: none;
+//   border-left: none;
+//   border-right: none;
+//   outline: none;
+//   color: #444;
+//   font-weight: 700;
+//   border-bottom: 3px solid #9ed5c5;
+//   ::-webkit-outer-spin-button,
+//   ::-webkit-inner-spin-button {
+//     -webkit-appearance: none;
+//   }
+//   ::placeholder {
+//     color: #999;
+//   }
+// `;
 const BtnBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -146,10 +169,27 @@ const BtnBox = styled.div`
   gap: 10px;
   margin-left: 350px;
 `;
+const NewBtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 150px;
+  height: 40px;
+  gap: 10px;
+  margin-top: -20px;
+  margin-bottom: 10px;
+`;
+const UpBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+`;
+const DownBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+`;
 
 const AssetList = ({
-  //   HandlerRemove,
-  //   post,
   count,
   goalDelete,
   setGoal,
@@ -167,11 +207,15 @@ const AssetList = ({
   goalPrice,
   targetLengthonChange,
   targetLength,
+  goalUpPatch,
+  up,
+  goalDownPatch,
+  id,
 }) => {
   const [save, setSave] = useState(false);
   const [Modify, setModify] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
-  // const [count, setCount] = useState(1);
+  //   const [up, setUp] = useState(1);
   //   const [disabled, setDisabled] = useState(false);
   // const[numberUp, setNumberUp]= useState(1)
 
@@ -189,13 +233,6 @@ const AssetList = ({
   const openModify = () => {
     setModify(true);
   };
-
-  // const handlerCount = () => {
-  //   setCount(count + 1);
-  //   if (count + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
-
-  //   //수정필요
-  // };
 
   //   const handlerNumberUp = ()
   //   const handlerCloseModal = () => {
@@ -256,7 +293,7 @@ const AssetList = ({
             {count.calculatedPrice}원!
           </TextBox>
           <SaveBtn openSavingModal={openSavingModal}></SaveBtn>
-          <GoalModifygModal
+          <GoalModifyModal
             id={count.goalId}
             open={Modify}
             close={openModal}
@@ -295,11 +332,46 @@ const AssetList = ({
               >
                 목표자산이 수정되었습니다.
               </Modal>
-              <Modal open={save} close={closeModal} header="저축 횟수 세기">
-                저축 횟수가 수정되었습니다.
+            </Div>
+          </GoalModifyModal>
+          <SavingModal open={save} close={openModal} header="납입 횟수">
+            <Div>
+              <ListContain>
+                <UserInfo>
+                  <div>
+                    <UserInfoHead>납입횟수 {up}번</UserInfoHead>
+                    <NewBtnBox>
+                      <UpBtn onClick={goalUpPatch} data-id={id}>
+                        UP
+                      </UpBtn>
+                      <DownBtn onClick={goalDownPatch} data-id={id}>
+                        DOWN
+                      </DownBtn>
+                    </NewBtnBox>
+                    <UserInfoHead>
+                      목표기간 {count.targetLength}개월
+                    </UserInfoHead>
+
+                    {/* <Text
+                      value={goalName}
+                      onChange={goalNameonChange}
+                      placeholder="숫자"
+                    > */}
+                    {/* <Button onClick={goalUpPatch} data-id={id}></Button>
+                      <Button2 onClick={goalDownPatch} data-id={id}></Button2> */}
+                    {/* </Text> */}
+                  </div>
+                </UserInfo>
+              </ListContain>
+              <Modal
+                open={Modalopen}
+                close={closeModal}
+                header="납입횟수 저장 알림"
+              >
+                납입 횟수가 저장되었습니다.
               </Modal>
             </Div>
-          </GoalModifygModal>
+          </SavingModal>
         </ComponentContain>
       </div>
     </>
