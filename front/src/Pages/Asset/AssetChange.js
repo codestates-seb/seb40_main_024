@@ -12,6 +12,7 @@ import {
   AutoModal,
   AssetTextEditModal,
   AssetDeleteEditModal,
+  AssetDeleteEditModal1,
 } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
@@ -652,6 +653,7 @@ export const AssetChange = () => {
   }
 
   const deletAssetApi1 = async () => {
+    console.log('deletAssetApi1', deletAssetApi1);
     await axios
       .delete(`${URL}/member/${memberid}/asset/${Deletedata1}`)
       .then((res) => closeModal())
@@ -780,21 +782,16 @@ export const AssetChange = () => {
   addData();
 
   const AssetList = AssetType.map((e, key) => (
-    <>
-      <AssetListBox key={e}>
-        <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
-        <H3Title>
-          {e}
-          <EditButton onClick={openEditTextModal}>
-            <FiEdit />
-          </EditButton>
-          <EditButton onClick={openDeleteModal}>
-            <FiDelete />
-          </EditButton>
-        </H3Title>
-        <H3 key={key}>총 금액: {assetValueBox[key]} 원</H3>
-      </AssetListBox>
-    </>
+    <AssetListBox key={e}>
+      <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
+      <H3Title>
+        {e}
+        <EditButton onClick={openEditTextModal}>
+          <FiEdit />
+        </EditButton>
+      </H3Title>
+      <H3 key={key}>총 금액: {assetValueBox[key]} 원</H3>
+    </AssetListBox>
   ));
 
   return (
@@ -829,7 +826,7 @@ export const AssetChange = () => {
                   </Div>
                 </AssetDeleteEditModal>
 
-                <AssetDeleteEditModal
+                <AssetDeleteEditModal1
                   open={DelModalopen}
                   close={closeModal}
                   header="자산 종류 수정 알림"
@@ -839,7 +836,7 @@ export const AssetChange = () => {
                   <Div>
                     <p>선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
-                </AssetDeleteEditModal>
+                </AssetDeleteEditModal1>
                 <AssetTextEditModal
                   open={TextModalopen}
                   close={closeModal}

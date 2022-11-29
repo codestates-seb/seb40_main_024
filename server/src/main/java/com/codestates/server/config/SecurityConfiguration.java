@@ -90,7 +90,7 @@ public class SecurityConfiguration {
         configuration.setMaxAge(3600L);
         configuration.setAllowCredentials(true);
         configuration.addExposedHeader("Authorization");
-//        configuration.addExposedHeader("refreshToken");
+        configuration.addExposedHeader("refreshToken");
 
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

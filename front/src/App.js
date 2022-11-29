@@ -11,7 +11,6 @@ import { FreeBoardPage } from './Pages/Board/FreeBoardPage';
 import FreeBoard from './Pages/Board/FreeBoard';
 import ShareBoard from './Pages/Board/ShareBoard';
 import MyPage from './Pages/Member/MyPage';
-import InfoPage from './Pages/Member/InfoPage';
 import BoardContentPage from './Pages/Board/BoardContentPage';
 import AssetTargetTest from './Pages/Asset/AssetTargetTest';
 import AssetTartget from './Pages/Asset/AssetTargetPage';
@@ -45,9 +44,6 @@ function App() {
         )}
         <Route path="/shareboardpost" element={<ShareBoard />} />
         {authCtx.isLoggedIn && <Route path="/mypage" element={<MyPage />} />}
-        {authCtx.isLoggedIn && (
-          <Route path="/myinfopage" element={<InfoPage />} />
-        )}
         <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
         {authCtx.isLoggedIn && (
           <Route path="/modifyboard/:id" element={<ModifyBoard />} />

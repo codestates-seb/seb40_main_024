@@ -60,7 +60,7 @@ const ButtonCC = styled.button`
   text-decoration: none;
   font-weight: 800;
   font-size: 20px;
-  /* transition: 0.25s; */
+  transition: 0.25s;
   color: #444;
   stroke: #000000;
   background-color: #8ec3b0;
@@ -210,9 +210,9 @@ export const ButtonSignup = () => {
 };
 
 //목표수정 페이지
-export const SaveBtn = ({ HandlerAdd }) => {
+export const SaveBtn = ({ openSavingModal }) => {
   return (
-    <ButtonCC onClick={HandlerAdd} style={{ marginBottom: '30px' }}>
+    <ButtonCC onClick={openSavingModal} style={{ marginBottom: '30px' }}>
       Saving
     </ButtonCC>
   );
@@ -231,6 +231,21 @@ export const PlusBtn = ({ savings, goalPost }) => {
     </ButtonCC>
   );
 };
+export const EditGoalBtn = ({ id, openModify }) => {
+  return (
+    <ButtonAA data-id={id} onClick={openModify}>
+      수정
+    </ButtonAA>
+  );
+};
+export const DeleteGoalBtn = ({ id, goalDelete }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalDelete}>
+      삭제
+    </ButtonAA>
+  );
+};
+
 //마이페이지, 회원정보수정
 
 export const SavingsBtn = () => {
@@ -238,17 +253,8 @@ export const SavingsBtn = () => {
 };
 
 // 회원 정보 수정
-export const NameUpdateBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <ButtonBB
-      onClick={() => {
-        navigate('/myinfopage');
-      }}
-    >
-      회원정보 수정
-    </ButtonBB>
-  );
+export const NameUpdateBtn = ({ openModify }) => {
+  return <ButtonCC onClick={openModify}>회원정보 수정</ButtonCC>;
 };
 
 export const ProfileBtn = () => {
@@ -272,32 +278,20 @@ export const AddCommentBtn = ({ commentPost }) => {
     </ButtonAA>
   );
 };
-export const ModifyCommentBtn = ({ id, handlerClickEdit }) => {
+export const ModifyCommentBtn = ({ Modify }) => {
   return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={handlerClickEdit}
-      data-id={id}
-    >
+    <ButtonAA style={{ marginBottom: '10px' }} onClick={Modify}>
       수정
     </ButtonAA>
   );
 };
-export const DeleteCommentBtn = ({ commentDelete, id }) => {
-  return (
-    <ButtonAA onClick={commentDelete} data-id={id}>
-      삭제
-    </ButtonAA>
-  );
+export const DeleteCommentBtn = ({ commentDelete }) => {
+  return <ButtonAA onClick={commentDelete}>삭제</ButtonAA>;
 };
 
-export const CompleteBtn = ({ commentPatch, id }) => {
+export const CompleteBtn = ({ commentModify }) => {
   return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={commentPatch}
-      data-id={id}
-    >
+    <ButtonAA style={{ marginRight: '35px' }} onClick={commentModify}>
       완료
     </ButtonAA>
   );
@@ -305,7 +299,11 @@ export const CompleteBtn = ({ commentPatch, id }) => {
 
 // 구독 해지 버튼
 export const UnSubscript = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>해지</ButtonAA>;
+  return (
+    <ButtonAA style={{ marginLeft: '5px' }} onClick={openModal}>
+      해지
+    </ButtonAA>
+  );
 };
 
 export const AddContentBtn = () => {

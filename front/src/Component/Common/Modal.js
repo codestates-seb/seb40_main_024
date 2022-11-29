@@ -144,7 +144,6 @@ export const AutoModal = (props) => {
     </Div>
   );
 };
-
 export const AssetTextEditModal = (props) => {
   const { open, close, header, api } = props;
   // eslint-disable-next-line no-unused-vars
@@ -209,6 +208,72 @@ export const AssetDeleteEditModal = (props) => {
             <footer>
               <button className="close" onClick={(() => close, api)}>
                 Delete
+              </button>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
+export const AssetDeleteEditModal1 = (props) => {
+  const { open, close, header, api } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={(() => close, api)}>
+                Delete
+              </button>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
+export const GoalModifygModal = (props) => {
+  const { open, close, header, goalPatch, id } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={goalPatch} data-id={id}>
+                Edit
               </button>
               <button
                 className="close"

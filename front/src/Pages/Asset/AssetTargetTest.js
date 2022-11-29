@@ -27,12 +27,9 @@ const GuideBox = styled.div`
   margin-left: 250px;
   margin-bottom: 50px;
   color: grey;
-
   .TextHeader {
     text-align: center;
-
     color: #9ed5c5;
-
     width: 550px;
   }
   .Text {
@@ -48,7 +45,6 @@ const PageContain = styled.div`
   flex-direction: row;
   justify-content: center;
   /* display: inline-block; */
-
   align-items: center;
   /* position: relative; */
   box-sizing: border-box;
@@ -112,6 +108,19 @@ const GraphH1 = styled.h1`
 // `;
 
 const AssetTargetPage = () => {
+  const tokenAxios = () => {
+    const loginData = {
+      email: 'hoju5@gmail.com',
+      password: 'password5',
+    };
+
+    axios.post(`${url}/member/login`, loginData).then((res) => {
+      const { accessToken } = res.headers.authorization;
+      // token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      console.log(res.headers.authorization);
+    });
+  };
   const url = process.env.REACT_APP_API_URL;
   const [goal, setGoal] = useState(''); // 명칭
   const [extended, setExtended] = useState(''); // 목표금액
@@ -119,6 +128,10 @@ const AssetTargetPage = () => {
   // eslint-disable-next-line no-unused-vars
   const [target, setTarget] = useState('');
   const [savings, setSavings] = useState(''); // 저축횟수
+  const [render, setRender] = useState(0);
+  const [goalName, setGoalName] = useState('');
+  const [goalPrice, setGoalPrice] = useState('');
+  const [targetLength, setTargetLength] = useState('');
 
   // eslint-disable-next-line no-unused-vars
   // const [texttarget, setTexttarget] = useState(''); // 횟수별 저축액
@@ -127,6 +140,7 @@ const AssetTargetPage = () => {
   // ]);
 
   const [countList, setCountList] = useState([]);
+
   // console.log('countList', countList.length);
   // const HandlerAdd = () => {
   //   // let countArr = [...countList];
@@ -138,13 +152,8 @@ const AssetTargetPage = () => {
   //   // console.log('countArr', countArr);
   //   // setCountList(countArr);
 
-  //   setCountList([
-  //     ...countList,
-  //     { goal: goal, extended: extended, period: period },
-  //   ]);
-  // };
   const HandlerRemove = (id) => {
-    setCountList(countList.filter((user) => user.id !== id));
+    setCountList(countList.filter((goalId) => goalId.id !== id));
     console.log('handler', countList);
   };
 
@@ -155,8 +164,6 @@ const AssetTargetPage = () => {
     monthly = 0;
   }
 
-  // const [targetAmount, setTargetAmount] = useState(monthly);
-
   const targetAmount = monthly
     .toString()
     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
@@ -164,12 +171,7 @@ const AssetTargetPage = () => {
   if (isNaN(percentage)) {
     percentage = 0;
   }
-  // setTexttarget(target);
-  // console.log(`percentage: ${percentage}`);
-  // console.log(`goal: ${goal}`);
-  // console.log(`extended: ${extended}`);
-  // console.log(`period: ${period}`);
-  // console.log(`savings: ${savings}`);
+
   const HandlerAddCount = () => {
     let countArr = countArr + 1;
     setSavings(countArr);
@@ -187,61 +189,32 @@ const AssetTargetPage = () => {
   const handlerTarget = (e) => {
     setTarget(e.target.value);
   };
-
-  // const patchdata = {
-  //   body: input,
-  // };
-  // const commentPatch = async (e) => {
-  //   try {
-  //     const patch = await axios.patch(
-  //       `${url}/board/${id}/comment/${e.target.dataset.id}`,
-  //       patchdata
-  //     );
-  //     setRender((el) => el + 1);
-  //     setInput(e.target.value);
-  //     console.log(e.target.value);
-  //     setEditing(e.target.dataset.id);
-  //     console.log('dataset.id', e.target.dataset.id);
-  //     console.log('Patch', patch);
-  //   } catch (err) {
-  //     console.log('patcherror', err);
-  //   }
-  // };
-  const patchdata = {
-    goalName: '미니 JCW1', // 옵셔널
-    goalPrice: 4000000,
-    targetLength: 20, // 옵셔널
-  };
-  // const sortTest = comments.sort((a, b) => b.commentId - a.commentId);
-  const goalPatch = async () => {
-    try {
-      const res = await axios.patch(`${url}/1/goal/1`, patchdata);
-      // setGoal(res.data._embedded.responseList.goalName); //responseList오류
-      // setExtended(res.data._embedded.responseList.goalPrice);
-      // setPeriod(res.data._embedded.responseList.targetLength);
-      // setTarget(res.data._embedded.responseList.calculatedPrice);
-      console.log(res);
-    } catch (err) {
-      console.log('error', err);
-    }
+  const goalNameonChange = (e) => {
+    setGoalName(e.target.value);
   };
 
-  // useEffect(() => {
-  const goalGet = async () => {
-    try {
-      const res = await axios.get(`${url}/1/goal`);
-      // setGoal(res.data._embedded.responseList.goalName); //responseList오류
-      // setExtended(res.data._embedded.responseList.goalPrice);
-      // setPeriod(res.data._embedded.responseList.targetLength);
-      // setTarget(res.data._embedded.responseList.calculatedPrice);
-      console.log('get', res.data._embedded.responseList[0].goalId);
-      console.log(res);
-    } catch (err) {
-      console.log('error', err);
-    }
+  const goalPriceonChange = (e) => {
+    setGoalPrice(e.target.value);
   };
 
-  // }, []);
+  const targetLengthonChange = (e) => {
+    setTargetLength(e.target.value);
+  };
+
+  useEffect(() => {
+    const goalGet = async () => {
+      try {
+        const res = await axios.get(`${url}/1/goal`);
+        setCountList(res.data._embedded.responseList);
+        console.log('get', res);
+        console.log('responseList', res.data._embedded.responseList);
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    goalGet();
+    tokenAxios();
+  }, [render]);
 
   const goalPost = async () => {
     const data = {
@@ -252,53 +225,66 @@ const AssetTargetPage = () => {
     };
     try {
       const res = await axios.post(`${url}/1/goal`, data);
-      // setGoal(res.data._embedded.responseList.goalName); //responseList오류
-      // setExtended(res.data._embedded.responseList.goalPrice);
-      // setPeriod(res.data._embedded.responseList.targetLength);
-      // setTarget(res.data._embedded.responseList.calculatedPrice);
+
       setGoal('');
       setExtended('');
       setPeriod('');
-
       setTarget('');
-      setCountList([
-        ...countList,
-        {
-          goal: goal,
-          extended: extended,
-          period: period,
-          targetAmount: targetAmount,
-        },
-      ]);
+      setRender((el) => el + 1);
       console.log(countList);
       console.log('post', res);
-      if (countList.length > 6) return;
+      console.log(res.data.goalId);
+      if (countList.length < 6) return;
       alert('최대 6개의 목표를 설정할 수 있습니다');
       // console.log('post', res.data._embedded.responseList);
     } catch (err) {
       console.log('error', err);
     }
+    // goalPost();
   };
   const goalDelete = async (e) => {
     try {
-      const res = await axios.delete(`${url}/1/goal/22`);
-
+      const res = await axios.delete(`${url}/1/goal/${e.target.dataset.id}`);
+      setRender((el) => el + 1);
+      // const res = await axios.delete(`${url}/1/goal/42`);
       console.log('dataset.id', e.target.dataset.id);
+      // console.log('handler', countList);
       console.log('삭제', res);
     } catch (err) {
       console.log('deleteerror', err);
     }
   };
-  useEffect(() => {
-    goalPatch();
-  }, []);
 
-  useEffect(() => {
-    goalGet();
-    goalPost();
-    goalPatch();
-  }, [setGoal, setExtended, setPeriod]);
+  const goalPatch = async (e) => {
+    const patchdata = {
+      goalName: goalName,
+      goalPrice: goalPrice,
+      targetLength: targetLength,
+    };
+    try {
+      const res = await axios.patch(
+        `${url}/1/goal/${e.target.dataset.id}`,
+        patchdata
+      );
+      setRender((el) => el + 1);
+      setGoal('');
+      setExtended('');
+      setPeriod('');
+      setTarget('');
+      console.log('patch', res);
+      console.log('patchId', e.target.dataset.id);
+    } catch (err) {
+      console.log('patcherror', err);
+    }
+  };
 
+  // useEffect(() => {
+  //   goalGet();
+  //   goalPost();
+  //   goalDelete();
+  //   tokenAxios();
+  // }, [setGoal, setExtended, setPeriod]);
+  // [setGoal, setExtended, setPeriod]
   return (
     <>
       <LongNavbarBox />
@@ -389,6 +375,10 @@ const AssetTargetPage = () => {
                   savings={savings}
                   goalDelete={goalDelete}
                   targetAmount={targetAmount}
+                  goalPatch={goalPatch}
+                  goalNameonChange={goalNameonChange}
+                  goalPriceonChange={goalPriceonChange}
+                  targetLengthonChange={targetLengthonChange}
                   // setTargetAmount={setTargetAmount}
                 ></AssetList>
               ))}

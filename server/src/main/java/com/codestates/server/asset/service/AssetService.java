@@ -18,17 +18,17 @@ import java.util.Optional;
 public class AssetService {
 
     private final AssetRepository repository;
-//    private final MemberService memberService;
+    private final MemberService memberService;
 
     public AssetService(AssetRepository repository, MemberService memberService) {
         this.repository = repository;
-//        this.memberService = memberService;
+        this.memberService = memberService;
     }
 
     @Transactional
     public Asset createAsset(Asset asset, long memberId) {
+        asset.setMember(memberService.findVerifiedMember(memberId));// 포스트 하는 멤버 추가하는 로직 -> security 구현 되면 나중에
         return repository.save(asset);
-
     }
     @Transactional
     public Asset updateAsset(Asset asset, String strValue) { // asset은 Long타입. strValue는 String)
