@@ -39,7 +39,7 @@ const CommentBox = styled.div`
   width: 100%;
   padding: 10px;
   h4 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     border-bottom: 3px solid #def5e5;
   }
 `;
@@ -47,6 +47,7 @@ const CommentBox = styled.div`
 const MDBtn1 = styled.div`
   display: flex;
 `;
+
 const MDBtn2 = styled.div``;
 
 const ModifyInput = styled.input`
@@ -60,7 +61,7 @@ const ModifyInput = styled.input`
   background-color: rgba(0, 0, 0, 0.1);
 `;
 
-function ComTest2({ key, commentid, body }) {
+function Comment({ commentid, body }) {
   const { id } = useParams();
   const URL = process.env.REACT_APP_API_URL;
 
@@ -83,7 +84,6 @@ function ComTest2({ key, commentid, body }) {
   const commentModify = async () => {
     try {
       await axios.patch(`${URL}/board/${id}/comment/${commentid}`, PatchData);
-      setIsEdit(false);
       window.location.reload();
     } catch (err) {
       console.log('deleteerror', err);
@@ -92,9 +92,7 @@ function ComTest2({ key, commentid, body }) {
 
   const commentDelete = async () => {
     try {
-      const res = await axios.delete(`${URL}/board/${id}/comment/${commentid}`);
-      console.log(res);
-      setIsEdit(false);
+      await axios.delete(`${URL}/board/${id}/comment/${commentid}`);
       window.location.reload();
     } catch (err) {
       console.log('deleteerror', err);
@@ -103,7 +101,7 @@ function ComTest2({ key, commentid, body }) {
 
   return (
     <TotalComment>
-      <CommentContain key={key}>
+      <CommentContain>
         <ImageBox>
           <ProfileIcon />
         </ImageBox>
@@ -129,4 +127,4 @@ function ComTest2({ key, commentid, body }) {
   );
 }
 
-export default ComTest2;
+export default Comment;
