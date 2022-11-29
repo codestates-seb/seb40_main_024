@@ -28,6 +28,9 @@ public class Board extends Auditable {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
+    @Column(nullable = false)
+    private int view = 0;
+
     @Column(name = "likes")
     private int like = 0;
 
