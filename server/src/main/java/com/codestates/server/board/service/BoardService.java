@@ -50,12 +50,9 @@ public class BoardService {
         return repository.findAllPaged(PageRequest.of(page, size));
     }
 
-    public Page<Board> findAllByTag(int page, int size, char operator) {
-
-        if (operator == 'x') throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
-
-        return operator == 'p' ? repository.findAllPost(PageRequest.of(page, size))
-                :  repository.findAllAssetPost(PageRequest.of(page, size));
+    public Page<Board> findAllByTag(int page, int size, String tag) {
+        if (!tag.equals("post") && !tag.equals("asset")) throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
+        return tag.equals("post") ? repository.findAllPost(PageRequest.of(page, size)) :  repository.findAllAssetPost(PageRequest.of(page, size));
     }
 
     @Transactional
@@ -90,14 +87,14 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto.Response changeLike(long id, char operator) {
+    public BoardDto.Response changeLike(long id, String which) {
 
-        if (operator == 'x') throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
+        if (!which.equals("like") && !which.equals("dislike")) throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
 
         Board verifiedBoard = findVerifiedBoard(id);
         int like = verifiedBoard.getLike();
 
-        if (operator == '1') {
+        if (which.equals("like")) {
             verifiedBoard.setLike(++like);  // increase 1 like
         } else {
             verifiedBoard.setLike(like > 0 ? --like : 0);  // decrease 1 like (no - value)
