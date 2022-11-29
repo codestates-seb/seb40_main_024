@@ -1,6 +1,6 @@
+import 'animate.css';
 import styled from 'styled-components';
 import { MainA, MainB, MainC, MainD } from './MainImgData';
-import 'animate.css';
 import { Fade, JackInTheBox } from 'react-awesome-reveal';
 import { ButtonLogin, ButtonSignup } from '../../Component/Common/Button';
 

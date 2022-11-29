@@ -24,8 +24,6 @@ const CommentContain = styled.div`
   flex-direction: row;
   width: auto;
   padding: 5px;
-  border-top: 3px solid #def5e5;
-  border-bottom: 3px solid #def5e5;
   line-height: normal;
 `;
 
@@ -39,6 +37,7 @@ const CommentBox = styled.div`
   width: 100%;
   padding: 10px;
   h4 {
+    padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 3px solid #def5e5;
   }
@@ -106,7 +105,7 @@ function Comment({ commentid, body }) {
           <ProfileIcon />
         </ImageBox>
         <CommentBox>
-          <h4>아이디 : {id}</h4>
+          <h4>{commentid}</h4>
           {isEdit ? (
             <MDBtn1>
               <ModifyInput placeholder={body} onChange={onChange1} />
