@@ -24,9 +24,9 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     int updateView(long id);
 
     // tag related
-    @Query("select b from Board b where b.tag = 'POST'")
+    @Query("select b from Board b where b.tag = 'POST' and b.boardStatus = 'BOARD_POSTED'")
     Page<Board> findAllPost(Pageable pageable);
 
-    @Query("select b from Board b where b.tag = 'ASSET'")
+    @Query("select b from Board b where b.tag = 'ASSET' and b.boardStatus = 'BOARD_POSTED'")
     Page<Board> findAllAssetPost(Pageable pageable);
 }
