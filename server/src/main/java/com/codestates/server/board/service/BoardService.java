@@ -1,13 +1,16 @@
 package com.codestates.server.board.service;
 
 
+import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
+import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.repository.BoardRepository;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,18 +21,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@AllArgsConstructor
 @Transactional(readOnly = true)
 @Service
 public class BoardService {
 
     private final BoardRepository repository;
-
+    private final BoardMapper mapper;
     private final CommentRepository commentRepository;
-
-    public BoardService(BoardRepository repository, CommentRepository commentRepository) {
-        this.repository = repository;
-        this.commentRepository = commentRepository;
-    }
 
     public Board findOne(long id) {
         Board verifiedBoard = findVerifiedBoard(id);
@@ -54,13 +53,24 @@ public class BoardService {
     }
 
     @Transactional
-    public Board createOne(Board board) {
-        return repository.save(board);
+    public BoardDto.Response createOne(BoardDto.Post postBoard) {
+
+        Board board = mapper.boardPostToBoard(postBoard);
+        board.setTag(verifyTag(postBoard));
+
+        return mapper.boardToBoardResponseDto(repository.save(board));
     }
 
     @Transactional
-    public Board updateOne(Board board) {
+    public BoardDto.Response updateOne(BoardDto.Patch patchBoard) {
+
+        Board board = mapper.boardPatchToBoard(patchBoard);
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
+
+        // verify tag if not null
+        if (patchBoard.getTag() != null) {
+            board.setTag(verifyTag(patchBoard));
+        }
 
         // title and body
         verifiedBoard.setTitle(board.getTitle());
@@ -70,7 +80,7 @@ public class BoardService {
         // Modified time
         verifiedBoard.setModifiedAt(LocalDateTime.now());
 
-        return repository.save(verifiedBoard);
+        return mapper.boardToBoardResponseDto(repository.save(verifiedBoard));
     }
 
     @Transactional
@@ -107,4 +117,33 @@ public class BoardService {
         }
         return board;
     }
+
+//    public List<EntityModel<BoardDto.Response>> boardStream(List<Board> listedBoards) {
+//        return listedBoards.stream()
+//                .map(mapper::boardToBoardResponseDto)
+//                .map(assembler::toModel)
+//                .collect(Collectors.toList());
+//    }
+
+    public Board.BoardTag verifyTag(Object board) {
+
+        String oldTag = null;
+        Board.BoardTag newTag = null;
+
+        if (board instanceof BoardDto.Post && ((BoardDto.Post) board).getTag() != null) {
+            oldTag = ((BoardDto.Post) board).getTag();
+        } else if (board instanceof BoardDto.Patch) {
+            oldTag = ((BoardDto.Patch) board).getTag();
+        }
+
+        for (Board.BoardTag t : Board.BoardTag.values()) {
+            if (t.getTag().equals(oldTag)) {
+                newTag = t;
+            }
+        }
+
+        if (newTag == null) throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
+        return newTag;
+    }
+
 }

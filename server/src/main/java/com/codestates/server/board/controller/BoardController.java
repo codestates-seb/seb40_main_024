@@ -73,8 +73,8 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<?> postBoard(@Valid @RequestBody BoardDto.Post requestBody) {
-        Board board = boardService.createOne(mapper.boardPostToBoard(requestBody));
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.createOne(requestBody));
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -82,9 +82,10 @@ public class BoardController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchBoard(@PathVariable long id, @Valid @RequestBody BoardDto.Patch requestBody) {
+
         requestBody.setBoardId(id);
-        Board board = boardService.updateOne(mapper.boardPatchToBoard(requestBody));
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.updateOne(requestBody));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
