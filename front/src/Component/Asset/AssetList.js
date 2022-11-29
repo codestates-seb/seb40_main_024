@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { SaveBtn } from '../Common/Button';
+import { SaveBtn, EditGoalBtn, DeleteGoalBtn } from '../Common/Button';
+import { GoalModifygModal, Modal } from '../../Component/Common/Modal';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -58,6 +57,19 @@ const TextBox = styled.div`
   color: red;
   font-size: 30px;
 `;
+// const Button = styled.button`
+//   height: 50px;
+//   width: 50px;
+//   background-color: yellow;
+//   border: black;
+// `;
+
+// const Button2 = styled.button`
+//   height: 50px;
+//   width: 50px;
+//   background-color: blue;
+//   border: black;
+// `;
 
 // const ModalSaving = styled.div`
 //   display: flex;
@@ -88,6 +100,53 @@ const TextBox = styled.div`
 //   color: black;
 //   font-size: 16px;
 // `;
+const ListContain = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const Div = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+`;
+const UserInfo = styled.div`
+  width: 300px;
+  margin-left: 50px;
+`;
+
+const UserInfoHead = styled.h4`
+  color: #bcead5;
+  font-size: 20px;
+  margin-bottom: 20px;
+`;
+
+const Input = styled.input`
+  width: 230px;
+  height: 50px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  outline: none;
+  color: #444;
+  font-weight: 700;
+  border-bottom: 3px solid #9ed5c5;
+  ::-webkit-outer-spin-button,
+  ::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  ::placeholder {
+    color: #999;
+  }
+`;
+const BtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 150px;
+  height: 40px;
+  gap: 10px;
+  margin-left: 350px;
+`;
+
 const AssetList = ({
   //   HandlerRemove,
   //   post,
@@ -96,20 +155,41 @@ const AssetList = ({
   setGoal,
   setExtended,
   setPeriod,
-  id,
   goal,
   extended,
   period,
   targetAmount,
   setTargetAmount,
+  goalPatch,
+  goalNameonChange,
+  goalName,
+  goalPriceonChange,
+  goalPrice,
+  targetLengthonChange,
+  targetLength,
 }) => {
   const [save, setSave] = useState(false);
+  const [Modify, setModify] = useState(false);
+  const [Modalopen, setModalopen] = useState(false);
   // const [count, setCount] = useState(1);
   //   const [disabled, setDisabled] = useState(false);
   // const[numberUp, setNumberUp]= useState(1)
-  const handlerModal = () => {
+
+  const openSavingModal = () => {
     setSave(!save);
   };
+  const openModal = () => {
+    setModalopen(!Modalopen);
+  };
+  const closeModal = () => {
+    setModalopen(false);
+    setModify(false);
+    setSave(false);
+  };
+  const openModify = () => {
+    setModify(true);
+  };
+
   // const handlerCount = () => {
   //   setCount(count + 1);
   //   if (count + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
@@ -127,20 +207,20 @@ const AssetList = ({
       <div style={{ display: 'flex' }}>
         <ComponentContain>
           <br />
-          <div className="trashicon">
-            <FontAwesomeIcon
-              icon={faTrashCan}
-              className="icon"
-              size="2x"
-              color="grey"
-              cursor="pointer"
-              onClick={goalDelete}
-              data-id={id}
-              //   onClick={() => {
-              //     HandlerRemove(post);
-              //   }}
-            ></FontAwesomeIcon>
-          </div>
+          <BtnBox>
+            {/* <Button onClick={goalDelete} data-id={count.goalId}>
+              {' '}
+            </Button> */}
+            <EditGoalBtn
+              openModify={openModify}
+              id={count.goalId}
+            ></EditGoalBtn>
+            <DeleteGoalBtn
+              goalDelete={goalDelete}
+              id={count.goalId}
+            ></DeleteGoalBtn>
+            {/* <Button2 onClick={openModify} data-id={count.goalId}></Button2> */}
+          </BtnBox>
           <Header>나의 목표</Header>
           <SettingInput
             placeholder="자동차"
@@ -148,7 +228,7 @@ const AssetList = ({
             onChange={(e) => setGoal(e.target.value)}
             value={goal}
           >
-            {count.goal}
+            {count.goalName}
           </SettingInput>
           <p className="p">목표 금액</p>
           <SettingInput
@@ -157,7 +237,7 @@ const AssetList = ({
             onChange={(e) => setExtended(e.target.value)}
             value={extended}
           >
-            {count.extended} 원
+            {count.goalPrice} 원
           </SettingInput>
           <p className="p">목표 기간</p>
           <SettingInput
@@ -166,16 +246,60 @@ const AssetList = ({
             onChange={(e) => setPeriod(e.target.value)}
             value={period}
           >
-            {count.period} 개월
+            {count.targetLength} 개월
           </SettingInput>
           <p className="p">목표달성을 위한 매달 저축액은?</p>
           <TextBox
             onChange={(e) => setTargetAmount(e.target.value)}
             value={targetAmount}
           >
-            {count.targetAmount}원!
+            {count.calculatedPrice}원!
           </TextBox>
-          <SaveBtn handlerModal={handlerModal}></SaveBtn>
+          <SaveBtn openSavingModal={openSavingModal}></SaveBtn>
+          <GoalModifygModal
+            id={count.goalId}
+            open={Modify}
+            close={openModal}
+            header="목표자산 수정"
+            goalPatch={goalPatch}
+          >
+            <Div>
+              <ListContain>
+                <UserInfo>
+                  <div>
+                    <UserInfoHead>목표자산 수정</UserInfoHead>
+                    <Input
+                      value={goalName}
+                      onChange={goalNameonChange}
+                      placeholder="나의 목표"
+                    />
+                    <Input
+                      type="number"
+                      value={goalPrice}
+                      onChange={goalPriceonChange}
+                      placeholder="금액"
+                    />
+                    <Input
+                      type="number"
+                      value={targetLength}
+                      onChange={targetLengthonChange}
+                      placeholder="기간"
+                    />
+                  </div>
+                </UserInfo>
+              </ListContain>
+              <Modal
+                open={Modalopen}
+                close={closeModal}
+                header="목표자산수정 알림"
+              >
+                목표자산이 수정되었습니다.
+              </Modal>
+              <Modal open={save} close={closeModal} header="저축 횟수 세기">
+                저축 횟수가 수정되었습니다.
+              </Modal>
+            </Div>
+          </GoalModifygModal>
         </ComponentContain>
       </div>
     </>
