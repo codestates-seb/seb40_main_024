@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ComTest2 from './BoardComment';
+import Comment from './BoardComment';
 
 function Comments() {
   const { id } = useParams();
@@ -26,7 +26,7 @@ function Comments() {
   return (
     <>
       {SortComments.map((el, i) => {
-        return <ComTest2 key={i} commentid={el.commentId} body={el.body} />;
+        return <Comment key={i} commentid={el.commentId} body={el.body} />;
       })}
     </>
   );

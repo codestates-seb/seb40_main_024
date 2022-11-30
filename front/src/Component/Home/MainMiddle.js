@@ -43,7 +43,7 @@ const MiddleDiv = styled.div`
   .div4 {
     display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: end;
     height: 1000px;
     .span {
       margin-top: 200px;
