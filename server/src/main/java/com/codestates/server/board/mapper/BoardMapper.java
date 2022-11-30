@@ -50,7 +50,7 @@ public interface BoardMapper {
                 .body(board.getBody())
                 .view(board.getView())
                 .like(board.getLike())
-                .tag(board.getTag())
+                .category(board.getCategory())
                 .createdAt(board.getCreatedAt())
                 .modifiedAt(board.getModifiedAt())
                 .memberPosted(memberToMemberResponseObject(member))

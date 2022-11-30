@@ -4,17 +4,12 @@ package com.codestates.server.member.service;
 import com.codestates.server.auth.event.MemberRegistrationApplicationEvent;
 import com.codestates.server.auth.utils.CustomAuthorityUtils;
 import com.codestates.server.exception.BusinessLogicException;
-import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
-import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -23,7 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,11 +29,6 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final ApplicationEventPublisher publisher;
-
-    private final MemberMapper mapper;
-
-
-
 
 
     @Transactional
@@ -87,6 +76,15 @@ public class MemberService {
         log.info("5번 통과");
         return memberRepository.save(findMember);
     }
+
+//    public Page<Member> findAllMembers(int page, int size) {
+//        return memberRepository.findAll(PageRequest.of(page , size ,
+//                Sort.by("memberId").descending()));
+//    }
+
+//    public void deleteMember(String email) {
+//        memberRepository.deleteById(findMemberId(email));
+//    }
 
     @Transactional
     public void deleteMember(String email) {
