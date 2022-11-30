@@ -280,7 +280,7 @@ export const AssetChange = () => {
 
   const memberid = authCtx.parseJwt.id;
   const assetDatas = AssetDatas.data;
-  console.log('assetDatas', assetDatas);
+  // console.log('assetDatas', assetDatas);
 
   // const ZeroModalopenHandler1 = () => {
   //   setZeroModalopen1(true);
@@ -386,8 +386,7 @@ export const AssetChange = () => {
     }
   }
 
-  console.log(assetType);
-  console.log(AssetType);
+  // console.log(assetType);
 
   const openCashModal = () => {
     AssetType.length <= 6 && Text && Cash && isNaN(Cash) === false
@@ -470,7 +469,7 @@ export const AssetChange = () => {
       }
     });
   }
-  console.log('assetData1', assetData1);
+  // console.log('assetData1', assetData1);
   const assetIds1 = [];
   const assetIds2 = [];
   const assetIds3 = [];
@@ -671,7 +670,7 @@ export const AssetChange = () => {
       e !== '명칭' ? AssetTypeNonMungching++ : null;
     });
   }
-  console.log(AssetTypeNonMungching);
+  // console.log(AssetTypeNonMungching);
 
   let DeleteLastdata = assetId[assetId.length - 1];
 
@@ -786,10 +785,22 @@ export const AssetChange = () => {
   //?
 
   //? ZEROPOST1
-  const PostZerodata1 = {
+  const PostplusZerodata1 = {
+    assetType: ZeroText,
+    assetValue: `+${Math.abs(assetValue1)}`,
+  };
+  const PostmiusZerodata1 = {
     assetType: ZeroText,
     assetValue: `-${assetValue1}`,
   };
+  let PostZerodata1 = '';
+  {
+    assetValue1 > 0
+      ? (PostZerodata1 = PostmiusZerodata1)
+      : assetValue1 <= 0
+      ? (PostZerodata1 = PostplusZerodata1)
+      : null;
+  }
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi1 = async () => {
     await axios
@@ -799,10 +810,22 @@ export const AssetChange = () => {
   };
   //?
   //? ZEROPOST2
-  const PostZerodata2 = {
+  const PostplusZerodata2 = {
+    assetType: ZeroText,
+    assetValue: `+${Math.abs(assetValue2)}`,
+  };
+  const PostmiusZerodata2 = {
     assetType: ZeroText,
     assetValue: `-${assetValue2}`,
   };
+  let PostZerodata2 = '';
+  {
+    assetValue2 > 0
+      ? (PostZerodata2 = PostmiusZerodata2)
+      : assetValue2 <= 0
+      ? (PostZerodata2 = PostplusZerodata2)
+      : null;
+  }
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi2 = async () => {
     await axios
@@ -811,8 +834,109 @@ export const AssetChange = () => {
       .catch((err) => openerrZeroCashModal());
   };
   //?
+  //? ZEROPOST3
+  const PostplusZerodata3 = {
+    assetType: ZeroText,
+    assetValue: `+${Math.abs(assetValue3)}`,
+  };
+  const PostmiusZerodata3 = {
+    assetType: ZeroText,
+    assetValue: `-${assetValue3}`,
+  };
+  let PostZerodata3 = '';
+  {
+    assetValue3 > 0
+      ? (PostZerodata3 = PostmiusZerodata3)
+      : assetValue3 <= 0
+      ? (PostZerodata3 = PostplusZerodata3)
+      : null;
+  }
+  // eslint-disable-next-line no-unused-vars
+  const postZeroAssetApi3 = async () => {
+    await axios
+      .post(`${URL}/member/${memberid}/asset`, PostZerodata3)
+      .then((res) => openZeroCashModal())
+      .catch((err) => openerrZeroCashModal());
+  };
+  //?
+  //? ZEROPOST4
+  const PostplusZerodata4 = {
+    assetType: ZeroText,
+    assetValue: `+${Math.abs(assetValue4)}`,
+  };
+  const PostmiusZerodata4 = {
+    assetType: ZeroText,
+    assetValue: `-${assetValue4}`,
+  };
+  let PostZerodata4 = '';
+  {
+    assetValue4 > 0
+      ? (PostZerodata4 = PostmiusZerodata4)
+      : assetValue4 <= 0
+      ? (PostZerodata4 = PostplusZerodata4)
+      : null;
+  }
+  console.log('PostZerodata2', PostZerodata2);
+  // eslint-disable-next-line no-unused-vars
+  const postZeroAssetApi4 = async () => {
+    await axios
+      .post(`${URL}/member/${memberid}/asset`, PostZerodata4)
+      .then((res) => openZeroCashModal())
+      .catch((err) => openerrZeroCashModal());
+  };
+  //?
+  //? ZEROPOST5
+  const PostplusZerodata5 = {
+    assetType: ZeroText,
+    assetValue: `+${Math.abs(assetValue5)}`,
+  };
+  const PostmiusZerodata5 = {
+    assetType: ZeroText,
+    assetValue: `-${assetValue5}`,
+  };
+  let PostZerodata5 = '';
+  {
+    assetValue5 > 0
+      ? (PostZerodata5 = PostmiusZerodata5)
+      : assetValue5 <= 0
+      ? (PostZerodata5 = PostplusZerodata5)
+      : null;
+  }
+  // eslint-disable-next-line no-unused-vars
+  const postZeroAssetApi5 = async () => {
+    await axios
+      .post(`${URL}/member/${memberid}/asset`, PostZerodata5)
+      .then((res) => openZeroCashModal())
+      .catch((err) => openerrZeroCashModal());
+  };
+  //?
+  //? ZEROPOST6
+  const PostplusZerodata6 = {
+    assetType: ZeroText,
+    assetValue: `+${Math.abs(assetValue6)}`,
+  };
+  const PostmiusZerodata6 = {
+    assetType: ZeroText,
+    assetValue: `-${assetValue6}`,
+  };
+  let PostZerodata6 = '';
+  {
+    assetValue6 > 0
+      ? (PostZerodata6 = PostmiusZerodata6)
+      : assetValue6 <= 0
+      ? (PostZerodata6 = PostplusZerodata6)
+      : null;
+  }
 
-  console.log('assetValue1', assetValue1);
+  // eslint-disable-next-line no-unused-vars
+  const postZeroAssetApi6 = async () => {
+    await axios
+      .post(`${URL}/member/${memberid}/asset`, PostZerodata6)
+      .then((res) => openZeroCashModal())
+      .catch((err) => openerrZeroCashModal());
+  };
+  //?
+  // console.log('assetValue1', assetValue1);
   // console.log('AssetIds2', AssetIds2);
   // console.log('AssetIds3', AssetIds3);
   // console.log('AssetIds4', AssetIds4);
@@ -875,7 +999,7 @@ export const AssetChange = () => {
   }
   // console.log('assetDatas', assetDatas);
   addData();
-
+  console.log(AssetType);
   const AssetList = AssetType.map((e, key) => (
     <AssetListBox key={key}>
       <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
@@ -1217,7 +1341,13 @@ export const AssetChange = () => {
                   <div>
                     <ZeroCashBtn1
                       ZeroText={ZeroText}
-                      postZEROAssetApi={postZeroAssetApi1}
+                      postZEROAssetApi1={postZeroAssetApi1}
+                      postZEROAssetApi2={postZeroAssetApi2}
+                      postZEROAssetApi3={postZeroAssetApi3}
+                      postZEROAssetApi4={postZeroAssetApi4}
+                      postZEROAssetApi5={postZeroAssetApi5}
+                      postZEROAssetApi6={postZeroAssetApi6}
+                      AssetType={AssetType}
                     >
                       초기화
                     </ZeroCashBtn1>
