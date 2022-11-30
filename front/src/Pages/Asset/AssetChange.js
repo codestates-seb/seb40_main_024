@@ -11,7 +11,6 @@ import {
   Modal,
   AutoModal,
   AssetTextEditModal,
-  AssetDeleteEditModal,
   AssetDeleteEditModal1,
   AssetDeleteEditModal2,
   AssetDeleteEditModal3,
@@ -993,18 +992,6 @@ export const AssetChange = () => {
                 <EditButton className="6" onClick={DelModalopenHandler6}>
                   6 <FiDelete />
                 </EditButton>
-                {/* <EditButton onClick={openDeleteModal}>
-                  3 <FiDelete />
-                </EditButton>
-                <EditButton onClick={openDeleteModal}>
-                  4 <FiDelete />
-                </EditButton>
-                <EditButton onClick={openDeleteModal}>
-                  5 <FiDelete />
-                </EditButton>
-                <EditButton onClick={openDeleteModal}>
-                  6 <FiDelete />
-                </EditButton> */}
                 <H2>자산 금액 수정</H2>
                 <Div>
                   <Input

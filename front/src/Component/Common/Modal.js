@@ -191,51 +191,6 @@ export const AssetTextEditModal = (props) => {
   );
 };
 
-// export const AssetDeleteEditModal = (props) => {
-//   const { open, close, header, api } = props;
-//   // eslint-disable-next-line no-unused-vars
-//   const [check, setCheck] = useState(false);
-
-//   const checkHandler = () => {
-//     setCheck(true);
-//     setTimeout(() => {
-//       setCheck(false);
-//       window.location.reload();
-//     }, 5);
-//   };
-//   return (
-//     <Div>
-//       <div className={open ? 'openModal modal' : 'modal'}>
-//         {open ? (
-//           <section>
-//             <header>
-//               {header}
-//               <button className="close" onClick={close}>
-//                 &times;
-//               </button>
-//             </header>
-//             <main>{props.children}</main>
-//             <footer>
-//               <button
-//                 className="close"
-//                 onClick={(() => close, checkHandler, api)}
-//               >
-//                 Delete
-//               </button>
-//               <button
-//                 className="close"
-//                 onClick={close}
-//                 style={{ marginLeft: '20px' }}
-//               >
-//                 close
-//               </button>
-//             </footer>
-//           </section>
-//         ) : null}
-//       </div>
-//     </Div>
-//   );
-// };
 export const AssetDeleteEditModal1 = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { open, close, header, api, AssetIds1 } = props;
