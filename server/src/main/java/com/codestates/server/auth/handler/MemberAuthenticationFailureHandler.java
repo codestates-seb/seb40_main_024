@@ -1,6 +1,6 @@
 package com.codestates.server.auth.handler;
 
-import com.codestates.server.response.ErrorResponse;
+import com.codestates.server.exception.ErrorResponse;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
