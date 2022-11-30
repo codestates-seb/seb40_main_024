@@ -1,7 +1,7 @@
 plugins {
 	id 'org.springframework.boot' version '2.7.5'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-	id "org.asciidoctor.jvm.convert" version "3.3.2"    // (1)
+//	id "org.asciidoctor.jvm.convert" version "3.3.2"
 	id 'java'
 //	id 'war'
 }
@@ -13,25 +13,25 @@ sourceCompatibility = '11'
 repositories {
 	mavenCentral()
 }
-// (2)
-ext {
-	set('snippetsDir', file("build/generated-snippets"))
-}
-// (3)
-configurations {
-	asciidoctorExtensions
-}
+
+//ext {
+//	set('snippetsDir', file("build/generated-snippets"))
+//}
+
+//configurations {
+//	asciidoctorExtensions
+//}
 
 dependencies {
 	//스프링데이터 JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	// (4) mockmvc 라이브러리
-	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+//	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 
 	//스프링 벨리데이션
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	// (5) 아스키 닥터
-	asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
+//	asciidoctorExtensions "org.springframework.restdocs:spring-restdocs-asciidoctor"
 
 	//스프링 웹
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -71,40 +71,37 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-hateoas'
 }
 
-
-// (6)
 tasks.named('test') {
-	outputs.dir snippetsDir
+//	outputs.dir snippetsDir
 	useJUnitPlatform()
 }
-
 
 // (7)
-tasks.named('asciidoctor') {
-	configurations "asciidoctorExtensions"
-	inputs.dir snippetsDir
-	dependsOn test
-}
-
-
-// (8)
-task copyDocument(type: Copy) {
-	dependsOn asciidoctor            // (8-1)
-	from file("${asciidoctor.outputDir}")   // (8-2)
-	into file("src/main/resources/static/docs")   // (8-3)
-}
-
-build {
-	dependsOn copyDocument  // (9)
-}
-
-tasks.named('test') {
-	useJUnitPlatform()
-}
-// (10)
-bootJar {
-	dependsOn copyDocument    // (10-1)
-	from("${asciidoctor.outputDir}") {  // (10-2)
-		into 'static/docs'     // (10-3)
-	}
-}
+//tasks.named('asciidoctor') {
+//	configurations "asciidoctorExtensions"
+//	inputs.dir snippetsDir
+//	dependsOn test
+//}
+//
+//
+//// (8)
+//task copyDocument(type: Copy) {
+//	dependsOn asciidoctor            // (8-1)
+//	from file("${asciidoctor.outputDir}")   // (8-2)
+//	into file("src/main/resources/static/docs")   // (8-3)
+//}
+//
+//build {
+//	dependsOn copyDocument  // (9)
+//}
+//
+//tasks.named('test') {
+//	useJUnitPlatform()
+//}
+//// (10)
+//bootJar {
+//	dependsOn copyDocument    // (10-1)
+//	from("${asciidoctor.outputDir}") {  // (10-2)
+//		into 'static/docs'     // (10-3)
+//	}
+//}

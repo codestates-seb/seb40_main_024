@@ -50,19 +50,16 @@ public class BoardService {
         return repository.findAllPaged(PageRequest.of(page, size));
     }
 
-    public Page<Board> findAllByTag(int page, int size, char operator) {
-
-        if (operator == 'x') throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
-
-        return operator == 'p' ? repository.findAllPost(PageRequest.of(page, size))
-                :  repository.findAllAssetPost(PageRequest.of(page, size));
+    public Page<Board> findAllByCategory(int page, int size, String category) {
+        if (!category.equals("post") && !category.equals("asset")) throw new CustomException(ExceptionCode.BOARD_CATEGORY_NOT_FOUND);
+        return category.equals("post") ? repository.findAllPost(PageRequest.of(page, size)) :  repository.findAllAssetPost(PageRequest.of(page, size));
     }
 
     @Transactional
     public BoardDto.Response createOne(BoardDto.Post postBoard) {
 
         Board board = mapper.boardPostToBoard(postBoard);
-        board.setTag(verifyTag(postBoard));
+        board.setCategory(verifyCategory(postBoard));
 
         return mapper.boardToBoardResponseDto(repository.save(board));
     }
@@ -73,15 +70,15 @@ public class BoardService {
         Board board = mapper.boardPatchToBoard(patchBoard);
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
 
-        // verify tag if not null
-        if (patchBoard.getTag() != null) {
-            board.setTag(verifyTag(patchBoard));
+        // verify category if not null
+        if (patchBoard.getCategory() != null) {
+            board.setCategory(verifyCategory(patchBoard));
         }
 
         // title and body
         verifiedBoard.setTitle(board.getTitle());
         verifiedBoard.setBody(board.getBody());
-        verifiedBoard.setTag(board.getTag() != null ? board.getTag() : verifiedBoard.getTag());
+        verifiedBoard.setCategory(board.getCategory() != null ? board.getCategory() : verifiedBoard.getCategory());
 
         // Modified time
         verifiedBoard.setModifiedAt(LocalDateTime.now());
@@ -90,14 +87,14 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto.Response changeLike(long id, char operator) {
+    public BoardDto.Response changeLike(long id, String which) {
 
-        if (operator == 'x') throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
+        if (!which.equals("like") && !which.equals("dislike")) throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
 
         Board verifiedBoard = findVerifiedBoard(id);
         int like = verifiedBoard.getLike();
 
-        if (operator == '1') {
+        if (which.equals("like")) {
             verifiedBoard.setLike(++like);  // increase 1 like
         } else {
             verifiedBoard.setLike(like > 0 ? --like : 0);  // decrease 1 like (no - value)
@@ -135,27 +132,27 @@ public class BoardService {
         return board;
     }
 
-    public Board.BoardTag verifyTag(Object board) {
+    public Board.BoardCategory verifyCategory(Object board) {
 
-        String oldTag = null;
-        Board.BoardTag newTag = null;
+        String oldCategory = null;
+        Board.BoardCategory newCategory = null;
 
         // Check classes
-        if (board instanceof BoardDto.Post && ((BoardDto.Post) board).getTag() != null) {
-            oldTag = ((BoardDto.Post) board).getTag();
+        if (board instanceof BoardDto.Post && ((BoardDto.Post) board).getCategory() != null) {
+            oldCategory = ((BoardDto.Post) board).getCategory();
         } else if (board instanceof BoardDto.Patch) {
-            oldTag = ((BoardDto.Patch) board).getTag();
+            oldCategory = ((BoardDto.Patch) board).getCategory();
         }
 
-        // Tag loop
-        for (Board.BoardTag t : Board.BoardTag.values()) {
-            if (t.getTag().equals(oldTag)) {
-                newTag = t;
+        // Category loop
+        for (Board.BoardCategory c : Board.BoardCategory.values()) {
+            if (c.getCategory().equals(oldCategory)) {
+                newCategory = c;
             }
         }
 
-        if (newTag == null) throw new CustomException(ExceptionCode.BOARD_TAG_NOT_FOUND);
-        return newTag;
+        if (newCategory == null) throw new CustomException(ExceptionCode.BOARD_CATEGORY_NOT_FOUND);
+        return newCategory;
     }
 
 }

@@ -467,7 +467,7 @@ export const AssetDeleteEditModal6 = (props) => {
     </Div>
   );
 };
-export const GoalModifygModal = (props) => {
+export const GoalModifyModal = (props) => {
   const { open, close, header, goalPatch, id } = props;
 
   return (
@@ -500,36 +500,34 @@ export const GoalModifygModal = (props) => {
     </Div>
   );
 };
-// export const AutoModal = (props) => {
-//   const { open, close, header } = props;
-//   // eslint-disable-next-line no-unused-vars
-//   const [check, setCheck] = useState(false);
 
-//   const checkHandler = () => {
-//     setCheck(true);
-//     setTimeout(() => {
-//       setCheck(false);
-//       window.location.reload();
-//     }, 5);
-//   };
-//   return (
-//     <Div>
-//       <div className={open ? 'openModal modal' : 'modal'}>
-//         {open ? (
-//           <section>
-//             <header>
-//               {header}
-//               <button className="close">&times;</button>
-//             </header>
-//             <main>{props.children}</main>
-//             <footer>
-//               <button className="close" onClick={(() => close, checkHandler)}>
-//                 close
-//               </button>
-//             </footer>
-//           </section>
-//         ) : null}
-//       </div>
-//     </Div>
-//   );
-// };
+export const SavingModal = (props) => {
+  const { open, close, header } = props;
+
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px' }}
+              >
+                저장
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};

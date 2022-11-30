@@ -58,8 +58,8 @@ public class Stub {
                 Member postMember = memberService.findVerifiedMember(whichMember);
 
                 String temp = "테스트 게시글 " + i + " 번";  // 제목
-                Board.BoardTag tag = (whichMember % 2 == 0 ? Board.BoardTag.POST : Board.BoardTag.ASSET);  // 랜덤 태그
-                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", tag, postMember);
+                Board.BoardCategory category = (whichMember % 2 == 0 ? Board.BoardCategory.POST : Board.BoardCategory.ASSET);  // 랜덤 태그
+                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", category, postMember);
                 board.setView(whichMember);
                 board.setLike(whichMember);
                 log.info("BOARD STUB " + boardRepository.save(board));

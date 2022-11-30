@@ -83,8 +83,7 @@ public class BoardController {
     public ResponseEntity<?> likeBoard(@PathVariable("id") @Positive long id,
                                        @PathVariable("like") String like) {
 
-        char operator = like.equals("like") ? '1' : like.equals("dislike") ? '0' : 'x';
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.changeLike(id, operator));
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.changeLike(id, like));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -97,13 +96,11 @@ public class BoardController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/tag/{tag}")
-    public ResponseEntity getBoardsByTag(@Positive @RequestParam int page, @Positive @RequestParam int size,
-                                         @PathVariable("tag") String tag) {
+    @GetMapping("/category/{category}")
+    public ResponseEntity getBoardsByCategory(@Positive @RequestParam int page, @Positive @RequestParam int size,
+                                         @PathVariable("category") String category) {
 
-        char operator = tag.equals("post") ? 'p' : tag.equals("asset") ? 'a' : 'x';
-
-        Page<Board> pagedBoards = boardService.findAllByTag(page - 1, size, operator);
+        Page<Board> pagedBoards = boardService.findAllByCategory(page - 1, size, category);
         List<EntityModel<BoardDto.Response>> boards = boardService.boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(

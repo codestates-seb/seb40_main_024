@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { SaveBtn, EditGoalBtn, DeleteGoalBtn } from '../Common/Button';
-import { GoalModifygModal, Modal } from '../../Component/Common/Modal';
+import {
+  GoalModifyModal,
+  Modal,
+  SavingModal,
+} from '../../Component/Common/Modal';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -57,49 +61,7 @@ const TextBox = styled.div`
   color: red;
   font-size: 30px;
 `;
-// const Button = styled.button`
-//   height: 50px;
-//   width: 50px;
-//   background-color: yellow;
-//   border: black;
-// `;
 
-// const Button2 = styled.button`
-//   height: 50px;
-//   width: 50px;
-//   background-color: blue;
-//   border: black;
-// `;
-
-// const ModalSaving = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   display: inline-flex;
-//   align-items: center;
-//   margin: 30px;
-//   margin-top: 350px;
-//   box-sizing: border-box;
-//   width: 160px;
-//   height: 160px;
-//   border: 1px solid #def5e5;
-//   border-radius: 50%;
-//   background-color: #def5e5;
-// `;
-// const PeriodBox = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   text-align: center;
-//   justify-content: center;
-//   align-items: center;
-//   line-height: normal;
-//   box-sizing: border-box;
-//   margin: auto;
-//   margin-top: 3px;
-//   height: 30px;
-//   width: 150px;
-//   color: black;
-//   font-size: 16px;
-// `;
 const ListContain = styled.div`
   display: flex;
   flex-direction: column;
@@ -118,6 +80,9 @@ const UserInfoHead = styled.h4`
   color: #bcead5;
   font-size: 20px;
   margin-bottom: 20px;
+  .number {
+    color: #8ec3b0;
+  }
 `;
 
 const Input = styled.input`
@@ -138,6 +103,25 @@ const Input = styled.input`
     color: #999;
   }
 `;
+
+// const Text = styled.div`
+//   width: 230px;
+//   height: 50px;
+//   border-top: none;
+//   border-left: none;
+//   border-right: none;
+//   outline: none;
+//   color: #444;
+//   font-weight: 700;
+//   border-bottom: 3px solid #9ed5c5;
+//   ::-webkit-outer-spin-button,
+//   ::-webkit-inner-spin-button {
+//     -webkit-appearance: none;
+//   }
+//   ::placeholder {
+//     color: #999;
+//   }
+// `;
 const BtnBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -146,10 +130,29 @@ const BtnBox = styled.div`
   gap: 10px;
   margin-left: 350px;
 `;
+const NewBtnBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 200px;
+  height: 40px;
+  gap: 50px;
+  /* margin-top: -20px; */
+  margin-bottom: 10px;
+`;
+const UpBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: #bcead5;
+  border-radius: 50%;
+`;
+const DownBtn = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: #bcead5;
+  border-radius: 50%;
+`;
 
 const AssetList = ({
-  //   HandlerRemove,
-  //   post,
   count,
   goalDelete,
   setGoal,
@@ -167,11 +170,15 @@ const AssetList = ({
   goalPrice,
   targetLengthonChange,
   targetLength,
+  goalUpPatch,
+  up,
+  goalDownPatch,
+  id,
 }) => {
   const [save, setSave] = useState(false);
   const [Modify, setModify] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
-  // const [count, setCount] = useState(1);
+  //   const [up, setUp] = useState(1);
   //   const [disabled, setDisabled] = useState(false);
   // const[numberUp, setNumberUp]= useState(1)
 
@@ -189,13 +196,6 @@ const AssetList = ({
   const openModify = () => {
     setModify(true);
   };
-
-  // const handlerCount = () => {
-  //   setCount(count + 1);
-  //   if (count + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
-
-  //   //수정필요
-  // };
 
   //   const handlerNumberUp = ()
   //   const handlerCloseModal = () => {
@@ -256,7 +256,7 @@ const AssetList = ({
             {count.calculatedPrice}원!
           </TextBox>
           <SaveBtn openSavingModal={openSavingModal}></SaveBtn>
-          <GoalModifygModal
+          <GoalModifyModal
             id={count.goalId}
             open={Modify}
             close={openModal}
@@ -295,11 +295,41 @@ const AssetList = ({
               >
                 목표자산이 수정되었습니다.
               </Modal>
-              <Modal open={save} close={closeModal} header="저축 횟수 세기">
-                저축 횟수가 수정되었습니다.
+            </Div>
+          </GoalModifyModal>
+          <SavingModal open={save} close={openModal} header="납입 기간">
+            <Div>
+              <ListContain>
+                <UserInfo>
+                  <div>
+                    <UserInfoHead>
+                      납입 기간: <span className="number">{up}</span>개월
+                    </UserInfoHead>
+
+                    <UserInfoHead>
+                      목표 기간:{' '}
+                      <span className="number">{count.targetLength}</span>개월
+                    </UserInfoHead>
+                    <NewBtnBox>
+                      <UpBtn onClick={goalUpPatch} data-id={id}>
+                        UP
+                      </UpBtn>
+                      <DownBtn onClick={goalDownPatch} data-id={id}>
+                        DOWN
+                      </DownBtn>
+                    </NewBtnBox>
+                  </div>
+                </UserInfo>
+              </ListContain>
+              <Modal
+                open={Modalopen}
+                close={closeModal}
+                header="납입횟수 저장 알림"
+              >
+                납입 횟수가 저장되었습니다.
               </Modal>
             </Div>
-          </GoalModifygModal>
+          </SavingModal>
         </ComponentContain>
       </div>
     </>
