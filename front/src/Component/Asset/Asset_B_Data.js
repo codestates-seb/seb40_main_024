@@ -8,6 +8,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { useEffect } from 'react';
+import axios from 'axios';
 
 export const AssetBdata = ({ extended, period, goal }) => {
   let monthly = Math.floor(extended / period);
@@ -61,28 +63,37 @@ export const AssetBdata = ({ extended, period, goal }) => {
       amt: 2500,
     },
   ];
-  // const data = [
-  //   {
-  //     name: '현금',
-  //     목표금액: 10000,
-  //     현재금액: 7000,
-  //   },
-  //   {
-  //     name: '금',
-  //     목표금액: 1000,
-  //     현재금액: 7000,
-  //   },
-  //   {
-  //     name: '다이아몬드',
-  //     목표금액: 400,
-  //     현재금액: 90,
-  //   },
-  //   {
-  //     name: '주식',
-  //     목표금액: 700,
-  //     현재금액: 300,
-  //   },
-  // ];
+
+  const url = process.env.REACT_APP_API_URL;
+
+  const tokenAxios = () => {
+    const loginData = {
+      email: 'hoju5@gmail.com',
+      password: 'password5',
+    };
+
+    axios.post(`${url}/member/login`, loginData).then((res) => {
+      const { accessToken } = res.headers.authorization;
+      // token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
+      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+      console.log(res.headers.authorization);
+    });
+  };
+
+  useEffect(() => {
+    const graphGet = async () => {
+      try {
+        const res = await axios.get(`${url}/1/goal`);
+
+        console.log('graphget', res);
+        console.log('responseList', res.data._embedded.responseList);
+      } catch (err) {
+        console.log('error', err);
+      }
+    };
+    graphGet();
+    tokenAxios();
+  }, []);
 
   return (
     <ResponsiveContainer width="100%" height="100%">
