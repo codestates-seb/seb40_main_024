@@ -2,15 +2,19 @@ package com.codestates.server.asset.entity;
 
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
-import com.fasterxml.jackson.annotation.JsonValue;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Builder;
-
-import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -48,8 +52,8 @@ public class Asset extends Auditable {
 
 
 
-    @ManyToOne(fetch = FetchType.LAZY) // 단방향
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY) // 단방향. 지연 로딩
+    @JoinColumn(name = "member_id", referencedColumnName = "member_id") // @JoinColum(referencedColumnName = " ") 조인 대상의 테이블 필드 명 직접 지정
     private Member member;
     public void setMember(Member member) {
         this.member = member;
@@ -87,6 +91,17 @@ public class Asset extends Auditable {
         }
         this.member = member; // 직접 연관관계 매핑 (먼저 매핑된 상태에서)
         member.getAssets().add(this);
+    }
+
+    public AssetEditor.AssetEditorBuilder toEditor() {
+        return AssetEditor.builder()
+            .assetType(assetType)
+            .strValue(strValue);
+    }
+
+    public void edit(AssetEditor assetEditor) {
+        assetType = assetEditor.getAssetType();
+        strValue = assetEditor.getStrValue();
     }
 //
 //    @Column(nullable = false)

@@ -4,17 +4,15 @@ import com.codestates.server.asset.dto.AssetDto;
 import com.codestates.server.asset.dto.AssetDto.Post;
 import com.codestates.server.asset.dto.AssetDto.Response;
 import com.codestates.server.asset.entity.Asset;
-
 import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface AssetMapper {
 
-    default Asset assetPostDtoToAsset(AssetDto.Post requestBody) {
+    default Asset assetPostDtoToAsset(Post requestBody) {
         Asset postAsset = new Asset();
 
         postAsset.setAssetType(requestBody.getAssetType());
@@ -30,10 +28,11 @@ public interface AssetMapper {
 
 //    AssetDto.Response assetToAssetResponse(Asset response);
 
-    default AssetDto.Response assetToAssetResponse(Asset asset) {
+    default Response assetToAssetResponse(Asset asset) {
         Member member = asset.getMember();
+//        member = memberToMemberResponseObject(Member.getId());
 
-        return AssetDto.Response.builder()
+        return Response.builder()
             .assetId(asset.getAssetId())
             .assetType(asset.getAssetType())
             .assetValue(asset.getAssetValue())
@@ -46,11 +45,9 @@ public interface AssetMapper {
 
     MemberDto.ResponseObject memberToMemberResponseObject(Member member);
 
-//    List<Response> assetsToAssetResponses(List<Asset> responses);
+//    List<Response> assetsToAssetsResponses(List<Asset> responses);
 
-
-
-
+    List<Response> assetsToAssetResponses(List<Asset> assets);
 
 //    Asset assetPostDtoToAsset(AssetDto.Post requestBody);
 //

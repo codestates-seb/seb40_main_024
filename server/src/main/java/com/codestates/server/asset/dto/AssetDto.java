@@ -1,23 +1,19 @@
 package com.codestates.server.asset.dto;
 
 import com.codestates.server.member.dto.MemberDto;
-import com.codestates.server.member.entity.Member;
 import java.time.LocalDateTime;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 
 public class AssetDto {
     @Getter
     @Setter
-    @AllArgsConstructor
     public static class Post {
 
         @NotBlank(message = "자산을 입력하세요.") // @NotBlank - String 타입에 쓰는 애너테이션
@@ -28,15 +24,21 @@ public class AssetDto {
 //        @Size(min = 1, message = "최소 단위는 1 입니다")
         private long assetValue;
 
+        @Builder
+        public Post(String assetType, long assetValue) {
+            this.assetType = assetType;
+            this.assetValue = assetValue;
+        }
+
 //        @NotBlank(message = "+ / - 중 태그를 선택하세요.")
 //        private String tag;
 
-        private Long memberId;
-//
+//        private Long memberId;
 //        public Member getMember() {
 //            Member member = new Member();
-//            member.getId();
+//            member.setMemberId(memberId);
 //            return member;
+
         }
 
 
@@ -77,7 +79,6 @@ public class AssetDto {
 
 
     }
-
 
 
 }

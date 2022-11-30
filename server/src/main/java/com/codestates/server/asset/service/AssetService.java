@@ -1,17 +1,24 @@
 package com.codestates.server.asset.service;
 
+import com.codestates.server.asset.dto.AssetDto;
+import com.codestates.server.asset.dto.AssetEditDto;
 import com.codestates.server.asset.entity.Asset;
 import com.codestates.server.asset.entity.Asset.AssetStatus;
+import com.codestates.server.asset.entity.AssetEditor;
+import com.codestates.server.asset.mapper.AssetMapper;
 import com.codestates.server.asset.repository.AssetRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.service.MemberService;
-import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 @Transactional(readOnly = true)
 @Service
@@ -19,10 +26,12 @@ public class AssetService {
 
     private final AssetRepository repository;
     private final MemberService memberService;
+    private final AssetMapper mapper;
 
-    public AssetService(AssetRepository repository, MemberService memberService) {
+    public AssetService(AssetRepository repository, MemberService memberService, AssetMapper mapper) {
         this.repository = repository;
         this.memberService = memberService;
+        this.mapper = mapper;
     }
 
     @Transactional
@@ -55,14 +64,31 @@ public class AssetService {
     }
 
     // 하나 찾기
-    public Asset findAsset(long assetId) {
-        return findVerifiedAsset(assetId);
+    public AssetDto.Response findAsset(long assetId) {
+        Asset verifiedAsset = findVerifiedAsset(assetId);
+        return mapper.assetToAssetResponse(verifiedAsset);
     }
 
+
+//    public Asset findAsset(long assetId) {
+//        Asset findAsset = verifyExistsAsset(assetId);
+//        assetRepository.save(findAsset);
+//        return findAsset;
+
+
     // 전체 찾기
-    public List<Asset> findAssets() {
-        return new ArrayList<>(repository.findAll());
+    public Page<Asset> findAssets(int page, int size) {
+        return repository.findAll(PageRequest.of(page, size,
+            Sort.by("assetId").ascending()));
+//        return new ArrayList<>(repository.findAll());
     }
+
+//    public Page<Asset> findByMemberId(int page, int size) {
+//        Member verifiedMember = findVerifiedMember(findByMemberId());
+//        verifiedMember.setMember
+//        return repository.findVerifiedMember(PageRequest.of(page, size,
+//            Sort.by("memberId").ascending()));
+//    }
 
 
 
@@ -74,20 +100,29 @@ public class AssetService {
 
     }
 
+    public void deleteAssets(long assetId) {
+        Asset verifiedAsset = findVerifiedAsset(assetId);
+        verifiedAsset.setAssetStatus(AssetStatus.ASSET_DELETED);
+        repository.delete(verifiedAsset);
+    }
+
     public List<Asset> findAllPatched() {
         return repository.findAllPatched();
     }
 
-//    public List<Asset> findAllTagAsset() {
-//        return repository.findAllTagPost();
-//    }
 
+    // -> 람다식 삭제 및 바꾸기
     public Asset findVerifiedAsset(long assetId) {
         Optional<Asset> optionalAsset = repository.findById(assetId);
         return optionalAsset.orElseThrow(
             () -> new BusinessLogicException(ExceptionCode.ASSET_NOT_FOUND));
 
     }
+
+    // 멤버 아이디로 찾기
+//    public Asset findByMemberId(long memberId) {
+//        Optional<>
+//    }
 
 //    public Asset findVerifiedAsset(long assetId) {
 //        Optional<Asset> optionalAsset = repository.findById(assetId);
@@ -97,5 +132,21 @@ public class AssetService {
 //            );
 //        return findAsset;
 //    }
+
+    @Transactional
+    public void edit(long assetId, @Valid AssetEditDto assetEdit) {
+
+        Asset asset = repository.findByAssetId(assetId);
+
+
+        AssetEditor.AssetEditorBuilder assetEditorBuilder = asset.toEditor();
+
+        AssetEditor assetEditor = assetEditorBuilder.assetType(assetEdit.getAssetType())
+            .strValue(assetEdit.getStrValue())
+            .build();
+
+        asset.edit(assetEditor);
+    }
+
 
 }
