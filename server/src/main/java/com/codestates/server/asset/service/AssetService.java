@@ -10,14 +10,15 @@ import com.codestates.server.asset.repository.AssetRepository;
 import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.service.MemberService;
-import java.util.List;
-import java.util.Optional;
-import javax.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 
 @Transactional(readOnly = true)
@@ -136,7 +137,11 @@ public class AssetService {
     @Transactional
     public void edit(long assetId, @Valid AssetEditDto assetEdit) {
 
-        Asset asset = repository.findByAssetId(assetId);
+        // 원래 쓰셨던 findByAssetId 에셋을 쓰실 경우..
+        List<Asset> assets = repository.findByAssetId(assetId);  // findByAssetId -> 리스트로 반환
+
+        // 에셋 한 개만 가져오실 경우..
+        Asset asset = findVerifiedAsset(assetId);
 
 
         AssetEditor.AssetEditorBuilder assetEditorBuilder = asset.toEditor();
