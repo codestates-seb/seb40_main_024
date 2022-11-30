@@ -25,7 +25,7 @@ public enum ExceptionCode {
     BOARD_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
     BOARD_DELETED(405, "삭제된 게시글 입니다."),
     BOARD_NOT_MATCHED_WITH_COMMENT(404, "게시글에서 해당 코멘트를 찾을 수 없습니다."),
-    BOARD_TAG_NOT_FOUND(400, "존재하지 않는 태그입니다. '일반', '자산' 중 선택하세요."),
+    BOARD_CATEGORY_NOT_FOUND(400, "존재하지 않는 카테고리입니다. '일반', '자산' 중 선택하세요."),
     BOARD_URL_NOT_FOUND(400, "'like', 'dislike' 중 선택하세요"),
 
     // 댓글
