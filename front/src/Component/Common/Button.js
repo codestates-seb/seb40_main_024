@@ -245,6 +245,21 @@ export const DeleteGoalBtn = ({ id, goalDelete }) => {
     </ButtonAA>
   );
 };
+export const UpBtn = ({ id, goalUpPatch }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalUpPatch}>
+      UP
+    </ButtonAA>
+  );
+};
+
+export const DownBtn = ({ id, goalDownPatch }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalDownPatch}>
+      DOWN
+    </ButtonAA>
+  );
+};
 
 //마이페이지, 회원정보수정
 
