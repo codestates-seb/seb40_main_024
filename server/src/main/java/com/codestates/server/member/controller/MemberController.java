@@ -1,14 +1,11 @@
 package com.codestates.server.member.controller;
 
-import com.codestates.server.dto.PageInfo;
 import com.codestates.server.member.dto.MemberDto;
-import com.codestates.server.member.dto.MemberListDto;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -36,8 +32,6 @@ public class MemberController {
         Member registerMember = memberService.createMember(member);
         return ResponseEntity.ok(registerMember);
     }
-
-    // 회원 로그인 구현 -> "/api/auth/login" 시큐리티 사용으로 인해 SecurityConfiguration 에서 구현 되었음.
 
     // 회원 로그아웃 구현 -> 보안인증[O] Optinal
 
@@ -70,7 +64,7 @@ public class MemberController {
             return ResponseEntity.badRequest().build();
     }
 
-//     전체 회원 목록 구현 -> 보안인증[x] 필요하지 않음
+    // 전체 회원 목록 구현 -> 보안인증[x] 필요하지 않음
 //    @GetMapping
 //    public ResponseEntity getMembers(@Valid @RequestBody PageInfo.Request request) {
 //        Page<Member> pageMembers = memberService.findAllMembers(request.getPage() - 1, request.getSize());
