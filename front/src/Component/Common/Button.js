@@ -398,6 +398,19 @@ export const TitleCashBtn = ({ postAssetApi, Text }) => {
   );
 };
 
+export const ZeroCashBtn1 = ({ postZEROAssetApi, ZeroText }) => {
+  return (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  );
+};
+
 export const GoldBtn = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };

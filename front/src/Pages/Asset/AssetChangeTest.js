@@ -11,7 +11,12 @@ import {
   Modal,
   AutoModal,
   AssetTextEditModal,
-  AssetDeleteEditModal,
+  AssetDeleteEditModal1,
+  AssetDeleteEditModal2,
+  AssetDeleteEditModal3,
+  AssetDeleteEditModal4,
+  AssetDeleteEditModal5,
+  AssetDeleteEditModal6,
 } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
@@ -40,34 +45,22 @@ const TopPage = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  /* border: 1px solid green; */
-`;
-
-const BottomPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid green;
+  margin-top: 60px;
+  /* border: 1px solid red; */
 `;
 
 const MainContain = styled.div`
   margin-left: 120px;
-  /* border: 1px solid pink; */
-  /* margin-top: 400px; */
+  padding-top: 40px;
 `;
 
 const ChartContain = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   width: 800px;
   height: 800px;
   margin-right: 120px;
-  /* border: 1px solid red; */
   div {
     width: 800px;
     height: 800px;
@@ -88,7 +81,7 @@ const H2 = styled.h2`
   color: #9ed5c5;
   margin-left: 13px;
   width: 190px;
-  margin-top: 100px;
+  margin-top: 80px;
 `;
 
 const H3 = styled.h3`
@@ -149,6 +142,7 @@ const ChartBox = styled.div`
   box-sizing: border-box;
   width: 450px;
   height: 500px;
+
   /* margin-left: 120px; */
   /* top: 300px !important; */
 `;
@@ -173,7 +167,7 @@ const GraphH1 = styled.h1`
   align-items: center;
   box-sizing: border-box;
   height: 50px;
-  margin-top: 300px;
+  margin-top: 320px;
   margin-bottom: 150px;
   width: 450px;
   font-size: 50px;
@@ -269,27 +263,41 @@ export const AssetChange = () => {
   const [errTextModalopen, seterrTextModalopen] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
-  const [DelModalopen, setDelModalopen] = useState(false);
+  const [DelModalopen1, setDelModalopen1] = useState(false);
+  const [DelModalopen2, setDelModalopen2] = useState(false);
+  const [DelModalopen3, setDelModalopen3] = useState(false);
+  const [DelModalopen4, setDelModalopen4] = useState(false);
+  const [DelModalopen5, setDelModalopen5] = useState(false);
+  const [DelModalopen6, setDelModalopen6] = useState(false);
   const [errDelModalopen, seterrDelModalopen] = useState(false);
+  const [check, setchecking] = useState(false);
 
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
   const [EditText, setEditText] = useState('');
   const [AssetDatas, setAssetDatas] = useState('');
-  const [check, setCheck] = useState(false);
 
   const memberid = authCtx.parseJwt.id;
   const assetDatas = AssetDatas.data;
 
-  // const checkHandler = () => {
-  //   setCheck(true);
-  //   useEffect(() => {
-  //     setTimeout(() => {
-  //       setCheck(false);
-  //       window.location.reload();
-  //     }, 0);
-  //   });
-  // };
+  const DelModalopenHandler1 = () => {
+    setDelModalopen1(true);
+  };
+  const DelModalopenHandler2 = () => {
+    setDelModalopen2(true);
+  };
+  const DelModalopenHandler3 = () => {
+    setDelModalopen3(true);
+  };
+  const DelModalopenHandler4 = () => {
+    setDelModalopen4(true);
+  };
+  const DelModalopenHandler5 = () => {
+    setDelModalopen5(true);
+  };
+  const DelModalopenHandler6 = () => {
+    setDelModalopen6(true);
+  };
 
   const openEditTextModal = () => {
     setTextModalopen(true);
@@ -300,10 +308,6 @@ export const AssetChange = () => {
 
   const openerrDeletModal = () => {
     seterrDelModalopen(true);
-  };
-
-  const openDeleteModal = () => {
-    setDelModalopen(true);
   };
 
   const openCashModal = () => {
@@ -317,7 +321,12 @@ export const AssetChange = () => {
   const closeModal = () => {
     setModalopen(false);
     setTextModalopen(false);
-    setDelModalopen(false);
+    setDelModalopen1(false);
+    setDelModalopen2(false);
+    setDelModalopen3(false);
+    setDelModalopen4(false);
+    setDelModalopen5(false);
+    setDelModalopen6(false);
   };
 
   const errcloseModal = () => {
@@ -439,7 +448,7 @@ export const AssetChange = () => {
   const AssetIds4 = [];
   const AssetIds5 = [];
   const AssetIds6 = [];
-  console.log('AssetIds1', AssetIds1);
+
   {
     assetData1.map((e) => {
       AssetIds1.push(e.assetId);
@@ -627,17 +636,102 @@ export const AssetChange = () => {
 
   //? DELET
   // eslint-disable-next-line no-unused-vars
-  let Deletedata = '';
+  let Deletedata1 = '';
   {
-    AssetIds2.forEach((e) => {
-      Deletedata = String(e);
+    AssetIds1.forEach((e) => {
+      Deletedata1 = String(e);
     });
   }
   // console.log(`${Deletedata}`);
 
-  const deletAssetApi = async () => {
+  const deletAssetApi1 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata}`)
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata1}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  let Deletedata2 = '';
+  {
+    AssetIds2.forEach((e) => {
+      Deletedata2 = String(e);
+    });
+  }
+  // console.log(`${Deletedata}`);
+
+  const deletAssetApi2 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata2}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  let Deletedata3 = '';
+  {
+    AssetIds3.forEach((e) => {
+      Deletedata3 = String(e);
+    });
+  }
+  // console.log(`${Deletedata}`);
+
+  const deletAssetApi3 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata3}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  let Deletedata4 = '';
+  {
+    AssetIds4.forEach((e) => {
+      Deletedata4 = String(e);
+    });
+  }
+  // console.log(`${Deletedata}`);
+
+  const deletAssetApi4 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata4}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  let Deletedata5 = '';
+  {
+    AssetIds5.forEach((e) => {
+      Deletedata5 = String(e);
+    });
+  }
+  // console.log(`${Deletedata}`);
+
+  const deletAssetApi5 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata5}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
+  //? DELET
+  // eslint-disable-next-line no-unused-vars
+  let Deletedata6 = '';
+  {
+    AssetIds6.forEach((e) => {
+      Deletedata6 = String(e);
+    });
+  }
+  // console.log(`${Deletedata}`);
+
+  const deletAssetApi6 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${Deletedata6}`)
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -650,68 +744,6 @@ export const AssetChange = () => {
   console.log('AssetIds5', AssetIds5);
   console.log('AssetIds6', AssetIds6);
 
-  // //? DELET
-  // // eslint-disable-next-line no-unused-vars
-  // const deletAssetApi = async () => {
-  //   await axios
-  //     .delete(
-  //       `${URL}/member/${memberid}/asset/${AssetIds4[AssetIds4.length - 1]}`
-  //     )
-  //     .then((res) => closeModal())
-  //     .catch((err) => openerrDeletModal());
-  // };
-  // //?
-
-  // //? DELET
-  // // eslint-disable-next-line no-unused-vars
-  // const deletAssetApi2 = async () => {
-  //   await axios
-  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
-  //     .then((res) => closeModal())
-  //     .catch((err) => openerrDeletModal());
-  // };
-  // //?
-
-  // //? DELET
-  // // eslint-disable-next-line no-unused-vars
-  // const deletAssetApi3 = async () => {
-  //   await axios
-  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
-  //     .then((res) => closeModal())
-  //     .catch((err) => openerrDeletModal());
-  // };
-  // //?
-
-  // //? DELET
-  // // eslint-disable-next-line no-unused-vars
-  // const deletAssetApi4 = async () => {
-  //   await axios
-  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
-  //     .then((res) => closeModal())
-  //     .catch((err) => openerrDeletModal());
-  // };
-  // //?
-
-  // //? DELET
-  // // eslint-disable-next-line no-unused-vars
-  // const deletAssetApi5 = async () => {
-  //   await axios
-  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
-  //     .then((res) => closeModal())
-  //     .catch((err) => openerrDeletModal());
-  // };
-  // //?
-
-  // //? DELET
-  // // eslint-disable-next-line no-unused-vars
-  // const deletAssetApi6 = async () => {
-  //   await axios
-  //     .delete(`${URL}/member/${memberid}/asset/${assetId[assetId.length - 1]}`)
-  //     .then((res) => closeModal())
-  //     .catch((err) => openerrDeletModal());
-  // };
-  //?
-
   useEffect(() => {
     getAssetApi();
   }, []);
@@ -723,7 +755,13 @@ export const AssetChange = () => {
     TextModalopen,
     errTextModalopen,
     errModalopen,
-    DelModalopen,
+    // DelModalopen,
+    DelModalopen1,
+    DelModalopen2,
+    DelModalopen3,
+    DelModalopen4,
+    DelModalopen5,
+    DelModalopen6,
     errDelModalopen,
   ]);
 
@@ -771,9 +809,6 @@ export const AssetChange = () => {
         <EditButton onClick={openEditTextModal}>
           <FiEdit />
         </EditButton>
-        <EditButton onClick={openDeleteModal}>
-          <FiDelete />
-        </EditButton>
       </H3Title>
       <H3>총 금액: {assetValueBox[key]} 원</H3>
     </AssetListBox>
@@ -799,16 +834,77 @@ export const AssetChange = () => {
               </ChartContain>
 
               <MainContain>
-                <AssetDeleteEditModal
-                  open={DelModalopen}
+                <AssetDeleteEditModal1
+                  open={DelModalopen1}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi}
+                  api={deletAssetApi1}
+                  AssetIds1={AssetIds1}
                 >
                   <Div>
-                    <p>선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>1 선택하신 자산이 삭제하시겠습니까? </p>
                   </Div>
-                </AssetDeleteEditModal>
+                </AssetDeleteEditModal1>
+
+                <AssetDeleteEditModal2
+                  open={DelModalopen2}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={deletAssetApi2}
+                  AssetIds2={AssetIds2}
+                >
+                  <Div>
+                    <p>2 선택하신 자산이 삭제하시겠습니까? </p>
+                  </Div>
+                </AssetDeleteEditModal2>
+
+                <AssetDeleteEditModal3
+                  open={DelModalopen3}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={deletAssetApi3}
+                  AssetIds3={AssetIds3}
+                >
+                  <Div>
+                    <p>3 선택하신 자산이 삭제하시겠습니까? </p>
+                  </Div>
+                </AssetDeleteEditModal3>
+
+                <AssetDeleteEditModal4
+                  open={DelModalopen4}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={deletAssetApi4}
+                  AssetIds4={AssetIds4}
+                >
+                  <Div>
+                    <p>4 선택하신 자산이 삭제하시겠습니까? </p>
+                  </Div>
+                </AssetDeleteEditModal4>
+
+                <AssetDeleteEditModal5
+                  open={DelModalopen5}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={deletAssetApi5}
+                  AssetIds5={AssetIds5}
+                >
+                  <Div>
+                    <p>5 선택하신 자산이 삭제하시겠습니까? </p>
+                  </Div>
+                </AssetDeleteEditModal5>
+
+                <AssetDeleteEditModal6
+                  open={DelModalopen6}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                  api={deletAssetApi6}
+                  AssetIds6={AssetIds6}
+                >
+                  <Div>
+                    <p>6 선택하신 자산이 삭제하시겠습니까? </p>
+                  </Div>
+                </AssetDeleteEditModal6>
 
                 <AssetTextEditModal
                   open={TextModalopen}
@@ -867,6 +963,54 @@ export const AssetChange = () => {
 
                 <H1>자산 리스트</H1>
                 {AssetList}
+
+                <H3Title style={{ marginTop: '30px' }}>
+                  💛&nbsp;금액 전 단계로 되돌리기&nbsp;💛
+                </H3Title>
+                <EditButton
+                  className="1"
+                  onClick={DelModalopenHandler1}
+                  style={{ marginLeft: '30px', marginRight: '15px' }}
+                >
+                  1) &nbsp;&nbsp;
+                  <FiDelete />
+                </EditButton>
+                <EditButton
+                  className="2"
+                  onClick={DelModalopenHandler2}
+                  style={{ marginRight: '15px' }}
+                >
+                  2) &nbsp;&nbsp;
+                  <FiDelete />
+                </EditButton>
+                <EditButton
+                  className="3"
+                  onClick={DelModalopenHandler3}
+                  style={{ marginRight: '15px' }}
+                >
+                  3) &nbsp;&nbsp;
+                  <FiDelete />
+                </EditButton>
+                <EditButton
+                  className="4"
+                  onClick={DelModalopenHandler4}
+                  style={{ marginRight: '15px' }}
+                >
+                  4) &nbsp;&nbsp;
+                  <FiDelete />
+                </EditButton>
+                <EditButton
+                  className="5"
+                  onClick={DelModalopenHandler5}
+                  style={{ marginRight: '15px' }}
+                >
+                  5) &nbsp;&nbsp;
+                  <FiDelete />
+                </EditButton>
+                <EditButton className="6" onClick={DelModalopenHandler6}>
+                  6) &nbsp;&nbsp;
+                  <FiDelete />
+                </EditButton>
 
                 <H2>자산 금액 수정</H2>
                 <Div>

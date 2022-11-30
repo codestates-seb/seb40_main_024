@@ -193,7 +193,7 @@ export const AssetTextEditModal = (props) => {
 
 export const AssetDeleteEditModal1 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds1 } = props;
+  const { open, close, header, api1, api2, AssetTypeNonMungching } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -201,11 +201,14 @@ export const AssetDeleteEditModal1 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      api();
-    }, 0);
+      api1();
+      if (AssetTypeNonMungching <= 6) {
+        api2();
+      }
+    }, 1);
     setTimeout(() => {
       window.location.reload();
-    }, 5);
+    }, 40);
   };
   return (
     <Div>
@@ -239,20 +242,23 @@ export const AssetDeleteEditModal1 = (props) => {
 };
 export const AssetDeleteEditModal2 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds2 } = props;
+  const { open, close, header, api1, api2, AssetTypeNonMungching } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
-
   const checkHandler = () => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      api();
-    }, 0);
+      api1();
+      if (AssetTypeNonMungching <= 6) {
+        api2();
+      }
+    }, 1);
     setTimeout(() => {
       window.location.reload();
-    }, 5);
+    }, 40);
   };
+
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -285,7 +291,7 @@ export const AssetDeleteEditModal2 = (props) => {
 };
 export const AssetDeleteEditModal3 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds3 } = props;
+  const { open, close, header, api1, api2, AssetTypeNonMungching } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -293,11 +299,14 @@ export const AssetDeleteEditModal3 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      api();
-    }, 0);
+      api1();
+      if (AssetTypeNonMungching <= 6) {
+        api2();
+      }
+    }, 1);
     setTimeout(() => {
       window.location.reload();
-    }, 5);
+    }, 40);
   };
   return (
     <Div>
@@ -331,7 +340,7 @@ export const AssetDeleteEditModal3 = (props) => {
 };
 export const AssetDeleteEditModal4 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds4 } = props;
+  const { open, close, header, api1, api2, AssetTypeNonMungching } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -339,11 +348,14 @@ export const AssetDeleteEditModal4 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      api();
-    }, 0);
+      api1();
+      if (AssetTypeNonMungching <= 6) {
+        api2();
+      }
+    }, 1);
     setTimeout(() => {
       window.location.reload();
-    }, 5);
+    }, 40);
   };
   return (
     <Div>
@@ -377,7 +389,7 @@ export const AssetDeleteEditModal4 = (props) => {
 };
 export const AssetDeleteEditModal5 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds5 } = props;
+  const { open, close, header, api1, api2, AssetTypeNonMungching } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
 
@@ -385,11 +397,14 @@ export const AssetDeleteEditModal5 = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      api();
-    }, 0);
+      api1();
+      if (AssetTypeNonMungching <= 6) {
+        api2();
+      }
+    }, 1);
     setTimeout(() => {
       window.location.reload();
-    }, 5);
+    }, 40);
   };
   return (
     <Div>
@@ -421,21 +436,31 @@ export const AssetDeleteEditModal5 = (props) => {
     </Div>
   );
 };
+
+// open={DelModalopen6}
+// close={closeModal}
+// header="자산 종류 수정 알림"
+// api1={deletAssetApi6}
+// api2={deletLastAssetApi1}
+// AssetTypelength={AssetType.length}
 export const AssetDeleteEditModal6 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api, AssetIds6 } = props;
+  const { open, close, header, api1, api2, AssetTypeNonMungching } = props;
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
-
+  // console.log(api1, api2, AssetTypeNonMungching);
   const checkHandler = () => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      api();
-    }, 0);
+      api1();
+      if (AssetTypeNonMungching <= 6) {
+        api2();
+      }
+    }, 1);
     setTimeout(() => {
       window.location.reload();
-    }, 5);
+    }, 40);
   };
   return (
     <Div>

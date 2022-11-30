@@ -4,7 +4,7 @@ import {
   LongNavbarBox,
   MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
-import { TitleCashBtn } from '../../Component/Common/Button';
+import { TitleCashBtn, ZeroCashBtn1 } from '../../Component/Common/Button';
 import { Fade } from 'react-awesome-reveal';
 import { useState, useEffect, useContext } from 'react';
 import {
@@ -45,34 +45,22 @@ const TopPage = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
-  /* border: 1px solid green; */
-`;
-
-const BottomPage = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid green;
+  margin-top: 60px;
+  /* border: 1px solid red; */
 `;
 
 const MainContain = styled.div`
   margin-left: 120px;
-  /* border: 1px solid pink; */
-  /* margin-top: 400px; */
+  padding-top: 40px;
 `;
 
 const ChartContain = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   box-sizing: border-box;
   width: 800px;
   height: 800px;
   margin-right: 120px;
-  /* border: 1px solid red; */
   div {
     width: 800px;
     height: 800px;
@@ -93,7 +81,7 @@ const H2 = styled.h2`
   color: #9ed5c5;
   margin-left: 13px;
   width: 190px;
-  margin-top: 100px;
+  margin-top: 80px;
 `;
 
 const H3 = styled.h3`
@@ -154,6 +142,7 @@ const ChartBox = styled.div`
   box-sizing: border-box;
   width: 450px;
   height: 500px;
+
   /* margin-left: 120px; */
   /* top: 300px !important; */
 `;
@@ -178,7 +167,7 @@ const GraphH1 = styled.h1`
   align-items: center;
   box-sizing: border-box;
   height: 50px;
-  margin-top: 300px;
+  margin-top: 320px;
   margin-bottom: 150px;
   width: 450px;
   font-size: 50px;
@@ -274,22 +263,28 @@ export const AssetChange = () => {
   const [errTextModalopen, seterrTextModalopen] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
+  const [errDelModalopen, seterrDelModalopen] = useState(false);
+
   const [DelModalopen1, setDelModalopen1] = useState(false);
   const [DelModalopen2, setDelModalopen2] = useState(false);
   const [DelModalopen3, setDelModalopen3] = useState(false);
   const [DelModalopen4, setDelModalopen4] = useState(false);
   const [DelModalopen5, setDelModalopen5] = useState(false);
   const [DelModalopen6, setDelModalopen6] = useState(false);
-  const [errDelModalopen, seterrDelModalopen] = useState(false);
-  const [check, setchecking] = useState(false);
 
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
   const [EditText, setEditText] = useState('');
+  const [ZeroText, setZeroText] = useState(false);
   const [AssetDatas, setAssetDatas] = useState('');
 
   const memberid = authCtx.parseJwt.id;
   const assetDatas = AssetDatas.data;
+  console.log('assetDatas', assetDatas);
+
+  // const ZeroModalopenHandler1 = () => {
+  //   setZeroModalopen1(true);
+  // };
 
   const DelModalopenHandler1 = () => {
     setDelModalopen1(true);
@@ -321,12 +316,11 @@ export const AssetChange = () => {
     seterrDelModalopen(true);
   };
 
-  const openCashModal = () => {
-    Text && Cash && isNaN(Cash) === false
-      ? setModalopen(true)
-      : Text || Cash || isNaN(Cash) === true
-      ? seterrTextModalopen(true)
-      : null;
+  const openZeroCashModal = () => {
+    setModalopen(true);
+  };
+  const openerrZeroCashModal = () => {
+    seterrTextModalopen(true);
   };
 
   const closeModal = () => {
@@ -357,6 +351,9 @@ export const AssetChange = () => {
   const CashonChange = (e) => {
     setCash(e.target.value);
   };
+  const ZeroCashonChange = (e) => {
+    setZeroText(e.target.value);
+  };
 
   const assetData = [];
   {
@@ -366,18 +363,39 @@ export const AssetChange = () => {
         )
       : null;
   }
-  // console.log('assetData', assetData);
+
   const assetType = [];
   {
     assetData ? assetData.forEach((el) => assetType.push(el.assetType)) : null;
   }
   const AssetType = [...new Set(assetType)];
 
+  if (AssetType.length > 7) {
+    assetType.pop();
+  }
+
   if (AssetType[0] !== undefined && AssetType.length < 7) {
-    for (let i = 0; i <= 9 - AssetType.length; i++) {
+    for (let i = 0; i <= 6 - AssetType.length; i++) {
       AssetType.push('명칭');
     }
   }
+
+  if (AssetType.length >= 7) {
+    for (let i = 0; i <= AssetType.length - 6; i++) {
+      AssetType.pop();
+    }
+  }
+
+  console.log(assetType);
+  console.log(AssetType);
+
+  const openCashModal = () => {
+    AssetType.length <= 6 && Text && Cash && isNaN(Cash) === false
+      ? setModalopen(true)
+      : AssetType.length >= 7 || Text || Cash || isNaN(Cash) === true
+      ? seterrTextModalopen(true)
+      : null;
+  };
 
   const assetId = [];
   {
@@ -387,7 +405,7 @@ export const AssetChange = () => {
         })
       : null;
   }
-
+  // console.log('assetId', assetId);
   const assetDataBox = [...assetData];
 
   if (assetData[0] !== undefined && assetDataBox.length < 7) {
@@ -452,42 +470,42 @@ export const AssetChange = () => {
       }
     });
   }
-
-  const AssetIds1 = [];
-  const AssetIds2 = [];
-  const AssetIds3 = [];
-  const AssetIds4 = [];
-  const AssetIds5 = [];
-  const AssetIds6 = [];
+  console.log('assetData1', assetData1);
+  const assetIds1 = [];
+  const assetIds2 = [];
+  const assetIds3 = [];
+  const assetIds4 = [];
+  const assetIds5 = [];
+  const assetIds6 = [];
 
   {
     assetData1.map((e) => {
-      AssetIds1.push(e.assetId);
+      assetIds1.push(e.assetId);
     });
   }
   {
     assetData2.map((e) => {
-      AssetIds2.push(e.assetId);
+      assetIds2.push(e.assetId);
     });
   }
   {
     assetData3.map((e) => {
-      AssetIds3.push(e.assetId);
+      assetIds3.push(e.assetId);
     });
   }
   {
     assetData4.map((e) => {
-      AssetIds4.push(e.assetId);
+      assetIds4.push(e.assetId);
     });
   }
   {
     assetData5.map((e) => {
-      AssetIds5.push(e.assetId);
+      assetIds5.push(e.assetId);
     });
   }
   {
     assetData6.map((e) => {
-      AssetIds6.push(e.assetId);
+      assetIds6.push(e.assetId);
     });
   }
 
@@ -598,14 +616,10 @@ export const AssetChange = () => {
     assetValueBox.length = 6;
   }
 
-  if (assetDataBox.length >= 7) {
-    assetDataBox.length = 6;
-  }
-
-  if (AssetType.length >= 7) {
-    AssetType.length = 6;
-  }
-
+  // if (AssetType.length >= 7) {
+  //   AssetType.length = 6;
+  // }
+  // console.log(AssetType);
   //? POST
   const Postdata = {
     assetType: Text,
@@ -624,13 +638,18 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   const Patchdata = {
     assetType: EditText,
-    strValue: '+1000',
+    strValue: '+0',
   };
-
+  let Patchdata1 = '';
+  {
+    assetIds1.forEach((e) => {
+      Patchdata1 = String(e);
+    });
+  }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/1`, Patchdata)
+      .patch(`${URL}/member/${memberid}/asset/${Patchdata1}`, Patchdata)
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
@@ -644,12 +663,30 @@ export const AssetChange = () => {
       .catch((err) => console.log(err));
   };
   //?
+  //? DELET
+  let AssetTypeNonMungching = 0;
+  // eslint-disable-next-line no-unused-vars
+  {
+    AssetType.forEach((e) => {
+      e !== '명칭' ? AssetTypeNonMungching++ : null;
+    });
+  }
+  console.log(AssetTypeNonMungching);
 
+  let DeleteLastdata = assetId[assetId.length - 1];
+
+  const deletLastAssetApi1 = async () => {
+    await axios
+      .delete(`${URL}/member/${memberid}/asset/${DeleteLastdata}`)
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //?
   //? DELET
   // eslint-disable-next-line no-unused-vars
   let Deletedata1 = '';
   {
-    AssetIds1.forEach((e) => {
+    assetIds1.forEach((e) => {
       Deletedata1 = String(e);
     });
   }
@@ -666,7 +703,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata2 = '';
   {
-    AssetIds2.forEach((e) => {
+    assetIds2.forEach((e) => {
       Deletedata2 = String(e);
     });
   }
@@ -683,7 +720,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata3 = '';
   {
-    AssetIds3.forEach((e) => {
+    assetIds3.forEach((e) => {
       Deletedata3 = String(e);
     });
   }
@@ -700,7 +737,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata4 = '';
   {
-    AssetIds4.forEach((e) => {
+    assetIds4.forEach((e) => {
       Deletedata4 = String(e);
     });
   }
@@ -717,7 +754,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata5 = '';
   {
-    AssetIds5.forEach((e) => {
+    assetIds5.forEach((e) => {
       Deletedata5 = String(e);
     });
   }
@@ -734,7 +771,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata6 = '';
   {
-    AssetIds6.forEach((e) => {
+    assetIds6.forEach((e) => {
       Deletedata6 = String(e);
     });
   }
@@ -748,12 +785,39 @@ export const AssetChange = () => {
   };
   //?
 
-  console.log('AssetIds1', AssetIds1);
-  console.log('AssetIds2', AssetIds2);
-  console.log('AssetIds3', AssetIds3);
-  console.log('AssetIds4', AssetIds4);
-  console.log('AssetIds5', AssetIds5);
-  console.log('AssetIds6', AssetIds6);
+  //? ZEROPOST1
+  const PostZerodata1 = {
+    assetType: ZeroText,
+    assetValue: `-${assetValue1}`,
+  };
+  // eslint-disable-next-line no-unused-vars
+  const postZeroAssetApi1 = async () => {
+    await axios
+      .post(`${URL}/member/${memberid}/asset`, PostZerodata1)
+      .then((res) => openZeroCashModal())
+      .catch((err) => openerrZeroCashModal());
+  };
+  //?
+  //? ZEROPOST2
+  const PostZerodata2 = {
+    assetType: ZeroText,
+    assetValue: `-${assetValue2}`,
+  };
+  // eslint-disable-next-line no-unused-vars
+  const postZeroAssetApi2 = async () => {
+    await axios
+      .post(`${URL}/member/${memberid}/asset`, PostZerodata2)
+      .then((res) => openZeroCashModal())
+      .catch((err) => openerrZeroCashModal());
+  };
+  //?
+
+  console.log('assetValue1', assetValue1);
+  // console.log('AssetIds2', AssetIds2);
+  // console.log('AssetIds3', AssetIds3);
+  // console.log('AssetIds4', AssetIds4);
+  // console.log('AssetIds5', AssetIds5);
+  // console.log('AssetIds6', AssetIds6);
 
   useEffect(() => {
     getAssetApi();
@@ -849,11 +913,12 @@ export const AssetChange = () => {
                   open={DelModalopen1}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi1}
-                  AssetIds1={AssetIds1}
+                  api1={deletAssetApi1}
+                  api2={deletLastAssetApi1}
+                  AssetTypeNonMungching={AssetTypeNonMungching}
                 >
                   <Div>
-                    <p>1 선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>1 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal1>
 
@@ -861,11 +926,12 @@ export const AssetChange = () => {
                   open={DelModalopen2}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi2}
-                  AssetIds2={AssetIds2}
+                  api1={deletAssetApi2}
+                  api2={deletLastAssetApi1}
+                  AssetTypeNonMungching={AssetTypeNonMungching}
                 >
                   <Div>
-                    <p>2 선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>2 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal2>
 
@@ -873,11 +939,12 @@ export const AssetChange = () => {
                   open={DelModalopen3}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi3}
-                  AssetIds3={AssetIds3}
+                  api1={deletAssetApi3}
+                  api2={deletLastAssetApi1}
+                  AssetTypeNonMungching={AssetTypeNonMungching}
                 >
                   <Div>
-                    <p>3 선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>3 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal3>
 
@@ -885,11 +952,12 @@ export const AssetChange = () => {
                   open={DelModalopen4}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi4}
-                  AssetIds4={AssetIds4}
+                  api1={deletAssetApi4}
+                  api2={deletLastAssetApi1}
+                  AssetTypeNonMungching={AssetTypeNonMungching}
                 >
                   <Div>
-                    <p>4 선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>4 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal4>
 
@@ -897,11 +965,13 @@ export const AssetChange = () => {
                   open={DelModalopen5}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi5}
-                  AssetIds5={AssetIds5}
+                  api1={deletAssetApi5}
+                  api2={deletLastAssetApi1}
+                  AssetTypeNonMungching={AssetTypeNonMungching}
+                  // AssetIds5={assetIds5}
                 >
                   <Div>
-                    <p>5 선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>5 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal5>
 
@@ -909,11 +979,14 @@ export const AssetChange = () => {
                   open={DelModalopen6}
                   close={closeModal}
                   header="자산 종류 수정 알림"
-                  api={deletAssetApi6}
-                  AssetIds6={AssetIds6}
+                  api1={deletAssetApi6}
+                  api2={deletLastAssetApi1}
+                  AssetTypeNonMungching={AssetTypeNonMungching}
+
+                  // AssetIds6={assetIds6}
                 >
                   <Div>
-                    <p>6 선택하신 자산이 삭제하시겠습니까? </p>
+                    <p>6 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal6>
 
@@ -974,24 +1047,102 @@ export const AssetChange = () => {
 
                 <H1>자산 리스트</H1>
                 {AssetList}
-                <EditButton className="1" onClick={DelModalopenHandler1}>
-                  1 <FiDelete />
-                </EditButton>
-                <EditButton className="2" onClick={DelModalopenHandler2}>
-                  2 <FiDelete />
-                </EditButton>
-                <EditButton className="3" onClick={DelModalopenHandler3}>
-                  3 <FiDelete />
-                </EditButton>
-                <EditButton className="4" onClick={DelModalopenHandler4}>
-                  4 <FiDelete />
-                </EditButton>
-                <EditButton className="5" onClick={DelModalopenHandler5}>
-                  5 <FiDelete />
-                </EditButton>
-                <EditButton className="6" onClick={DelModalopenHandler6}>
-                  6 <FiDelete />
-                </EditButton>
+
+                <H3Title style={{ marginTop: '30px' }}>
+                  💛&nbsp;금액 한단계 전 되돌리기&nbsp;💛
+                </H3Title>
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    textAlign: 'left',
+                  }}
+                >
+                  <EditButton
+                    className="1"
+                    onClick={DelModalopenHandler1}
+                    style={{
+                      marginRight: '15px',
+                      textAlign: 'left',
+                      width: '200px',
+                      marginLeft: '60px',
+                      marginTop: '10px',
+                    }}
+                  >
+                    1) {AssetType[0]}&nbsp;&nbsp;
+                    <FiDelete />
+                  </EditButton>
+                  <EditButton
+                    className="2"
+                    onClick={DelModalopenHandler2}
+                    style={{
+                      marginRight: '15px',
+                      textAlign: 'left',
+                      width: '200px',
+                      marginLeft: '60px',
+                      marginTop: '15px',
+                    }}
+                  >
+                    2) {AssetType[1]}&nbsp;&nbsp;
+                    <FiDelete />
+                  </EditButton>
+                  <EditButton
+                    className="3"
+                    onClick={DelModalopenHandler3}
+                    style={{
+                      marginRight: '15px',
+                      textAlign: 'left',
+                      width: '200px',
+                      marginLeft: '60px',
+                      marginTop: '15px',
+                    }}
+                  >
+                    3) {AssetType[2]}&nbsp;&nbsp;
+                    <FiDelete />
+                  </EditButton>
+                  <EditButton
+                    className="4"
+                    onClick={DelModalopenHandler4}
+                    style={{
+                      marginRight: '15px',
+                      textAlign: 'left',
+                      width: '200px',
+                      marginLeft: '60px',
+                      marginTop: '15px',
+                    }}
+                  >
+                    4) {AssetType[3]}&nbsp;&nbsp;
+                    <FiDelete />
+                  </EditButton>
+                  <EditButton
+                    className="5"
+                    onClick={DelModalopenHandler5}
+                    style={{
+                      marginRight: '15px',
+                      textAlign: 'left',
+                      width: '200px',
+                      marginLeft: '60px',
+                      marginTop: '15px',
+                    }}
+                  >
+                    5) {AssetType[4]}&nbsp;&nbsp;
+                    <FiDelete />
+                  </EditButton>
+                  <EditButton
+                    className="6"
+                    onClick={DelModalopenHandler6}
+                    style={{
+                      marginRight: '15px',
+                      textAlign: 'left',
+                      width: '200px',
+                      marginLeft: '60px',
+                      marginTop: '15px',
+                    }}
+                  >
+                    6) {AssetType[5]} &nbsp;&nbsp;
+                    <FiDelete />
+                  </EditButton>
+                </div>
                 <H2>자산 금액 수정</H2>
                 <Div>
                   <Input
@@ -1043,6 +1194,44 @@ export const AssetChange = () => {
                     <P
                       style={{ color: 'blue' }}
                     >{`🚨 반영금액을 수정해주세요.`}</P>
+                  </Fade>
+                ) : null}
+
+                <H2>자산 초기화</H2>
+                <Div>
+                  {ZeroText === false ? (
+                    <Input
+                      onChange={ZeroCashonChange}
+                      value={''}
+                      type="text"
+                      placeholder="0원으로 초기화 하실 자산 명칭을 적어주세요."
+                    />
+                  ) : (
+                    <Input
+                      onChange={ZeroCashonChange}
+                      value={ZeroText}
+                      type="text"
+                      placeholder="0원으로 초기화 하실 자산 명칭을 적어주세요."
+                    />
+                  )}
+                  <div>
+                    <ZeroCashBtn1
+                      ZeroText={ZeroText}
+                      postZEROAssetApi={postZeroAssetApi1}
+                    >
+                      초기화
+                    </ZeroCashBtn1>
+                  </div>
+                </Div>
+
+                {ZeroText && AssetDatas ? (
+                  <Fade>
+                    {ZeroText === '명칭' ? (
+                      <P
+                        style={{ color: 'blue' }}
+                      >{`🚨 위 항목에 없는 명칭이면 버튼 비활성화됩니다."`}</P>
+                    ) : null}
+                    <P>{`✨ 반영될 자산명칭: "${ZeroText}"`}</P>
                   </Fade>
                 ) : null}
               </MainContain>
