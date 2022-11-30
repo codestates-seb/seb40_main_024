@@ -293,32 +293,20 @@ export const AddCommentBtn = ({ commentPost }) => {
     </ButtonAA>
   );
 };
-export const ModifyCommentBtn = ({ id, handlerClickEdit }) => {
+export const ModifyCommentBtn = ({ Modify }) => {
   return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={handlerClickEdit}
-      data-id={id}
-    >
+    <ButtonAA style={{ marginBottom: '10px' }} onClick={Modify}>
       수정
     </ButtonAA>
   );
 };
-export const DeleteCommentBtn = ({ commentDelete, id }) => {
-  return (
-    <ButtonAA onClick={commentDelete} data-id={id}>
-      삭제
-    </ButtonAA>
-  );
+export const DeleteCommentBtn = ({ commentDelete }) => {
+  return <ButtonAA onClick={commentDelete}>삭제</ButtonAA>;
 };
 
-export const CompleteBtn = ({ commentPatch, id }) => {
+export const CompleteBtn = ({ commentModify }) => {
   return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={commentPatch}
-      data-id={id}
-    >
+    <ButtonAA style={{ marginRight: '35px' }} onClick={commentModify}>
       완료
     </ButtonAA>
   );
@@ -397,12 +385,13 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi }) => {
+export const TitleCashBtn = ({ postAssetApi, Text }) => {
   return (
     <ButtonAA
       onClick={() => {
         postAssetApi();
       }}
+      disabled={String(Text) === '명칭'}
     >
       수정
     </ButtonAA>

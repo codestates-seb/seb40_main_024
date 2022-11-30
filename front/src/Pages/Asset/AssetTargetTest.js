@@ -25,12 +25,9 @@ const GuideBox = styled.div`
   margin-left: 300px;
   margin-bottom: 50px;
   color: grey;
-
   .TextHeader {
     text-align: center;
-
     color: #9ed5c5;
-
     width: 550px;
   }
   .Text {
@@ -46,7 +43,6 @@ const PageContain = styled.div`
   flex-direction: row;
   justify-content: center;
   /* display: inline-block; */
-
   align-items: center;
   /* position: relative; */
   box-sizing: border-box;
@@ -121,12 +117,11 @@ const AssetTargetPage = () => {
   const [goal, setGoal] = useState(''); // 명칭
   const [extended, setExtended] = useState(''); // 목표금액
   const [period, setPeriod] = useState(''); // 기간
-  // eslint-disable-next-line no-unused-vars
   const [target, setTarget] = useState('');
   const [render, setRender] = useState(0);
-  const [goalName, setGoalName] = useState('');
-  const [goalPrice, setGoalPrice] = useState('');
-  const [targetLength, setTargetLength] = useState('');
+  const [goalName, setGoalName] = useState(''); //목표명
+  const [goalPrice, setGoalPrice] = useState(''); //목표금액
+  const [targetLength, setTargetLength] = useState(''); //목표기간
   const [up, setUp] = useState(0); //저축횟수
   const [countList, setCountList] = useState([]);
 
@@ -169,16 +164,6 @@ const AssetTargetPage = () => {
     setTargetLength(e.target.value);
   };
 
-  // const HandlerAddCount = () => {
-  //   setUp(up + 1);
-  //   if (up + 1 === Number(period)) return alert('목표달성을 축하드립니다!');
-  // };
-
-  // const HandlerDownCount = () => {
-  //   setUp(up - 1);
-  //   if (up - 1 < 0) return;
-  // };
-
   useEffect(() => {
     const goalGet = async () => {
       try {
@@ -216,19 +201,15 @@ const AssetTargetPage = () => {
       console.log(res.data.goalId);
       if (countList.length < 6) return;
       alert('최대 6개의 목표를 설정할 수 있습니다');
-      // console.log('post', res.data._embedded.responseList);
     } catch (err) {
       console.log('error', err);
     }
-    // goalPost();
   };
   const goalDelete = async (e) => {
     try {
       const res = await axios.delete(`${url}/1/goal/${e.target.dataset.id}`);
       setRender((el) => el + 1);
-      // const res = await axios.delete(`${url}/1/goal/42`);
       console.log('dataset.id', e.target.dataset.id);
-      // console.log('handler', countList);
       console.log('삭제', res);
     } catch (err) {
       console.log('deleteerror', err);
@@ -247,9 +228,6 @@ const AssetTargetPage = () => {
         patchdata
       );
       setRender((el) => el + 1);
-      // setGoal(goalName);
-      // setExtended(goalPrice);
-      // setPeriod(targetLength);
 
       console.log('patch', res);
       console.log('patchId', e.target.dataset.id);
@@ -258,8 +236,6 @@ const AssetTargetPage = () => {
     }
   };
 
-  // {member_id}/goal/{goal_id}/complete
-
   const goalUpPatch = async (e) => {
     try {
       const res = await axios.patch(
@@ -267,8 +243,6 @@ const AssetTargetPage = () => {
       );
       setUp(res.data.completed);
       console.log(res.data.completed);
-      console.log('up', res);
-      console.log('patchId', e.target.dataset.id);
     } catch (err) {
       console.log('up', err);
     }
@@ -280,9 +254,6 @@ const AssetTargetPage = () => {
         `${url}/1/goal/${e.target.dataset.id}/incomplete`
       );
       setUp(res.data.completed);
-      console.log(res.data.completed);
-      console.log('down', res);
-      console.log('patchId', e.target.dataset.id);
     } catch (err) {
       console.log('up', err);
     }
@@ -315,7 +286,7 @@ const AssetTargetPage = () => {
           <br />
           <p className="Text">
             셋째, 목표리스트의 <span className="Hilight">SAVING</span> 버튼을
-            클릭하여 저축횟수를 표시할 수 있습니다.
+            클릭하여 납입 기간을 표시할 수 있습니다.
           </p>
           <br />
           <p className="Text">*그래프를 통해 목표 달성률을 확인해보세요!*</p>
@@ -335,16 +306,6 @@ const AssetTargetPage = () => {
           </ChartContain>
 
           <div className="Contain">
-            {/* {countList.length === 6 ? (
-              <>
-                <PlusBtn disabled />
-              </>
-            ) : (
-              <>
-                <PlusBtn HandlerAdd={HandlerAdd} />
-              </>
-            )} */}
-
             <BoxContain>
               <AssetSetting
                 goalPost={goalPost}

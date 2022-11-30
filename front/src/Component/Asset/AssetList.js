@@ -61,49 +61,7 @@ const TextBox = styled.div`
   color: red;
   font-size: 30px;
 `;
-// const Button = styled.button`
-//   height: 50px;
-//   width: 50px;
-//   background-color: yellow;
-//   border: black;
-// `;
 
-// const Button2 = styled.button`
-//   height: 50px;
-//   width: 50px;
-//   background-color: blue;
-//   border: black;
-// `;
-
-// const ModalSaving = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   display: inline-flex;
-//   align-items: center;
-//   margin: 30px;
-//   margin-top: 350px;
-//   box-sizing: border-box;
-//   width: 160px;
-//   height: 160px;
-//   border: 1px solid #def5e5;
-//   border-radius: 50%;
-//   background-color: #def5e5;
-// `;
-// const PeriodBox = styled.div`
-//   display: flex;
-//   flex-direction: row;
-//   text-align: center;
-//   justify-content: center;
-//   align-items: center;
-//   line-height: normal;
-//   box-sizing: border-box;
-//   margin: auto;
-//   margin-top: 3px;
-//   height: 30px;
-//   width: 150px;
-//   color: black;
-//   font-size: 16px;
-// `;
 const ListContain = styled.div`
   display: flex;
   flex-direction: column;
@@ -122,6 +80,9 @@ const UserInfoHead = styled.h4`
   color: #bcead5;
   font-size: 20px;
   margin-bottom: 20px;
+  .number {
+    color: #8ec3b0;
+  }
 `;
 
 const Input = styled.input`
@@ -172,21 +133,23 @@ const BtnBox = styled.div`
 const NewBtnBox = styled.div`
   display: flex;
   flex-direction: row;
-  width: 150px;
+  width: 200px;
   height: 40px;
-  gap: 10px;
-  margin-top: -20px;
+  gap: 50px;
+  /* margin-top: -20px; */
   margin-bottom: 10px;
 `;
 const UpBtn = styled.button`
   width: 50px;
   height: 50px;
-  background-color: grey;
+  background-color: #bcead5;
+  border-radius: 50%;
 `;
 const DownBtn = styled.button`
   width: 50px;
   height: 50px;
-  background-color: grey;
+  background-color: #bcead5;
+  border-radius: 50%;
 `;
 
 const AssetList = ({
@@ -334,12 +297,19 @@ const AssetList = ({
               </Modal>
             </Div>
           </GoalModifyModal>
-          <SavingModal open={save} close={openModal} header="납입 횟수">
+          <SavingModal open={save} close={openModal} header="납입 기간">
             <Div>
               <ListContain>
                 <UserInfo>
                   <div>
-                    <UserInfoHead>납입횟수 {up}번</UserInfoHead>
+                    <UserInfoHead>
+                      납입 기간: <span className="number">{up}</span>개월
+                    </UserInfoHead>
+
+                    <UserInfoHead>
+                      목표 기간:{' '}
+                      <span className="number">{count.targetLength}</span>개월
+                    </UserInfoHead>
                     <NewBtnBox>
                       <UpBtn onClick={goalUpPatch} data-id={id}>
                         UP
@@ -348,18 +318,6 @@ const AssetList = ({
                         DOWN
                       </DownBtn>
                     </NewBtnBox>
-                    <UserInfoHead>
-                      목표기간 {count.targetLength}개월
-                    </UserInfoHead>
-
-                    {/* <Text
-                      value={goalName}
-                      onChange={goalNameonChange}
-                      placeholder="숫자"
-                    > */}
-                    {/* <Button onClick={goalUpPatch} data-id={id}></Button>
-                      <Button2 onClick={goalDownPatch} data-id={id}></Button2> */}
-                    {/* </Text> */}
                   </div>
                 </UserInfo>
               </ListContain>

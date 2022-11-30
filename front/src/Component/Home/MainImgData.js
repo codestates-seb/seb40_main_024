@@ -1,5 +1,7 @@
 import Mainpeople from './Img/MainA.jpg';
-import Assetimg from './Img/Asset.jpg';
+import Assetimg1 from './Img/Asset.jpg';
+import Assetimg2 from './Img/Asset2.jpg';
+import community from './Img/community.png';
 
 export const MainA = [
   [
@@ -14,7 +16,25 @@ export const MainB = [
   [
     {
       id: 1,
-      image: Assetimg,
+      image: Assetimg1,
+    },
+  ],
+];
+
+export const MainC = [
+  [
+    {
+      id: 1,
+      image: Assetimg2,
+    },
+  ],
+];
+
+export const MainD = [
+  [
+    {
+      id: 1,
+      image: community,
     },
   ],
 ];
