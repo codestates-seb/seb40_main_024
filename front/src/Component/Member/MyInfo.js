@@ -198,7 +198,6 @@ const MyInfo = () => {
 
   const closeModify = () => {
     setModalopen(false);
-    window.location.reload();
   };
 
   const closeSignOut = () => {
@@ -227,13 +226,12 @@ const MyInfo = () => {
 
   const UserPatch = async () => {
     try {
-      const req = await axios.patch(`${URL}/member/update`, UpdateData, {
+      await axios.patch(`${URL}/member/update`, UpdateData, {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
       });
       openModal();
-      console.log(req + '성공');
     } catch (e) {
       openErrModify();
       console.log(e);
@@ -266,7 +264,7 @@ const MyInfo = () => {
       }
     };
     Get();
-  }, []);
+  }, [UserPatch]);
 
   return (
     <MyPageContain>
