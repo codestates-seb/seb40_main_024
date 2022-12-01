@@ -8,6 +8,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,7 +24,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 @RequestMapping("/")
 @Validated
 public class CommentController {
-    
+
     private final CommentService commentService;
     private final CommentAssembler assembler;
 
@@ -51,9 +52,10 @@ public class CommentController {
 
     @PostMapping("/board/{board_id}/comment")
     public ResponseEntity<?> postComment(@Valid @RequestBody CommentDto.Post requestBody,
-                                         @PathVariable("board_id") @Positive long boardId) {
+                                         @PathVariable("board_id") @Positive long boardId,
+                                         @AuthenticationPrincipal String email) {
         EntityModel<CommentDto.Response> entityModel =
-                assembler.toModel(commentService.createOne(requestBody, boardId));
+                assembler.toModel(commentService.createOne(requestBody, boardId, email));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -79,5 +81,5 @@ public class CommentController {
         commentService.deleteOne(id, boardId);
         return ResponseEntity.noContent().build();
     }
-    
+
 }

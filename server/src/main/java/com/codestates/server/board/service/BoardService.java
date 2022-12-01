@@ -10,6 +10,8 @@ import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,16 +33,13 @@ public class BoardService {
     private final BoardMapper mapper;
     private final BoardAssembler assembler;
     private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
 
     public BoardDto.Response findOne(long id) {
         Board verifiedBoard = findVerifiedBoard(id);
         repository.updateView(id);
         return mapper.boardToBoardResponseDto(verifiedBoard);
     }
-
-//    public List<Board> findAll() {
-//        return new ArrayList<>(repository.findAll());
-//    }
 
     public Page<Board> findAllByPage(int page, int size) {
         return repository.findAllPaged(PageRequest.of(page, size));
@@ -52,10 +51,16 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto.Response createOne(BoardDto.Post postBoard) {
+    public BoardDto.Response createOne(BoardDto.Post postBoard, String email) {
+
+        // If member info is not provided
+        if (email.isEmpty()) throw new CustomException(ExceptionCode.MEMBER_INFO_NOT_FOUND);
 
         Board board = mapper.boardPostToBoard(postBoard);
         board.setCategory(verifyCategory(postBoard));
+
+        Optional<Member> member = memberRepository.findByEmail(email);
+        board.setMember(member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
 
         return mapper.boardToBoardResponseDto(repository.save(board));
     }
