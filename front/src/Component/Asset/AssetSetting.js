@@ -27,7 +27,7 @@ const Header = styled.h3`
 const SettingInput = styled.input`
   box-sizing: border-box;
   text-align: center;
-  width: 400px;
+  width: 350px;
   height: 60px;
   margin: 10px;
   font-size: 20px;
