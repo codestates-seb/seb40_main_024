@@ -32,14 +32,14 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final ApplicationEventPublisher publisher;
-//    private static RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+  /*  private static RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
 
 
-//    @Transactional
-//    public static void logout(HttpServletRequest request, String email) {
-//        redisTemplate.opsForValue().set(request.getHeader("Authorization"),"logout",30 * 60 * 1000L, TimeUnit.MILLISECONDS);
-//        redisTemplate.delete(email);
-//    }
+    @Transactional
+    public static void logout(HttpServletRequest request, String email) {
+        redisTemplate.opsForValue().set(request.getHeader("Authorization"),"logout",30 * 60 * 1000L, TimeUnit.MILLISECONDS);
+        redisTemplate.delete(email);
+    }*/
 
     @Transactional
     public Member createMember(Member member) {
