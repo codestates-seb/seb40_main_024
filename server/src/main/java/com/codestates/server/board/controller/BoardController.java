@@ -3,9 +3,9 @@ package com.codestates.server.board.controller;
 import com.codestates.server.board.assembler.BoardAssembler;
 import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
-import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.service.BoardService;
 import com.codestates.server.dto.MultiResponseDto;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
@@ -18,45 +18,30 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/board")
 @Validated
 public class BoardController {
 
     private final BoardService boardService;
-
-    private final BoardMapper mapper;
-
     private final BoardAssembler assembler;
-
-    public BoardController(BoardService boardService, BoardMapper mapper, BoardAssembler assembler) {
-        this.boardService = boardService;
-        this.mapper = mapper;
-        this.assembler = assembler;
-    }
 
     @GetMapping("/{id}")
     public EntityModel<BoardDto.Response> getBoard(@PathVariable long id) {
-        Board board = boardService.findOne(id);
-        BoardDto.Response response = mapper.boardToBoardResponseDto(board);
-        return assembler.toModel(response);
+        return assembler.toModel(boardService.findOne(id));
     }
 
     @GetMapping
-    public ResponseEntity getBoards(@Positive @RequestParam int page,
-                                    @Positive @RequestParam int size) {
+    public ResponseEntity getBoardsPaged(@Positive @RequestParam int page,
+                                         @Positive @RequestParam int size) {
 
         Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
-        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
-
-//
-//        return CollectionModel.of(boards,
-//                linkTo(methodOn(BoardService.class).findAllByPage(page - 1, size)).withSelfRel());
+        List<EntityModel<BoardDto.Response>> boards = boardService.boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
@@ -67,10 +52,7 @@ public class BoardController {
     public CollectionModel<EntityModel<BoardDto.Response>> getBoards() {
 
         List<Board> boards = boardService.findAll();
-        List<EntityModel<BoardDto.Response>> response = boards.stream()
-                .map(mapper::boardToBoardResponseDto)
-                .map(assembler::toModel)
-                .collect(Collectors.toList());
+        List<EntityModel<BoardDto.Response>> response = boardService.boardStream(boards);
 
         return CollectionModel.of(response,
                 linkTo(methodOn(BoardService.class).findAll()).withSelfRel());
@@ -78,8 +60,9 @@ public class BoardController {
 
     @PostMapping
     public ResponseEntity<?> postBoard(@Valid @RequestBody BoardDto.Post requestBody) {
-        Board board = boardService.createOne(mapper.boardPostToBoard(requestBody));
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.createOne(requestBody));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -87,9 +70,21 @@ public class BoardController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<?> patchBoard(@PathVariable long id, @Valid @RequestBody BoardDto.Patch requestBody) {
+
         requestBody.setBoardId(id);
-        Board board = boardService.updateOne(mapper.boardPatchToBoard(requestBody));
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.updateOne(requestBody));
+
+        return ResponseEntity
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
+                .body(entityModel);
+    }
+
+    @PatchMapping("/{id}/{like}")
+    public ResponseEntity<?> likeBoard(@PathVariable("id") @Positive long id,
+                                       @PathVariable("like") String like) {
+
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.changeLike(id, like));
+
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
                 .body(entityModel);
@@ -101,53 +96,15 @@ public class BoardController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}/like")
-    public ResponseEntity<?> likeBoard(@PathVariable long id) {
-        Board board = boardService.findVerifiedBoard(id);
-        boardService.increaseLike(board);
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
-    }
+    @GetMapping("/category/{category}")
+    public ResponseEntity getBoardsByCategory(@Positive @RequestParam int page, @Positive @RequestParam int size,
+                                         @PathVariable("category") String category) {
 
-    @PatchMapping("/{id}/dislike")
-    public ResponseEntity<?> dislikeBoard(@PathVariable long id) {
-        Board board = boardService.findVerifiedBoard(id);
-        boardService.decreaseLike(board);
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(mapper.boardToBoardResponseDto(board));
-        return ResponseEntity
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
-                .body(entityModel);
-    }
-
-    @GetMapping("/post")
-    public ResponseEntity getBoardsPost(@Positive @RequestParam int page,
-                                    @Positive @RequestParam int size) {
-
-        Page<Board> pagedBoards = boardService.findAllTagPost(page - 1, size);
-        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
+        Page<Board> pagedBoards = boardService.findAllByCategory(page - 1, size, category);
+        List<EntityModel<BoardDto.Response>> boards = boardService.boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
-    }
-
-    @GetMapping("/asset")
-    public ResponseEntity getBoardsAsset(@Positive @RequestParam int page,
-                                        @Positive @RequestParam int size) {
-
-        Page<Board> pagedBoards = boardService.findAllTagAsset(page - 1, size);
-        List<EntityModel<BoardDto.Response>> boards = pagedBoards(pagedBoards.getContent());
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
-    }
-
-    public List<EntityModel<BoardDto.Response>> pagedBoards(List<Board> listedBoards) {
-        return listedBoards.stream()
-                .map(mapper::boardToBoardResponseDto)
-                .map(assembler::toModel)
-                .collect(Collectors.toList());
     }
 
 }

@@ -29,7 +29,7 @@ public class BoardDto {
         private String body;
 
         @NotBlank(message = "일반 / 자산 - 태그를 선택하세요.")
-        private String tag;
+        private String category;
     }
 
     @Getter
@@ -47,7 +47,7 @@ public class BoardDto {
         @Size(min = 10, message = "내용은 10자 이상 입력하세요.")
         private String body;
 
-        private String tag;
+        private String category;
     }
 
 
@@ -59,8 +59,9 @@ public class BoardDto {
         private long boardId;
         private String title;
         private String body;
+        private int view;
         private int like;
-        private Board.BoardTag tag;
+        private Board.BoardCategory category;
 
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;

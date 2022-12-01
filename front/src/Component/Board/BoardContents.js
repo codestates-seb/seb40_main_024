@@ -56,7 +56,6 @@ const IdEtcBox = styled.div`
   align-items: center;
   width: 100%;
   padding-bottom: 20px;
-  border-bottom: 1px solid #8ec3b0;
   div {
     padding-bottom: 5px;
   }
@@ -150,7 +149,7 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
-  const [tag, setTag] = useState();
+  const [category, setCategory] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
@@ -159,7 +158,7 @@ const Contents = () => {
   const Delete = async () => {
     try {
       const res = await axios.delete(`${URL}/board/${id}`);
-      console.log(res);
+      console(res);
       navigate('/freeboard');
     } catch (e) {
       console.log(e);
@@ -188,12 +187,11 @@ const Contents = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/board/${id}`);
-        console.log(res);
         setBoardId(res.data.boardId);
         setTitle(res.data.title);
         setBody(res.data.body);
         setcreatedAt(res.data.createdAt);
-        setTag(res.data.tag);
+        setCategory(res.data.category);
         setLike(res.data.like);
         setName(res.data.memberPosted.name);
       } catch (e) {
@@ -217,7 +215,7 @@ const Contents = () => {
           <ContentBox>
             <IdEtcBox>
               <div>
-                <Tag>{tag}</Tag>
+                <Tag>{category}</Tag>
               </div>
               <Id>{name}</Id>
               <EtcBox>

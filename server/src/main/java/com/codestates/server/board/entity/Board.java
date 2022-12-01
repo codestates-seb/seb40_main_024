@@ -28,12 +28,15 @@ public class Board extends Auditable {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String body;
 
+    @Column(nullable = false)
+    private int view = 0;
+
     @Column(name = "likes")
     private int like = 0;
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private BoardTag tag;
+    private BoardCategory category;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -46,10 +49,10 @@ public class Board extends Auditable {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
-    public Board(String title, String body, BoardTag tag, Member member) {
+    public Board(String title, String body, BoardCategory category, Member member) {
         this.title = title;
         this.body = body;
-        this.tag = tag;
+        this.category = category;
         this.member = member;
     }
 
@@ -66,17 +69,17 @@ public class Board extends Auditable {
         }
     }
 
-    public enum BoardTag {
+    public enum BoardCategory {
 
         POST("일반"),
         ASSET("자산");
 
         @Getter
         @JsonValue
-        private final String tag;
+        private final String category;
 
-        BoardTag(String tag) {
-            this.tag = tag;
+        BoardCategory(String category) {
+            this.category = category;
         }
     }
 }

@@ -60,7 +60,7 @@ const ButtonCC = styled.button`
   text-decoration: none;
   font-weight: 800;
   font-size: 20px;
-  /* transition: 0.25s; */
+  transition: 0.25s;
   color: #444;
   stroke: #000000;
   background-color: #8ec3b0;
@@ -210,27 +210,57 @@ export const ButtonSignup = () => {
 };
 
 //목표수정 페이지
-export const PlusBtn = ({ HandlerAdd }) => {
+export const SaveBtn = ({ openSavingModal }) => {
   return (
-    <ButtonBB onClick={HandlerAdd} style={{ marginTop: '90px' }}>
-      목표 추가
-    </ButtonBB>
+    <ButtonCC onClick={openSavingModal} style={{ marginBottom: '30px' }}>
+      Saving
+    </ButtonCC>
   );
 };
 
-export const SaveBtn = ({ savings, handlerModal }) => {
+export const PlusBtn = ({ savings, goalPost }) => {
   return (
-    <ButtonBB
+    <ButtonCC
       type="number"
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={handlerModal}
+      onClick={goalPost}
     >
       START
-    </ButtonBB>
+    </ButtonCC>
   );
 };
+export const EditGoalBtn = ({ id, openModify }) => {
+  return (
+    <ButtonAA data-id={id} onClick={openModify}>
+      수정
+    </ButtonAA>
+  );
+};
+export const DeleteGoalBtn = ({ id, goalDelete }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalDelete}>
+      삭제
+    </ButtonAA>
+  );
+};
+export const UpBtn = ({ id, goalUpPatch }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalUpPatch}>
+      UP
+    </ButtonAA>
+  );
+};
+
+export const DownBtn = ({ id, goalDownPatch }) => {
+  return (
+    <ButtonAA data-id={id} onClick={goalDownPatch}>
+      DOWN
+    </ButtonAA>
+  );
+};
+
 //마이페이지, 회원정보수정
 
 export const SavingsBtn = () => {
@@ -238,30 +268,19 @@ export const SavingsBtn = () => {
 };
 
 // 회원 정보 수정
-export const NameUpdateBtn = () => {
-  const navigate = useNavigate();
-  return (
-    <ButtonBB
-      onClick={() => {
-        navigate('/myinfopage');
-      }}
-    >
-      회원정보 수정
-    </ButtonBB>
-  );
+export const NameUpdateBtn = ({ openModify }) => {
+  return <ButtonCC onClick={openModify}>회원정보 수정</ButtonCC>;
 };
 
 export const ProfileBtn = () => {
   return <ButtonBB>프로필 수정</ButtonBB>;
 };
 
-export const ReviseBtn = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>변경</ButtonAA>;
+export const ReviseBtn = ({ UserPatch }) => {
+  return <ButtonAA onClick={UserPatch}>변경</ButtonAA>;
 };
-export const SignOutBtn = () => {
-  return (
-    <ButtonCC onClick={() => alert('탈퇴 하시겠습니까?')}>회원 탈퇴</ButtonCC>
-  );
+export const SignOutBtn = ({ UserDelete }) => {
+  return <ButtonCC onClick={UserDelete}>회원 탈퇴</ButtonCC>;
 };
 export const AddCommentBtn = ({ commentPost }) => {
   return (
@@ -274,28 +293,32 @@ export const AddCommentBtn = ({ commentPost }) => {
     </ButtonAA>
   );
 };
-export const ModifyCommentBtn = ({ commentPatch, id }) => {
+export const ModifyCommentBtn = ({ Modify }) => {
   return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={commentPatch}
-      data-id={id}
-    >
+    <ButtonAA style={{ marginBottom: '10px' }} onClick={Modify}>
       수정
     </ButtonAA>
   );
 };
-export const DeleteCommentBtn = ({ commentDelete, id }) => {
+export const DeleteCommentBtn = ({ commentDelete }) => {
+  return <ButtonAA onClick={commentDelete}>삭제</ButtonAA>;
+};
+
+export const CompleteBtn = ({ commentModify }) => {
   return (
-    <ButtonAA onClick={commentDelete} data-id={id}>
-      삭제
+    <ButtonAA style={{ marginRight: '35px' }} onClick={commentModify}>
+      완료
     </ButtonAA>
   );
 };
 
 // 구독 해지 버튼
 export const UnSubscript = ({ openModal }) => {
-  return <ButtonAA onClick={openModal}>해지</ButtonAA>;
+  return (
+    <ButtonAA style={{ marginLeft: '5px' }} onClick={openModal}>
+      해지
+    </ButtonAA>
+  );
 };
 
 export const AddContentBtn = () => {
@@ -362,12 +385,13 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi }) => {
+export const TitleCashBtn = ({ postAssetApi, Text }) => {
   return (
     <ButtonAA
       onClick={() => {
         postAssetApi();
       }}
+      disabled={String(Text) === '명칭'}
     >
       수정
     </ButtonAA>
@@ -384,4 +408,11 @@ export const DiamondBtn = ({ openModal }) => {
 
 export const StockBtn = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>수정</ButtonAA>;
+};
+
+// Error Page
+
+export const ErrorBtn = () => {
+  const navigate = useNavigate();
+  return <ButtonCC onClick={() => navigate('/')}>나가기</ButtonCC>;
 };

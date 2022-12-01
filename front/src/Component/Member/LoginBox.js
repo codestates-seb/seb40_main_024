@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import axios from 'axios';
-import { useState, useCallback, useContext } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { useState, useCallback, useContext, useEffect } from 'react';
 import { NavForgotPasswordButton, NavSignUpButton } from '../Common/Button';
 import { Modal } from '../Common/Modal';
 import AuthContext from '../../store/AuthContext';
@@ -164,6 +165,7 @@ export const LoginBox = () => {
   const [isPassword, setIsPassword] = useState(false);
 
   const abc = !(isEmail && isPassword);
+
   // 이메일
   const onChangeEmail = useCallback((e) => {
     const emailRegex =
@@ -208,10 +210,12 @@ export const LoginBox = () => {
     email: email,
     password: password,
   };
+
   const PostLogin = async () => {
     try {
       const req = await axios.post(`${URL}/member/login`, DataLogin);
       const reqToken = req.headers.get('authorization');
+      // const reqRefreshToken = req.headers.get('Refresh');
       authCtx.login(reqToken);
       openModal();
     } catch (e) {

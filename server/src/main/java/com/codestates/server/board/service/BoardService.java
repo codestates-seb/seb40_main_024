@@ -1,15 +1,19 @@
 package com.codestates.server.board.service;
 
 
+import com.codestates.server.board.assembler.BoardAssembler;
+import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
+import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.repository.BoardRepository;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
-import com.codestates.server.exception.BusinessLogicException;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
+import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,26 +21,25 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+@AllArgsConstructor
 @Transactional(readOnly = true)
 @Service
 public class BoardService {
 
     private final BoardRepository repository;
-
+    private final BoardMapper mapper;
+    private final BoardAssembler assembler;
     private final CommentRepository commentRepository;
 
-    public BoardService(BoardRepository repository, CommentRepository commentRepository) {
-        this.repository = repository;
-        this.commentRepository = commentRepository;
-    }
-
-    public Board findOne(long id) {
+    public BoardDto.Response findOne(long id) {
         Board verifiedBoard = findVerifiedBoard(id);
-        if (verifiedBoard.getBoardStatus() == Board.BoardStatus.BOARD_DELETED) {
-            throw new BusinessLogicException(ExceptionCode.BOARD_NOT_FOUND);
-        }
-        return verifiedBoard;
+
+        // deleted check
+
+        repository.updateView(id);
+        return mapper.boardToBoardResponseDto(verifiedBoard);
     }
 
     public List<Board> findAll() {
@@ -47,54 +50,57 @@ public class BoardService {
         return repository.findAllPaged(PageRequest.of(page, size));
     }
 
-    public Page<Board> findAllTagPost(int page, int size) {
-        return repository.findAllPost(PageRequest.of(page, size));
-    }
-
-    public Page<Board> findAllTagAsset(int page, int size) {
-        return repository.findAllAssetPost(PageRequest.of(page, size));
+    public Page<Board> findAllByCategory(int page, int size, String category) {
+        if (!category.equals("post") && !category.equals("asset")) throw new CustomException(ExceptionCode.BOARD_CATEGORY_NOT_FOUND);
+        return category.equals("post") ? repository.findAllPost(PageRequest.of(page, size)) :  repository.findAllAssetPost(PageRequest.of(page, size));
     }
 
     @Transactional
-    public Board createOne(Board board) {
-        return repository.save(board);
+    public BoardDto.Response createOne(BoardDto.Post postBoard) {
+
+        Board board = mapper.boardPostToBoard(postBoard);
+        board.setCategory(verifyCategory(postBoard));
+
+        return mapper.boardToBoardResponseDto(repository.save(board));
     }
 
     @Transactional
-    public Board updateOne(Board board) {
+    public BoardDto.Response updateOne(BoardDto.Patch patchBoard) {
+
+        Board board = mapper.boardPatchToBoard(patchBoard);
         Board verifiedBoard = findVerifiedBoard(board.getBoardId());
+
+        // verify category if not null
+        if (patchBoard.getCategory() != null) {
+            board.setCategory(verifyCategory(patchBoard));
+        }
 
         // title and body
         verifiedBoard.setTitle(board.getTitle());
         verifiedBoard.setBody(board.getBody());
-        verifiedBoard.setTag(board.getTag() != null ? board.getTag() : verifiedBoard.getTag());
+        verifiedBoard.setCategory(board.getCategory() != null ? board.getCategory() : verifiedBoard.getCategory());
 
         // Modified time
         verifiedBoard.setModifiedAt(LocalDateTime.now());
 
-        return repository.save(verifiedBoard);
+        return mapper.boardToBoardResponseDto(repository.save(verifiedBoard));
     }
 
     @Transactional
-    public Board increaseLike(Board board) {
-        Board verifiedBoard = findVerifiedBoard(board.getBoardId());
+    public BoardDto.Response changeLike(long id, String which) {
 
-        // increase 1 like
-        int like = board.getLike();
-        verifiedBoard.setLike(++like);
+        if (!which.equals("like") && !which.equals("dislike")) throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
 
-        return repository.save(verifiedBoard);
-    }
+        Board verifiedBoard = findVerifiedBoard(id);
+        int like = verifiedBoard.getLike();
 
-    @Transactional
-    public Board decreaseLike(Board board) {
-        Board verifiedBoard = findVerifiedBoard(board.getBoardId());
+        if (which.equals("like")) {
+            verifiedBoard.setLike(++like);  // increase 1 like
+        } else {
+            verifiedBoard.setLike(like > 0 ? --like : 0);  // decrease 1 like (no - value)
+        }
 
-        // decrease 1 like
-        int like = board.getLike();
-        verifiedBoard.setLike(like > 0 ? --like : 0);
-
-        return repository.save(verifiedBoard);
+        return mapper.boardToBoardResponseDto(repository.save(verifiedBoard));
     }
 
     @Transactional
@@ -109,6 +115,13 @@ public class BoardService {
         commentRepository.deleteAllInBatch(relatedComments);
     }
 
+    public List<EntityModel<BoardDto.Response>> boardStream(List<Board> listedBoards) {
+        return listedBoards.stream()
+                .map(mapper::boardToBoardResponseDto)
+                .map(assembler::toModel)
+                .collect(Collectors.toList());
+    }
+
     public Board findVerifiedBoard(long id) {
         Optional<Board> optionalBoard = repository.findById(id);
         Board board = optionalBoard.orElseThrow(() -> new CustomException(ExceptionCode.BOARD_NOT_FOUND));
@@ -118,4 +131,28 @@ public class BoardService {
         }
         return board;
     }
+
+    public Board.BoardCategory verifyCategory(Object board) {
+
+        String oldCategory = null;
+        Board.BoardCategory newCategory = null;
+
+        // Check classes
+        if (board instanceof BoardDto.Post && ((BoardDto.Post) board).getCategory() != null) {
+            oldCategory = ((BoardDto.Post) board).getCategory();
+        } else if (board instanceof BoardDto.Patch) {
+            oldCategory = ((BoardDto.Patch) board).getCategory();
+        }
+
+        // Category loop
+        for (Board.BoardCategory c : Board.BoardCategory.values()) {
+            if (c.getCategory().equals(oldCategory)) {
+                newCategory = c;
+            }
+        }
+
+        if (newCategory == null) throw new CustomException(ExceptionCode.BOARD_CATEGORY_NOT_FOUND);
+        return newCategory;
+    }
+
 }

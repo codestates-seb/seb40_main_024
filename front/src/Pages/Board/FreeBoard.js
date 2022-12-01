@@ -75,12 +75,12 @@ function FreeCommunity() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [selectTag, setselectTag] = useState('');
+  const [selectCategory, setSelectCategory] = useState('');
   const URL = process.env.REACT_APP_API_URL;
   const data = {
     title: title,
     body: body,
-    tag: selectTag,
+    category: selectCategory,
   };
 
   const Post = async () => {
@@ -98,7 +98,7 @@ function FreeCommunity() {
   };
 
   const SelectTagonChange = (e) => {
-    setselectTag(e.target.value);
+    setSelectCategory(e.target.value);
   };
 
   return (

@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import { MainA, MainB } from './MainImgData';
 import 'animate.css';
+import styled from 'styled-components';
+import { MainA, MainB, MainC, MainD } from './MainImgData';
 import { Fade, JackInTheBox } from 'react-awesome-reveal';
 import { ButtonLogin, ButtonSignup } from '../../Component/Common/Button';
 
@@ -11,30 +11,57 @@ const MiddleDiv = styled.div`
   }
   .div1 {
     text-align: center;
+    height: 1300px;
   }
   .Main1 {
     padding-top: 100px;
     margin-top: 80px;
   }
   .div2 {
-    padding-top: 100px;
     text-align: center;
+    height: 1200px;
+    img {
+      width: auto;
+      height: auto;
+    }
   }
   .div3 {
-    padding-top: 100px;
     display: flex;
     justify-content: center;
-    text-align: center;
+    height: 1000px;
+    .span {
+      margin-top: 150px;
+      span {
+        font-size: 20px;
+      }
+    }
+    img {
+      width: 640px;
+      height: 453px;
+    }
   }
   .div4 {
-    padding-top: 100px;
     display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: end;
+    height: 1000px;
+    .span {
+      margin-top: 200px;
+      span {
+        font-size: 20px;
+      }
+    }
+    img {
+      width: 600px;
+      height: 600px;
+    }
   }
   .div5 {
-    padding-top: 100px;
     text-align: center;
+    height: 400px;
+    span {
+      font-size: 20px;
+    }
   }
   button {
     margin: 10px;
@@ -126,7 +153,7 @@ const Middle = () => {
       </div>
       <div id="3" className="div3">
         <Fade direction="right" duration="1300">
-          <div>
+          <div className="span">
             <span>자산관리채널</span>
             <h2>
               누구나 무료로 자산을 입력해
@@ -137,13 +164,43 @@ const Middle = () => {
               환율계산까지
             </h2>
           </div>
-          <span>이미지 들어갈자리</span>
+          {MainC.map((el, idx) => {
+            return (
+              <div key={idx}>
+                {el.map((ele, idx) => {
+                  return (
+                    <img
+                      key={idx}
+                      src={ele.image}
+                      alt="money"
+                      className="MainBImgs"
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
         </Fade>
       </div>
       <div id="4" className="div4">
         <Fade direction="left" duration="1300">
-          <span>이미지 들어갈자리</span>
-          <div>
+          {MainD.map((el, idx) => {
+            return (
+              <div key={idx}>
+                {el.map((ele, idx) => {
+                  return (
+                    <img
+                      key={idx}
+                      src={ele.image}
+                      alt="money"
+                      className="MainBImgs"
+                    />
+                  );
+                })}
+              </div>
+            );
+          })}
+          <div className="span">
             <span>커뮤니티</span>
             <h2>
               다양한 사람들과

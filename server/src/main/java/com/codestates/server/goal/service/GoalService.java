@@ -2,56 +2,58 @@ package com.codestates.server.goal.service;
 
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.goal.dto.GoalDto;
 import com.codestates.server.goal.entity.Goal;
+import com.codestates.server.goal.mapper.GoalMapper;
 import com.codestates.server.goal.repository.GoalRepository;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@AllArgsConstructor
 public class GoalService {
     
     private final GoalRepository repository;
+    private final GoalMapper mapper;
     private final MemberRepository memberRepository;
 
-    public GoalService(GoalRepository repository, MemberRepository memberRepository) {
-        this.repository = repository;
-        this.memberRepository = memberRepository;
+    public GoalDto.Response findOne(long id) {
+        return mapper.goalToGoalResponseDto(findVerifiedGoal(id));
     }
 
-    public Goal findOne(long id) {
-        return findVerifiedGoal(id);
+    public List<GoalDto.Response> findAll() {
+        return mapper.goalsToGoalResponses(repository.findAll());
     }
 
-    public List<Goal> findAll() {
-        return new ArrayList<>(repository.findAll());
-    }
-
-    public List<Goal> findByMember(long memberId) {
+    public List<GoalDto.Response> findByMember(long memberId) {
         memberRepository.findById(memberId).orElseThrow(() ->
                 new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
-        return new ArrayList<>(repository.findAllByMemberId(memberId));
+
+        return mapper.goalsToGoalResponses(repository.findAllByMemberId(memberId));
     }
 
     @Transactional
-    public Goal createOne(Goal goal, long memberId) {
+    public GoalDto.Response createOne(GoalDto.Post postGoal, long memberId) {
+        Goal goal = mapper.goalPostToGoal(postGoal);
         Optional<Member> member = memberRepository.findById(memberId);
 
         Goal newGoal = new Goal(goal.getGoalName(), goal.getGoalPrice(), goal.getTargetLength(),
                 member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
 
-        return repository.save(newGoal);
+        return mapper.goalToGoalResponseDto(repository.save(newGoal));
     }
 
     @Transactional
-    public Goal updateOne(Goal goal, long memberId) {
+    public GoalDto.Response updateOne(GoalDto.Patch patchGoal, long memberId) {
+        Goal goal = mapper.goalPatchToGoal(patchGoal);
 
         // Member, Goal and id verifications
         if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
@@ -66,11 +68,12 @@ public class GoalService {
         verifiedGoal.setTargetLength(goal.getTargetLength() > 0 ? goal.getTargetLength() : verifiedGoal.getTargetLength());
 
         // new monthly price
-        verifiedGoal.setCalculatedPrice(goal.getGoalPrice() / verifiedGoal.getTargetLength());
+        int newMonthly = (int) Math.ceil((double) goal.getGoalPrice() / verifiedGoal.getTargetLength());
+        verifiedGoal.setCalculatedPrice(newMonthly);
 
         // Modified time
         verifiedGoal.setModifiedAt(LocalDateTime.now());
-        return repository.save(verifiedGoal);
+        return mapper.goalToGoalResponseDto(repository.save(verifiedGoal));
     }
 
     @Transactional
@@ -84,7 +87,7 @@ public class GoalService {
     }
 
     @Transactional
-    public Goal changeCompletion(long id, char operator, long memberId) {
+    public GoalDto.Response changeCompletion(long id, char operator, long memberId) {
         // verification
         Goal verifiedGoal = findVerifiedGoal(id);
         if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
@@ -92,7 +95,7 @@ public class GoalService {
 
         int newCompleted = verifiedGoal.getCompleted();
 
-        if (operator == '+') {
+        if (operator == '1') {
             int maxLength = verifiedGoal.getTargetLength();
             // 목표 설정 기간 보다 작은 경우에만 increase
             verifiedGoal.setCompleted(newCompleted + 1 > maxLength ? maxLength : ++newCompleted);
@@ -100,7 +103,7 @@ public class GoalService {
             // 0 보다 큰 경우에만 decrease
             verifiedGoal.setCompleted(newCompleted > 0 ? --newCompleted : 0);
         }
-        return repository.save(verifiedGoal);
+        return mapper.goalToGoalResponseDto(repository.save(verifiedGoal));
     }
 
     public Goal findVerifiedGoal(long id) {

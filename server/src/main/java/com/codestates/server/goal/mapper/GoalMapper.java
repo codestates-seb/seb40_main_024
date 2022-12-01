@@ -6,10 +6,14 @@ import com.codestates.server.member.dto.MemberDto;
 import com.codestates.server.member.entity.Member;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface GoalMapper {
 
     Goal goalPostToGoal(GoalDto.Post requestBody);
+
+    List<GoalDto.Response> goalsToGoalResponses(List<Goal> goals);
 
     default Goal goalPatchToGoal(GoalDto.Patch requestBody) {
         Goal patchGoal = new Goal();

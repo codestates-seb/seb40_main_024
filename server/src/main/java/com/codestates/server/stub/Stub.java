@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class Stub {
@@ -30,7 +31,8 @@ public class Stub {
                                AssetRepository assetRepository,
                                MemberRepository memberRepository,
                                MemberService memberService,
-                               GoalRepository goalRepository) {
+                               GoalRepository goalRepository,
+                               PasswordEncoder passwordEncoder) {
 
         return args -> {
 
@@ -46,7 +48,8 @@ public class Stub {
                 String email = "hoju" + l + "@gmail.com";
                 String name = "hojumoney" + l;
                 String password = "password" + l;
-                log.info("MEMBER STUB " + memberRepository.save(new Member(email, name, password)));
+                String encoded = passwordEncoder.encode(password);
+                log.info("MEMBER STUB " + memberRepository.save(new Member(email, name, encoded)));
             }
 
             // Post data
@@ -55,8 +58,10 @@ public class Stub {
                 Member postMember = memberService.findVerifiedMember(whichMember);
 
                 String temp = "테스트 게시글 " + i + " 번";  // 제목
-                Board.BoardTag tag = (whichMember % 2 == 0 ? Board.BoardTag.POST : Board.BoardTag.ASSET);  // 랜덤 태그
-                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", tag, postMember);
+                Board.BoardCategory category = (whichMember % 2 == 0 ? Board.BoardCategory.POST : Board.BoardCategory.ASSET);  // 랜덤 태그
+                Board board = new Board(temp, "안녕하세요, 게시글의 바디 입니다. Hi! This is the body area.", category, postMember);
+                board.setView(whichMember);
+                board.setLike(whichMember);
                 log.info("BOARD STUB " + boardRepository.save(board));
             }
 
@@ -85,7 +90,6 @@ public class Stub {
             // Goal
             String[] goalName = {"포르쉐992", "감자칩", "지바겐", "리얼포스", "시드머니", "맥북프로", "저축목표"};
             for (int m = 1; m <= goalNum; m++) {
-                // TODO: 유저 정보
                 int whichMember = (int) (Math.random() * memberNum) + 1;  // 랜덤 유저
                 Member postMember = memberService.findVerifiedMember(whichMember);
 
