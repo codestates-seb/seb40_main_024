@@ -10,14 +10,17 @@ import com.codestates.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +32,14 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final ApplicationEventPublisher publisher;
+//    private static RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
 
+
+//    @Transactional
+//    public static void logout(HttpServletRequest request, String email) {
+//        redisTemplate.opsForValue().set(request.getHeader("Authorization"),"logout",30 * 60 * 1000L, TimeUnit.MILLISECONDS);
+//        redisTemplate.delete(email);
+//    }
 
     @Transactional
     public Member createMember(Member member) {
