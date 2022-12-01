@@ -10,6 +10,7 @@ import AuthContext from '../../store/AuthContext';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { Modal } from '../Common/Modal';
+import { useNavigate } from 'react-router-dom';
 
 const MyPageContain = styled.div`
   display: flex;
@@ -21,14 +22,6 @@ const MyPageContain = styled.div`
   .profileStyle {
     margin-top: 20px;
   }
-`;
-
-// eslint-disable-next-line no-unused-vars
-const BtnStyle = styled.div`
-  display: flex;
-  justify-content: end;
-  margin-top: 30px;
-  margin-bottom: 30px;
 `;
 
 const PageHeader = styled.h1`
@@ -80,7 +73,6 @@ const DivBox = styled.div`
     -moz-transition: all 0.2s ease;
     -o-transition: all 0.2s ease;
   }
-
   input:focus,
   input:not(:placeholder-shown) {
     border-bottom: solid 1px #8ec3b0;
@@ -150,6 +142,8 @@ const MyInfo = () => {
   const URL = process.env.REACT_APP_API_URL;
   const authCtx = useContext(AuthContext);
   const [Decode] = useState(authCtx.parseJwt);
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
 
   // 모달관련
   const [unSub, setunSUb] = useState(false);
@@ -203,6 +197,12 @@ const MyInfo = () => {
     seterrModalopenModify(false);
   };
 
+  const closeSignOut = () => {
+    setSignOut(false);
+    navigate('/');
+    window.location.reload();
+  };
+
   const UserNameonChange = (e) => {
     setUsername(e.target.value);
   };
@@ -223,9 +223,13 @@ const MyInfo = () => {
 
   const UserPatch = async () => {
     try {
-      const req = await axios.patch(`${URL}/member/update`, UpdateData);
+      const req = await axios.patch(`${URL}/member/update`, UpdateData, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       openModal();
-      console.log(req);
+      console.log(req + '성공');
     } catch (e) {
       openErrModify();
       console.log(e);
@@ -234,9 +238,13 @@ const MyInfo = () => {
 
   const UserDelete = async () => {
     try {
-      const req = await axios.delete(`${URL}/member/delete`);
+      await axios.delete(`${URL}/member/delete`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      localStorage.removeItem('token');
       openSignOut();
-      console.log(req);
     } catch (e) {
       openErrSignOut();
       console.log(e);
@@ -247,7 +255,6 @@ const MyInfo = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/member/${Decode.id}`);
-        console.log(res);
         setUsername(res.data.name);
         setUseremail(res.data.email);
       } catch (e) {
@@ -274,7 +281,7 @@ const MyInfo = () => {
                 <div>{username}</div>
               </div>
               <div className="input-box">
-                <div>{Decode.email}</div>
+                <div>{Decode.username}</div>
               </div>
               <MainBtn>
                 <NameUpdateBtn openModify={openModify}>수정하기</NameUpdateBtn>
@@ -290,19 +297,15 @@ const MyInfo = () => {
                 <UserInfo>
                   <div>
                     <UserInfoHead>회원정보 변경</UserInfoHead>
-                    <Input
-                      value={username}
-                      onChange={UserNameonChange}
-                      placeholder="이름"
-                    />
+                    <Input onChange={UserNameonChange} placeholder="이름" />
                     <Input
                       value={useremail}
                       onChange={UserEmailonChange}
                       placeholder="이메일"
+                      disabled
                     />
                     <Input
                       type="password"
-                      value={userpassword}
                       onChange={UserPasswordonChange}
                       placeholder="비밀번호"
                     />
@@ -335,10 +338,10 @@ const MyInfo = () => {
             <br /> 2022.11.01 ~ 2022.11.30
             <UnSubscript openModal={openUnSub} />
           </InfoBox>
-          <Modal open={unSub} close={closeModal} header="구독 해지 알림">
-            구독이 해지 되었습니다
+          <Modal open={unSub} close={closeModal} header="에러 알림">
+            기능 구현중입니다.
           </Modal>
-          <Modal open={SignOut} close={closeModal} header="회원탈퇴 알림">
+          <Modal open={SignOut} close={closeSignOut} header="회원탈퇴 알림">
             회원탈퇴가 완료되었습니다.
           </Modal>
           <Modal
