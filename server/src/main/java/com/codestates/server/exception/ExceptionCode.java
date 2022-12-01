@@ -20,7 +20,6 @@ public enum ExceptionCode {
 
     //시큐리티
     USER_NOT_FOUNT(404, "로그인 시도중 -> 해당 유저가 존재하지 않습니다."),
-    MEMBER_INFO_NOT_FOUND(400, "멤버 정보를 가져올 수 없습니다."),
 
     // 게시글
     BOARD_NOT_FOUND(404, "존재하지 않는 게시글입니다."),
@@ -28,9 +27,13 @@ public enum ExceptionCode {
     BOARD_NOT_MATCHED_WITH_COMMENT(404, "게시글에서 해당 코멘트를 찾을 수 없습니다."),
     BOARD_CATEGORY_NOT_FOUND(400, "존재하지 않는 카테고리입니다. '일반', '자산' 중 선택하세요."),
     BOARD_URL_NOT_FOUND(400, "'like', 'dislike' 중 선택하세요"),
+    BOARD_POSTER_NOT_FOUND(400, "게시글 작성을 위해 로그인하세요"),
+    BOARD_POSTER_NOT_MATCHED(400, "게시글 작성자로 로그인하세요"),
 
     // 댓글
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
+    COMMENT_POSTER_NOT_FOUND(400, "댓글 작성을 위해 로그인하세요"),
+    COMMENT_POSTER_NOT_MATCHED(400, "댓글 작성자로 로그인하세요"),
 
     // 자산
     ASSET_NOT_FOUND(404, "존재하지 않는 자산입니다."),

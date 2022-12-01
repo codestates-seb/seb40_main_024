@@ -53,8 +53,7 @@ public class BoardService {
     @Transactional
     public BoardDto.Response createOne(BoardDto.Post postBoard, String email) {
 
-        // If member info is not provided
-        if (email.isEmpty()) throw new CustomException(ExceptionCode.MEMBER_INFO_NOT_FOUND);
+        if (email.equals("anonymousUser")) throw new CustomException(ExceptionCode.BOARD_POSTER_NOT_FOUND);
 
         Board board = mapper.boardPostToBoard(postBoard);
         board.setCategory(verifyCategory(postBoard));
@@ -66,15 +65,13 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto.Response updateOne(BoardDto.Patch patchBoard) {
+    public BoardDto.Response updateOne(BoardDto.Patch patchBoard, String email) {
 
         Board board = mapper.boardPatchToBoard(patchBoard);
-        Board verifiedBoard = findVerifiedBoard(board.getBoardId());
+        Board verifiedBoard = verifyLoggedInMemberForBoard(board.getBoardId(), email);
 
         // verify category if not null
-        if (patchBoard.getCategory() != null) {
-            board.setCategory(verifyCategory(patchBoard));
-        }
+        if (patchBoard.getCategory() != null) board.setCategory(verifyCategory(patchBoard));
 
         // title and body
         verifiedBoard.setTitle(board.getTitle());
@@ -105,8 +102,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void deleteOne(Long id) {
-        Board verifiedBoard = findVerifiedBoard(id);
+    public void deleteOne(Long id, String email) {
+
+        Board verifiedBoard = verifyLoggedInMemberForBoard(id, email);
 
         // only board's status is changed
         verifiedBoard.setBoardStatus(Board.BoardStatus.BOARD_DELETED);
@@ -154,6 +152,16 @@ public class BoardService {
 
         if (newCategory == null) throw new CustomException(ExceptionCode.BOARD_CATEGORY_NOT_FOUND);
         return newCategory;
+    }
+
+    public Board verifyLoggedInMemberForBoard(long id, String email) {
+        Board verifiedBoard = findVerifiedBoard(id);
+        if (email.equals("anonymousUser")) {
+            throw new CustomException(ExceptionCode.BOARD_POSTER_NOT_FOUND);
+        } else if (! email.equals(verifiedBoard.getMember().getEmail())) {
+            throw new CustomException(ExceptionCode.BOARD_POSTER_NOT_MATCHED);
+        }
+        return verifiedBoard;
     }
 
 }
