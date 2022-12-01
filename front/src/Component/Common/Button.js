@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 
 const ButtonAA = styled.button`
+  z-index: 0;
   width: 90px;
   height: 35px;
   position: relative;
@@ -385,8 +386,11 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi, Text }) => {
-  return (
+export const TitleCashBtn = ({ postAssetApi, Text, Cash }) => {
+  console.log(Text, Cash);
+  return Text === '' && Cash === '' ? (
+    <ButtonAA disabled>수정</ButtonAA>
+  ) : (
     <ButtonAA
       onClick={() => {
         postAssetApi();
@@ -397,7 +401,16 @@ export const TitleCashBtn = ({ postAssetApi, Text }) => {
     </ButtonAA>
   );
 };
-
+{
+  /* <ButtonAA
+onClick={() => {
+  postAssetApi();
+}}
+disabled={String(Text) === '명칭'}
+>
+수정
+</ButtonAA> */
+}
 export const ZeroCashBtn1 = ({
   postZEROAssetApi1,
   postZEROAssetApi2,
