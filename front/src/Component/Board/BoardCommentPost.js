@@ -6,29 +6,18 @@ import { useParams } from 'react-router-dom';
 
 const TotalComment = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
   padding: 20px;
   width: 850px;
-  border: 3px solid #9ed5c5;
-  border-radius: 10px;
   margin-top: 30px;
-`;
-
-const BtnContain = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 625px;
-  margin-bottom: 10px;
 `;
 
 const CommentInput = styled.input`
   width: 100%;
-  height: 100px;
   border: 3px solid #def5e5;
   border-radius: 10px;
-  margin-bottom: 50px;
   padding: 15px;
+  margin-right: 15px;
   :focus {
     outline: none;
   }
@@ -59,15 +48,12 @@ function Post() {
 
   return (
     <TotalComment>
-      <BtnContain>
-        <AddCommentBtn commentPost={commentPost} />
-      </BtnContain>
-
       <CommentInput
         type="text"
         placeholder="댓글을 작성해주세요."
         onChange={commentPostValue}
       ></CommentInput>
+      <AddCommentBtn commentPost={commentPost} />
     </TotalComment>
   );
 }

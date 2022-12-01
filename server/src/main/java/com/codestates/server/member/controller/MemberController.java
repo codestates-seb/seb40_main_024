@@ -6,12 +6,15 @@ import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+//import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -33,12 +36,11 @@ public class MemberController {
         return ResponseEntity.ok(registerMember);
     }
 
-    // 회원 로그아웃 구현 -> 보안인증[O] Optinal
+
 
     // 회원 내 정보 구현 -> 보안인증[O]
     @GetMapping("/{memberId}")
-    public ResponseEntity getMember(@PathVariable("memberId") long id) {
-//        Member member = memberService.findMember(email);
+    public ResponseEntity getMember(@PathVariable("memberId") Long id) {
         Member member = memberService.findVerifiedMember(id);
         return ResponseEntity.ok(mapper.memberToMemberResponse(member));
     }
@@ -85,4 +87,11 @@ public class MemberController {
         else
             return ResponseEntity.badRequest().build();
     }
+
+    // 회원 로그아웃 구현 -> 보안인증[O] Optional
+//    @PostMapping("/logout")
+//    public ResponseEntity<?> logoutMember(@AuthenticationPrincipal String email, HttpServletRequest request){
+//        MemberService.logout(request, email);
+//        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+//    }
 }
