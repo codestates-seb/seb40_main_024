@@ -28,6 +28,7 @@ public class CommentService {
     private final BoardService boardService;
     private final MemberRepository memberRepository;
 
+    // --------------------------------------- test ------------------------------------------------
     public CommentDto.Response findOne(long id) {
         return mapper.commentToCommentResponseDto(findVerifiedComment(id));
     }
@@ -35,12 +36,10 @@ public class CommentService {
     public List<CommentDto.Response> findAll() {
         return mapper.commentsToCommentResponses(repository.findAll());
     }
+    // --------------------------------------- test ------------------------------------------------
 
     @Transactional
     public CommentDto.Response createOne(CommentDto.Post postComment, long boardId, String email) {
-
-        // If member info is not provided
-        if (email.isEmpty()) throw new CustomException(ExceptionCode.MEMBER_INFO_NOT_FOUND);
 
         Board board = boardService.findVerifiedBoard(boardId);
         Comment comment = mapper.commentPostToComment(postComment);
@@ -48,16 +47,17 @@ public class CommentService {
         board.getComments().add(comment); // board repo?
 
         Optional<Member> member = memberRepository.findByEmail(email);
-        comment.setMember(member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
+        comment.setMember(member.orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_POSTER_NOT_FOUND)));
 
         return mapper.commentToCommentResponseDto(repository.save(comment));
     }
 
     @Transactional
-    public CommentDto.Response updateOne(CommentDto.Patch patchComment, long boardId) {
-        Comment comment = mapper.commentPatchToComment(patchComment);
+    public CommentDto.Response updateOne(CommentDto.Patch patchComment, long boardId, String email) {
 
-        Comment verifiedComment = findVerifiedComment(comment.getCommentId());
+        Comment comment = mapper.commentPatchToComment(patchComment);
+        Comment verifiedComment = verifyLoggedInMemberForComment(comment.getCommentId(), email);
+
         verifyBoard(boardId, verifiedComment.getBoard());
         verifiedComment.setBody(comment.getBody());  // body
 
@@ -67,8 +67,9 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteOne(Long id, long boardId) {
-        Comment verifiedComment = findVerifiedComment(id);
+    public void deleteOne(Long id, long boardId, String email) {
+
+        Comment verifiedComment = verifyLoggedInMemberForComment(id, email);
         verifyBoard(boardId, verifiedComment.getBoard());
         repository.delete(verifiedComment);
     }
@@ -82,5 +83,15 @@ public class CommentService {
         if (! (boardId == commentBoard.getBoardId())) {
             throw new CustomException(ExceptionCode.BOARD_NOT_MATCHED_WITH_COMMENT);
         }
+    }
+
+    public Comment verifyLoggedInMemberForComment(long id, String email) {
+        Comment verifiedComment = findVerifiedComment(id);
+        if (email.equals("anonymousUser")) {
+            throw new CustomException(ExceptionCode.COMMENT_POSTER_NOT_FOUND);
+        } else if (! email.equals(verifiedComment.getMember().getEmail())) {
+            throw new CustomException(ExceptionCode.COMMENT_POSTER_NOT_MATCHED);
+        }
+        return verifiedComment;
     }
 }
