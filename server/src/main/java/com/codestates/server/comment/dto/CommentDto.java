@@ -16,6 +16,8 @@ public class CommentDto {
 
         @NotBlank(message = "내용을 입력하세요.")
         private String body;
+
+        private String email;
     }
 
 
