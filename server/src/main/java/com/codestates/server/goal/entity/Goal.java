@@ -41,6 +41,6 @@ public class Goal extends Auditable {
         this.member = member;
         this.targetLength = targetLength;
         // 옵션 1 -> 목표 월 저축액 산출
-        this.calculatedPrice = goalPrice / targetLength;
+        this.calculatedPrice = (int) Math.ceil((double) goalPrice / targetLength);
     }
 }
