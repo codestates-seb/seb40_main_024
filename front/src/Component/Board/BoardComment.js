@@ -18,6 +18,9 @@ const TotalComment = styled.div`
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
+  :last-child {
+    margin-bottom: 100px;
+  }
 `;
 
 const CommentContain = styled.div`

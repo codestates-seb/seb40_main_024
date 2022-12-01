@@ -180,8 +180,8 @@ export const SignupBox = () => {
   // 이름
   const onChangeName = useCallback((e) => {
     setName(e.target.value);
-    if (e.target.value.length < 2 || e.target.value.length > 7) {
-      setNameMessage('2글자 이상 7글자 미만으로 입력해주세요.');
+    if (e.target.value.length < 2 || e.target.value.length > 10) {
+      setNameMessage('2글자 이상 10글자 미만으로 입력해주세요.');
       setIsName(false);
     } else {
       setNameMessage('사용 가능한 이름입니다.');
