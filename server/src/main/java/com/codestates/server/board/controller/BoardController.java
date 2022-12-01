@@ -7,7 +7,6 @@ import com.codestates.server.board.service.BoardService;
 import com.codestates.server.dto.MultiResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.HttpStatus;
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.util.List;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @AllArgsConstructor
 @RestController
@@ -37,26 +33,35 @@ public class BoardController {
     }
 
     @GetMapping
-    public ResponseEntity getBoardsPaged(@Positive @RequestParam int page,
-                                         @Positive @RequestParam int size) {
+    public ResponseEntity getBoardsByCategory(@Positive @RequestParam int page,
+                                              @Positive @RequestParam int size,
+                                              @RequestParam(required = false) String category) {
+        Page<Board> pagedBoards;
 
-        Page<Board> pagedBoards = boardService.findAllByPage(page - 1, size);
+        if (category == null) {
+            pagedBoards = boardService.findAllByPage(page - 1, size);
+        } else {
+            pagedBoards = boardService.findAllByCategory(page - 1, size, category);
+        }
         List<EntityModel<BoardDto.Response>> boards = boardService.boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(
                 new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
     }
 
-    // Page 없는 전체 게시물 조회
-    @GetMapping("/all")
-    public CollectionModel<EntityModel<BoardDto.Response>> getBoards() {
+    // --------------------------------------- test ------------------------------------------------
 
-        List<Board> boards = boardService.findAll();
-        List<EntityModel<BoardDto.Response>> response = boardService.boardStream(boards);
+//    @GetMapping("/all")
+//    public CollectionModel<EntityModel<BoardDto.Response>> getBoards() {
+//
+//        List<Board> boards = boardService.findAll();
+//        List<EntityModel<BoardDto.Response>> response = boardService.boardStream(boards);
+//
+//        return CollectionModel.of(response,
+//                linkTo(methodOn(BoardService.class).findAll()).withSelfRel());
+//    }
 
-        return CollectionModel.of(response,
-                linkTo(methodOn(BoardService.class).findAll()).withSelfRel());
-    }
+    // --------------------------------------- test ------------------------------------------------
 
     @PostMapping
     public ResponseEntity<?> postBoard(@Valid @RequestBody BoardDto.Post requestBody) {
@@ -94,17 +99,6 @@ public class BoardController {
     public ResponseEntity<?> deleteBoard(@PathVariable long id) {
         boardService.deleteOne(id);
         return ResponseEntity.noContent().build();
-    }
-
-    @GetMapping("/category/{category}")
-    public ResponseEntity getBoardsByCategory(@Positive @RequestParam int page, @Positive @RequestParam int size,
-                                         @PathVariable("category") String category) {
-
-        Page<Board> pagedBoards = boardService.findAllByCategory(page - 1, size, category);
-        List<EntityModel<BoardDto.Response>> boards = boardService.boardStream(pagedBoards.getContent());
-
-        return new ResponseEntity<>(
-                new MultiResponseDto<>(boards, pagedBoards), HttpStatus.OK);
     }
 
 }

@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,16 +34,13 @@ public class BoardService {
 
     public BoardDto.Response findOne(long id) {
         Board verifiedBoard = findVerifiedBoard(id);
-
-        // deleted check
-
         repository.updateView(id);
         return mapper.boardToBoardResponseDto(verifiedBoard);
     }
 
-    public List<Board> findAll() {
-        return new ArrayList<>(repository.findAll());
-    }
+//    public List<Board> findAll() {
+//        return new ArrayList<>(repository.findAll());
+//    }
 
     public Page<Board> findAllByPage(int page, int size) {
         return repository.findAllPaged(PageRequest.of(page, size));
