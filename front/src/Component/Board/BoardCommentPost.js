@@ -39,7 +39,11 @@ function Post() {
 
   const commentPost = async () => {
     try {
-      await axios.post(`${URL}/board/${id}/comment`, PostData);
+      await axios.post(`${URL}/board/${id}/comment`, PostData, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       window.location.reload();
     } catch (err) {
       console.log('deleteerror', err);

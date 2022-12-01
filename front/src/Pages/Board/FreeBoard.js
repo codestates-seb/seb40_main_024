@@ -85,7 +85,11 @@ function FreeCommunity() {
 
   const Post = async () => {
     try {
-      const res = await axios.post(`${URL}/board`, data);
+      const res = await axios.post(`${URL}/board`, data, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       console.log(res);
       navigate('/freeboard');
     } catch (e) {
