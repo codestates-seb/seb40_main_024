@@ -156,6 +156,7 @@ const MyInfo = () => {
 
   // 회원정보
   const [username, setUsername] = useState();
+  const [Dusername, setDUsername] = useState();
   const [useremail, setUseremail] = useState();
   const [userpassword, setUserpassword] = useState();
 
@@ -190,11 +191,14 @@ const MyInfo = () => {
   const closeModal = () => {
     setunSUb(false);
     setModify(false);
-    setSignOut(false);
-    setModalopen(false);
     setErrSignOut(false);
     seterrModalopen(false);
     seterrModalopenModify(false);
+  };
+
+  const closeModify = () => {
+    setModalopen(false);
+    window.location.reload();
   };
 
   const closeSignOut = () => {
@@ -255,7 +259,7 @@ const MyInfo = () => {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/member/${Decode.id}`);
-        setUsername(res.data.name);
+        setDUsername(res.data.name);
         setUseremail(res.data.email);
       } catch (e) {
         console.log(e);
@@ -278,7 +282,7 @@ const MyInfo = () => {
                 <span>회원정보</span>
               </UserInfoHead>
               <div className="input-box">
-                <div>{username}</div>
+                <div>{Dusername}</div>
               </div>
               <div className="input-box">
                 <div>{Decode.username}</div>
@@ -315,7 +319,11 @@ const MyInfo = () => {
                   </div>
                 </UserInfo>
               </ListContain>
-              <Modal open={Modalopen} close={closeModal} header="정보수정 알림">
+              <Modal
+                open={Modalopen}
+                close={closeModify}
+                header="정보수정 알림"
+              >
                 회원 정보가 수정되었습니다.
               </Modal>
               <Modal open={errModalopen} close={closeModal} header="오류 알림">
