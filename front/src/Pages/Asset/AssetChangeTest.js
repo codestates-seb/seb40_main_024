@@ -281,15 +281,15 @@ export const AssetChange = () => {
   const memberid = authCtx.parseJwt.id;
   const assetDatas = AssetDatas.data;
 
-  const checkHandler = () => {
-    setCheck(true);
-    useEffect(() => {
-      setTimeout(() => {
-        setCheck(false);
-        window.location.reload();
-      }, 0);
-    });
-  };
+  // const checkHandler = () => {
+  //   setCheck(true);
+  //   useEffect(() => {
+  //     setTimeout(() => {
+  //       setCheck(false);
+  //       window.location.reload();
+  //     }, 0);
+  //   });
+  // };
 
   const openEditTextModal = () => {
     setTextModalopen(true);
@@ -629,11 +629,11 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata = '';
   {
-    AssetIds1.forEach((e) => {
+    AssetIds2.forEach((e) => {
       Deletedata = String(e);
     });
   }
-  console.log(`${Deletedata}`);
+  // console.log(`${Deletedata}`);
 
   const deletAssetApi = async () => {
     await axios
@@ -764,21 +764,19 @@ export const AssetChange = () => {
   addData();
 
   const AssetList = AssetType.map((e, key) => (
-    <>
-      <AssetListBox key={e}>
-        <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
-        <H3Title>
-          {e}
-          <EditButton onClick={openEditTextModal}>
-            <FiEdit />
-          </EditButton>
-          <EditButton onClick={openDeleteModal}>
-            <FiDelete />
-          </EditButton>
-        </H3Title>
-        <H3 key={key}>총 금액: {assetValueBox[key]} 원</H3>
-      </AssetListBox>
-    </>
+    <AssetListBox key={key}>
+      <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
+      <H3Title>
+        {e}
+        <EditButton onClick={openEditTextModal}>
+          <FiEdit />
+        </EditButton>
+        <EditButton onClick={openDeleteModal}>
+          <FiDelete />
+        </EditButton>
+      </H3Title>
+      <H3>총 금액: {assetValueBox[key]} 원</H3>
+    </AssetListBox>
   ));
 
   return (
@@ -806,10 +804,9 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api={deletAssetApi}
-                  handler={checkHandler}
                 >
                   <Div>
-                    <p>선택하신 자산을 삭제하시겠습니까? </p>
+                    <p>선택하신 자산이 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal>
 

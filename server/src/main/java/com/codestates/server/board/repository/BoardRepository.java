@@ -12,7 +12,7 @@ import java.util.List;
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
     // status related
-    @Query("select b from Board b where b.boardStatus = 'BOARD_POSTED'")
+    @Query("select b from Board b where b.boardStatus = 'BOARD_POSTED' order by b.boardId desc")
     Page<Board> findAllPaged(Pageable pageable);
 
     @Query("select b from Board b where b.boardStatus = 'BOARD_POSTED'")
@@ -23,10 +23,10 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     @Query("update Board b set b.view = b.view + 1 where b.boardId = :id")
     int updateView(long id);
 
-    // tag related
-    @Query("select b from Board b where b.tag = 'POST' and b.boardStatus = 'BOARD_POSTED'")
+    // category related
+    @Query("select b from Board b where b.category = 'POST' and b.boardStatus = 'BOARD_POSTED' order by b.boardId desc")
     Page<Board> findAllPost(Pageable pageable);
 
-    @Query("select b from Board b where b.tag = 'ASSET' and b.boardStatus = 'BOARD_POSTED'")
+    @Query("select b from Board b where b.category = 'ASSET' and b.boardStatus = 'BOARD_POSTED' order by b.boardId desc")
     Page<Board> findAllAssetPost(Pageable pageable);
 }

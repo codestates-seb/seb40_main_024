@@ -96,11 +96,11 @@ public class BoardController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/tag/{tag}")
-    public ResponseEntity getBoardsByTag(@Positive @RequestParam int page, @Positive @RequestParam int size,
-                                         @PathVariable("tag") String tag) {
+    @GetMapping("/category/{category}")
+    public ResponseEntity getBoardsByCategory(@Positive @RequestParam int page, @Positive @RequestParam int size,
+                                         @PathVariable("category") String category) {
 
-        Page<Board> pagedBoards = boardService.findAllByTag(page - 1, size, tag);
+        Page<Board> pagedBoards = boardService.findAllByCategory(page - 1, size, category);
         List<EntityModel<BoardDto.Response>> boards = boardService.boardStream(pagedBoards.getContent());
 
         return new ResponseEntity<>(

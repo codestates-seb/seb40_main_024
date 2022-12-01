@@ -68,7 +68,8 @@ public class GoalService {
         verifiedGoal.setTargetLength(goal.getTargetLength() > 0 ? goal.getTargetLength() : verifiedGoal.getTargetLength());
 
         // new monthly price
-        verifiedGoal.setCalculatedPrice(goal.getGoalPrice() / verifiedGoal.getTargetLength());
+        int newMonthly = (int) Math.ceil((double) goal.getGoalPrice() / verifiedGoal.getTargetLength());
+        verifiedGoal.setCalculatedPrice(newMonthly);
 
         // Modified time
         verifiedGoal.setModifiedAt(LocalDateTime.now());

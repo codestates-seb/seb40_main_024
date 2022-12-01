@@ -146,7 +146,7 @@ const Likenum = styled.div`
   /* border: 1px solid #ff8000; */
 `;
 
-function AllBoardList({ id, title, body, createdAt, like, tag }) {
+function AllBoardList({ id, title, body, createdAt, like, category }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
@@ -159,7 +159,7 @@ function AllBoardList({ id, title, body, createdAt, like, tag }) {
         <Container>
           <IdEtContainer>
             <IdEtcBox>
-              <Tag>{tag}</Tag>
+              <Tag>{category}</Tag>
               <Id>{title}</Id>
             </IdEtcBox>
             <IdEtcBox>
