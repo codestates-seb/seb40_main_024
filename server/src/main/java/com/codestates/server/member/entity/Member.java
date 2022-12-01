@@ -33,10 +33,10 @@ public class Member extends Auditable {
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.ACTIVE;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private final List<Board> boards = new ArrayList<>();
 // ---------------------  민주님 위에 두 리스트 참조하세요. --------------------------------------------
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "member", orphanRemoval = true)
     private final List<Asset> assets = new ArrayList<>();
 
     //게시글 작성에 필요한 생성자
