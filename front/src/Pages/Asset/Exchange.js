@@ -9,7 +9,7 @@ function Exchange() {
   const day = ('0' + today.getDate()).slice(-2);
   const dateString = year + month + day;
   // 오픈API URL
-  const AP01URL = `https://www.koreaexim.go.kr/site/program/financial/exchangeJSON?authkey=GeAP6Dc6BVWZGjfzH3YwvFPvyHCplEVn&searchdate=${dateString}&data=AP01`;
+  const AP01URL = `https://apis.data.go.kr/1220000/retrieveTrifFxrtInfo/getRetrieveTrifFxrtInfo?serviceKey=zzn8WtcjldC9QRm6IbpT8rfhEjqOPLiv1WB7qKlBLV1WwjrZewYPXLns4m1i%2FcvGx%2FuV4tjLznWK8B41GzwnpA%3D%3D&aplyBgnDt=${dateString}&weekFxrtTpcd=1`;
   // API Get요청
   useEffect(() => {
     const AP01Get = async () => {
