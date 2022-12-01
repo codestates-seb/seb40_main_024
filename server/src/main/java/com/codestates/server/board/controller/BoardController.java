@@ -11,6 +11,7 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,9 +65,10 @@ public class BoardController {
     // --------------------------------------- test ------------------------------------------------
 
     @PostMapping
-    public ResponseEntity<?> postBoard(@Valid @RequestBody BoardDto.Post requestBody) {
+    public ResponseEntity<?> postBoard(@Valid @RequestBody BoardDto.Post requestBody,
+                                       @AuthenticationPrincipal String email) {
 
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.createOne(requestBody));
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.createOne(requestBody, email));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

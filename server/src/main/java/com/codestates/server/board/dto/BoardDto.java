@@ -30,6 +30,8 @@ public class BoardDto {
 
         @NotBlank(message = "일반 / 자산 - 태그를 선택하세요.")
         private String category;
+
+        private String email;
     }
 
     @Getter
