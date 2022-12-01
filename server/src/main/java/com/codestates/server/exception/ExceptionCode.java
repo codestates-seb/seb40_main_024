@@ -32,6 +32,8 @@ public enum ExceptionCode {
 
     // 댓글
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
+    COMMENT_POSTER_NOT_FOUND(400, "댓글 작성을 위해 로그인하세요"),
+    COMMENT_POSTER_NOT_MATCHED(400, "댓글 작성자로 로그인하세요"),
 
     // 자산
     ASSET_NOT_FOUND(404, "존재하지 않는 자산입니다."),
