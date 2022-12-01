@@ -8,7 +8,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,10 +51,9 @@ public class CommentController {
 
     @PostMapping("/board/{board_id}/comment")
     public ResponseEntity<?> postComment(@Valid @RequestBody CommentDto.Post requestBody,
-                                         @PathVariable("board_id") @Positive long boardId,
-                                         @AuthenticationPrincipal String email) {
+                                         @PathVariable("board_id") @Positive long boardId) {
         EntityModel<CommentDto.Response> entityModel =
-                assembler.toModel(commentService.createOne(requestBody, boardId, email));
+                assembler.toModel(commentService.createOne(requestBody, boardId));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

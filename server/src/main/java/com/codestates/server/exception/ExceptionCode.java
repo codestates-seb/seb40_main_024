@@ -20,7 +20,6 @@ public enum ExceptionCode {
 
     //시큐리티
     USER_NOT_FOUNT(404, "로그인 시도중 -> 해당 유저가 존재하지 않습니다."),
-    MEMBER_INFO_NOT_FOUND(400, "멤버 정보를 가져올 수 없습니다."),
 
     // 게시글
     BOARD_NOT_FOUND(404, "존재하지 않는 게시글입니다."),

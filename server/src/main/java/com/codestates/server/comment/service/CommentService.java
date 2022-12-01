@@ -8,9 +8,6 @@ import com.codestates.server.comment.mapper.CommentMapper;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
-import com.codestates.server.member.entity.Member;
-import com.codestates.server.member.repository.MemberRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,13 +17,19 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-@AllArgsConstructor
 public class CommentService {
 
     private final CommentRepository repository;
     private final CommentMapper mapper;
     private final BoardService boardService;
-    private final MemberRepository memberRepository;
+
+    // WIP: 맴버 구현 끝난 후 (멤버 서비스 등 필요) + 로그인 유저 verification 필요
+
+    public CommentService(CommentRepository repository, CommentMapper mapper, BoardService boardService) {
+        this.repository = repository;
+        this.mapper = mapper;
+        this.boardService = boardService;
+    }
 
     public CommentDto.Response findOne(long id) {
         return mapper.commentToCommentResponseDto(findVerifiedComment(id));
@@ -37,19 +40,11 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto.Response createOne(CommentDto.Post postComment, long boardId, String email) {
-
-        // If member info is not provided
-        if (email.isEmpty()) throw new CustomException(ExceptionCode.MEMBER_INFO_NOT_FOUND);
-
+    public CommentDto.Response createOne(CommentDto.Post postComment, long boardId) {
         Board board = boardService.findVerifiedBoard(boardId);
         Comment comment = mapper.commentPostToComment(postComment);
         comment.setBoard(board);
         board.getComments().add(comment); // board repo?
-
-        Optional<Member> member = memberRepository.findByEmail(email);
-        comment.setMember(member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
-
         return mapper.commentToCommentResponseDto(repository.save(comment));
     }
 
