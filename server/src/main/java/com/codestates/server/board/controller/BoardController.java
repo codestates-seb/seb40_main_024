@@ -76,10 +76,12 @@ public class BoardController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> patchBoard(@PathVariable long id, @Valid @RequestBody BoardDto.Patch requestBody) {
+    public ResponseEntity<?> patchBoard(@PathVariable long id,
+                                        @Valid @RequestBody BoardDto.Patch requestBody,
+                                        @AuthenticationPrincipal String email) {
 
         requestBody.setBoardId(id);
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.updateOne(requestBody));
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.updateOne(requestBody, email));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -90,6 +92,7 @@ public class BoardController {
     public ResponseEntity<?> likeBoard(@PathVariable("id") @Positive long id,
                                        @PathVariable("like") String like) {
 
+        // No AuthenticationPrincipal is needed yet
         EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.changeLike(id, like));
 
         return ResponseEntity
@@ -98,8 +101,9 @@ public class BoardController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBoard(@PathVariable long id) {
-        boardService.deleteOne(id);
+    public ResponseEntity<?> deleteBoard(@PathVariable long id,
+                                         @AuthenticationPrincipal String email) {
+        boardService.deleteOne(id, email);
         return ResponseEntity.noContent().build();
     }
 
