@@ -11,7 +11,7 @@ import {
   Modal,
   AutoModal,
   AssetTextEditModal,
-  AssetDeleteEditModal,
+  // AssetDeleteEditModal,
 } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
@@ -799,7 +799,7 @@ export const AssetChange = () => {
               </ChartContain>
 
               <MainContain>
-                <AssetDeleteEditModal
+                {/* <AssetDeleteEditModal
                   open={DelModalopen}
                   close={closeModal}
                   header="자산 종류 수정 알림"
@@ -808,7 +808,7 @@ export const AssetChange = () => {
                   <Div>
                     <p>선택하신 자산이 삭제하시겠습니까? </p>
                   </Div>
-                </AssetDeleteEditModal>
+                </AssetDeleteEditModal> */}
 
                 <AssetTextEditModal
                   open={TextModalopen}
