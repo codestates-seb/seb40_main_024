@@ -415,22 +415,8 @@ const AssetList = ({
                         (Number(count.targetLength) - up) *
                           Number(count.calculatedPrice)
                           ? Number(Math.ceil(count.goalPrice))
-                          : //   .toString()
-                          //   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                          isNaN(
-                              Number(Math.ceil(count.goalPrice))
-                                .toString()
-                                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                            )
-                          ? (Number(count.targetLength) - up) *
-                            Number(count.calculatedPrice)
                           : (Number(count.targetLength) - up) *
-                            Number(count.calculatedPrice)
-                              .toString()
-                              .replace(
-                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
-                                ','
-                              )}{' '}
+                            Number(count.calculatedPrice)}{' '}
                       </span>
                       원
                     </SavingInfoHead>

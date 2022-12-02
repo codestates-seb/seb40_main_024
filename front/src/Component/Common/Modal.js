@@ -510,14 +510,10 @@ export const SavingModal = (props) => {
 
   const checkHandler = () => {
     setCheck(true);
-    setTimeout(() => {
-      setCheck(false);
-      goalUpPatch();
-      goalDownPatch();
-    }, 0);
-    setTimeout(() => {
-      window.location.reload();
-    }, 5);
+    setCheck(false);
+    goalUpPatch();
+    goalDownPatch();
+    window.location.reload();
   };
 
   return (
