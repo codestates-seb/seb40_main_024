@@ -4,8 +4,10 @@ package com.codestates.server.board.service;
 import com.codestates.server.board.assembler.BoardAssembler;
 import com.codestates.server.board.dto.BoardDto;
 import com.codestates.server.board.entity.Board;
+import com.codestates.server.board.entity.BoardLikedBy;
 import com.codestates.server.board.mapper.BoardMapper;
 import com.codestates.server.board.repository.BoardRepository;
+import com.codestates.server.board.repository.BoardRepositoryLikedBy;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.CustomException;
@@ -34,6 +36,7 @@ public class BoardService {
     private final BoardAssembler assembler;
     private final CommentRepository commentRepository;
     private final MemberRepository memberRepository;
+    private final BoardRepositoryLikedBy likedByRepository;
 
     public BoardDto.Response findOne(long id) {
         Board verifiedBoard = findVerifiedBoard(id);
@@ -85,9 +88,14 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto.Response changeLike(long id, String which) {
+    public BoardDto.Response changeLike(long id, String which, String email) {
 
         if (!which.equals("like") && !which.equals("dislike")) throw new CustomException(ExceptionCode.BOARD_URL_NOT_FOUND);
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new CustomException(ExceptionCode.BOARD_LIKE_NOT_PERMITTED));
+        String nameLiked = member.getName();
+
+        List<BoardLikedBy> likes = likedByRepository.findByBoardId(id);
+        likes.forEach(l -> {if (l.getName().equals(nameLiked)) throw new CustomException(ExceptionCode.BOARD_ALREADY_LIKED);});
 
         Board verifiedBoard = findVerifiedBoard(id);
         int like = verifiedBoard.getLike();
@@ -98,7 +106,10 @@ public class BoardService {
             verifiedBoard.setLike(like > 0 ? --like : 0);  // decrease 1 like (no - value)
         }
 
-        return mapper.boardToBoardResponseDto(repository.save(verifiedBoard));
+        Board newBoard = repository.save(verifiedBoard);
+        likedByRepository.save(new BoardLikedBy(nameLiked, newBoard));
+
+        return mapper.boardToBoardResponseDto(newBoard);
     }
 
     @Transactional

@@ -1,7 +1,9 @@
 package com.codestates.server.board.mapper;
 
 import com.codestates.server.board.dto.BoardDto;
+import com.codestates.server.board.dto.BoardLikedByDto;
 import com.codestates.server.board.entity.Board;
+import com.codestates.server.board.entity.BoardLikedBy;
 import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.member.dto.MemberDto;
@@ -35,6 +37,8 @@ public interface BoardMapper {
 
         Member member = board.getMember();
         List<Comment> comments = board.getComments();
+        List<BoardLikedByDto.Response> likedByResponse = likedByToResponses(board.getLikedBy());
+        // 고민중
 
         List<CommentDto.Response> commentResponse = comments.stream()
                 .map(c -> new CommentDto.Response(c.getCommentId(),
@@ -58,5 +62,6 @@ public interface BoardMapper {
                 .build();
     }
 
+    List<BoardLikedByDto.Response> likedByToResponses(List<BoardLikedBy> boardLikedBy);
     MemberDto.ResponseObject memberToMemberResponseObject(Member member);
 }
