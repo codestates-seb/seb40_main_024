@@ -7,9 +7,8 @@ import { AssetChange } from './Pages/Asset/AssetChange';
 import { LoginPage } from './Pages/Member/LoginPage';
 import { SignupPage } from './Pages/Member/SignupPage';
 import { ForgotPasswordPage } from './Pages/Member/ForgotPasswordPage';
-import { FreeBoardPage } from './Pages/Board/FreeBoardPage';
-import FreeBoard from './Pages/Board/FreeBoard';
-import ShareBoard from './Pages/Board/ShareBoard';
+import { BoardPage } from './Pages/Board/BoardPage';
+import Board from './Pages/Board/Board';
 import MyPage from './Pages/Member/MyPage';
 import BoardContentPage from './Pages/Board/BoardContentPage';
 import AssetTargetTest from './Pages/Asset/AssetTargetTest';
@@ -35,18 +34,15 @@ function App() {
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
-        <Route path="/freeboard" element={<FreeBoardPage />} />
+        <Route path="/board" element={<BoardPage />} />
         <Route path="/exchange" element={<Exchange />} />
+        <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
 
         {authCtx.isLoggedIn && (
           <Route path="/assetchange" element={<AssetChange />} />
         )}
-        {authCtx.isLoggedIn && (
-          <Route path="/freeboardpost" element={<FreeBoard />} />
-        )}
-        <Route path="/shareboardpost" element={<ShareBoard />} />
+        {authCtx.isLoggedIn && <Route path="/boardpost" element={<Board />} />}
         {authCtx.isLoggedIn && <Route path="/mypage" element={<MyPage />} />}
-        <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
         {authCtx.isLoggedIn && (
           <Route path="/modifyboard/:id" element={<ModifyBoard />} />
         )}

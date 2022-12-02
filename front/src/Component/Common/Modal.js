@@ -11,7 +11,7 @@ const Div = styled.div`
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: '999999';
+    z-index: 99999;
   }
   .modal button {
     outline: none;
@@ -97,7 +97,9 @@ export const Modal = (props) => {
           <section>
             <header>
               {header}
-              <button className="close">&times;</button>
+              <button className="close" onClick={close}>
+                &times;
+              </button>
             </header>
             <main>{props.children}</main>
             <footer>

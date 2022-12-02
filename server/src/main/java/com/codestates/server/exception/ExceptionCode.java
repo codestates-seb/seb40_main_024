@@ -26,21 +26,24 @@ public enum ExceptionCode {
     BOARD_DELETED(405, "삭제된 게시글 입니다."),
     BOARD_NOT_MATCHED_WITH_COMMENT(404, "게시글에서 해당 코멘트를 찾을 수 없습니다."),
     BOARD_CATEGORY_NOT_FOUND(400, "존재하지 않는 카테고리입니다. '일반', '자산' 중 선택하세요."),
-    BOARD_URL_NOT_FOUND(400, "'like', 'dislike' 중 선택하세요"),
-    BOARD_POSTER_NOT_FOUND(400, "게시글 작성을 위해 로그인하세요"),
-    BOARD_POSTER_NOT_MATCHED(400, "게시글 작성자로 로그인하세요"),
+    BOARD_URL_NOT_FOUND(400, "'like', 'dislike' 중 선택하세요."),
+    BOARD_POSTER_NOT_FOUND(400, "게시글 작성을 위해 로그인하세요."),
+    BOARD_POSTER_NOT_MATCHED(400, "게시글 작성자로 로그인하세요."),
 
     // 댓글
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),
-    COMMENT_POSTER_NOT_FOUND(400, "댓글 작성을 위해 로그인하세요"),
-    COMMENT_POSTER_NOT_MATCHED(400, "댓글 작성자로 로그인하세요"),
+    COMMENT_POSTER_NOT_FOUND(400, "댓글 작성을 위해 로그인하세요."),
+    COMMENT_POSTER_NOT_MATCHED(400, "댓글 작성자로 로그인하세요."),
 
     // 자산
     ASSET_NOT_FOUND(404, "존재하지 않는 자산입니다."),
     ASSET_DELETED(405, "삭제된 자산입니다."),
 
     // 목표 자산
-    GOAL_NOT_FOUND(404, "존재하지 않는 목표 자산입니다.");
+    GOAL_NOT_FOUND(404, "존재하지 않는 목표 자산입니다."),
+    GOAL_URL_NOT_FOUND(400, "PathVariable 은 complete 혹은 incomplete 입니다."),
+    GOAL_POSTER_NOT_FOUND(400, "목표자산 접근을 위해 로그인하세요."),
+    GOAL_POSTER_NOT_MATCHED(400, "목표자산 작성자로 로그인하세요.");
 
     @Getter
     private int status;
