@@ -504,7 +504,21 @@ export const GoalModifyModal = (props) => {
 };
 
 export const SavingModal = (props) => {
-  const { open, close, header } = props;
+  const { open, close, header, goalUpPatch, goalDownPatch } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
+
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+      goalUpPatch();
+      goalDownPatch();
+    }, 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 5);
+  };
 
   return (
     <Div>
@@ -521,7 +535,7 @@ export const SavingModal = (props) => {
             <footer>
               <button
                 className="close"
-                onClick={close}
+                onClick={(() => close, checkHandler)}
                 style={{ marginLeft: '20px' }}
               >
                 저장
