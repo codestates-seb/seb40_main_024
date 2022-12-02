@@ -53,22 +53,6 @@ const SettingInput = styled.div`
   }
 `;
 
-// const TextBox = styled.div`
-//   box-sizing: border-box;
-//   text-align: center;
-//   width: 400px;
-//   height: 60px;
-//   margin: 10px;
-//   font-size: 25px;
-//   border-bottom: solid 2px #9ed5c5;
-//   margin-top: 20px;
-//   color: grey;
-//   &:focus {
-//     outline: none;
-//     border-color: #8ec3b0;
-//     box-shadow: 0px 0px 0px 4px hsla(206, 100%, 40%, 0.15);
-//   }
-// `;
 const CalcurlatedBox = styled.div`
   box-sizing: border-box;
   width: 400px;
@@ -148,7 +132,6 @@ const NewBtnBox = styled.div`
   width: 200px;
   height: 40px;
   gap: 40px;
-  /* margin-top: -20px; */
   margin-bottom: 10px;
 `;
 const UpBtn = styled.button`
@@ -167,11 +150,6 @@ const DownBtn = styled.button`
   color: grey;
   font-weight: 900;
 `;
-// const SavingInfoBox = styled.div`
-//   box-sizing: border-box;
-//   width: 200px;
-//   height: 100%;
-// `;
 
 const SavingInfoHead = styled.h4`
   color: #bcead5;
@@ -201,7 +179,7 @@ const AssetList = ({
   targetLengthonChange,
   //   targetLength,
   goalUpPatch,
-  up,
+  // up,
   goalDownPatch,
   id,
   //   remainingAmount,
@@ -224,30 +202,7 @@ const AssetList = ({
   const openModify = () => {
     setModify(true);
   };
-  //   let monthly = Math.ceil(goalPrice / targetLength);
-  //   if (isNaN(monthly)) {
-  //     monthly = 0;
-  //   } else if (monthly === Infinity) {
-  //     monthly = 0;
-  //   }
 
-  //   const targetAmount = monthly
-  //     .toString()
-  //     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  //   console.log(count);
-  //   console.log(count.calculatedPrice.toFixed());
-  //   console.log(
-  //     Math.ceil(Number(count.calculatedPrice))
-  //       .toString()
-  //       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-  //   );
-
-  //   console.log(
-  //     Number(count.calculatedPrice)
-  //       .toFixed()
-  //       .toString()
-  //       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-  //   );
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -304,46 +259,29 @@ const AssetList = ({
                 원
               </li>
             </p>
-            {/* {count.calculatedPrice} */}
             <p className="smallP">
               <li>
                 {' '}
                 남은 금액:{' '}
-                {
-                  Number(Math.ceil(count.goalPrice)) <
-                  (Number(count.targetLength) - up) *
-                    Number(count.calculatedPrice)
-                    ? Number(Math.ceil(count.goalPrice))
-                    : (Number(count.targetLength) - up) *
-                      Number(count.calculatedPrice)
-                  //   : (Number(count.targetLength) - up) *
-                  //     Number(count.calculatedPrice)
-                  //       .toString()
-                  //       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                }{' '}
-                {/* {isNaN(
-                  (Number(count.targetLength) - up) *
-                    Math.ceil(Number(count.calculatedPrice))
+                {Number(Math.ceil(count.goalPrice)) <
+                (Number(count.targetLength) - count.completed) *
+                  Number(count.calculatedPrice)
+                  ? Number(Math.ceil(count.goalPrice))
                       .toString()
                       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                )
-                  ? (Number(count.targetLength) - up) *
-                    Math.ceil(Number(count.calculatedPrice))
-                  : (Number(count.targetLength) - up) *
-                    Math.ceil(Number(count.calculatedPrice))
+                  : (
+                      (Number(count.targetLength) - count.completed) *
+                      Number(count.calculatedPrice)
+                    )
                       .toString()
-                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '} */}
+                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
                 원{' '}
               </li>
             </p>
-            {/* {(Number(count.targetLength) - up) * Number(count.calculatedPrice)} */}
+
             <p className="smallP">
               <li className="savingContent">
-                남은 기간:{' '}
-                {isNaN(up)
-                  ? Number(count.targetLength)
-                  : Number(count.targetLength) - up}{' '}
-                개월{' '}
+                남은 기간: {Number(count.targetLength) - count.completed} 개월{' '}
               </li>
             </p>
           </CalcurlatedBox>
@@ -400,32 +338,27 @@ const AssetList = ({
               <ListContain>
                 <UserInfo>
                   <div className="saving">
-                    {/* <SavingInfoBox> */}
                     <SavingInfoHead>
                       목표 기간:{' '}
                       <span className="number">{count.targetLength}</span>개월
                     </SavingInfoHead>
                     <SavingInfoHead>
-                      저축 기간: <span className="number">{up}</span>개월
+                      저축 기간:{' '}
+                      <span className="number">{count.completed}</span>개월
                     </SavingInfoHead>
                     <SavingInfoHead>
                       남은 금액:{' '}
                       <span className="number">
                         {Number(Math.ceil(count.goalPrice)) <
-                        (Number(count.targetLength) - up) *
+                        (Number(count.targetLength) - count.completed) *
                           Number(count.calculatedPrice)
                           ? Number(Math.ceil(count.goalPrice))
-                          : //   .toString()
-                          //   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                          isNaN(
-                              Number(Math.ceil(count.goalPrice))
-                                .toString()
-                                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+                              .toString()
+                              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+                          : (
+                              (Number(count.targetLength) - count.completed) *
+                              Number(count.calculatedPrice)
                             )
-                          ? (Number(count.targetLength) - up) *
-                            Number(count.calculatedPrice)
-                          : (Number(count.targetLength) - up) *
-                            Number(count.calculatedPrice)
                               .toString()
                               .replace(
                                 /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
@@ -434,7 +367,6 @@ const AssetList = ({
                       </span>
                       원
                     </SavingInfoHead>
-                    {/* </SavingInfoBox> */}
 
                     <NewBtnBox>
                       <UpBtn onClick={goalUpPatch} data-id={id}>
