@@ -209,7 +209,7 @@ function AllBoardList({ id, title, body, createdAt, like, category, view }) {
           </TextEtcContainer>
         </Container>
         <Modal open={Modalopen} close={closeModal} header="오류 알림">
-          로그인이 필요한 항목입니다.
+          게시물 조회는 로그인이 필요합니다.
         </Modal>
       </ListBox>
     </>
