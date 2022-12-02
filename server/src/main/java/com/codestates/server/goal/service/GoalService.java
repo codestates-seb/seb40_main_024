@@ -62,7 +62,7 @@ public class GoalService {
 
         // Member, Goal and id verifications
         Goal verifiedGoal = verifyLoggedInMemberForGoal(goal.getGoalId(), email);
-        if (! goal.getMember().getEmail().equals(email)) throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_MATCHED);
+        if (! verifiedGoal.getMember().getEmail().equals(email)) throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_MATCHED);
 
         // changed price
         verifiedGoal.setGoalPrice(goal.getGoalPrice());
