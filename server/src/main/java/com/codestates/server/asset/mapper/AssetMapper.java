@@ -13,14 +13,14 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface AssetMapper {
 
-    default Asset assetPostToAsset(Post requestBody) {
-        Asset postAsset = new Asset();
-
-        postAsset.setAssetType(requestBody.getAssetType());
-        postAsset.setAssetValue(requestBody.getAssetValue());
-
-        return postAsset;
-    }
+//    default Asset assetPostToAsset(Post requestBody) {
+//        Asset postAsset = new Asset();
+//
+//        postAsset.setAssetType(requestBody.getAssetType());
+//        postAsset.setAssetValue(requestBody.getAssetValue());
+//
+//        return postAsset;
+//    }
 
 
 //    default Asset assetPatchToAsset(AssetDto.Patch requestBody) {
@@ -31,6 +31,7 @@ public interface AssetMapper {
 //        return patchAsset;
 //    };
 
+    Asset assetPostToAsset(AssetDto.Post requestBody);
     Asset assetPatchToAsset(AssetDto.Patch requestBody);
 
 

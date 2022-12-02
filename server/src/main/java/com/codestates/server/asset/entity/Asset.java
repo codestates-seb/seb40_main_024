@@ -34,8 +34,8 @@ public class Asset extends Auditable {
     @Column(nullable = false)
     private String assetType; // (주식, 현금, 예금 등 유동성자산. 택 1 가능?)
 
-    @Column(nullable = false)
-    private long assetValue; // long은 null값 불가능
+    @Column
+    private Long assetValue; // long은 null값 불가능
 
 
     public Asset(String assetType, Long assetValue) {
