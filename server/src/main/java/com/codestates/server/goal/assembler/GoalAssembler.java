@@ -7,7 +7,6 @@ import org.springframework.hateoas.server.RepresentationModelAssembler;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.stereotype.Component;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
@@ -16,7 +15,7 @@ public class GoalAssembler implements RepresentationModelAssembler<GoalDto.Respo
     @Override
     public EntityModel<GoalDto.Response> toModel(GoalDto.Response goal) {
         return EntityModel.of(goal,
-                WebMvcLinkBuilder.linkTo(methodOn(GoalController.class).getGoal(goal.getGoalId())).withSelfRel(),
-                linkTo(methodOn(GoalController.class).getGoals()).withRel("goals"));
+                WebMvcLinkBuilder.linkTo(methodOn(GoalController.class).getGoal(goal.getGoalId())).withSelfRel());
+//                linkTo(methodOn(GoalController.class).getGoals()).withRel("goals"));
     }
 }
