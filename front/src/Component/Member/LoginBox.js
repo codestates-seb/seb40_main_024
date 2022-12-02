@@ -164,9 +164,6 @@ export const LoginBox = () => {
   const [isEmail, setIsEmail] = useState(false);
   const [isPassword, setIsPassword] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
-  const [member, setMember] = useState('');
-
   const abc = !(isEmail && isPassword);
 
   // 이메일
@@ -214,9 +211,6 @@ export const LoginBox = () => {
     password: password,
   };
 
-  // eslint-disable-next-line no-unused-vars
-  const JWT_EXPIRY_TIME = 24 * 3600 * 1000;
-
   const PostLogin = async () => {
     try {
       const req = await axios.post(`${URL}/member/login`, DataLogin);
@@ -224,31 +218,10 @@ export const LoginBox = () => {
       // const reqRefreshToken = req.headers.get('Refresh');
       authCtx.login(reqToken);
       openModal();
-      // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
     } catch (e) {
       console.log(e);
     }
   };
-
-  console.log('authCtx', authCtx);
-  // const GetLoginMember = async () => {
-  //   try {
-  //     const memberInfo = await axios.get(`${URL}/member`);
-
-  //     // const reqRefreshToken = req.headers.get('Refresh');
-
-  //     // setTimeout(onSilentRefresh, JWT_EXPIRY_TIME - 60000);
-  //     console.log('memberInfo', memberInfo);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-  // const GetLoginMember = async () => {
-  //   await axios
-  //     .get(`${URL}/member`)
-  //     .then((res) => setMember(res))
-  //     .catch((err) => console.log(err));
-  // };
 
   return (
     <PageContainer>

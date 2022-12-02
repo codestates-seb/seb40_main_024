@@ -18,6 +18,9 @@ const TotalComment = styled.div`
   border-radius: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
+  :last-child {
+    margin-bottom: 100px;
+  }
 `;
 
 const CommentContain = styled.div`
@@ -61,7 +64,7 @@ const ModifyInput = styled.input`
   background-color: rgba(0, 0, 0, 0.1);
 `;
 
-function Comment({ commentid, body }) {
+function Comment({ commentid, body, name }) {
   const { id } = useParams();
   const URL = process.env.REACT_APP_API_URL;
 
@@ -83,7 +86,11 @@ function Comment({ commentid, body }) {
 
   const commentModify = async () => {
     try {
-      await axios.patch(`${URL}/board/${id}/comment/${commentid}`, PatchData);
+      await axios.patch(`${URL}/board/${id}/comment/${commentid}`, PatchData, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       window.location.reload();
     } catch (err) {
       console.log('deleteerror', err);
@@ -92,7 +99,11 @@ function Comment({ commentid, body }) {
 
   const commentDelete = async () => {
     try {
-      await axios.delete(`${URL}/board/${id}/comment/${commentid}`);
+      await axios.delete(`${URL}/board/${id}/comment/${commentid}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       window.location.reload();
     } catch (err) {
       console.log('deleteerror', err);
@@ -106,7 +117,7 @@ function Comment({ commentid, body }) {
           <ProfileIcon />
         </ImageBox>
         <CommentBox>
-          <h4>{commentid}</h4>
+          <h4>{name}</h4>
           {isEdit ? (
             <MDBtn1>
               <ModifyInput placeholder={body} onChange={onChange1} />

@@ -7,6 +7,7 @@ import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 //import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -36,12 +37,11 @@ public class MemberController {
         return ResponseEntity.ok(registerMember);
     }
 
-    // 회원 로그아웃 구현 -> 보안인증[O] Optinal
+
 
     // 회원 내 정보 구현 -> 보안인증[O]
     @GetMapping("/{memberId}")
-    public ResponseEntity getMember(@PathVariable("memberId") long id) {
-//        Member member = memberService.findMember(email);
+    public ResponseEntity getMember(@PathVariable("memberId") Long id) {
         Member member = memberService.findVerifiedMember(id);
         return ResponseEntity.ok(mapper.memberToMemberResponse(member));
     }
@@ -77,21 +77,25 @@ public class MemberController {
 
     // 회원 탈퇴 구현
     @DeleteMapping("/delete")
-    public ResponseEntity deleteMember(@AuthenticationPrincipal String email,
-                                       @Valid @RequestBody Member member) {
-        Member findMember = memberService.findPassword(email);
-
+    public ResponseEntity deleteMember(@AuthenticationPrincipal String email
+                                       ) {
+//        Member findMember = memberService.findPassword(email);
+        memberService.deleteMember(email);
+/*
         if (passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
             memberService.deleteMember(email);
             return ResponseEntity.ok().build();
         }
         else
             return ResponseEntity.badRequest().build();
+*/
+        return ResponseEntity.ok().build();
     }
 
-//    @PostMapping("/logout")
-//    public ResponseEntity<?> logoutMember(@AuthenticationPrincipal String email, HttpServletRequest request){
-//        MemberService.logout(request, email);
-//        return ResponseEntity.ok(HttpStatus.ACCEPTED);
-//    }
+//     회원 로그아웃 구현 -> 보안인증[O] Optional
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutMember(@AuthenticationPrincipal String email, HttpServletRequest request){
+        MemberService.logout(request, email);
+        return ResponseEntity.ok(HttpStatus.ACCEPTED);
+    }
 }

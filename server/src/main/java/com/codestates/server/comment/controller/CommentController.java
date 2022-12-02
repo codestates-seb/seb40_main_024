@@ -4,10 +4,12 @@ package com.codestates.server.comment.controller;
 import com.codestates.server.comment.assembler.CommentAssembler;
 import com.codestates.server.comment.dto.CommentDto;
 import com.codestates.server.comment.service.CommentService;
+import lombok.AllArgsConstructor;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,18 +21,14 @@ import java.util.stream.Collectors;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+@AllArgsConstructor
 @RestController
 @RequestMapping("/")
 @Validated
 public class CommentController {
-    
+
     private final CommentService commentService;
     private final CommentAssembler assembler;
-
-    public CommentController(CommentService commentService, CommentAssembler assembler) {
-        this.commentService = commentService;
-        this.assembler = assembler;
-    }
 
     // --------------------------------------- test ------------------------------------------------
     @GetMapping("/comment/{id}")
@@ -51,9 +49,11 @@ public class CommentController {
 
     @PostMapping("/board/{board_id}/comment")
     public ResponseEntity<?> postComment(@Valid @RequestBody CommentDto.Post requestBody,
-                                         @PathVariable("board_id") @Positive long boardId) {
+                                         @PathVariable("board_id") @Positive long boardId,
+                                         @AuthenticationPrincipal String email) {
+
         EntityModel<CommentDto.Response> entityModel =
-                assembler.toModel(commentService.createOne(requestBody, boardId));
+                assembler.toModel(commentService.createOne(requestBody, boardId, email));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -63,10 +63,12 @@ public class CommentController {
     @PatchMapping("/board/{board_id}/comment/{id}")
     public ResponseEntity<?> patchComment(@PathVariable("id") @Positive long id,
                                           @PathVariable("board_id") @Positive long boardId,
-                                          @Valid @RequestBody CommentDto.Patch requestBody) {
+                                          @Valid @RequestBody CommentDto.Patch requestBody,
+                                          @AuthenticationPrincipal String email) {
+
         requestBody.setCommentId(id);
         EntityModel<CommentDto.Response> entityModel =
-                assembler.toModel(commentService.updateOne(requestBody, boardId));
+                assembler.toModel(commentService.updateOne(requestBody, boardId, email));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())
@@ -75,9 +77,11 @@ public class CommentController {
 
     @DeleteMapping("/board/{board_id}/comment/{id}")
     public ResponseEntity<?> deleteComment(@PathVariable("id") @Positive long id,
-                                           @PathVariable("board_id") @Positive long boardId) {
-        commentService.deleteOne(id, boardId);
+                                           @PathVariable("board_id") @Positive long boardId,
+                                           @AuthenticationPrincipal String email) {
+
+        commentService.deleteOne(id, boardId, email);
         return ResponseEntity.noContent().build();
     }
-    
+
 }

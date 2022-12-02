@@ -26,7 +26,14 @@ function Comments() {
   return (
     <>
       {SortComments.map((el, i) => {
-        return <Comment key={i} commentid={el.commentId} body={el.body} />;
+        return (
+          <Comment
+            key={i}
+            commentid={el.commentId}
+            body={el.body}
+            name={el.memberPosted.name}
+          />
+        );
       })}
     </>
   );

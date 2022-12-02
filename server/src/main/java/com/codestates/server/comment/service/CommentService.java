@@ -8,6 +8,9 @@ import com.codestates.server.comment.mapper.CommentMapper;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.repository.MemberRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,20 +20,15 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
+@AllArgsConstructor
 public class CommentService {
 
     private final CommentRepository repository;
     private final CommentMapper mapper;
     private final BoardService boardService;
+    private final MemberRepository memberRepository;
 
-    // WIP: 맴버 구현 끝난 후 (멤버 서비스 등 필요) + 로그인 유저 verification 필요
-
-    public CommentService(CommentRepository repository, CommentMapper mapper, BoardService boardService) {
-        this.repository = repository;
-        this.mapper = mapper;
-        this.boardService = boardService;
-    }
-
+    // --------------------------------------- test ------------------------------------------------
     public CommentDto.Response findOne(long id) {
         return mapper.commentToCommentResponseDto(findVerifiedComment(id));
     }
@@ -38,21 +36,28 @@ public class CommentService {
     public List<CommentDto.Response> findAll() {
         return mapper.commentsToCommentResponses(repository.findAll());
     }
+    // --------------------------------------- test ------------------------------------------------
 
     @Transactional
-    public CommentDto.Response createOne(CommentDto.Post postComment, long boardId) {
+    public CommentDto.Response createOne(CommentDto.Post postComment, long boardId, String email) {
+
         Board board = boardService.findVerifiedBoard(boardId);
         Comment comment = mapper.commentPostToComment(postComment);
         comment.setBoard(board);
         board.getComments().add(comment); // board repo?
+
+        Optional<Member> member = memberRepository.findByEmail(email);
+        comment.setMember(member.orElseThrow(() -> new CustomException(ExceptionCode.COMMENT_POSTER_NOT_FOUND)));
+
         return mapper.commentToCommentResponseDto(repository.save(comment));
     }
 
     @Transactional
-    public CommentDto.Response updateOne(CommentDto.Patch patchComment, long boardId) {
-        Comment comment = mapper.commentPatchToComment(patchComment);
+    public CommentDto.Response updateOne(CommentDto.Patch patchComment, long boardId, String email) {
 
-        Comment verifiedComment = findVerifiedComment(comment.getCommentId());
+        Comment comment = mapper.commentPatchToComment(patchComment);
+        Comment verifiedComment = verifyLoggedInMemberForComment(comment.getCommentId(), email);
+
         verifyBoard(boardId, verifiedComment.getBoard());
         verifiedComment.setBody(comment.getBody());  // body
 
@@ -62,8 +67,9 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteOne(Long id, long boardId) {
-        Comment verifiedComment = findVerifiedComment(id);
+    public void deleteOne(Long id, long boardId, String email) {
+
+        Comment verifiedComment = verifyLoggedInMemberForComment(id, email);
         verifyBoard(boardId, verifiedComment.getBoard());
         repository.delete(verifiedComment);
     }
@@ -77,5 +83,15 @@ public class CommentService {
         if (! (boardId == commentBoard.getBoardId())) {
             throw new CustomException(ExceptionCode.BOARD_NOT_MATCHED_WITH_COMMENT);
         }
+    }
+
+    public Comment verifyLoggedInMemberForComment(long id, String email) {
+        Comment verifiedComment = findVerifiedComment(id);
+        if (email.equals("anonymousUser")) {
+            throw new CustomException(ExceptionCode.COMMENT_POSTER_NOT_FOUND);
+        } else if (! email.equals(verifiedComment.getMember().getEmail())) {
+            throw new CustomException(ExceptionCode.COMMENT_POSTER_NOT_MATCHED);
+        }
+        return verifiedComment;
     }
 }

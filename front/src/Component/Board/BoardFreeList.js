@@ -2,7 +2,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 import AllBoardList from './AllBoardList';
-import Pagination from './Pagination';
+import Pagination from 'react-js-pagination';
+import './Pagination.css';
 
 const Div = styled.div`
   display: flex;
@@ -72,43 +73,49 @@ const Select = styled.select`
 
 export const FreeBoardList = () => {
   const URL = process.env.REACT_APP_API_URL;
-  const [boardlist, setBoardlist] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [limit, setLimit] = useState(5);
+  const [boardlist, setBoardlist] = useState([]);
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
+  const [size, setSize] = useState(5);
+  // eslint-disable-next-line no-unused-vars
+  const [AllboardCount, setAllboardCount] = useState(1);
 
   useEffect(() => {
     const axiosData = async () => {
       try {
-        const res = await axios.get(`${URL}/board/all`);
-        setBoardlist(res.data._embedded.responseList);
+        const res = await axios.get(`${URL}/board?page=${page}&size=${size}`);
+        setAllboardCount(res.data.pageInfo.totalElements);
+        setBoardlist(res.data.data);
         setLoading(false);
       } catch (e) {
         console.log(e);
       }
     };
     axiosData();
-  }, []);
+  }, [page, size]);
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
 
   return (
     <>
+      <Label>
+        <span>페이지 당 표시할 게시물 수 :</span>
+        <div> &nbsp;</div>
+        <Select
+          type="number"
+          value={size}
+          onChange={({ target: { value } }) => setSize(Number(value))}
+        >
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="50">50</option>
+        </Select>
+      </Label>
       <div>
-        <Label>
-          <span>페이지 당 표시할 게시물 수 :</span>
-          <div> &nbsp;</div>
-          <Select
-            type="number"
-            value={limit}
-            onChange={({ target: { value } }) => setLimit(Number(value))}
-          >
-            <option value="5">5</option>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="20">20</option>
-            <option value="50">50</option>
-          </Select>
-        </Label>
         {loading ? (
           <Div>
             <div className="lds-ring">
@@ -120,30 +127,26 @@ export const FreeBoardList = () => {
           </Div>
         ) : (
           boardlist &&
-          boardlist
-            .slice(offset, offset + limit)
-            .map(
-              (el, i) => (
-                new Map([...boardlist.sort((a, b) => b.boardId - a.boardId)]),
-                (
-                  <AllBoardList
-                    key={i}
-                    id={el.boardId}
-                    title={el.title}
-                    body={el.body}
-                    createdAt={el.createdAt}
-                    like={el.like}
-                    category={el.category}
-                  ></AllBoardList>
-                )
-              )
-            )
+          boardlist.map((el, i) => (
+            <AllBoardList
+              key={i}
+              id={el.boardId}
+              title={el.title}
+              body={el.body}
+              createdAt={el.createdAt}
+              like={el.like}
+              category={el.category}
+            ></AllBoardList>
+          ))
         )}
         <Pagination
-          total={boardlist.length}
-          limit={limit}
-          page={page}
-          setPage={setPage}
+          activePage={page}
+          itemsCountPerPage={size}
+          totalItemsCount={AllboardCount}
+          pageRangeDisplayed={5}
+          prevPageText="‹"
+          nextPageText="›"
+          onChange={handlePageChange}
         />
       </div>
     </>
