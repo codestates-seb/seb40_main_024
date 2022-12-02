@@ -161,6 +161,7 @@ const MyInfo = () => {
   const [SignOut, setSignOut] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
   const [errSignOut, setErrSignOut] = useState(false);
+  const [SuccessSignOut, setSuccessSignOut] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
   const [errModalopenModify, seterrModalopenModify] = useState(false);
 
@@ -198,6 +199,10 @@ const MyInfo = () => {
     setModify(true);
   };
 
+  const openSuccessSignOut = () => {
+    setSuccessSignOut(true);
+  };
+
   const closeModal = () => {
     setunSUb(false);
     setModify(false);
@@ -208,10 +213,15 @@ const MyInfo = () => {
 
   const closeModify = () => {
     setModalopen(false);
+    setModify(false);
   };
 
   const closeSignOut = () => {
     setSignOut(false);
+  };
+
+  const closeSuccessSignOut = () => {
+    setSuccessSignOut(false);
     navigate('/');
     window.location.reload();
   };
@@ -257,7 +267,7 @@ const MyInfo = () => {
         },
       });
       localStorage.removeItem('token');
-      openSignOut();
+      openSuccessSignOut();
     } catch (e) {
       openErrSignOut();
       console.log(e);
@@ -367,6 +377,13 @@ const MyInfo = () => {
               </span>
               <SignOutMessgeBtn UserDelete={UserDelete} />
             </SignOutMessge>
+          </Modal>
+          <Modal
+            open={SuccessSignOut}
+            close={closeSuccessSignOut}
+            header="회원탈퇴 알림"
+          >
+            회원탈퇴가 완료되었습니다.
           </Modal>
           <Modal
             open={errSignOut}

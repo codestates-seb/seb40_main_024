@@ -29,6 +29,8 @@ public enum ExceptionCode {
     BOARD_URL_NOT_FOUND(400, "'like', 'dislike' 중 선택하세요."),
     BOARD_POSTER_NOT_FOUND(400, "게시글 작성을 위해 로그인하세요."),
     BOARD_POSTER_NOT_MATCHED(400, "게시글 작성자로 로그인하세요."),
+    BOARD_LIKE_NOT_PERMITTED(400, "게시글 '좋아요'를 위해 로그인하세요."),
+    BOARD_ALREADY_LIKED(400, "이미 '좋아요'한 게시글입니다."),
 
     // 댓글
     COMMENT_NOT_FOUND(404, "존재하지 않는 댓글입니다."),

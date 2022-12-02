@@ -167,24 +167,29 @@ const Contents = () => {
   const [memberid, setMemberId] = useState();
   const [view, setView] = useState();
   const [category, setCategory] = useState();
+  const [errLikeopen, setErrLikeopen] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
   const openModal = () => {
     setModalopen(true);
   };
-
   const closeModal = () => {
     setModalopen(false);
     navigate('/board');
   };
 
-  const UnerrcloseModal = () => {
-    setErrModalopen(false);
-  };
-
   const UnerrModalopen = () => {
     setErrModalopen(true);
+  };
+
+  const UnsetErrLikeopen = () => {
+    setErrLikeopen(true);
+  };
+
+  const UnerrcloseModal = () => {
+    setErrModalopen(false);
+    setErrLikeopen(false);
   };
 
   const Delete = async () => {
@@ -202,27 +207,35 @@ const Contents = () => {
 
   const Patchlike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/like`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      const res = await axios.patch(
+        `${URL}/board/${id}/like`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       setLike(res.data.like);
     } catch (e) {
-      console.log(e);
+      UnsetErrLikeopen();
     }
   };
 
   const Patchdislike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/dislike`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      const res = await axios.patch(
+        `${URL}/board/${id}/dislike`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       setLike(res.data.like);
     } catch (e) {
-      console.log(e);
+      UnsetErrLikeopen();
     }
   };
 
@@ -292,6 +305,9 @@ const Contents = () => {
         </Modal>
         <Modal open={errModalopen} close={UnerrcloseModal} header="오류 알림">
           게시물이 삭제가 정상적으로 처리되지 않았습니다.
+        </Modal>
+        <Modal open={errLikeopen} close={UnerrcloseModal} header="오류 알림">
+          이미 투표를 완료한 게시물입니다.
         </Modal>
       </TotalContent>
     </>
