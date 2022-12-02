@@ -202,7 +202,7 @@ export const LongNavbarBox = () => {
                   </Menu>
                 </>
               )}
-              <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+              <Menu onClick={() => navigate('/board')}>커뮤니티</Menu>
             </RowDropMenuBox>
           </LongContainer>
         )}
@@ -230,7 +230,7 @@ export const LongNavbarBox = () => {
                   </Menu>
                 </>
               )}
-              <Menu onClick={() => navigate('/freeboard')}>커뮤니티</Menu>
+              <Menu onClick={() => navigate('/board')}>커뮤니티</Menu>
               <Menu onClick={logoutHandler}>로그아웃</Menu>
             </RowDropMenuBox>
           </LongContainer>
@@ -305,7 +305,7 @@ export const MiniNavbarBox = () => {
                     </>
                   )}
                   <MiniMenu
-                    onClick={() => navigate('/freeboard')}
+                    onClick={() => navigate('/board')}
                     style={{
                       height: '85px',
                       borderEndEndRadius: '5px',
@@ -350,7 +350,7 @@ export const MiniNavbarBox = () => {
                       </MiniMenu>
                     </>
                   )}
-                  <MiniMenu onClick={() => navigate('/freeboard')}>
+                  <MiniMenu onClick={() => navigate('/board')}>
                     커뮤니티
                   </MiniMenu>
                   <MiniMenu

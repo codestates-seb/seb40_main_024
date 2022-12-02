@@ -4,7 +4,7 @@ import {
   LongNavbarBox,
   MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
-import { FreeBoardPatchBtn } from '../../Component/Common/Button';
+import { BoardPatchBtn } from '../../Component/Common/Button';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -115,7 +115,7 @@ function ModifyBoard() {
           <Quill setBody={setBody} />
         </QuillBox>
         <Btn>
-          <FreeBoardPatchBtn Patch={Patch}></FreeBoardPatchBtn>
+          <BoardPatchBtn Patch={Patch}></BoardPatchBtn>
         </Btn>
       </MainPost>
     </>

@@ -96,12 +96,12 @@ export const NavAssetContentsButton = () => {
   );
 };
 
-export const NavFreeContentsButton = () => {
+export const NavContentsButton = () => {
   const navigate = useNavigate();
   return (
     <>
       <ButtonBB
-        onClick={() => navigate('/freeboardpost')}
+        onClick={() => navigate('/boardpost')}
         style={{ marginLeft: '100px' }}
       >
         <p style={{ width: '120px' }}>게시글 작성</p>
@@ -371,11 +371,11 @@ export const AssetchangeBtn = () => {
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
 };
 
-export const FreeBoardPostBtn = ({ Post }) => {
+export const BoardPostBtn = ({ Post }) => {
   return <ButtonCC onClick={Post}>작성하기</ButtonCC>;
 };
 
-export const FreeBoardPatchBtn = ({ Patch }) => {
+export const BoardPatchBtn = ({ Patch }) => {
   return <ButtonCC onClick={Patch}>수정하기</ButtonCC>;
 };
 

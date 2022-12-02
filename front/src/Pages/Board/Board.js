@@ -4,7 +4,7 @@ import {
   LongNavbarBox,
   MiniNavbarBox,
 } from '../../Component/Common/NavebarRev';
-import { FreeBoardPostBtn } from '../../Component/Common/Button';
+import { BoardPostBtn } from '../../Component/Common/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -127,7 +127,7 @@ function FreeCommunity() {
           <Quill setBody={setBody} />
         </QuillBox>
         <Btn>
-          <FreeBoardPostBtn Post={Post}></FreeBoardPostBtn>
+          <BoardPostBtn Post={Post}></BoardPostBtn>
         </Btn>
       </MainPost>
     </>
