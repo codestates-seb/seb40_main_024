@@ -2,8 +2,11 @@ package com.codestates.server.auth.filter;
 
 import com.codestates.server.auth.jwt.JwtTokenizer;
 import com.codestates.server.auth.utils.CustomAuthorityUtils;
+import com.codestates.server.exception.CustomException;
+import com.codestates.server.exception.ExceptionCode;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,11 +24,13 @@ import java.util.Map;
 public class JwtVerificationFilter extends OncePerRequestFilter {
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
+    private final RedisTemplate redisTemplate;
 
     public JwtVerificationFilter(JwtTokenizer jwtTokenizer,
-                                 CustomAuthorityUtils authorityUtils) {
+                                 CustomAuthorityUtils authorityUtils, RedisTemplate redisTemplate) {
         this.jwtTokenizer = jwtTokenizer;
         this.authorityUtils = authorityUtils;
+        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -41,8 +46,12 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             request.setAttribute("exception", ee);
         } catch (Exception e) {
             request.setAttribute("exception", e);
-        }
 
+            String logoutToken = request.getHeader("Authorization");
+            if(null != redisTemplate.opsForValue().get(logoutToken)){
+                throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+            }
+        }
 
         filterChain.doFilter(request, response);
     }
