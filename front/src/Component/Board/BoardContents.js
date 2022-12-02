@@ -149,9 +149,11 @@ const TextBox = styled.div`
 `;
 
 const Contents = () => {
+  const URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
   const isLogin = authCtx.isLoggedIn;
+  const [Decode] = useState(authCtx.parseJwt);
 
   const [Modalopen, setModalopen] = useState(false);
 
@@ -162,12 +164,11 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
+  const [memberid, setMemberId] = useState();
   const [view, setView] = useState();
   const [category, setCategory] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
-
-  const URL = process.env.REACT_APP_API_URL;
 
   const openModal = () => {
     setModalopen(true);
@@ -244,6 +245,7 @@ const Contents = () => {
         setCategory(res.data.category);
         setLike(res.data.like);
         setName(res.data.memberPosted.name);
+        setMemberId(res.data.memberPosted.id);
         setView(res.data.view);
       } catch (e) {
         console.log(e);
@@ -256,8 +258,12 @@ const Contents = () => {
     <>
       <TotalContent>
         <BtnContain>
-          <ModifyContentBtn ModifyButton={ModifyButton} />
-          <DeleteContentBtn DeleteButton={DeleteButton} />
+          {memberid === Decode.id ? (
+            <>
+              <ModifyContentBtn ModifyButton={ModifyButton} />
+              <DeleteContentBtn DeleteButton={DeleteButton} />
+            </>
+          ) : null}
         </BtnContain>
         <ContentContain>
           <ImageBox>
@@ -282,7 +288,7 @@ const Contents = () => {
           </ContentBox>
         </ContentContain>
         <Modal open={Modalopen} close={closeModal} header="오류 알림">
-          게시물 작성은 로그인이 필요합니다!
+          로그인이 필요한 항목입니다.
         </Modal>
       </TotalContent>
     </>

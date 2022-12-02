@@ -2,6 +2,9 @@ import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
+import { useContext, useState } from 'react';
+import AuthContext from '../../store/AuthContext';
+import { Modal } from '../Common/Modal';
 
 const ListBox = styled.div`
   display: flex;
@@ -158,9 +161,32 @@ function AllBoardList({ id, title, body, createdAt, like, category, view }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
+
+  const authCtx = useContext(AuthContext);
+  const isLogin = authCtx.isLoggedIn;
+
+  const [Modalopen, setModalopen] = useState(false);
+
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+    navigate('/login');
+  };
+
+  const onClickNavigate = () => {
+    if (isLogin) {
+      navigate(`/boardcontentpage/${id}`);
+    } else {
+      openModal();
+    }
+  };
+
   return (
     <>
-      <ListBox onClick={() => navigate(`/boardcontentpage/${id}`)}>
+      <ListBox onClick={onClickNavigate}>
         <ImageBox>
           <Image>IMG</Image>
         </ImageBox>
@@ -182,6 +208,9 @@ function AllBoardList({ id, title, body, createdAt, like, category, view }) {
             <Text>{body}</Text>
           </TextEtcContainer>
         </Container>
+        <Modal open={Modalopen} close={closeModal} header="오류 알림">
+          게시물 조회는 로그인이 필요합니다.
+        </Modal>
       </ListBox>
     </>
   );
