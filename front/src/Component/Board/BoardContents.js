@@ -46,8 +46,6 @@ const ContentBox = styled.div`
   max-height: 400px;
   width: 100%;
   margin: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
   padding: 10px;
   /* border: 1px solid black; */
 `;
@@ -83,16 +81,24 @@ const Id = styled.div`
 `;
 const EtcBox = styled.div`
   display: flex;
-  margin-left: 240px;
+  margin-left: auto;
 `;
 const Date = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 20px;
   line-height: normal;
   align-content: center;
   justify-content: center;
+`;
+const View = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  margin: 0 10px 0 10px;
 `;
 const LikeBox = styled.div`
   display: flex;
@@ -149,6 +155,7 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
+  const [view, setView] = useState();
   const [category, setCategory] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
@@ -194,6 +201,7 @@ const Contents = () => {
         setCategory(res.data.category);
         setLike(res.data.like);
         setName(res.data.memberPosted.name);
+        setView(res.data.view);
       } catch (e) {
         console.log(e);
       }
@@ -220,6 +228,7 @@ const Contents = () => {
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
+                <View>View : {view}</View>
                 <LikeBox onClick={Patchlike}>❤</LikeBox>
                 {like}
                 <UnLikeBox onClick={Patchdislike}>❤</UnLikeBox>
