@@ -4,7 +4,9 @@ import ProfileIcon from '../Member/ProfileIcon';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import AuthContext from '../../store/AuthContext';
+import { Modal } from '../Common/Modal';
 
 const TotalContent = styled.div`
   display: flex;
@@ -46,8 +48,6 @@ const ContentBox = styled.div`
   max-height: 400px;
   width: 100%;
   margin: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
   padding: 10px;
   /* border: 1px solid black; */
 `;
@@ -83,16 +83,24 @@ const Id = styled.div`
 `;
 const EtcBox = styled.div`
   display: flex;
-  margin-left: 240px;
+  margin-left: auto;
 `;
 const Date = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 20px;
   line-height: normal;
   align-content: center;
   justify-content: center;
+`;
+const View = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  margin: 0 10px 0 10px;
 `;
 const LikeBox = styled.div`
   display: flex;
@@ -142,6 +150,11 @@ const TextBox = styled.div`
 
 const Contents = () => {
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const isLogin = authCtx.isLoggedIn;
+
+  const [Modalopen, setModalopen] = useState(false);
+
   const { id } = useParams();
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
@@ -149,17 +162,30 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
+  const [view, setView] = useState();
   const [category, setCategory] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
   const URL = process.env.REACT_APP_API_URL;
 
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+    navigate('/login');
+  };
+
   const Delete = async () => {
     try {
-      const res = await axios.delete(`${URL}/board/${id}`);
-      console(res);
-      navigate('/freeboard');
+      await axios.delete(`${URL}/board/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      navigate('/board');
     } catch (e) {
       console.log(e);
     }
@@ -167,7 +193,11 @@ const Contents = () => {
 
   const Patchlike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/like`);
+      const res = await axios.patch(`${URL}/board/${id}/like`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       setLike(res.data.like);
     } catch (e) {
       console.log(e);
@@ -176,10 +206,30 @@ const Contents = () => {
 
   const Patchdislike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/dislike`);
+      const res = await axios.patch(`${URL}/board/${id}/dislike`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       setLike(res.data.like);
     } catch (e) {
       console.log(e);
+    }
+  };
+
+  const ModifyButton = () => {
+    if (isLogin) {
+      navigate(`/modifyboard/${boardId}`);
+    } else {
+      openModal();
+    }
+  };
+
+  const DeleteButton = () => {
+    if (isLogin) {
+      Delete();
+    } else {
+      openModal();
     }
   };
 
@@ -194,6 +244,7 @@ const Contents = () => {
         setCategory(res.data.category);
         setLike(res.data.like);
         setName(res.data.memberPosted.name);
+        setView(res.data.view);
       } catch (e) {
         console.log(e);
       }
@@ -205,8 +256,8 @@ const Contents = () => {
     <>
       <TotalContent>
         <BtnContain>
-          <ModifyContentBtn boardId={boardId} />
-          <DeleteContentBtn Delete={Delete} />
+          <ModifyContentBtn ModifyButton={ModifyButton} />
+          <DeleteContentBtn DeleteButton={DeleteButton} />
         </BtnContain>
         <ContentContain>
           <ImageBox>
@@ -220,6 +271,7 @@ const Contents = () => {
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
+                <View>View : {view}</View>
                 <LikeBox onClick={Patchlike}>❤</LikeBox>
                 {like}
                 <UnLikeBox onClick={Patchdislike}>❤</UnLikeBox>
@@ -229,6 +281,9 @@ const Contents = () => {
             <TextBox>{body}</TextBox>
           </ContentBox>
         </ContentContain>
+        <Modal open={Modalopen} close={closeModal} header="오류 알림">
+          게시물 작성은 로그인이 필요합니다!
+        </Modal>
       </TotalContent>
     </>
   );

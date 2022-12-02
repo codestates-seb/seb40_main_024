@@ -34,7 +34,7 @@ const CommentContain = styled.div`
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
-  padding-left: 20px;
+  padding: 10px 20px;
 `;
 
 const CommentBox = styled.div`

@@ -104,6 +104,17 @@ const Date = styled.div`
   /* border: 1px solid #ff8000; */
 `;
 
+const View = styled.span`
+  display: flex;
+  font-size: 10px;
+  height: 30px;
+  align-items: center;
+  line-height: normal;
+  margin-right: 10px;
+  color: #444;
+  font-size: 13px;
+`;
+
 const TextEtcContainer = styled.div`
   display: flex;
   flex-direction: row;
@@ -135,18 +146,15 @@ const LikeBox = styled.div`
 
 const Likenum = styled.div`
   display: flex;
-  font-size: 10px;
-  height: 30px;
+  font-size: 13px;
   align-items: center;
   line-height: normal;
   margin-left: 2px;
-  margin-right: 10px;
   color: #444;
-  font-size: 13px;
   /* border: 1px solid #ff8000; */
 `;
 
-function AllBoardList({ id, title, body, createdAt, like, category }) {
+function AllBoardList({ id, title, body, createdAt, like, category, view }) {
   const navigate = useNavigate();
   const data = moment(createdAt);
   const momentdata = data.format('YYYY-MM-DD hh:mm:ss');
@@ -164,6 +172,7 @@ function AllBoardList({ id, title, body, createdAt, like, category }) {
             </IdEtcBox>
             <IdEtcBox>
               <Date>{momentdata}</Date>
+              <View>View : {view}</View>
               <LikeBox>
                 ❤<Likenum>{like}</Likenum>
               </LikeBox>

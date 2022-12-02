@@ -84,6 +84,7 @@ export const FreeBoardList = () => {
     const axiosData = async () => {
       try {
         const res = await axios.get(`${URL}/board?page=${page}&size=${size}`);
+        console.log(res);
         setAllboardCount(res.data.pageInfo.totalElements);
         setBoardlist(res.data.data);
         setLoading(false);
@@ -136,6 +137,7 @@ export const FreeBoardList = () => {
               createdAt={el.createdAt}
               like={el.like}
               category={el.category}
+              view={el.view}
             ></AllBoardList>
           ))
         )}
