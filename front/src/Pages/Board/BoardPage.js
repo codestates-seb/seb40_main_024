@@ -60,6 +60,7 @@ export const BoardPage = () => {
 
   const closeModal = () => {
     setModalopen(false);
+    navigate('/login');
   };
 
   const ContentsButton = () => {

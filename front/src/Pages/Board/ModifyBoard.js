@@ -8,6 +8,7 @@ import { BoardPatchBtn } from '../../Component/Common/Button';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Modal } from '../../Component/Common/Modal';
 
 const MainPost = styled.div`
   display: flex;
@@ -66,6 +67,24 @@ function ModifyBoard() {
   const [getTitle, setGetTitle] = useState('');
   const [body, setBody] = useState('');
   const URL = process.env.REACT_APP_API_URL;
+  const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, setErrModalopen] = useState(false);
+  const SuccessModalopen = () => {
+    setModalopen(true);
+  };
+
+  const UnerrModalopen = () => {
+    setErrModalopen(true);
+  };
+
+  const closeModal = () => {
+    setErrModalopen(false);
+  };
+
+  const SuccesscloseModal = () => {
+    setModalopen(false);
+    navigate(`/boardcontentpage/${id}`);
+  };
   const data = {
     title: getTitle,
     body: body,
@@ -85,15 +104,14 @@ function ModifyBoard() {
 
   const Patch = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}`, data, {
+      await axios.patch(`${URL}/board/${id}`, data, {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
       });
-      console.log(res);
-      navigate(`/boardcontentpage/${id}`);
+      SuccessModalopen();
     } catch (e) {
-      console.log(e);
+      UnerrModalopen();
     }
   };
 
@@ -121,6 +139,16 @@ function ModifyBoard() {
         <Btn>
           <BoardPatchBtn Patch={Patch}></BoardPatchBtn>
         </Btn>
+        <Modal
+          open={Modalopen}
+          close={SuccesscloseModal}
+          header="게시물 수정 알림"
+        >
+          게시물 수정이 완료되었습니다.
+        </Modal>
+        <Modal open={errModalopen} close={closeModal} header="오류 알림">
+          카테고리, 제목, 내용 10자 이상을 정확히 입력해주세요.
+        </Modal>
       </MainPost>
     </>
   );
