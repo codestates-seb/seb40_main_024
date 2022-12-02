@@ -6,7 +6,7 @@ import com.codestates.server.member.mapper.MemberMapper;
 import com.codestates.server.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-//import org.springframework.http.HttpStatus;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -80,7 +80,6 @@ public class MemberController {
     public ResponseEntity deleteMember(@AuthenticationPrincipal String email
                                        ) {
 //        Member findMember = memberService.findPassword(email);
-        memberService.deleteMember(email);
 /*
         if (passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
             memberService.deleteMember(email);
@@ -88,14 +87,15 @@ public class MemberController {
         }
         else
             return ResponseEntity.badRequest().build();
-*/
+*/ //
+        memberService.deleteMember(email);
         return ResponseEntity.ok().build();
     }
 
 //     회원 로그아웃 구현 -> 보안인증[O] Optional
-    @PostMapping("/logout")
+/*    @PostMapping("/logout")
     public ResponseEntity<?> logoutMember(@AuthenticationPrincipal String email, HttpServletRequest request){
         MemberService.logout(request, email);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
-    }
+    }*/
 }
