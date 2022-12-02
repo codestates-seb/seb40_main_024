@@ -175,6 +175,7 @@ export const SignupBox = () => {
     password: password,
   };
   const [openModal, setOpenModal] = useState(false);
+  const [errOpenModal, seterrOpenModal] = useState(false);
   const abc = !(isName && isEmail && isPassword && isPasswordConfirm);
 
   // 이름
@@ -237,21 +238,30 @@ export const SignupBox = () => {
     [password]
   );
 
+  const SuccessSignUp = () => {
+    setOpenModal(true);
+  };
+
+  const UnsuccessSignUp = () => {
+    seterrOpenModal(true);
+  };
   // 회원가입 버튼
   const onClickSubmit = async () => {
     try {
-      const res = await axios
-        .post(`${URL}/member/`, SignUpData)
-        .then(() => setOpenModal(true));
-      console.log(res);
+      await axios.post(`${URL}/member/`, SignUpData);
+      SuccessSignUp();
     } catch (e) {
-      console.log(e);
+      UnsuccessSignUp();
     }
   };
 
   const closeModal = () => {
     setOpenModal(false);
     navigate('/login');
+  };
+
+  const errCloseModal = () => {
+    seterrOpenModal(false);
   };
 
   return (
@@ -337,6 +347,9 @@ export const SignupBox = () => {
             </Button>
             <Modal open={openModal} close={closeModal} header="회원가입 알림">
               회원가입이 완료되었습니다.
+            </Modal>
+            <Modal open={errOpenModal} close={errCloseModal} header="오류 알림">
+              회원가입 실패하였습니다.
             </Modal>
           </ButtonBox>
         </Container>
