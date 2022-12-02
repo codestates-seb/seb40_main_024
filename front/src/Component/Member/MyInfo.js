@@ -225,10 +225,10 @@ const MyInfo = () => {
     try {
       const req = await axios.patch(`${URL}/member/update`, UpdateData);
       openModal();
-      console.log(req);
+      console.log('req', req);
     } catch (e) {
       openErrModify();
-      console.log(e);
+      console.log('e', e);
     }
   };
 
@@ -236,10 +236,10 @@ const MyInfo = () => {
     try {
       const req = await axios.delete(`${URL}/member/delete`);
       openSignOut();
-      console.log(req);
+      console.log('req', req);
     } catch (e) {
       openErrSignOut();
-      console.log(e);
+      console.log('e', e);
     }
   };
 

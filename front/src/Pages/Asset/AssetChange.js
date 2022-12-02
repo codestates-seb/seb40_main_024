@@ -233,7 +233,6 @@ const EditButton = styled.button`
     letter-spacing: 1px;
     transform: scale(1.5);
   }
-
   :active {
     color: yellow;
   }
@@ -315,10 +314,10 @@ export const AssetChange = () => {
   const DelModalopenHandler6 = () => {
     setDelModalopen6(true);
   };
-
   const openEditTextModal1 = () => {
     setTextModalopen1(true);
   };
+
   const openEditTextModal2 = () => {
     setTextModalopen2(true);
   };
@@ -334,6 +333,7 @@ export const AssetChange = () => {
   const openEditTextModal6 = () => {
     setTextModalopen6(true);
   };
+
   const openerrModal = () => {
     seterrModalopen(true);
   };
@@ -668,7 +668,7 @@ export const AssetChange = () => {
   //? PATCH
   // eslint-disable-next-line no-unused-vars
   const Patchdata1 = {
-    assetType: EditText,
+    assetType: Test1,
     strValue: '+0',
   };
   let patchdata1 = '';
@@ -1080,7 +1080,6 @@ export const AssetChange = () => {
     TextModalopen2,
     errTextModalopen,
     errModalopen,
-    // DelModalopen,
     DelModalopen1,
     DelModalopen2,
     DelModalopen3,
@@ -1133,7 +1132,7 @@ export const AssetChange = () => {
     `${Test5}`,
     `${Test6}`,
   ];
-
+  console.log(assetDatas);
   const AssetList = AssetType.map((e, key) => (
     <AssetListBox key={key}>
       <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
@@ -1243,6 +1242,16 @@ export const AssetChange = () => {
                   </Div>
                 </AssetDeleteEditModal6>
 
+                {/* <ErrAssetTextEditModal
+                  open={TextModalopen1}
+                  close={closeModal}
+                  header="자산 종류 수정 알림"
+                >
+                  <Div>
+                    <p>변경전 아래 금액 추가 및 수정을 먼저 진행해 주세요. </p>
+                  </Div>
+                </ErrAssetTextEditModal> */}
+
                 <AssetTextEditModal1
                   header="자산 종류 수정 알림"
                   open={TextModalopen1}
@@ -1254,6 +1263,7 @@ export const AssetChange = () => {
                   assetDatas={assetDatas}
                   EditText={EditText}
                   assetIds1={assetIds1}
+                  AssetType={AssetType}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>

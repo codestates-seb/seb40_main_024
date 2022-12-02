@@ -1,7 +1,10 @@
 import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { useState, useEffect } from 'react';
-
+// eslint-disable-next-line no-unused-vars
+import { useSelector, useDispatch } from 'react-redux';
+// eslint-disable-next-line no-unused-vars
+import { title, setTitleName } from '../../Redux/titleSlice';
 // import { useState,t, useContext } from 'react';
 const Div = styled.div`
   .modal {
@@ -146,20 +149,80 @@ export const AutoModal = (props) => {
     </Div>
   );
 };
+// export const ErrAssetTextEditModal = (props) => {
+//   const { open, close, header } = props;
+//   console.log('erropen', open);
+//   // eslint-disable-next-line no-unused-vars
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close">&times;</button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={() => close}>
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+// export const ErrAssetTextEditModal = (props) => {
+//   const { open, close, header } = props;
+//   console.log('erropen', open);
+//   // eslint-disable-next-line no-unused-vars
+
+//   return (
+//     <Div>
+//       <div className={open === undefined ? 'openModal modal' : 'modal'}>
+//         {open === undefined ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close">&times;</button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={() => close}>
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+
 export const AssetTextEditModal1 = (props) => {
   const {
     open,
     close,
     header,
+    // eslint-disable-next-line no-unused-vars
     api,
     assetData1,
     assetDatas,
+    // eslint-disable-next-line no-unused-vars
     setTest1,
+    // eslint-disable-next-line no-unused-vars
     EditText,
+    // eslint-disable-next-line no-unused-vars
     assetIds1,
+    // eslint-disable-next-line no-unused-vars
+    AssetType,
   } = props;
   // eslint-disable-next-line no-unused-vars
-
+  const [Check, setCheck] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  console.log('open', open);
   // eslint-disable-next-line no-unused-vars
   let data1 = '';
   assetDatas.forEach((el) => {
@@ -169,6 +232,8 @@ export const AssetTextEditModal1 = (props) => {
       ? (data1 = el)
       : null;
   });
+
+  // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {
     if (assetIds1.length > 0) {
@@ -536,6 +601,7 @@ export const AssetTextEditModal6 = (props) => {
 export const AssetDeleteEditModal1 = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
+
   // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {

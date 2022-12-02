@@ -1,10 +1,8 @@
-// import { combineReducers, configureStore } from '@reduxjs/toolkit';
-// import { BoardAPI } from './BoardAPI';
-// import logger from 'redux-logger';
+import { configureStore } from '@reduxjs/toolkit';
+import titleReducer from './titleSlice';
 
-// const reducer = combineReducers({ BoardAPI: BoardAPI.reducer });
-
-// export default configureStore({
-//   reducer,
-//   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-// });
+export default configureStore({
+  reducer: {
+    title: titleReducer,
+  },
+});
