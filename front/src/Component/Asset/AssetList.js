@@ -396,7 +396,13 @@ const AssetList = ({
               </Modal>
             </Div>
           </GoalModifyModal>
-          <SavingModal open={save} close={openModal} header="저축 기간">
+          <SavingModal
+            open={save}
+            close={openModal}
+            goalUpPatch={goalUpPatch}
+            goalDownPatch={goalDownPatch}
+            header="저축 기간"
+          >
             <Div>
               <ListContain>
                 <UserInfo>

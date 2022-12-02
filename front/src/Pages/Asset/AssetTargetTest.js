@@ -119,6 +119,7 @@ const AssetTargetPage = () => {
   const [targetLength, setTargetLength] = useState(''); //목표기간
   const [up, setUp] = useState(0); //저축횟수
   const [countList, setCountList] = useState([]);
+  // const [graphData, setGraphData] = useState([])
   // const [calculatedPrice, setCalculatedPrice] =useState('')
 
   let monthly = Math.ceil(extended / period);
@@ -132,8 +133,8 @@ const AssetTargetPage = () => {
     .toString()
     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
-  let calculatedMonthly = Math.ceil(goalPrice / targetLength);
-  let percentage = Math.ceil((calculatedMonthly / targetLength) * 100);
+  // let calculatedMonthly = Math.ceil(goalPrice / targetLength);
+  let percentage = Math.ceil((monthly / period) * 100);
   if (isNaN(percentage)) {
     percentage = 0;
   }
@@ -145,14 +146,14 @@ const AssetTargetPage = () => {
   // console.log(nowPercentage);
   // console.log(percentage);
   // console.log(up);
-  const graphData = [
-    {
-      name: goalName,
-      목표율: 100,
-      현재: nowPercentage,
-      amt: 2400,
-    },
-  ];
+  // const graphData = [
+  //   {
+  //     name: countList[0].goalName,
+  //     목표율: 100,
+  //     현재: (countList[0].targetLength / countList[0].goalPrice) * 100,
+  //     amt: 2400,
+  //   },
+  // ];
 
   const handlerGoal = (e) => {
     setGoal(e.target.value);
@@ -194,14 +195,14 @@ const AssetTargetPage = () => {
   }, [render]);
 
   const goalPost = async () => {
-    const data = {
+    const postdata = {
       goalName: goal,
       goalPrice: extended,
       targetLength: period,
       calculatedPrice: targetAmount,
     };
     try {
-      const res = await axios.post(`${url}/${memberid}/goal`, data);
+      const res = await axios.post(`${url}/${memberid}/goal`, postdata);
 
       setGoal('');
       setExtended('');
@@ -271,7 +272,79 @@ const AssetTargetPage = () => {
       console.log('up', err);
     }
   };
+  const GoalData = [
+    {
+      name: '목표',
+      목표율: 100,
+      달성률: 50,
+      amt: 2400,
+    },
+  ];
 
+  console.log(countList);
+
+  for (let i = 0; i < countList.length; i++) {
+    let countListData = {
+      name: countList[i].goalName,
+      목표율: 100,
+      달성률:
+        (countList[i].goalPrice /
+          countList[i].targetLength /
+          countList[i].goalPrice) *
+        countList[i].completed *
+        100,
+      amt: 2400,
+    };
+    GoalData.push(countListData);
+  }
+
+  // for (let i = 0; i < countList.length; i++) {
+  //   GoalData.push(countList[i].goalName);
+  // }
+
+  // for (let i = 0; i < countList.length; i++) {
+  //   GoalData.push(
+  //     (countList[i].goalPrice / countList[i].targetLength) *
+  //       countList[i].completed *
+  //       100
+  //   );
+  // }
+
+  // countList.forEach(e){
+  //   if(countList[0].goalName){
+  //     GoalData.push(e)
+  //   }
+  // }
+  // {
+  //   GoalData
+  //     ? GoalData.forEach((el) =>
+  //         el.memberPosted.id === memberid ? GoalData.push(el.name) : null
+  //       )
+  //     : null;
+  // }
+
+  // {
+  //   GoalData ? GoalData.forEach((el) => GoalData.push(el.달성률)) : null;
+  // }
+  // countList.map(goal);
+  // const graphData = [
+  //   {
+  //     name: countList[0].goalName,
+  //     목표율: 100,
+  //     현재:
+  //       (countList[0].calculatedPrice / countList[0].goalPrice) *
+  //       100 *
+  //       countList[0].completed,
+  //     amt: 2400,
+  //   },
+  // ];
+  // console.log(countList);
+  // console.log(countList[0].goalName);
+  // console.log(
+  //   (countList[0].calculatedPrice / countList[0].goalPrice) *
+  //     100 *
+  //     countList[0].completed
+  // );
   // useEffect(() => {
   //   goalGet();
   //   goalPost();
@@ -288,7 +361,16 @@ const AssetTargetPage = () => {
           <ChartContain className="ScrollActive">
             <GraphH1>목표 현황</GraphH1>
             <ChartBox>
-              <AssetBdata graphData={graphData} />
+              <AssetBdata GoalData={GoalData}></AssetBdata>
+              {/* {countList.map((count, id) => (
+                <AssetBdata
+                  count={count}
+                  key={id}
+                  goalName={goalName}
+                  goalPrice={goalPrice}
+                  GoalData={GoalData}
+                />
+              ))} */}
             </ChartBox>
           </ChartContain>
           {/* <LongListContain> */}

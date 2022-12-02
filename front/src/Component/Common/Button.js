@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const ButtonAA = styled.button`
   width: 90px;
@@ -219,13 +220,26 @@ export const SaveBtn = ({ openSavingModal }) => {
 };
 
 export const PlusBtn = ({ savings, goalPost }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
+
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+      goalPost();
+    }, 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 5);
+  };
   return (
     <ButtonCC
       type="number"
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={goalPost}
+      onClick={(() => goalPost, checkHandler)}
     >
       START
     </ButtonCC>

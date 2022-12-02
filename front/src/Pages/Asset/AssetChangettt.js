@@ -11,7 +11,7 @@ import {
   Modal,
   AutoModal,
   AssetTextEditModal,
-  AssetDeleteEditModal,
+  // AssetDeleteEditModal,
   AssetDeleteEditModal1,
   AssetDeleteEditModal2,
   AssetDeleteEditModal3,

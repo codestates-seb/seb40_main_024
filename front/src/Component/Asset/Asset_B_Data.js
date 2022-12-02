@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export const AssetBdata = ({ graphData }) => {
+export const AssetBdata = ({ GoalData }) => {
   // let monthly = Math.floor(extended / period);
   // if (isNaN(monthly)) {
   //   monthly = 0;
@@ -22,13 +22,58 @@ export const AssetBdata = ({ graphData }) => {
   // if (isNaN(percentage)) {
   //   percentage = 0;
   // }
-  console.log(graphData);
+
+  // const GoalData = [
+  //   {
+  //     name: countList.goalName,
+  //     목표율: 100,
+  //     달성률:
+  //       (countList.calculatedPrice / countList.goalPrice) *
+  //       100 *
+  //       countList.completed,
+  //     amt: 2400,
+  //   },
+  // ];
+
+  // const GoalData = [
+  //   {
+  //     name: count.goalName,
+  //     목표율: 100,
+  //     현재: (count.calculatedPrice / count.goalPrice) * 100 * count.completed,
+  //     amt: 2400,
+  //   },
+  // ];
+  // console.log(countList);
+  // console.log(countList[0].goalName);
+  // console.log(
+  //   (countList[0].calculatedPrice / countList[0].goalPrice) *
+  //     100 *
+  //     countList[0].completed
+  // );
+
+  // console.log(count.goalName);
+  // console.log(
+  //   (count.calculatedPrice / count.goalPrice) * 100 * count.completed
+  // );
+  // console.log(count.calculatedPrice);
+  // console.log(count.goalPrice);
+  // console.log(count.completed);
+  //   {
+  //     name: countList[0].goalName,
+  //     목표율: 100,
+  //     현재:
+  //       (countList[0].calculatedPrice / countList[0].goalPrice) *
+  //       100 *
+  //       countList[0].completed,
+  //     amt: 2400,
+  //   },
+  console.log(GoalData);
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
         width={1000}
         height={300}
-        data={graphData}
+        data={GoalData}
         margin={{
           top: 10,
           right: 100,
@@ -41,7 +86,7 @@ export const AssetBdata = ({ graphData }) => {
         <YAxis stroke="#9ec3b0" />
         <Tooltip />
         <Legend />
-        <Bar dataKey="현재" fill="#def5e5" />
+        <Bar dataKey="달성률" fill="#bcead5" />
         <Bar dataKey="목표율" fill="#9ec3b0" />
       </BarChart>
     </ResponsiveContainer>
