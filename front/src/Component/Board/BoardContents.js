@@ -259,9 +259,11 @@ const Contents = () => {
       <TotalContent>
         <BtnContain>
           {memberid === Decode.id ? (
-            <ModifyContentBtn ModifyButton={ModifyButton} />
+            <>
+              <ModifyContentBtn ModifyButton={ModifyButton} />
+              <DeleteContentBtn DeleteButton={DeleteButton} />
+            </>
           ) : null}
-          <DeleteContentBtn DeleteButton={DeleteButton} />
         </BtnContain>
         <ContentContain>
           <ImageBox>
