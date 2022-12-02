@@ -91,7 +91,7 @@ function FreeCommunity() {
         },
       });
       console.log(res);
-      navigate('/freeboard');
+      navigate('/board');
     } catch (e) {
       console.log(e);
     }

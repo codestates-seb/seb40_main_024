@@ -4,6 +4,10 @@ import {
 } from '../../Component/Common/NavebarRev';
 import styled from 'styled-components';
 import { FreeBoardList } from '../../Component/Board/BoardFreeList';
+import { useContext, useState } from 'react';
+import AuthContext from '../../store/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import { Modal } from '../../Component/Common/Modal';
 import { NavContentsButton } from '../../Component/Common/Button';
 
 const PageContainer = styled.div`
@@ -44,6 +48,28 @@ const HeaderBox = styled.div`
 `;
 
 export const BoardPage = () => {
+  const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const isLogin = authCtx.isLoggedIn;
+
+  const [Modalopen, setModalopen] = useState(false);
+
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+  };
+
+  const ContentsButton = () => {
+    if (isLogin) {
+      navigate('/boardpost');
+    } else {
+      openModal();
+    }
+  };
+
   return (
     <>
       <LongNavbarBox />
@@ -53,7 +79,12 @@ export const BoardPage = () => {
           <PostListSpace>
             <TitleBox>커뮤니티</TitleBox>
             <HeaderBox>
-              <NavContentsButton />
+              <NavContentsButton
+                ContentsButton={ContentsButton}
+              ></NavContentsButton>
+              <Modal open={Modalopen} close={closeModal} header="오류 알림">
+                게시물 작성은 로그인이 필요합니다!
+              </Modal>
             </HeaderBox>
             <FreeBoardList />
           </PostListSpace>

@@ -85,7 +85,11 @@ function ModifyBoard() {
 
   const Patch = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}`, data);
+      const res = await axios.patch(`${URL}/board/${id}`, data, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       console.log(res);
       navigate(`/boardcontentpage/${id}`);
     } catch (e) {

@@ -96,16 +96,10 @@ export const NavAssetContentsButton = () => {
   );
 };
 
-export const NavContentsButton = () => {
-  const navigate = useNavigate();
+export const NavContentsButton = ({ ContentsButton }) => {
   return (
     <>
-      <ButtonBB
-        onClick={() => navigate('/boardpost')}
-        style={{ marginLeft: '100px' }}
-      >
-        <p style={{ width: '120px' }}>게시글 작성</p>
-      </ButtonBB>
+      <ButtonBB onClick={ContentsButton}>게시글 작성</ButtonBB>
     </>
   );
 };
@@ -326,23 +320,11 @@ export const AddContentBtn = () => {
 };
 
 // 게시글 상세 페이지 수정, 삭제 버튼
-export const ModifyContentBtn = ({ boardId }) => {
-  const navigate = useNavigate();
-  return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={() => navigate(`/modifyboard/${boardId}`)}
-    >
-      수정
-    </ButtonAA>
-  );
+export const ModifyContentBtn = ({ ModifyButton }) => {
+  return <ButtonAA onClick={ModifyButton}>수정</ButtonAA>;
 };
-export const DeleteContentBtn = ({ Delete }) => {
-  return (
-    <ButtonAA style={{ marginBottom: '10px' }} onClick={Delete}>
-      삭제
-    </ButtonAA>
-  );
+export const DeleteContentBtn = ({ DeleteButton }) => {
+  return <ButtonAA onClick={DeleteButton}>삭제</ButtonAA>;
 };
 // 자산 수정 버튼
 export const AssetButton = () => {
