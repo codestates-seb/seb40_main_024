@@ -222,7 +222,6 @@ const AssetTargetPage = () => {
       goalName: goalName,
       goalPrice: goalPrice,
       targetLength: targetLength,
-      // calculatedPrice: calculatedPrice,
     };
     try {
       const res = await axios.patch(
