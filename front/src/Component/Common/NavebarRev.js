@@ -4,6 +4,7 @@ import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import mark from './Img/mark.png';
 import AuthContext from '../../store/AuthContext';
+import { Modal } from '../Common/Modal';
 
 const LongContainer = styled.header`
   display: flex;
@@ -164,6 +165,7 @@ export const LongNavbarBox = () => {
   const authCtx = useContext(AuthContext);
   const isLoggedIn = authCtx.isLoggedIn;
   const [Assetclicked, setAssetclicked] = useState(true);
+  const [Modalopen, setModalopen] = useState(false);
 
   const handleClickAsset = () => {
     setAssetclicked(!Assetclicked);
@@ -172,6 +174,15 @@ export const LongNavbarBox = () => {
   const logoutHandler = () => {
     authCtx.logout();
     navigate('/');
+  };
+
+  const errModalopen = () => {
+    setModalopen(true);
+  };
+
+  const errModalclose = () => {
+    setModalopen(false);
+    navigate('/login');
   };
 
   return (
@@ -192,17 +203,16 @@ export const LongNavbarBox = () => {
                   <Menu onClick={handleClickAsset}>
                     자산&목표
                     <MenuTopList>
-                      <MenuList onClick={() => navigate('/assetchange')}>
-                        자산현황
-                      </MenuList>
-                      <MenuList onClick={() => navigate('/assettarget')}>
-                        목표현황
-                      </MenuList>
+                      <MenuList onClick={errModalopen}>자산현황</MenuList>
+                      <MenuList onClick={errModalopen}>목표현황</MenuList>
                     </MenuTopList>
                   </Menu>
                 </>
               )}
               <Menu onClick={() => navigate('/board')}>커뮤니티</Menu>
+              <Modal open={Modalopen} close={errModalclose} header="오류 알림">
+                자산조회 및 목표현황은 로그인이 필요합니다.
+              </Modal>
             </RowDropMenuBox>
           </LongContainer>
         )}
@@ -248,6 +258,7 @@ export const MiniNavbarBox = () => {
   const [Infoclicked, setInfoclicked] = useState(true);
   const [Markclicked, setMarkclicked] = useState(true);
   const [Assetclicked, setAssetclicked] = useState(true);
+  const [Modalopen, setModalopen] = useState(false);
   // const [Communityclicked, setCommunityclicked] = useState(true);
   // eslint-disable-next-line prettier/prettier
   const handleClickMark = () => {
@@ -267,6 +278,15 @@ export const MiniNavbarBox = () => {
   const logoutHandler = () => {
     authCtx.logout();
     navigate('/');
+  };
+
+  const errModalopen = () => {
+    setModalopen(true);
+  };
+
+  const errModalclose = () => {
+    setModalopen(false);
+    navigate('/login');
   };
 
   return (
@@ -292,14 +312,8 @@ export const MiniNavbarBox = () => {
                       <MiniMenu onClick={handleClickAsset}>
                         자산&목표
                         <MiniMenuTopList>
-                          <MenuList onClick={() => navigate('/assetchange')}>
-                            자산현황
-                          </MenuList>
-                          <MenuList
-                            onClick={() => navigate('/assettargetpage')}
-                          >
-                            목표현황
-                          </MenuList>
+                          <MenuList onClick={errModalopen}>자산현황</MenuList>
+                          <MenuList onClick={errModalopen}>목표현황</MenuList>
                         </MiniMenuTopList>
                       </MiniMenu>
                     </>
@@ -314,6 +328,13 @@ export const MiniNavbarBox = () => {
                   >
                     커뮤니티
                   </MiniMenu>
+                  <Modal
+                    open={Modalopen}
+                    close={errModalclose}
+                    header="오류 알림"
+                  >
+                    자산조회 및 목표현황은 로그인이 필요합니다.
+                  </Modal>
                 </HamburgerDropMenuBox>
               </>
             )}
