@@ -82,8 +82,8 @@ export const AssetBdata = ({ GoalData }) => {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" stroke="#fff" />
-        <XAxis dataKey="name" stroke="#9ec3b0" />
-        <YAxis stroke="#9ec3b0" />
+        <XAxis dataKey="name" stroke="#8ec3b0" />
+        <YAxis stroke="#8ec3b0" />
         <Tooltip />
         <Legend />
         <Bar dataKey="달성률" fill="#bcead5" />

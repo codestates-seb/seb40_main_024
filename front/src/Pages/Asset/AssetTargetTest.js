@@ -57,14 +57,15 @@ const ChartContain = styled.div`
   width: 750px;
   height: 400px;
   position: fixed !important;
-  margin-top: 100px;
+  margin-top: 150px;
   margin-left: -800px;
+  gap: 50px;
 `;
 const ChartBox = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 750px;
-  height: 350px;
+  height: 450px;
 `;
 
 const BoxContain = styled.div`
@@ -94,7 +95,13 @@ const GraphH1 = styled.h1`
 
 const AssetTargetPage = () => {
   const authCtx = useContext(AuthContext);
-  const memberid = authCtx.parseJwt.id;
+  // const memberid = authCtx.parseJwt.id;
+  // const token = authCtx.token;
+  console.log(authCtx.token);
+  // {
+  //   headers: { Authorization: `${token}` },
+  // }
+
   // const tokenAxios = () => {
   //   const loginData = {
   //     email: 'hoju5@gmail.com',
@@ -182,7 +189,11 @@ const AssetTargetPage = () => {
   useEffect(() => {
     const goalGet = async () => {
       try {
-        const res = await axios.get(`${url}/${memberid}/goal`);
+        const res = await axios.get(`${url}/goal`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
         setCountList(res.data._embedded.responseList);
         setUp(res.data._embedded.responseList.completed);
         setUp(res.data._embedded.responseList.incompleted);
@@ -202,7 +213,11 @@ const AssetTargetPage = () => {
       calculatedPrice: targetAmount,
     };
     try {
-      const res = await axios.post(`${url}/${memberid}/goal`, postdata);
+      const res = await axios.post(`${url}/goal`, postdata, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
 
       setGoal('');
       setExtended('');
@@ -218,9 +233,11 @@ const AssetTargetPage = () => {
   };
   const goalDelete = async (e) => {
     try {
-      const res = await axios.delete(
-        `${url}/${memberid}/goal/${e.target.dataset.id}`
-      );
+      const res = await axios.delete(`${url}/goal/${e.target.dataset.id}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       setRender((el) => el + 1);
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
@@ -238,8 +255,13 @@ const AssetTargetPage = () => {
     };
     try {
       const res = await axios.patch(
-        `${url}/${memberid}/goal/${e.target.dataset.id}`,
-        patchdata
+        `${url}/goal/${e.target.dataset.id}`,
+        patchdata,
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
       );
       setRender((el) => el + 1);
 
@@ -253,7 +275,12 @@ const AssetTargetPage = () => {
   const goalUpPatch = async (e) => {
     try {
       const res = await axios.patch(
-        `${url}/${memberid}/goal/${e.target.dataset.id}/complete`
+        `${url}/goal/${e.target.dataset.id}/complete`,
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
       );
       setUp(res.data.completed);
       console.log(res.data.completed);
@@ -265,7 +292,12 @@ const AssetTargetPage = () => {
   const goalDownPatch = async (e) => {
     try {
       const res = await axios.patch(
-        `${url}/${memberid}/goal/${e.target.dataset.id}/incomplete`
+        `${url}/goal/${e.target.dataset.id}/incomplete`,
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
       );
       setUp(res.data.completed);
     } catch (err) {
@@ -287,12 +319,13 @@ const AssetTargetPage = () => {
     let countListData = {
       name: countList[i].goalName,
       목표율: 100,
-      달성률:
+      달성률: Math.ceil(
         (countList[i].goalPrice /
           countList[i].targetLength /
           countList[i].goalPrice) *
-        countList[i].completed *
-        100,
+          countList[i].completed *
+          100
+      ),
       amt: 2400,
     };
     GoalData.push(countListData);

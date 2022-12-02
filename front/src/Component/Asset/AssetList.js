@@ -195,11 +195,11 @@ const AssetList = ({
   //   setTargetAmount,
   goalPatch,
   goalNameonChange,
-  goalName,
+  //   goalName,
   goalPriceonChange,
-  goalPrice,
+  //   goalPrice,
   targetLengthonChange,
-  targetLength,
+  //   targetLength,
   goalUpPatch,
   up,
   goalDownPatch,
@@ -309,25 +309,18 @@ const AssetList = ({
               <li>
                 {' '}
                 남은 금액:{' '}
-                {Number(Math.ceil(count.goalPrice)) <
-                (Number(count.targetLength) - up) *
-                  Number(count.calculatedPrice)
-                  ? Number(Math.ceil(count.goalPrice))
-                      .toString()
-                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                  : // : up === 0
-                  // ? '목표달성'
-                  isNaN(
-                      Number(Math.ceil(count.goalPrice))
-                        .toString()
-                        .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                    )
-                  ? (Number(count.targetLength) - up) *
+                {
+                  Number(Math.ceil(count.goalPrice)) <
+                  (Number(count.targetLength) - up) *
                     Number(count.calculatedPrice)
-                  : (Number(count.targetLength) - up) *
-                    Number(count.calculatedPrice)
-                      .toString()
-                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                    ? Number(Math.ceil(count.goalPrice))
+                    : (Number(count.targetLength) - up) *
+                      Number(count.calculatedPrice)
+                  //   : (Number(count.targetLength) - up) *
+                  //     Number(count.calculatedPrice)
+                  //       .toString()
+                  //       .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+                }{' '}
                 {/* {isNaN(
                   (Number(count.targetLength) - up) *
                     Math.ceil(Number(count.calculatedPrice))
@@ -368,19 +361,19 @@ const AssetList = ({
                   <div>
                     <UserInfoHead>목표자산 수정</UserInfoHead>
                     <Input
-                      value={goalName}
+                      //   value={goalName}
                       onChange={goalNameonChange}
                       placeholder="나의 목표"
                     ></Input>
                     <Input
                       type="number"
-                      value={goalPrice}
+                      //   value={goalPrice}
                       onChange={goalPriceonChange}
                       placeholder="금액"
                     />
                     <Input
                       type="number"
-                      value={targetLength}
+                      //   value={targetLength}
                       onChange={targetLengthonChange}
                       placeholder="기간"
                     />
@@ -422,10 +415,8 @@ const AssetList = ({
                         (Number(count.targetLength) - up) *
                           Number(count.calculatedPrice)
                           ? Number(Math.ceil(count.goalPrice))
-                              .toString()
-                              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
-                          : // : up === 0
-                          // ? '목표달성'
+                          : //   .toString()
+                          //   .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
                           isNaN(
                               Number(Math.ceil(count.goalPrice))
                                 .toString()
