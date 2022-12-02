@@ -152,10 +152,10 @@ const Contents = () => {
   const URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  const isLogin = authCtx.isLoggedIn;
   const [Decode] = useState(authCtx.parseJwt);
 
   const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, setErrModalopen] = useState(false);
 
   const { id } = useParams();
   const [title, setTitle] = useState();
@@ -176,7 +176,15 @@ const Contents = () => {
 
   const closeModal = () => {
     setModalopen(false);
-    navigate('/login');
+    navigate('/board');
+  };
+
+  const UnerrcloseModal = () => {
+    setErrModalopen(false);
+  };
+
+  const UnerrModalopen = () => {
+    setErrModalopen(true);
   };
 
   const Delete = async () => {
@@ -186,9 +194,9 @@ const Contents = () => {
           Authorization: localStorage.getItem('token'),
         },
       });
-      navigate('/board');
+      openModal();
     } catch (e) {
-      console.log(e);
+      UnerrModalopen();
     }
   };
 
@@ -219,19 +227,11 @@ const Contents = () => {
   };
 
   const ModifyButton = () => {
-    if (isLogin) {
-      navigate(`/modifyboard/${boardId}`);
-    } else {
-      openModal();
-    }
+    navigate(`/modifyboard/${boardId}`);
   };
 
   const DeleteButton = () => {
-    if (isLogin) {
-      Delete();
-    } else {
-      openModal();
-    }
+    Delete();
   };
 
   useEffect(() => {
@@ -287,8 +287,11 @@ const Contents = () => {
             <TextBox>{body}</TextBox>
           </ContentBox>
         </ContentContain>
-        <Modal open={Modalopen} close={closeModal} header="오류 알림">
-          로그인이 필요한 항목입니다.
+        <Modal open={Modalopen} close={closeModal} header="게시물 삭제 알림">
+          게시물이 삭제 되었습니다.
+        </Modal>
+        <Modal open={errModalopen} close={UnerrcloseModal} header="오류 알림">
+          게시물이 삭제가 정상적으로 처리되지 않았습니다.
         </Modal>
       </TotalContent>
     </>

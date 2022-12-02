@@ -287,8 +287,15 @@ export const ProfileBtn = () => {
 export const ReviseBtn = ({ UserPatch }) => {
   return <ButtonAA onClick={UserPatch}>변경</ButtonAA>;
 };
-export const SignOutBtn = ({ UserDelete }) => {
-  return <ButtonCC onClick={UserDelete}>회원 탈퇴</ButtonCC>;
+export const SignOutMessgeBtn = ({ UserDelete }) => {
+  return (
+    <ButtonAA style={{ backgroundColor: '#9ed5cd' }} onClick={UserDelete}>
+      탈퇴하기
+    </ButtonAA>
+  );
+};
+export const SignOutBtn = ({ openSignOut }) => {
+  return <ButtonCC onClick={openSignOut}>회원 탈퇴</ButtonCC>;
 };
 export const AddCommentBtn = ({ commentPost }) => {
   return (

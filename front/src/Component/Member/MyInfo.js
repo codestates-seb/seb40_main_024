@@ -5,6 +5,7 @@ import {
   SignOutBtn,
   UnSubscript,
   NameUpdateBtn,
+  SignOutMessgeBtn,
 } from '../../Component/Common/Button';
 import AuthContext from '../../store/AuthContext';
 import { useContext, useEffect, useState } from 'react';
@@ -138,6 +139,15 @@ const DivBtn = styled.div`
   margin-top: 20px;
 `;
 
+const SignOutMessge = styled.div`
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-left: auto;
+    margin-right: 30px;
+  }
+`;
+
 const MyInfo = () => {
   const URL = process.env.REACT_APP_API_URL;
   const authCtx = useContext(AuthContext);
@@ -238,6 +248,7 @@ const MyInfo = () => {
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const UserDelete = async () => {
     try {
       await axios.delete(`${URL}/member/delete`, {
@@ -289,7 +300,7 @@ const MyInfo = () => {
                 <NameUpdateBtn openModify={openModify}>수정하기</NameUpdateBtn>
               </MainBtn>
               <MainBtn>
-                <SignOutBtn UserDelete={UserDelete} />
+                <SignOutBtn openSignOut={openSignOut} />
               </MainBtn>
             </DivBox>
           </UserInfo>
@@ -348,7 +359,14 @@ const MyInfo = () => {
             기능 구현중입니다.
           </Modal>
           <Modal open={SignOut} close={closeSignOut} header="회원탈퇴 알림">
-            회원탈퇴가 완료되었습니다.
+            <SignOutMessge>
+              <span>
+                회원탈퇴시 사용중인 자산정보도 전부 삭제됩니다.
+                <br />
+                진행하시겠습니까?
+              </span>
+              <SignOutMessgeBtn UserDelete={UserDelete} />
+            </SignOutMessge>
           </Modal>
           <Modal
             open={errSignOut}

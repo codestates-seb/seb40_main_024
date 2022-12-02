@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { AddCommentBtn } from '../Common/Button';
 import { useParams } from 'react-router-dom';
+import { Modal } from '../Common/Modal';
 
 const TotalComment = styled.div`
   display: flex;
@@ -28,6 +29,15 @@ function Post() {
   const { id } = useParams();
   const URL = process.env.REACT_APP_API_URL;
   const [inputPostValue, setInputPostValue] = useState('');
+  const [errModalopen, setErrModalopen] = useState(false);
+
+  const Modalopen = () => {
+    setErrModalopen(true);
+  };
+
+  const errcloseModal = () => {
+    setErrModalopen(false);
+  };
 
   const commentPostValue = (e) => {
     setInputPostValue(e.target.value);
@@ -45,8 +55,8 @@ function Post() {
         },
       });
       window.location.reload();
-    } catch (err) {
-      console.log('deleteerror', err);
+    } catch (e) {
+      Modalopen();
     }
   };
 
@@ -58,6 +68,9 @@ function Post() {
         onChange={commentPostValue}
       ></CommentInput>
       <AddCommentBtn commentPost={commentPost} />
+      <Modal open={errModalopen} close={errcloseModal} header="오류 알림">
+        작성할 문구를 입력해주세요.
+      </Modal>
     </TotalComment>
   );
 }
