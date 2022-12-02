@@ -18,6 +18,7 @@ const TotalContent = styled.div`
   border: 3px solid #9ed5c5;
   border-radius: 10px;
 `;
+
 const BtnContain = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,6 +26,7 @@ const BtnContain = styled.div`
   width: auto;
   margin-bottom: 10px;
 `;
+
 const ContentContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -36,11 +38,13 @@ const ContentContain = styled.div`
   border-bottom: 3px solid #def5e5;
   line-height: normal;
 `;
+
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
 `;
+
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,6 +55,7 @@ const ContentBox = styled.div`
   padding: 10px;
   /* border: 1px solid black; */
 `;
+
 const IdEtcBox = styled.div`
   display: flex;
   align-items: center;
@@ -60,6 +65,7 @@ const IdEtcBox = styled.div`
     padding-bottom: 5px;
   }
 `;
+
 const Tag = styled.div`
   display: flex;
   align-items: center;
@@ -81,10 +87,12 @@ const Id = styled.div`
   align-content: center;
   justify-content: center;
 `;
+
 const EtcBox = styled.div`
   display: flex;
   margin-left: auto;
 `;
+
 const Date = styled.div`
   display: flex;
   width: auto;
@@ -93,6 +101,7 @@ const Date = styled.div`
   align-content: center;
   justify-content: center;
 `;
+
 const View = styled.div`
   display: flex;
   width: auto;
@@ -102,6 +111,7 @@ const View = styled.div`
   justify-content: center;
   margin: 0 10px 0 10px;
 `;
+
 const LikeBox = styled.div`
   display: flex;
   width: auto;
@@ -114,6 +124,7 @@ const LikeBox = styled.div`
   -webkit-text-stroke: 1.5px black;
   cursor: pointer;
 `;
+
 const UnLikeBox = styled.div`
   display: flex;
   width: auto;
@@ -126,6 +137,7 @@ const UnLikeBox = styled.div`
   -webkit-text-stroke: 1.5px black;
   cursor: pointer;
 `;
+
 const TitleBox = styled.div`
   display: flex;
   height: auto;
@@ -137,6 +149,7 @@ const TitleBox = styled.div`
   font-size: 23px;
   font-weight: 600;
 `;
+
 const TextBox = styled.div`
   display: flex;
   height: auto;

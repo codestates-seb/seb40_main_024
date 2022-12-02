@@ -252,6 +252,7 @@ const MyInfo = () => {
         },
       });
       openModal();
+      UserGet();
     } catch (e) {
       openErrModify();
       console.log(e);
@@ -274,18 +275,19 @@ const MyInfo = () => {
     }
   };
 
+  const UserGet = async () => {
+    try {
+      const res = await axios.get(`${URL}/member/${Decode.id}`);
+      setDUsername(res.data.name);
+      setUseremail(res.data.email);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    const Get = async () => {
-      try {
-        const res = await axios.get(`${URL}/member/${Decode.id}`);
-        setDUsername(res.data.name);
-        setUseremail(res.data.email);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    Get();
-  }, [UserPatch]);
+    UserGet();
+  }, []);
 
   return (
     <MyPageContain>
@@ -320,13 +322,13 @@ const MyInfo = () => {
                 <UserInfo>
                   <div>
                     <UserInfoHead>회원정보 변경</UserInfoHead>
-                    <Input onChange={UserNameonChange} placeholder="이름" />
                     <Input
                       value={useremail}
                       onChange={UserEmailonChange}
                       placeholder="이메일"
                       disabled
                     />
+                    <Input onChange={UserNameonChange} placeholder="이름" />
                     <Input
                       type="password"
                       onChange={UserPasswordonChange}
@@ -353,6 +355,8 @@ const MyInfo = () => {
                 close={closeModal}
                 header="회원정보 오류알림"
               >
+                이름과 비밀번호 8자이상 영문포함을 확인해 주세요.
+                <br />
                 회원정보가 정상적으로 수정되지 않았습니다.
               </Modal>
             </Div>
