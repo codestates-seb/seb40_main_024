@@ -38,6 +38,8 @@ public enum ExceptionCode {
     // 자산
     ASSET_NOT_FOUND(404, "존재하지 않는 자산입니다."),
     ASSET_DELETED(405, "삭제된 자산입니다."),
+    ASSET_POSTER_NOT_FOUND(400, "자산 작성을 위해 로그인하세요."),
+    ASSET_POSTER_NOT_MATCHED(400, "자산 작성자로 로그인하세요."),
 
     // 목표 자산
     GOAL_NOT_FOUND(404, "존재하지 않는 목표 자산입니다."),

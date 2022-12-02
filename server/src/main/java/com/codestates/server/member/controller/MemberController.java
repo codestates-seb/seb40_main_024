@@ -95,7 +95,7 @@ public class MemberController {
 //     회원 로그아웃 구현 -> 보안인증[O] Optional
     @PostMapping("/logout")
     public ResponseEntity<?> logoutMember(@AuthenticationPrincipal String email, HttpServletRequest request){
-        MemberService.logout(request, email);
+//        MemberService.logout(request, email);
         return ResponseEntity.ok(HttpStatus.ACCEPTED);
     }
 }
