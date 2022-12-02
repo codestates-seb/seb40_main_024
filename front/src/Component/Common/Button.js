@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const ButtonAA = styled.button`
   z-index: 0;
@@ -97,16 +98,10 @@ export const NavAssetContentsButton = () => {
   );
 };
 
-export const NavFreeContentsButton = () => {
-  const navigate = useNavigate();
+export const NavContentsButton = ({ ContentsButton }) => {
   return (
     <>
-      <ButtonBB
-        onClick={() => navigate('/freeboardpost')}
-        style={{ marginLeft: '100px' }}
-      >
-        <p style={{ width: '120px' }}>게시글 작성</p>
-      </ButtonBB>
+      <ButtonBB onClick={ContentsButton}>게시글 작성</ButtonBB>
     </>
   );
 };
@@ -220,13 +215,26 @@ export const SaveBtn = ({ openSavingModal }) => {
 };
 
 export const PlusBtn = ({ savings, goalPost }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
+
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+      goalPost();
+    }, 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 5);
+  };
   return (
     <ButtonCC
       type="number"
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={goalPost}
+      onClick={(() => goalPost, checkHandler)}
     >
       START
     </ButtonCC>
@@ -327,23 +335,11 @@ export const AddContentBtn = () => {
 };
 
 // 게시글 상세 페이지 수정, 삭제 버튼
-export const ModifyContentBtn = ({ boardId }) => {
-  const navigate = useNavigate();
-  return (
-    <ButtonAA
-      style={{ marginBottom: '10px' }}
-      onClick={() => navigate(`/modifyboard/${boardId}`)}
-    >
-      수정
-    </ButtonAA>
-  );
+export const ModifyContentBtn = ({ ModifyButton }) => {
+  return <ButtonAA onClick={ModifyButton}>수정</ButtonAA>;
 };
-export const DeleteContentBtn = ({ Delete }) => {
-  return (
-    <ButtonAA style={{ marginBottom: '10px' }} onClick={Delete}>
-      삭제
-    </ButtonAA>
-  );
+export const DeleteContentBtn = ({ DeleteButton }) => {
+  return <ButtonAA onClick={DeleteButton}>삭제</ButtonAA>;
 };
 // 자산 수정 버튼
 export const AssetButton = () => {
@@ -372,11 +368,11 @@ export const AssetchangeBtn = () => {
   return <ButtonAA onClick={() => navigate('/asset')}>자산 확인하기</ButtonAA>;
 };
 
-export const FreeBoardPostBtn = ({ Post }) => {
+export const BoardPostBtn = ({ Post }) => {
   return <ButtonCC onClick={Post}>작성하기</ButtonCC>;
 };
 
-export const FreeBoardPatchBtn = ({ Patch }) => {
+export const BoardPatchBtn = ({ Patch }) => {
   return <ButtonCC onClick={Patch}>수정하기</ButtonCC>;
 };
 

@@ -15,7 +15,7 @@ const Div = styled.div`
     bottom: 0;
     left: 0;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: '999999';
+    z-index: 99999;
   }
   .modal button {
     outline: none;
@@ -101,7 +101,9 @@ export const Modal = (props) => {
           <section>
             <header>
               {header}
-              <button className="close">&times;</button>
+              <button className="close" onClick={close}>
+                &times;
+              </button>
             </header>
             <main>{props.children}</main>
             <footer>
@@ -919,7 +921,21 @@ export const GoalModifyModal = (props) => {
 };
 
 export const SavingModal = (props) => {
-  const { open, close, header } = props;
+  const { open, close, header, goalUpPatch, goalDownPatch } = props;
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
+
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      setCheck(false);
+      goalUpPatch();
+      goalDownPatch();
+    }, 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 5);
+  };
 
   return (
     <Div>
@@ -936,7 +952,7 @@ export const SavingModal = (props) => {
             <footer>
               <button
                 className="close"
-                onClick={close}
+                onClick={(() => close, checkHandler)}
                 style={{ marginLeft: '20px' }}
               >
                 저장

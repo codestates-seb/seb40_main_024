@@ -10,6 +10,8 @@ import com.codestates.server.comment.entity.Comment;
 import com.codestates.server.comment.repository.CommentRepository;
 import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
+import com.codestates.server.member.entity.Member;
+import com.codestates.server.member.repository.MemberRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,18 +33,12 @@ public class BoardService {
     private final BoardMapper mapper;
     private final BoardAssembler assembler;
     private final CommentRepository commentRepository;
+    private final MemberRepository memberRepository;
 
     public BoardDto.Response findOne(long id) {
         Board verifiedBoard = findVerifiedBoard(id);
-
-        // deleted check
-
         repository.updateView(id);
         return mapper.boardToBoardResponseDto(verifiedBoard);
-    }
-
-    public List<Board> findAll() {
-        return new ArrayList<>(repository.findAll());
     }
 
     public Page<Board> findAllByPage(int page, int size) {
@@ -56,24 +51,27 @@ public class BoardService {
     }
 
     @Transactional
-    public BoardDto.Response createOne(BoardDto.Post postBoard) {
+    public BoardDto.Response createOne(BoardDto.Post postBoard, String email) {
+
+        if (email.equals("anonymousUser")) throw new CustomException(ExceptionCode.BOARD_POSTER_NOT_FOUND);
 
         Board board = mapper.boardPostToBoard(postBoard);
         board.setCategory(verifyCategory(postBoard));
+
+        Optional<Member> member = memberRepository.findByEmail(email);
+        board.setMember(member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
 
         return mapper.boardToBoardResponseDto(repository.save(board));
     }
 
     @Transactional
-    public BoardDto.Response updateOne(BoardDto.Patch patchBoard) {
+    public BoardDto.Response updateOne(BoardDto.Patch patchBoard, String email) {
 
         Board board = mapper.boardPatchToBoard(patchBoard);
-        Board verifiedBoard = findVerifiedBoard(board.getBoardId());
+        Board verifiedBoard = verifyLoggedInMemberForBoard(board.getBoardId(), email);
 
         // verify category if not null
-        if (patchBoard.getCategory() != null) {
-            board.setCategory(verifyCategory(patchBoard));
-        }
+        if (patchBoard.getCategory() != null) board.setCategory(verifyCategory(patchBoard));
 
         // title and body
         verifiedBoard.setTitle(board.getTitle());
@@ -104,8 +102,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void deleteOne(Long id) {
-        Board verifiedBoard = findVerifiedBoard(id);
+    public void deleteOne(Long id, String email) {
+
+        Board verifiedBoard = verifyLoggedInMemberForBoard(id, email);
 
         // only board's status is changed
         verifiedBoard.setBoardStatus(Board.BoardStatus.BOARD_DELETED);
@@ -153,6 +152,16 @@ public class BoardService {
 
         if (newCategory == null) throw new CustomException(ExceptionCode.BOARD_CATEGORY_NOT_FOUND);
         return newCategory;
+    }
+
+    public Board verifyLoggedInMemberForBoard(long id, String email) {
+        Board verifiedBoard = findVerifiedBoard(id);
+        if (email.equals("anonymousUser")) {
+            throw new CustomException(ExceptionCode.BOARD_POSTER_NOT_FOUND);
+        } else if (! email.equals(verifiedBoard.getMember().getEmail())) {
+            throw new CustomException(ExceptionCode.BOARD_POSTER_NOT_MATCHED);
+        }
+        return verifiedBoard;
     }
 
 }

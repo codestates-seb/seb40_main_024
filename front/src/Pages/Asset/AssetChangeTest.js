@@ -10,6 +10,7 @@ import { useState, useEffect, useContext } from 'react';
 import {
   Modal,
   AutoModal,
+<<<<<<< HEAD
   AssetTextEditModal1,
   AssetTextEditModal2,
   AssetTextEditModal3,
@@ -22,6 +23,10 @@ import {
   AssetDeleteEditModal4,
   AssetDeleteEditModal5,
   AssetDeleteEditModal6,
+=======
+  AssetTextEditModal,
+  // AssetDeleteEditModal,
+>>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
 } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
@@ -1162,8 +1167,13 @@ export const AssetChange = () => {
               </ChartContain>
 
               <MainContain>
+<<<<<<< HEAD
                 <AssetDeleteEditModal1
                   open={DelModalopen1}
+=======
+                {/* <AssetDeleteEditModal
+                  open={DelModalopen}
+>>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi1}
@@ -1173,7 +1183,11 @@ export const AssetChange = () => {
                   <Div>
                     <p>1 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
+<<<<<<< HEAD
                 </AssetDeleteEditModal1>
+=======
+                </AssetDeleteEditModal> */}
+>>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
 
                 <AssetDeleteEditModal2
                   open={DelModalopen2}
