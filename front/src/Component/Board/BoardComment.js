@@ -1,6 +1,6 @@
 import axios from 'axios';
 import styled from 'styled-components';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ProfileIcon from '../Member/ProfileIcon';
 import {
@@ -8,6 +8,7 @@ import {
   DeleteCommentBtn,
   CompleteBtn,
 } from '../Common/Button';
+import AuthContext from '../../store/AuthContext';
 
 const TotalComment = styled.div`
   display: flex;
@@ -64,9 +65,12 @@ const ModifyInput = styled.input`
   background-color: rgba(0, 0, 0, 0.1);
 `;
 
-function Comment({ commentid, body, name }) {
+function Comment({ commentid, body, name, memberid }) {
   const { id } = useParams();
   const URL = process.env.REACT_APP_API_URL;
+  const authCtx = useContext(AuthContext);
+  const isLogin = authCtx.isLoggedIn;
+  const [Decode] = useState(authCtx.parseJwt);
 
   // useState 관련
   const [isEdit, setIsEdit] = useState(false);
@@ -118,6 +122,7 @@ function Comment({ commentid, body, name }) {
         </ImageBox>
         <CommentBox>
           <h4>{name}</h4>
+          {isLogin}
           {isEdit ? (
             <MDBtn1>
               <ModifyInput placeholder={body} onChange={onChange1} />
@@ -127,12 +132,20 @@ function Comment({ commentid, body, name }) {
             <div>{body}</div>
           )}
         </CommentBox>
-        {isEdit ? null : (
-          <MDBtn2>
-            <ModifyCommentBtn Modify={Modify}></ModifyCommentBtn>
-            <DeleteCommentBtn commentDelete={commentDelete}></DeleteCommentBtn>
-          </MDBtn2>
-        )}
+        <MDBtn2>
+          {memberid === Decode.id ? (
+            <>
+              {isEdit ? null : (
+                <>
+                  <ModifyCommentBtn Modify={Modify}></ModifyCommentBtn>
+                  <DeleteCommentBtn
+                    commentDelete={commentDelete}
+                  ></DeleteCommentBtn>
+                </>
+              )}
+            </>
+          ) : null}
+        </MDBtn2>
       </CommentContain>
     </TotalComment>
   );
