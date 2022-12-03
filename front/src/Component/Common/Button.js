@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 const ButtonAA = styled.button`
+  z-index: 0;
   width: 90px;
   height: 35px;
   position: relative;
@@ -384,8 +385,11 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi, Text }) => {
-  return (
+export const TitleCashBtn = ({ postAssetApi, Text, Cash }) => {
+  console.log(Text, Cash);
+  return Text === '' && Cash === '' ? (
+    <ButtonAA disabled>수정</ButtonAA>
+  ) : (
     <ButtonAA
       onClick={() => {
         postAssetApi();
@@ -396,7 +400,103 @@ export const TitleCashBtn = ({ postAssetApi, Text }) => {
     </ButtonAA>
   );
 };
-
+{
+  /* <ButtonAA
+onClick={() => {
+  postAssetApi();
+}}
+disabled={String(Text) === '명칭'}
+>
+수정
+</ButtonAA> */
+}
+export const ZeroCashBtn1 = ({
+  postZEROAssetApi1,
+  postZEROAssetApi2,
+  postZEROAssetApi3,
+  postZEROAssetApi4,
+  postZEROAssetApi5,
+  postZEROAssetApi6,
+  AssetType,
+  ZeroText,
+}) => {
+  return ZeroText !== false && AssetType[0] === ZeroText ? (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi1();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  ) : ZeroText !== false && AssetType[1] === ZeroText ? (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi2();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  ) : ZeroText !== false && AssetType[2] === ZeroText ? (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi3();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  ) : ZeroText !== false && AssetType[3] === ZeroText ? (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi4();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  ) : ZeroText !== false && AssetType[4] === ZeroText ? (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi5();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  ) : ZeroText !== false && AssetType[5] === ZeroText ? (
+    <ButtonAA
+      onClick={() => {
+        postZEROAssetApi6();
+      }}
+      disabled={String(ZeroText) === '명칭'}
+    >
+      초기화
+    </ButtonAA>
+  ) : ZeroText == false ||
+    '명칭' === ZeroText ||
+    ZeroText !== AssetType[0] ||
+    ZeroText !== AssetType[1] ||
+    ZeroText !== AssetType[2] ||
+    ZeroText !== AssetType[3] ||
+    ZeroText !== AssetType[4] ||
+    ZeroText !== AssetType[5] ? (
+    <ButtonAA disabled>초기화</ButtonAA>
+  ) : (
+    <ButtonAA disabled>초기화</ButtonAA>
+  );
+};
+{
+  /* <ButtonAA
+onClick={() => {
+  postZEROAssetApi1();
+}}
+disabled={String(ZeroText) === '명칭'}
+>
+초기화
+</ButtonAA> */
+}
 export const GoldBtn = ({ openModal }) => {
   return <ButtonAA onClick={openModal}>수정</ButtonAA>;
 };

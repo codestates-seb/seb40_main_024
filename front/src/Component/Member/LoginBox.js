@@ -223,7 +223,7 @@ export const LoginBox = () => {
   const PostLogin = async () => {
     try {
       const req = await axios.post(`${URL}/member/login`, DataLogin);
-      const reqToken = req.headers.get('authorization');
+      const reqToken = req.headers.get('Authorization');
       // const reqRefreshToken = req.headers.get('Refresh');
       authCtx.login(reqToken);
       openModal();
