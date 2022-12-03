@@ -127,7 +127,8 @@ export const AutoModal = (props) => {
     setCheck(true);
     setTimeout(() => {
       setCheck(false);
-      window.location.reload();
+      close();
+      // window.location.reload();
     }, 5);
   };
   return (
@@ -151,103 +152,10 @@ export const AutoModal = (props) => {
     </Div>
   );
 };
-// export const ErrAssetTextEditModal = (props) => {
-//   const { open, close, header } = props;
-//   console.log('erropen', open);
-//   // eslint-disable-next-line no-unused-vars
-//   return (
-//     <Div>
-//       <div className={open ? 'openModal modal' : 'modal'}>
-//         {open ? (
-//           <section>
-//             <header>
-//               {header}
-//               <button className="close">&times;</button>
-//             </header>
-//             <main>{props.children}</main>
-//             <footer>
-//               <button className="close" onClick={() => close}>
-//                 close
-//               </button>
-//             </footer>
-//           </section>
-//         ) : null}
-//       </div>
-//     </Div>
-//   );
-// };
-// export const ErrAssetTextEditModal = (props) => {
-//   const { open, close, header } = props;
-//   console.log('erropen', open);
-//   // eslint-disable-next-line no-unused-vars
-
-//   return (
-//     <Div>
-//       <div className={open === undefined ? 'openModal modal' : 'modal'}>
-//         {open === undefined ? (
-//           <section>
-//             <header>
-//               {header}
-//               <button className="close">&times;</button>
-//             </header>
-//             <main>{props.children}</main>
-//             <footer>
-//               <button className="close" onClick={() => close}>
-//                 close
-//               </button>
-//             </footer>
-//           </section>
-//         ) : null}
-//       </div>
-//     </Div>
-//   );
-// };
 
 export const AssetTextEditModal1 = (props) => {
-  const {
-    open,
-    close,
-    header,
-    // eslint-disable-next-line no-unused-vars
-    api,
-    assetData1,
-    assetDatas,
-    // eslint-disable-next-line no-unused-vars
-    setTest1,
-    // eslint-disable-next-line no-unused-vars
-    EditText,
-    // eslint-disable-next-line no-unused-vars
-    assetIds1,
-    // eslint-disable-next-line no-unused-vars
-    AssetType,
-  } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [Check, setCheck] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  console.log('open', open);
-  // eslint-disable-next-line no-unused-vars
-  let data1 = '';
-  assetDatas.forEach((el) => {
-    el.assetId !== undefined &&
-    assetData1.length > 0 &&
-    el.assetId === assetData1[assetData1.length - 1].assetId
-      ? (data1 = el)
-      : null;
-  });
+  const { open, close, header, api } = props;
 
-  // eslint-disable-next-line no-unused-vars
-
-  const checkHandler = () => {
-    if (assetIds1.length > 0) {
-      api();
-    }
-    if (assetIds1.length === 0) {
-      setTimeout(() => {
-        close();
-      }, 80);
-      setTest1(EditText);
-    }
-  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -261,7 +169,7 @@ export const AssetTextEditModal1 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={checkHandler}>
+              <button className="edit" onClick={api}>
                 Edit
               </button>
               <button
@@ -279,40 +187,7 @@ export const AssetTextEditModal1 = (props) => {
   );
 };
 export const AssetTextEditModal2 = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const {
-    open,
-    close,
-    header,
-    api,
-    assetData2,
-    assetDatas,
-    setTest2,
-    EditText,
-    assetIds2,
-  } = props;
-
-  // eslint-disable-next-line no-unused-vars
-  let data2 = '';
-  assetDatas.forEach((el) => {
-    el.assetId !== undefined &&
-    assetData2.length > 0 &&
-    el.assetId === assetData2[assetData2.length - 1].assetId
-      ? (data2 = el)
-      : null;
-  });
-
-  const checkHandler = () => {
-    if (assetIds2.length > 0) {
-      api();
-    }
-    if (assetIds2.length === 0) {
-      setTimeout(() => {
-        close();
-      }, 80);
-      setTest2(EditText);
-    }
-  };
+  const { open, close, header, api } = props;
 
   return (
     <Div>
@@ -327,7 +202,7 @@ export const AssetTextEditModal2 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={checkHandler}>
+              <button className="edit" onClick={api}>
                 Edit
               </button>
               <button
@@ -345,39 +220,8 @@ export const AssetTextEditModal2 = (props) => {
   );
 };
 export const AssetTextEditModal3 = (props) => {
-  const {
-    open,
-    close,
-    header,
-    api,
-    assetData3,
-    assetDatas,
-    setTest3,
-    EditText,
-    assetIds3,
-  } = props;
+  const { open, close, header, api } = props;
 
-  // eslint-disable-next-line no-unused-vars
-  let data3 = '';
-  assetDatas.forEach((el) => {
-    el.assetId !== undefined ||
-    assetData3.length > 0 ||
-    el.assetId === assetData3[assetData3.length - 1].assetId
-      ? (data3 = el)
-      : null;
-  });
-
-  const checkHandler = () => {
-    if (assetIds3.length > 0) {
-      api();
-    }
-    if (assetIds3.length === 0) {
-      setTimeout(() => {
-        close();
-      }, 80);
-      setTest3(EditText);
-    }
-  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -391,7 +235,7 @@ export const AssetTextEditModal3 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={checkHandler}>
+              <button className="edit" onClick={api}>
                 Edit
               </button>
               <button
@@ -409,38 +253,11 @@ export const AssetTextEditModal3 = (props) => {
   );
 };
 export const AssetTextEditModal4 = (props) => {
-  const {
-    open,
-    close,
-    header,
-    api,
-    assetData4,
-    assetDatas,
-    setTest4,
-    EditText,
-    assetIds4,
-  } = props;
+  const { open, close, header, api, PathTextHandler4 } = props;
+  const miniHandler = () => {
+    api();
 
-  // eslint-disable-next-line no-unused-vars
-  let data4 = '';
-  assetDatas.forEach((el) => {
-    el.assetId !== undefined ||
-    assetData4.length > 0 ||
-    el.assetId === assetData4[assetData4.length - 1].assetId
-      ? (data4 = el)
-      : null;
-  });
-
-  const checkHandler = () => {
-    if (assetIds4.length > 0) {
-      api();
-    }
-    if (assetIds4.length === 0) {
-      setTimeout(() => {
-        close();
-      }, 80);
-      setTest4(EditText);
-    }
+    setTimeout(() => PathTextHandler4(), 500);
   };
   return (
     <Div>
@@ -455,7 +272,7 @@ export const AssetTextEditModal4 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={checkHandler}>
+              <button className="edit" onClick={miniHandler}>
                 Edit
               </button>
               <button
@@ -473,38 +290,9 @@ export const AssetTextEditModal4 = (props) => {
   );
 };
 export const AssetTextEditModal5 = (props) => {
-  const {
-    open,
-    close,
-    header,
-    api,
-    assetData5,
-    assetDatas,
-    setTest5,
-    EditText,
-    assetIds5,
-  } = props;
-
-  // eslint-disable-next-line no-unused-vars
-  let data5 = '';
-  assetDatas.forEach((el) => {
-    el.assetId !== undefined ||
-    assetData5.length > 0 ||
-    el.assetId === assetData5[assetData5.length - 1].assetId
-      ? (data5 = el)
-      : null;
-  });
-
-  const checkHandler = () => {
-    if (assetIds5.length > 0) {
-      api();
-    }
-    if (assetIds5.length === 0) {
-      setTimeout(() => {
-        close();
-      }, 80);
-      setTest5(EditText);
-    }
+  const { open, close, header, api, PathTextHandler5 } = props;
+  const miniHandler = () => {
+    api(), PathTextHandler5();
   };
   return (
     <Div>
@@ -519,7 +307,7 @@ export const AssetTextEditModal5 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={checkHandler}>
+              <button className="edit" onClick={miniHandler}>
                 Edit
               </button>
               <button
@@ -537,39 +325,10 @@ export const AssetTextEditModal5 = (props) => {
   );
 };
 export const AssetTextEditModal6 = (props) => {
-  const {
-    open,
-    close,
-    header,
-    api,
-    assetData6,
-    assetDatas,
-    setTest6,
-    EditText,
-    assetIds6,
-  } = props;
+  const { open, close, header, api, PathTextHandler6 } = props;
 
   // eslint-disable-next-line no-unused-vars
-  let data5 = '';
-  assetDatas.forEach((el) => {
-    el.assetId !== undefined ||
-    assetData6.length > 0 ||
-    el.assetId === assetData6[assetData6.length - 1].assetId
-      ? (data5 = el)
-      : null;
-  });
 
-  const checkHandler = () => {
-    if (assetIds6.length > 0) {
-      api();
-    }
-    if (assetIds6.length === 0) {
-      setTimeout(() => {
-        close();
-      }, 80);
-      setTest6(EditText);
-    }
-  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -583,7 +342,7 @@ export const AssetTextEditModal6 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={checkHandler}>
+              <button className="edit" onClick={(() => api, PathTextHandler6)}>
                 Edit
               </button>
               <button
@@ -607,14 +366,10 @@ export const AssetDeleteEditModal1 = (props) => {
   // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {
+    api1();
+    close;
     setTimeout(() => {
-      api1();
-      if (AssetTypeNonMyungching <= 6) {
-        api2();
-      }
-    }, 1);
-    setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 80);
   };
   return (
@@ -653,14 +408,10 @@ export const AssetDeleteEditModal2 = (props) => {
   // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {
+    api1();
+    close;
     setTimeout(() => {
-      api1();
-      if (AssetTypeNonMyungching <= 6) {
-        api2();
-      }
-    }, 1);
-    setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 80);
   };
 
@@ -700,14 +451,10 @@ export const AssetDeleteEditModal3 = (props) => {
   // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {
+    api1();
+    close;
     setTimeout(() => {
-      api1();
-      if (AssetTypeNonMyungching <= 6) {
-        api2();
-      }
-    }, 1);
-    setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 80);
   };
   return (
@@ -746,14 +493,10 @@ export const AssetDeleteEditModal4 = (props) => {
   // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {
+    api1();
+    close;
     setTimeout(() => {
-      api1();
-      if (AssetTypeNonMyungching <= 6) {
-        api2();
-      }
-    }, 1);
-    setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 80);
   };
   return (
@@ -792,14 +535,10 @@ export const AssetDeleteEditModal5 = (props) => {
   // eslint-disable-next-line no-unused-vars
 
   const checkHandler = () => {
+    api1();
+    close;
     setTimeout(() => {
-      api1();
-      if (AssetTypeNonMyungching <= 6) {
-        api2();
-      }
-    }, 1);
-    setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 80);
   };
   return (
@@ -846,14 +585,10 @@ export const AssetDeleteEditModal6 = (props) => {
 
   // console.log(api1, api2, AssetTypeNonMungching);
   const checkHandler = () => {
+    api1();
+    close;
     setTimeout(() => {
-      api1();
-      if (AssetTypeNonMyungching <= 6) {
-        api2();
-      }
-    }, 1);
-    setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 80);
   };
   return (
@@ -933,7 +668,7 @@ export const SavingModal = (props) => {
       goalDownPatch();
     }, 0);
     setTimeout(() => {
-      window.location.reload();
+      // window.location.reload();
     }, 5);
   };
 

@@ -224,9 +224,9 @@ export const PlusBtn = ({ savings, goalPost }) => {
       setCheck(false);
       goalPost();
     }, 0);
-    setTimeout(() => {
-      window.location.reload();
-    }, 5);
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 5);
   };
   return (
     <ButtonCC

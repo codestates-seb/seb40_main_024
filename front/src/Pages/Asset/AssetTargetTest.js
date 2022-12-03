@@ -253,13 +253,14 @@ const AssetTargetPage = () => {
       targetLength: targetLength,
       // calculatedPrice: calculatedPrice,
     };
+    console.log(`${localStorage.getItem('token')}`);
     try {
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}`,
         patchdata,
         {
           headers: {
-            Authorization: localStorage.getItem('token'),
+            Authorization: `${localStorage.getItem('token')}`,
           },
         }
       );

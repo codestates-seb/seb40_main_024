@@ -232,10 +232,6 @@ const MyInfo = () => {
         },
       });
       openModal();
-<<<<<<< HEAD
-      console.log('req', req);
-=======
->>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
     } catch (e) {
       openErrModify();
       console.log('e', e);
@@ -251,10 +247,6 @@ const MyInfo = () => {
       });
       localStorage.removeItem('token');
       openSignOut();
-<<<<<<< HEAD
-      console.log('req', req);
-=======
->>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
     } catch (e) {
       openErrSignOut();
       console.log('e', e);

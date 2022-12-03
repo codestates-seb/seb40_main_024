@@ -10,7 +10,6 @@ import { useState, useEffect, useContext } from 'react';
 import {
   Modal,
   AutoModal,
-<<<<<<< HEAD
   AssetTextEditModal1,
   AssetTextEditModal2,
   AssetTextEditModal3,
@@ -23,10 +22,6 @@ import {
   AssetDeleteEditModal4,
   AssetDeleteEditModal5,
   AssetDeleteEditModal6,
-=======
-  AssetTextEditModal,
-  // AssetDeleteEditModal,
->>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
 } from '../../Component/Common/Modal';
 import { AssetAdata, pieOptions } from '../../Component/Asset/Asset_A_Data';
 import { Pie } from 'react-chartjs-2';
@@ -238,7 +233,6 @@ const EditButton = styled.button`
     letter-spacing: 1px;
     transform: scale(1.5);
   }
-
   :active {
     color: yellow;
   }
@@ -281,12 +275,12 @@ export const AssetChange = () => {
   const [DelModalopen5, setDelModalopen5] = useState(false);
   const [DelModalopen6, setDelModalopen6] = useState(false);
 
-  const [Test1, setTest1] = useState('명칭');
-  const [Test2, setTest2] = useState('명칭');
-  const [Test3, setTest3] = useState('명칭');
-  const [Test4, setTest4] = useState('명칭');
-  const [Test5, setTest5] = useState('명칭');
-  const [Test6, setTest6] = useState('명칭');
+  const [PathText1, setPathText1] = useState('명칭');
+  const [PathText2, setPathText2] = useState('명칭');
+  const [PathText3, setPathText3] = useState('명칭');
+  const [PathText4, setPathText4] = useState('명칭');
+  const [PathText5, setPathText5] = useState('명칭');
+  const [PathText6, setPathText6] = useState('명칭');
 
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
@@ -295,12 +289,17 @@ export const AssetChange = () => {
   const [AssetDatas, setAssetDatas] = useState('');
 
   const memberid = authCtx.parseJwt.id;
-  const assetDatas = AssetDatas.data;
-  console.log('setTest1', Test1);
-
-  // const ZeroModalopenHandler1 = () => {
-  //   setZeroModalopen1(true);
-  // };
+  let test = AssetDatas.data;
+  let assetDatas = '';
+  let test1 = '';
+  if (
+    AssetDatas.data !== undefined ||
+    AssetDatas.data !== null ||
+    Object.values(test) !== undefined ||
+    Object.values(test) !== null
+  )
+    test1 = Object.values(test || {});
+  assetDatas = test1[0];
 
   const DelModalopenHandler1 = () => {
     setDelModalopen1(true);
@@ -320,10 +319,10 @@ export const AssetChange = () => {
   const DelModalopenHandler6 = () => {
     setDelModalopen6(true);
   };
-
   const openEditTextModal1 = () => {
     setTextModalopen1(true);
   };
+
   const openEditTextModal2 = () => {
     setTextModalopen2(true);
   };
@@ -339,6 +338,7 @@ export const AssetChange = () => {
   const openEditTextModal6 = () => {
     setTextModalopen6(true);
   };
+
   const openerrModal = () => {
     seterrModalopen(true);
   };
@@ -394,15 +394,15 @@ export const AssetChange = () => {
   const assetData = [];
   {
     assetDatas
-      ? assetDatas.forEach((el) =>
-          el.memberPosted.id === memberid ? assetData.push(el) : null
+      ? assetDatas.map((el) =>
+          el.memberPosted['id'] === memberid ? assetData.push(el) : null
         )
       : null;
   }
 
   const assetType = [];
   {
-    assetData ? assetData.forEach((el) => assetType.push(el.assetType)) : null;
+    assetData ? assetData.map((el) => assetType.push(el.assetType)) : null;
   }
   const AssetType = [...new Set(assetType)];
   // const FirstAssetTyle = [...new Set(assetType)];
@@ -429,8 +429,6 @@ export const AssetChange = () => {
     }
   }
 
-  // console.log(assetType);
-
   const openCashModal = () => {
     Text && Cash && isNaN(Cash) === false
       ? setModalopen(true)
@@ -442,7 +440,7 @@ export const AssetChange = () => {
   const assetId = [];
   {
     assetDatas
-      ? assetData.forEach((el) => {
+      ? assetData.map((el) => {
           assetId.push(el.assetId);
         })
       : null;
@@ -512,7 +510,15 @@ export const AssetChange = () => {
       }
     });
   }
+  // console.log('assetData', assetData);
+  // console.log('assetData1', assetData1);
+  // console.log('assetData2', assetData2);
+  // console.log('assetData3', assetData3);
+  // console.log('assetData4', assetData4);
+  console.log('assetData5', assetData5);
+  console.log('assetData6', assetData6);
 
+  const assetIdsBox = [];
   const assetIds1 = [];
   const assetIds2 = [];
   const assetIds3 = [];
@@ -523,34 +529,40 @@ export const AssetChange = () => {
   {
     assetData1.map((e) => {
       assetIds1.push(e.assetId);
+      assetIdsBox.push(e.assetId);
     });
   }
   {
     assetData2.map((e) => {
       assetIds2.push(e.assetId);
+      assetIdsBox.push(e.assetId);
     });
   }
   {
     assetData3.map((e) => {
       assetIds3.push(e.assetId);
+      assetIdsBox.push(e.assetId);
     });
   }
   {
     assetData4.map((e) => {
       assetIds4.push(e.assetId);
+      assetIdsBox.push(e.assetId);
     });
   }
   {
     assetData5.map((e) => {
       assetIds5.push(e.assetId);
+      assetIdsBox.push(e.assetId);
     });
   }
   {
     assetData6.map((e) => {
       assetIds6.push(e.assetId);
+      assetIdsBox.push(e.assetId);
     });
   }
-
+  console.log('assetIdsBox', assetIdsBox);
   const assetValueBox = [];
   const assetValueNumBox = [];
   let assetValue1 = 0;
@@ -651,11 +663,147 @@ export const AssetChange = () => {
   if (assetValueBox.length >= 7) {
     assetValueBox.length = 6;
   }
+  //************************************************************************************************ */
 
-  // if (AssetType.length >= 7) {
-  //   AssetType.length = 6;
-  // }
-  // console.log(AssetType);
+  //!
+  let ChangeData1 = 0;
+
+  assetData.map((el) => {
+    for (let i = 0; i < assetData.length; i++) {
+      assetIdsBox[i] !== el ? (ChangeData1 = el) : null;
+    }
+  });
+
+  let RevassetData1 = [];
+  let RevassetData2 = [];
+  let RevassetData3 = [];
+  let RevassetData4 = [];
+  let RevassetData5 = [];
+  let RevassetData6 = [];
+
+  RevassetData1.push(...assetData1);
+  RevassetData1.push(ChangeData1);
+  RevassetData2.push(...assetData2);
+  RevassetData3.push(...assetData3);
+  RevassetData4.push(...assetData4);
+  RevassetData5.push(...assetData5);
+  RevassetData6.push(...assetData6);
+
+  const PathTextHandler1 = () => {
+    setPathText1(true);
+    RevassetData1.push(ChangeData1);
+  };
+  const PathTextHandler2 = () => {
+    setPathText1(true);
+    RevassetData2.push(ChangeData1);
+  };
+  const PathTextHandler3 = () => {
+    setPathText1(true);
+    RevassetData3.push(ChangeData1);
+  };
+  const PathTextHandler4 = () => {
+    setPathText1(true);
+    RevassetData4.push(ChangeData1);
+  };
+  const PathTextHandler5 = () => {
+    setPathText1(true);
+    RevassetData5.push(ChangeData1);
+  };
+  const PathTextHandler6 = () => {
+    setPathText1(true);
+    RevassetData6.push(ChangeData1);
+  };
+
+  console.log('ChangeData1', ChangeData1);
+  //??????????????????????????????????????????????????????????????????????????????????????????
+  let LastRevassetDataassetType1 = '';
+  ChangeData1 && assetData1
+    ? (LastRevassetDataassetType1 =
+        RevassetData1[RevassetData1.length - 1].assetType)
+    : null;
+
+  RevassetData1?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType1) : null
+  );
+
+  console.log('RevassetData1', RevassetData1);
+  //??????????????????????????????????????????????????????????????????????????????????????????
+  let LastRevassetDataassetType2 = '';
+  ChangeData1 && assetData2
+    ? (LastRevassetDataassetType2 =
+        RevassetData2[RevassetData2.length - 1].assetType)
+    : null;
+
+  RevassetData2?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType2) : null
+  );
+
+  console.log('RevassetData2', RevassetData2);
+  //??????????????????????????????????????????????????????????????????????????????????????????
+
+  let LastRevassetDataassetType3 = '';
+  ChangeData1 && assetData3
+    ? (LastRevassetDataassetType3 =
+        RevassetData3[RevassetData3.length - 1].assetType)
+    : null;
+  RevassetData3?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType3) : null
+  );
+
+  console.log('RevassetData3', RevassetData3);
+  //??????????????????????????????????????????????????????????????????????????????????????????
+
+  let LastRevassetDataassetType4 = '';
+  ChangeData1 && assetData4
+    ? (LastRevassetDataassetType4 =
+        RevassetData4[RevassetData4.length - 1].assetType)
+    : null;
+  RevassetData4?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType4) : null
+  );
+
+  console.log('RevassetData4', RevassetData4);
+
+  // //??????????????????????????????????????????????????????????????????????????????????????????
+
+  // let LastRevassetDataassetType5 = '';
+  // ChangeData1 && assetData5
+  //   ? (LastRevassetDataassetType5 =
+  //       RevassetData5[RevassetData5.length - 1].assetType)
+  //   : null;
+  // RevassetData5?.filter((e) =>
+  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType5) : null
+  // );
+
+  // console.log('RevassetData5', RevassetData5);
+
+  // //??????????????????????????????????????????????????????????????????????????????????????????
+
+  // let LastRevassetDataassetType6 = '';
+  // ChangeData1 && assetData6
+  //   ? (LastRevassetDataassetType6 =
+  //       RevassetData6[RevassetData6.length - 1].assetType)
+  //   : null;
+  // RevassetData6?.filter((e) =>
+  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
+  // );
+
+  // console.log('RevassetData6', RevassetData6);
+  // console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
+
+  // //??????????????????????????????????????????????????????????????????????????????????????????
+  //? GET
+  const getAssetApi = async () => {
+    await axios
+      .get(`${URL}/asset`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
+      .then((res) => setAssetDatas(res))
+      .catch((err) => console.log(err));
+  };
+  //?
   //? POST
   const Postdata = {
     assetType: Text,
@@ -664,7 +812,11 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   const postAssetApi = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, Postdata)
+      .post(`${URL}/asset`, Postdata, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openCashModal())
       .catch((err) => openCashModal());
   };
@@ -672,131 +824,147 @@ export const AssetChange = () => {
 
   //? PATCH
   // eslint-disable-next-line no-unused-vars
-  const Patchdata1 = {
+  let Patchdata1 = {};
+  let Patchdata2 = {};
+  let Patchdata3 = {};
+  let Patchdata4 = {};
+  let Patchdata5 = {};
+  let Patchdata6 = {};
+
+  let patchdata1 = '';
+  let patchdata2 = '';
+  let patchdata3 = '';
+  let patchdata4 = '';
+  let patchdata5 = '';
+  let patchdata6 = '';
+
+  const Patchdata = {
     assetType: EditText,
     strValue: '+0',
   };
-  let patchdata1 = '';
+  console.log(AssetDatas);
+  EditText !== '명칭' ? (Patchdata1 = Patchdata) : null;
+
   {
-    assetIds1.forEach((e) => {
+    assetIds1.map((e) => {
       patchdata1 = String(e);
     });
   }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi1 = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/${patchdata1}`, Patchdata1)
+      .patch(`${URL}/asset/${patchdata1}`, Patchdata1, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
   //?
-  const Patchdata2 = {
-    assetType: EditText,
-    strValue: '+0',
-  };
-  let patchdata2 = '';
+
+  EditText !== '명칭' ? (Patchdata2 = Patchdata) : null;
+
   {
-    assetIds2.forEach((e) => {
+    assetIds2.map((e) => {
       patchdata2 = String(e);
     });
   }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi2 = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/${patchdata2}`, Patchdata2)
+      .patch(`${URL}/asset/${patchdata2}`, Patchdata2, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
   //?
   //?
-  const Patchdata3 = {
-    assetType: EditText,
-    strValue: '+0',
-  };
-  let patchdata3 = '';
+
+  EditText !== '명칭' ? (Patchdata3 = Patchdata) : null;
   {
-    assetIds3.forEach((e) => {
+    assetIds3.map((e) => {
       patchdata3 = String(e);
     });
   }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi3 = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/${patchdata3}`, Patchdata3)
+      .patch(`${URL}/asset/${patchdata3}`, Patchdata3, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
   //?
   //?
-  const Patchdata4 = {
-    assetType: EditText,
-    strValue: '+0',
-  };
-  let patchdata4 = '';
+  EditText !== '명칭' ? (Patchdata4 = Patchdata) : null;
   {
-    assetIds4.forEach((e) => {
+    assetIds4.map((e) => {
       patchdata4 = String(e);
     });
   }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi4 = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/${patchdata4}`, Patchdata4)
+      .patch(`${URL}/asset/${patchdata4}`, Patchdata4, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
   //?
   //?
-  const Patchdata5 = {
-    assetType: EditText,
-    strValue: '+0',
-  };
-  let patchdata5 = '';
+  EditText !== '명칭' ? (Patchdata5 = Patchdata) : null;
   {
-    assetIds5.forEach((e) => {
+    assetIds5.map((e) => {
       patchdata5 = String(e);
     });
   }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi5 = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/${patchdata5}`, Patchdata5)
+      .patch(`${URL}/asset/${patchdata5}`, Patchdata5, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
   //?
   //?
-  const Patchdata6 = {
-    assetType: EditText,
-    strValue: '+0',
-  };
-  let patchdata6 = '';
+  EditText !== '명칭' ? (Patchdata6 = Patchdata) : null;
   {
-    assetIds6.forEach((e) => {
+    assetIds6.map((e) => {
       patchdata6 = String(e);
     });
   }
   // eslint-disable-next-line no-unused-vars
   const patchAssetsApi6 = async () => {
     await axios
-      .patch(`${URL}/member/${memberid}/asset/${patchdata6}`, Patchdata6)
+      .patch(`${URL}/asset/${patchdata6}`, Patchdata6, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrModal());
   };
   //?
-  //? GET
-  const getAssetApi = async () => {
-    await axios
-      .get(`${URL}/asset`)
-      .then((res) => setAssetDatas(res))
-      .catch((err) => console.log(err));
-  };
-  //?
+
   //? DELET
   let AssetTypeNonMyungching = 0;
   // eslint-disable-next-line no-unused-vars
   {
-    AssetType.forEach((e) => {
+    AssetType.map((e) => {
       e !== '명칭' ? AssetTypeNonMyungching++ : null;
     });
   }
@@ -806,7 +974,11 @@ export const AssetChange = () => {
 
   const deletLastAssetApi1 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${DeleteLastdata}`)
+      .delete(`${URL}/asset/${DeleteLastdata}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -815,7 +987,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata1 = '';
   {
-    assetIds1.forEach((e) => {
+    assetIds1.map((e) => {
       Deletedata1 = String(e);
     });
   }
@@ -823,7 +995,11 @@ export const AssetChange = () => {
 
   const deletAssetApi1 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata1}`)
+      .delete(`${URL}/asset/${Deletedata1}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -832,15 +1008,18 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata2 = '';
   {
-    assetIds2.forEach((e) => {
+    assetIds2.map((e) => {
       Deletedata2 = String(e);
     });
   }
-  // console.log(`${Deletedata}`);
 
   const deletAssetApi2 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata2}`)
+      .delete(`${URL}/asset/${Deletedata2}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -849,7 +1028,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata3 = '';
   {
-    assetIds3.forEach((e) => {
+    assetIds3.map((e) => {
       Deletedata3 = String(e);
     });
   }
@@ -857,7 +1036,11 @@ export const AssetChange = () => {
 
   const deletAssetApi3 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata3}`)
+      .delete(`${URL}/asset/${Deletedata3}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -866,7 +1049,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata4 = '';
   {
-    assetIds4.forEach((e) => {
+    assetIds4.map((e) => {
       Deletedata4 = String(e);
     });
   }
@@ -874,7 +1057,11 @@ export const AssetChange = () => {
 
   const deletAssetApi4 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata4}`)
+      .delete(`${URL}/asset/${Deletedata4}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -883,7 +1070,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata5 = '';
   {
-    assetIds5.forEach((e) => {
+    assetIds5.map((e) => {
       Deletedata5 = String(e);
     });
   }
@@ -891,7 +1078,11 @@ export const AssetChange = () => {
 
   const deletAssetApi5 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata5}`)
+      .delete(`${URL}/asset/${Deletedata5}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -900,7 +1091,7 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   let Deletedata6 = '';
   {
-    assetIds6.forEach((e) => {
+    assetIds6.map((e) => {
       Deletedata6 = String(e);
     });
   }
@@ -908,7 +1099,11 @@ export const AssetChange = () => {
 
   const deletAssetApi6 = async () => {
     await axios
-      .delete(`${URL}/member/${memberid}/asset/${Deletedata6}`)
+      .delete(`${URL}/asset/${Deletedata6}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => closeModal())
       .catch((err) => openerrDeletModal());
   };
@@ -919,6 +1114,7 @@ export const AssetChange = () => {
     assetType: ZeroText,
     assetValue: `+${Math.abs(assetValue1)}`,
   };
+
   const PostmiusZerodata1 = {
     assetType: ZeroText,
     assetValue: `-${assetValue1}`,
@@ -931,10 +1127,15 @@ export const AssetChange = () => {
       ? (PostZerodata1 = PostplusZerodata1)
       : null;
   }
+  // console.log('ZeroText', ZeroText, 'PostZerodata1', PostZerodata1);
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi1 = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, PostZerodata1)
+      .post(`${URL}/asset`, PostZerodata1, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openZeroCashModal())
       .catch((err) => openerrZeroCashModal());
   };
@@ -959,7 +1160,11 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi2 = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, PostZerodata2)
+      .post(`${URL}/asset`, PostZerodata2, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openZeroCashModal())
       .catch((err) => openerrZeroCashModal());
   };
@@ -984,7 +1189,11 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi3 = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, PostZerodata3)
+      .post(`${URL}/asset`, PostZerodata3, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openZeroCashModal())
       .catch((err) => openerrZeroCashModal());
   };
@@ -1006,11 +1215,15 @@ export const AssetChange = () => {
       ? (PostZerodata4 = PostplusZerodata4)
       : null;
   }
-  // console.log('PostZerodata2', PostZerodata2);
+
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi4 = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, PostZerodata4)
+      .post(`${URL}/asset`, PostZerodata4, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openZeroCashModal())
       .catch((err) => openerrZeroCashModal());
   };
@@ -1035,7 +1248,11 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi5 = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, PostZerodata5)
+      .post(`${URL}/asset`, PostZerodata5, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openZeroCashModal())
       .catch((err) => openerrZeroCashModal());
   };
@@ -1061,17 +1278,15 @@ export const AssetChange = () => {
   // eslint-disable-next-line no-unused-vars
   const postZeroAssetApi6 = async () => {
     await axios
-      .post(`${URL}/member/${memberid}/asset`, PostZerodata6)
+      .post(`${URL}/asset`, PostZerodata6, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
       .then((res) => openZeroCashModal())
       .catch((err) => openerrZeroCashModal());
   };
   //?
-  // console.log('assetValue1', assetValue1);
-  // console.log('AssetIds2', AssetIds2);
-  // console.log('AssetIds3', AssetIds3);
-  // console.log('AssetIds4', AssetIds4);
-  // console.log('AssetIds5', AssetIds5);
-  // console.log('AssetIds6', AssetIds6);
 
   useEffect(() => {
     getAssetApi();
@@ -1083,9 +1298,12 @@ export const AssetChange = () => {
     Modalopen,
     TextModalopen1,
     TextModalopen2,
+    TextModalopen3,
+    TextModalopen4,
+    TextModalopen5,
+    TextModalopen6,
     errTextModalopen,
     errModalopen,
-    // DelModalopen,
     DelModalopen1,
     DelModalopen2,
     DelModalopen3,
@@ -1109,7 +1327,7 @@ export const AssetChange = () => {
   {
     assetValueNumBox.map((e) => (TotalassetValueNumBox += e));
   }
-  // console.log('TotalassetValueNumBox', TotalassetValueNumBox);
+
   if (TotalassetValueNumBox === 0) {
     assetValueNumBox.unshift(1);
   }
@@ -1129,28 +1347,55 @@ export const AssetChange = () => {
     PercentassetValueNumBox.unshift(1);
   }
   addData();
-  // let newtest = [];
-  let newtest = [
-    `${Test1}`,
-    `${Test2}`,
-    `${Test3}`,
-    `${Test4}`,
-    `${Test5}`,
-    `${Test6}`,
-  ];
+
+  // let PathTextBox = [
+  //   `${PathText1}`,
+  //   `${PathText2}`,
+  //   `${PathText3}`,
+  //   `${PathText4}`,
+  //   `${PathText5}`,
+  //   `${PathText6}`,
+  // ];
+
+  //!
+  let Deletetest = '';
+  {
+    assetIds1.map((e) => {
+      Deletedata1 = String(e);
+    });
+  }
+  // console.log(`${Deletedata}`);
+
+  const deletAssetApitest = async () => {
+    await axios
+      .delete(`${URL}/asset/${Deletedata1}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      })
+      .then((res) => closeModal())
+      .catch((err) => openerrDeletModal());
+  };
+  //!
 
   const AssetList = AssetType.map((e, key) => (
     <AssetListBox key={key}>
       <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
+
       <H3Title>{e}</H3Title>
-      <H3>총 금액: {assetValueBox[key]} 원</H3>
+      {e === '명칭' ? (
+        <H3>총 금액: 0원</H3>
+      ) : (
+        <H3>총 금액: {assetValueBox[key]} 원</H3>
+      )}
     </AssetListBox>
   ));
-  console.log('assetData', assetData);
+
   return (
     <>
       <LongNavbarBox />
       <MiniNavbarBox />
+
       {AssetDatas ? (
         <>
           <MainPage>
@@ -1167,34 +1412,25 @@ export const AssetChange = () => {
               </ChartContain>
 
               <MainContain>
-<<<<<<< HEAD
                 <AssetDeleteEditModal1
                   open={DelModalopen1}
-=======
-                {/* <AssetDeleteEditModal
-                  open={DelModalopen}
->>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi1}
-                  api2={deletLastAssetApi1}
+                  api2={deletAssetApitest}
                   AssetTypeNonMyungching={AssetTypeNonMyungching}
                 >
                   <Div>
                     <p>1 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
-<<<<<<< HEAD
                 </AssetDeleteEditModal1>
-=======
-                </AssetDeleteEditModal> */}
->>>>>>> 7b6df19819428b729d112dcbca0bb4e70f569b44
 
                 <AssetDeleteEditModal2
                   open={DelModalopen2}
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi2}
-                  api2={deletLastAssetApi1}
+                  // api2={deletLastAssetApi1}
                   AssetTypeNonMyungching={AssetTypeNonMyungching}
                 >
                   <Div>
@@ -1207,7 +1443,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi3}
-                  api2={deletLastAssetApi1}
+                  // api2={deletLastAssetApi1}
                   AssetTypeNonMyungching={AssetTypeNonMyungching}
                 >
                   <Div>
@@ -1220,7 +1456,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi4}
-                  api2={deletLastAssetApi1}
+                  // api2={deletLastAssetApi1}
                   AssetTypeNonMyungching={AssetTypeNonMyungching}
                 >
                   <Div>
@@ -1233,7 +1469,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi5}
-                  api2={deletLastAssetApi1}
+                  // api2={deletLastAssetApi1}
                   AssetTypeNonMyungching={AssetTypeNonMyungching}
                   // AssetIds5={assetIds5}
                 >
@@ -1247,7 +1483,7 @@ export const AssetChange = () => {
                   close={closeModal}
                   header="자산 종류 수정 알림"
                   api1={deletAssetApi6}
-                  api2={deletLastAssetApi1}
+                  // api2={deletLastAssetApi1}
                   AssetTypeNonMyungching={AssetTypeNonMyungching}
 
                   // AssetIds6={assetIds6}
@@ -1261,13 +1497,8 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen1}
                   api={patchAssetsApi1}
-                  assetData1={assetData1}
-                  Test1={Test1}
-                  setTest1={setTest1}
+                  PathTextHandler1={PathTextHandler1}
                   close={closeModal}
-                  assetDatas={assetDatas}
-                  EditText={EditText}
-                  assetIds1={assetIds1}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
@@ -1284,13 +1515,8 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen2}
                   api={patchAssetsApi2}
-                  assetData2={assetData2}
-                  Test2={Test2}
-                  setTest2={setTest2}
+                  PathTextHandler2={PathTextHandler2}
                   close={closeModal}
-                  assetDatas={assetDatas}
-                  EditText={EditText}
-                  assetIds2={assetIds2}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
@@ -1307,13 +1533,8 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen3}
                   api={patchAssetsApi3}
-                  assetData3={assetData3}
-                  Test3={Test3}
-                  setTest3={setTest3}
+                  PathTextHandler3={PathTextHandler3}
                   close={closeModal}
-                  assetDatas={assetDatas}
-                  EditText={EditText}
-                  assetIds3={assetIds3}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
@@ -1330,13 +1551,8 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen4}
                   api={patchAssetsApi4}
-                  assetData4={assetData4}
-                  Test4={Test4}
-                  setTest4={setTest4}
+                  PathTextHandler4={PathTextHandler4}
                   close={closeModal}
-                  assetDatas={assetDatas}
-                  EditText={EditText}
-                  assetIds4={assetIds4}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
@@ -1353,13 +1569,8 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen5}
                   api={patchAssetsApi5}
-                  assetData5={assetData5}
-                  Test5={Test5}
-                  setTest5={setTest5}
+                  PathTextHandler5={PathTextHandler5}
                   close={closeModal}
-                  assetDatas={assetDatas}
-                  EditText={EditText}
-                  assetIds5={assetIds5}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
@@ -1376,13 +1587,8 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen6}
                   api={patchAssetsApi6}
-                  assetData6={assetData6}
-                  Test6={Test5}
-                  setTest6={setTest6}
+                  PathTextHandler6={PathTextHandler6}
                   close={closeModal}
-                  assetDatas={assetDatas}
-                  EditText={EditText}
-                  assetIds6={assetIds6}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
                   <Div>
@@ -1437,6 +1643,101 @@ export const AssetChange = () => {
                 {AssetList}
 
                 <H3Title style={{ marginTop: '45px' }}>
+                  <H3Title style={{ marginTop: '45px' }}>
+                    💚&nbsp;&nbsp;금액 명칭 수정&nbsp;&nbsp;💚
+                  </H3Title>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      textAlign: 'left',
+                    }}
+                  >
+                    <EditButton
+                      className="1"
+                      onClick={openEditTextModal1}
+                      style={{
+                        marginRight: '15px',
+                        textAlign: 'left',
+                        width: '200px',
+                        marginLeft: '60px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      1) {AssetType[0]}&nbsp;&nbsp;
+                      <FiEdit />
+                    </EditButton>
+                    <EditButton
+                      className="2 "
+                      onClick={openEditTextModal2}
+                      style={{
+                        marginRight: '15px',
+                        textAlign: 'left',
+                        width: '200px',
+                        marginLeft: '60px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      2) {AssetType[1]}&nbsp;&nbsp;
+                      <FiEdit />
+                    </EditButton>
+                    <EditButton
+                      className="3"
+                      onClick={openEditTextModal3}
+                      style={{
+                        marginRight: '15px',
+                        textAlign: 'left',
+                        width: '200px',
+                        marginLeft: '60px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      3) {AssetType[2]}&nbsp;&nbsp;
+                      <FiEdit />
+                    </EditButton>
+                    <EditButton
+                      className="4"
+                      onClick={openEditTextModal4}
+                      style={{
+                        marginRight: '15px',
+                        textAlign: 'left',
+                        width: '200px',
+                        marginLeft: '60px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      4) {AssetType[3]}&nbsp;&nbsp;
+                      <FiEdit />
+                    </EditButton>
+                    <EditButton
+                      className="5"
+                      onClick={openEditTextModal5}
+                      style={{
+                        marginRight: '15px',
+                        textAlign: 'left',
+                        width: '200px',
+                        marginLeft: '60px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      5) {AssetType[4]}&nbsp;&nbsp;
+                      <FiEdit />
+                    </EditButton>
+                    <EditButton
+                      className="6"
+                      onClick={openEditTextModal6}
+                      style={{
+                        marginRight: '15px',
+                        textAlign: 'left',
+                        width: '200px',
+                        marginLeft: '60px',
+                        marginTop: '10px',
+                      }}
+                    >
+                      6) {AssetType[5]}&nbsp;&nbsp;
+                      <FiEdit />
+                    </EditButton>
+                  </div>
                   💛&nbsp;금액 한단계 전 되돌리기&nbsp;💛
                 </H3Title>
                 <div
@@ -1532,101 +1833,7 @@ export const AssetChange = () => {
                     <FiDelete />
                   </EditButton>
                 </div>
-                <H3Title style={{ marginTop: '45px' }}>
-                  💛&nbsp;&nbsp;금액 명칭 수정&nbsp;&nbsp;💛
-                </H3Title>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    textAlign: 'left',
-                  }}
-                >
-                  <EditButton
-                    className="1"
-                    onClick={openEditTextModal1}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    1) {newtest[0]}&nbsp;&nbsp;
-                    <FiEdit />
-                  </EditButton>
-                  <EditButton
-                    className="2 "
-                    onClick={openEditTextModal2}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    2) {newtest[1]}&nbsp;&nbsp;
-                    <FiEdit />
-                  </EditButton>
-                  <EditButton
-                    className="3"
-                    onClick={openEditTextModal3}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    3) {newtest[2]}&nbsp;&nbsp;
-                    <FiEdit />
-                  </EditButton>
-                  <EditButton
-                    className="4"
-                    onClick={openEditTextModal4}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    4) {newtest[3]}&nbsp;&nbsp;
-                    <FiEdit />
-                  </EditButton>
-                  <EditButton
-                    className="5"
-                    onClick={openEditTextModal5}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    5) {newtest[4]}&nbsp;&nbsp;
-                    <FiEdit />
-                  </EditButton>
-                  <EditButton
-                    className="6"
-                    onClick={openEditTextModal6}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    6) {newtest[5]}&nbsp;&nbsp;
-                    <FiEdit />
-                  </EditButton>
-                </div>
+
                 <H2 style={{ width: '265px' }}>자산 금액 수정&nbsp;(+ / -)</H2>
                 <Div>
                   <Input
