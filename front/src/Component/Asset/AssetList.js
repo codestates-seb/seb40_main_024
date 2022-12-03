@@ -24,6 +24,12 @@ const ComponentContain = styled.div`
     font-size: 17px;
     font-weight: 500;
   }
+  .smallP {
+    margin-bottom: 5px;
+    font-weight: 500;
+    text-align: left;
+    color: gray;
+  }
 `;
 
 const Header = styled.h3`
@@ -34,7 +40,7 @@ const SettingInput = styled.div`
   box-sizing: border-box;
   text-align: center;
   width: 400px;
-  height: 60px;
+  height: 50px;
   margin: 10px;
   font-size: 25px;
   border-bottom: solid 2px #9ed5c5;
@@ -47,19 +53,23 @@ const SettingInput = styled.div`
   }
 `;
 
-const TextBox = styled.div`
-  display: flex;
-  flex-direction: row;
-  text-align: center;
-  justify-content: center;
-  align-items: center;
-  line-height: normal;
+const CalcurlatedBox = styled.div`
   box-sizing: border-box;
-  margin: auto;
-  height: 70px;
-  width: 300px;
-  color: red;
-  font-size: 30px;
+  width: 400px;
+  height: auto;
+  border: solid 2px rgba(188, 234, 213, 30%);
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+  background-color: rgba(188, 234, 213, 30%);
+  :hover {
+    box-shadow: 0 5px 15px rgba(145, 92, 182, 0.4);
+    .li {
+      color: black;
+      font-weight: 700;
+    }
+  }
 `;
 
 const ListContain = styled.div`
@@ -72,8 +82,12 @@ const Div = styled.div`
   margin-top: 50px;
 `;
 const UserInfo = styled.div`
+  display: flex;
+  justify-content: center;
   width: 300px;
   margin-left: 50px;
+  .saving {
+  }
 `;
 
 const UserInfoHead = styled.h4`
@@ -104,24 +118,6 @@ const Input = styled.input`
   }
 `;
 
-// const Text = styled.div`
-//   width: 230px;
-//   height: 50px;
-//   border-top: none;
-//   border-left: none;
-//   border-right: none;
-//   outline: none;
-//   color: #444;
-//   font-weight: 700;
-//   border-bottom: 3px solid #9ed5c5;
-//   ::-webkit-outer-spin-button,
-//   ::-webkit-inner-spin-button {
-//     -webkit-appearance: none;
-//   }
-//   ::placeholder {
-//     color: #999;
-//   }
-// `;
 const BtnBox = styled.div`
   display: flex;
   flex-direction: row;
@@ -135,21 +131,33 @@ const NewBtnBox = styled.div`
   flex-direction: row;
   width: 200px;
   height: 40px;
-  gap: 50px;
-  /* margin-top: -20px; */
+  gap: 40px;
   margin-bottom: 10px;
 `;
 const UpBtn = styled.button`
   width: 50px;
-  height: 50px;
+  height: 30px;
   background-color: #bcead5;
-  border-radius: 50%;
+  border-radius: 10%;
+  color: grey;
+  font-weight: 900;
 `;
 const DownBtn = styled.button`
   width: 50px;
-  height: 50px;
+  height: 30px;
   background-color: #bcead5;
-  border-radius: 50%;
+  border-radius: 10%;
+  color: grey;
+  font-weight: 900;
+`;
+
+const SavingInfoHead = styled.h4`
+  color: #bcead5;
+  font-size: 20px;
+  margin-bottom: 5px;
+  .number {
+    color: #8ec3b0;
+  }
 `;
 
 const AssetList = ({
@@ -161,26 +169,24 @@ const AssetList = ({
   goal,
   extended,
   period,
-  targetAmount,
-  setTargetAmount,
+  //   targetAmount,
+  //   setTargetAmount,
   goalPatch,
   goalNameonChange,
-  goalName,
+  //   goalName,
   goalPriceonChange,
-  goalPrice,
+  //   goalPrice,
   targetLengthonChange,
-  targetLength,
+  //   targetLength,
   goalUpPatch,
-  up,
+  // up,
   goalDownPatch,
   id,
+  //   remainingAmount,
 }) => {
   const [save, setSave] = useState(false);
   const [Modify, setModify] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
-  //   const [up, setUp] = useState(1);
-  //   const [disabled, setDisabled] = useState(false);
-  // const[numberUp, setNumberUp]= useState(1)
 
   const openSavingModal = () => {
     setSave(!save);
@@ -197,20 +203,12 @@ const AssetList = ({
     setModify(true);
   };
 
-  //   const handlerNumberUp = ()
-  //   const handlerCloseModal = () => {
-  //     setSave(false);
-  //   };
-
   return (
     <>
       <div style={{ display: 'flex' }}>
         <ComponentContain>
           <br />
           <BtnBox>
-            {/* <Button onClick={goalDelete} data-id={count.goalId}>
-              {' '}
-            </Button> */}
             <EditGoalBtn
               openModify={openModify}
               id={count.goalId}
@@ -219,7 +217,6 @@ const AssetList = ({
               goalDelete={goalDelete}
               id={count.goalId}
             ></DeleteGoalBtn>
-            {/* <Button2 onClick={openModify} data-id={count.goalId}></Button2> */}
           </BtnBox>
           <Header>나의 목표</Header>
           <SettingInput
@@ -237,7 +234,10 @@ const AssetList = ({
             onChange={(e) => setExtended(e.target.value)}
             value={extended}
           >
-            {count.goalPrice} 원
+            {count.goalPrice
+              .toString()
+              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
+            원
           </SettingInput>
           <p className="p">목표 기간</p>
           <SettingInput
@@ -248,13 +248,43 @@ const AssetList = ({
           >
             {count.targetLength} 개월
           </SettingInput>
-          <p className="p">목표달성을 위한 매달 저축액은?</p>
-          <TextBox
-            onChange={(e) => setTargetAmount(e.target.value)}
-            value={targetAmount}
-          >
-            {count.calculatedPrice}원!
-          </TextBox>
+          <CalcurlatedBox>
+            <p className="smallP">
+              <li>
+                {' '}
+                매달 저축액:{' '}
+                {Number(count.calculatedPrice)
+                  .toString()
+                  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                원
+              </li>
+            </p>
+            <p className="smallP">
+              <li>
+                {' '}
+                남은 금액:{' '}
+                {Number(Math.ceil(count.goalPrice)) <
+                (Number(count.targetLength) - count.completed) *
+                  Number(count.calculatedPrice)
+                  ? Number(Math.ceil(count.goalPrice))
+                      .toString()
+                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+                  : (
+                      (Number(count.targetLength) - count.completed) *
+                      Number(count.calculatedPrice)
+                    )
+                      .toString()
+                      .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')}{' '}
+                원{' '}
+              </li>
+            </p>
+
+            <p className="smallP">
+              <li className="savingContent">
+                남은 기간: {Number(count.targetLength) - count.completed} 개월{' '}
+              </li>
+            </p>
+          </CalcurlatedBox>
           <SaveBtn openSavingModal={openSavingModal}></SaveBtn>
           <GoalModifyModal
             id={count.goalId}
@@ -269,19 +299,19 @@ const AssetList = ({
                   <div>
                     <UserInfoHead>목표자산 수정</UserInfoHead>
                     <Input
-                      value={goalName}
+                      //   value={goalName}
                       onChange={goalNameonChange}
                       placeholder="나의 목표"
-                    />
+                    ></Input>
                     <Input
                       type="number"
-                      value={goalPrice}
+                      //   value={goalPrice}
                       onChange={goalPriceonChange}
                       placeholder="금액"
                     />
                     <Input
                       type="number"
-                      value={targetLength}
+                      //   value={targetLength}
                       onChange={targetLengthonChange}
                       placeholder="기간"
                     />
@@ -297,19 +327,47 @@ const AssetList = ({
               </Modal>
             </Div>
           </GoalModifyModal>
-          <SavingModal open={save} close={openModal} header="납입 기간">
+          <SavingModal
+            open={save}
+            close={openModal}
+            goalUpPatch={goalUpPatch}
+            goalDownPatch={goalDownPatch}
+            header="저축 기간"
+          >
             <Div>
               <ListContain>
                 <UserInfo>
-                  <div>
-                    <UserInfoHead>
-                      납입 기간: <span className="number">{up}</span>개월
-                    </UserInfoHead>
-
-                    <UserInfoHead>
+                  <div className="saving">
+                    <SavingInfoHead>
                       목표 기간:{' '}
                       <span className="number">{count.targetLength}</span>개월
-                    </UserInfoHead>
+                    </SavingInfoHead>
+                    <SavingInfoHead>
+                      저축 기간:{' '}
+                      <span className="number">{count.completed}</span>개월
+                    </SavingInfoHead>
+                    <SavingInfoHead>
+                      남은 금액:{' '}
+                      <span className="number">
+                        {Number(Math.ceil(count.goalPrice)) <
+                        (Number(count.targetLength) - count.completed) *
+                          Number(count.calculatedPrice)
+                          ? Number(Math.ceil(count.goalPrice))
+                              .toString()
+                              .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',')
+                          : (
+                              (Number(count.targetLength) - count.completed) *
+                              Number(count.calculatedPrice)
+                            )
+                              .toString()
+                              .replace(
+                                /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g,
+                                ','
+                              )}{' '}
+                      </span>
+                      원
+                    </SavingInfoHead>
+
                     <NewBtnBox>
                       <UpBtn onClick={goalUpPatch} data-id={id}>
                         UP
@@ -324,9 +382,9 @@ const AssetList = ({
               <Modal
                 open={Modalopen}
                 close={closeModal}
-                header="납입횟수 저장 알림"
+                header="저축기간 저장 알림"
               >
-                납입 횟수가 저장되었습니다.
+                저축 기간이 저장되었습니다.
               </Modal>
             </Div>
           </SavingModal>

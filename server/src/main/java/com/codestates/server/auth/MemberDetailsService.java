@@ -1,7 +1,7 @@
 package com.codestates.server.auth;
 
 import com.codestates.server.auth.utils.CustomAuthorityUtils;
-import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
@@ -27,7 +27,7 @@ public class MemberDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<Member> optionalMember = memberRepository.findByEmail(username);
-        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = optionalMember.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
 
         return new MemberDetails(findMember);
     }

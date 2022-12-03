@@ -4,7 +4,9 @@ import ProfileIcon from '../Member/ProfileIcon';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
+import AuthContext from '../../store/AuthContext';
+import { Modal } from '../Common/Modal';
 
 const TotalContent = styled.div`
   display: flex;
@@ -16,6 +18,7 @@ const TotalContent = styled.div`
   border: 3px solid #9ed5c5;
   border-radius: 10px;
 `;
+
 const BtnContain = styled.div`
   display: flex;
   justify-content: space-between;
@@ -23,6 +26,7 @@ const BtnContain = styled.div`
   width: auto;
   margin-bottom: 10px;
 `;
+
 const ContentContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -34,11 +38,13 @@ const ContentContain = styled.div`
   border-bottom: 3px solid #def5e5;
   line-height: normal;
 `;
+
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
 `;
+
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,11 +52,10 @@ const ContentBox = styled.div`
   max-height: 400px;
   width: 100%;
   margin: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
   padding: 10px;
   /* border: 1px solid black; */
 `;
+
 const IdEtcBox = styled.div`
   display: flex;
   align-items: center;
@@ -60,6 +65,7 @@ const IdEtcBox = styled.div`
     padding-bottom: 5px;
   }
 `;
+
 const Tag = styled.div`
   display: flex;
   align-items: center;
@@ -81,19 +87,31 @@ const Id = styled.div`
   align-content: center;
   justify-content: center;
 `;
+
 const EtcBox = styled.div`
   display: flex;
-  margin-left: 240px;
+  margin-left: auto;
 `;
+
 const Date = styled.div`
   display: flex;
   width: auto;
   height: 30px;
-  margin-right: 20px;
   line-height: normal;
   align-content: center;
   justify-content: center;
 `;
+
+const View = styled.div`
+  display: flex;
+  width: auto;
+  height: 30px;
+  line-height: normal;
+  align-content: center;
+  justify-content: center;
+  margin: 0 10px 0 10px;
+`;
+
 const LikeBox = styled.div`
   display: flex;
   width: auto;
@@ -106,6 +124,7 @@ const LikeBox = styled.div`
   -webkit-text-stroke: 1.5px black;
   cursor: pointer;
 `;
+
 const UnLikeBox = styled.div`
   display: flex;
   width: auto;
@@ -118,6 +137,7 @@ const UnLikeBox = styled.div`
   -webkit-text-stroke: 1.5px black;
   cursor: pointer;
 `;
+
 const TitleBox = styled.div`
   display: flex;
   height: auto;
@@ -129,6 +149,7 @@ const TitleBox = styled.div`
   font-size: 23px;
   font-weight: 600;
 `;
+
 const TextBox = styled.div`
   display: flex;
   height: auto;
@@ -141,7 +162,14 @@ const TextBox = styled.div`
 `;
 
 const Contents = () => {
+  const URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
+  const [Decode] = useState(authCtx.parseJwt);
+
+  const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, setErrModalopen] = useState(false);
+
   const { id } = useParams();
   const [title, setTitle] = useState();
   const [body, setBody] = useState();
@@ -149,38 +177,87 @@ const Contents = () => {
   const [name, setName] = useState();
   const [boardId, setBoardId] = useState();
   const [like, setLike] = useState();
+  const [memberid, setMemberId] = useState();
+  const [view, setView] = useState();
   const [category, setCategory] = useState();
+  const [errLikeopen, setErrLikeopen] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
-  const URL = process.env.REACT_APP_API_URL;
+  const openModal = () => {
+    setModalopen(true);
+  };
+  const closeModal = () => {
+    setModalopen(false);
+    navigate('/board');
+  };
+
+  const UnerrModalopen = () => {
+    setErrModalopen(true);
+  };
+
+  const UnsetErrLikeopen = () => {
+    setErrLikeopen(true);
+  };
+
+  const UnerrcloseModal = () => {
+    setErrModalopen(false);
+    setErrLikeopen(false);
+  };
 
   const Delete = async () => {
     try {
-      const res = await axios.delete(`${URL}/board/${id}`);
-      console(res);
-      navigate('/freeboard');
+      await axios.delete(`${URL}/board/${id}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
+      openModal();
     } catch (e) {
-      console.log(e);
+      UnerrModalopen();
     }
   };
 
   const Patchlike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/like`);
+      const res = await axios.patch(
+        `${URL}/board/${id}/like`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       setLike(res.data.like);
     } catch (e) {
-      console.log(e);
+      UnsetErrLikeopen();
     }
   };
 
   const Patchdislike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/dislike`);
+      const res = await axios.patch(
+        `${URL}/board/${id}/dislike`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       setLike(res.data.like);
     } catch (e) {
-      console.log(e);
+      UnsetErrLikeopen();
     }
+  };
+
+  const ModifyButton = () => {
+    navigate(`/modifyboard/${boardId}`);
+  };
+
+  const DeleteButton = () => {
+    Delete();
   };
 
   useEffect(() => {
@@ -194,6 +271,8 @@ const Contents = () => {
         setCategory(res.data.category);
         setLike(res.data.like);
         setName(res.data.memberPosted.name);
+        setMemberId(res.data.memberPosted.id);
+        setView(res.data.view);
       } catch (e) {
         console.log(e);
       }
@@ -205,8 +284,12 @@ const Contents = () => {
     <>
       <TotalContent>
         <BtnContain>
-          <ModifyContentBtn boardId={boardId} />
-          <DeleteContentBtn Delete={Delete} />
+          {memberid === Decode.id ? (
+            <>
+              <ModifyContentBtn ModifyButton={ModifyButton} />
+              <DeleteContentBtn DeleteButton={DeleteButton} />
+            </>
+          ) : null}
         </BtnContain>
         <ContentContain>
           <ImageBox>
@@ -220,6 +303,7 @@ const Contents = () => {
               <Id>{name}</Id>
               <EtcBox>
                 <Date>{momentdata}</Date>
+                <View>View : {view}</View>
                 <LikeBox onClick={Patchlike}>❤</LikeBox>
                 {like}
                 <UnLikeBox onClick={Patchdislike}>❤</UnLikeBox>
@@ -229,6 +313,15 @@ const Contents = () => {
             <TextBox>{body}</TextBox>
           </ContentBox>
         </ContentContain>
+        <Modal open={Modalopen} close={closeModal} header="게시물 삭제 알림">
+          게시물이 삭제 되었습니다.
+        </Modal>
+        <Modal open={errModalopen} close={UnerrcloseModal} header="오류 알림">
+          게시물이 삭제가 정상적으로 처리되지 않았습니다.
+        </Modal>
+        <Modal open={errLikeopen} close={UnerrcloseModal} header="오류 알림">
+          이미 투표를 완료한 게시물입니다.
+        </Modal>
       </TotalContent>
     </>
   );

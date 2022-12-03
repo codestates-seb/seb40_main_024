@@ -2,25 +2,22 @@ package com.codestates.server.member.service;
 
 
 import com.codestates.server.auth.event.MemberRegistrationApplicationEvent;
+import com.codestates.server.auth.jwt.JwtTokenizer;
 import com.codestates.server.auth.utils.CustomAuthorityUtils;
-import com.codestates.server.exception.BusinessLogicException;
+import com.codestates.server.exception.CustomException;
 import com.codestates.server.exception.ExceptionCode;
 import com.codestates.server.member.entity.Member;
 import com.codestates.server.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -32,14 +29,15 @@ public class MemberService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final ApplicationEventPublisher publisher;
-//    private static RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+    private final JwtTokenizer jwtTokenizer;
 
 
-//    @Transactional
-//    public static void logout(HttpServletRequest request, String email) {
-//        redisTemplate.opsForValue().set(request.getHeader("Authorization"),"logout",30 * 60 * 1000L, TimeUnit.MILLISECONDS);
-//        redisTemplate.delete(email);
-//    }
+
+/*    @Transactional
+    public static void logout(HttpServletRequest request, String email) {
+        redisTemplate.opsForValue().set(request.getHeader("Authorization"),"logout",30 * 60 * 1000L, TimeUnit.MILLISECONDS);
+        redisTemplate.delete(email);
+    }*/
 
     @Transactional
     public Member createMember(Member member) {
@@ -63,38 +61,22 @@ public class MemberService {
         return findVerifiedMember(id);
     }
 
-
-
     public Member findPassword(String email) {
         return findVerifiedMember(findMemberId(email));
     }
 
     @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public Member updateMember(String email ,Member member) {
-        log.info("1번 통과");
         Member findMember = findVerifiedMember(findMemberId(email));
-        log.info("2번 통과");
 
         Optional.ofNullable(member.getEmail()).ifPresent(findMember::setEmail);
-        log.info("3번 통과");
         Optional.ofNullable(member.getName()).ifPresent(findMember::setName);
-        log.info("4번 통과");
         if (member.getPassword() != null) {
             findMember.setPassword(
                     passwordEncoder.encode(member.getPassword()));
         }
-        log.info("5번 통과");
         return memberRepository.save(findMember);
     }
-
-//    public Page<Member> findAllMembers(int page, int size) {
-//        return memberRepository.findAll(PageRequest.of(page , size ,
-//                Sort.by("memberId").descending()));
-//    }
-
-//    public void deleteMember(String email) {
-//        memberRepository.deleteById(findMemberId(email));
-//    }
 
     @Transactional
     public void deleteMember(String email) {
@@ -104,12 +86,12 @@ public class MemberService {
     private void verifyExistsEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
         if (member.isPresent())
-            throw new BusinessLogicException(ExceptionCode.DUPLICATE_MEMBER);
+            throw new CustomException(ExceptionCode.DUPLICATE_MEMBER);
     }
 
     public Long findMemberId(String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
-        Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        Member findMember = optionalMember.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember.getId();
     }
 
@@ -118,6 +100,19 @@ public class MemberService {
         Optional<Member> optionalMember =
                 memberRepository.findById(memberId);
         return optionalMember.orElseThrow(() ->
-                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+                new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+    }
+
+    private String newAccessToken(Member member) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("email", member.getEmail());
+        claims.put("roles", member.getRoles());
+
+        String subject = member.getEmail();
+        Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getAccessTokenExpirationMinutes());
+
+        String base64EncodedSecretKey = jwtTokenizer.encodeBase64SecretKey(jwtTokenizer.getSecretKey());
+
+        return jwtTokenizer.generateAccessToken(claims, subject, expiration, base64EncodedSecretKey);
     }
 }

@@ -14,15 +14,12 @@ const GuideBox = styled.div`
   flex-direction: column;
   justify-content: center;
   box-sizing: border-box;
-  height: 250px;
-  width: 550px;
-  /* align-items: center; */
-  /* color: #9ed5c5; */
+  padding: 10px;
+  width: 650px;
+  height: auto;
   text-align: left;
   border-top: 5px solid #8ec3b0;
   border-bottom: 5px solid #8ec3b0;
-  margin-top: 80px;
-  margin-left: 300px;
   margin-bottom: 50px;
   color: grey;
   .TextHeader {
@@ -42,9 +39,7 @@ const PageContain = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  /* display: inline-block; */
   align-items: center;
-  /* position: relative; */
   box-sizing: border-box;
   .Contain {
     display: flex;
@@ -61,17 +56,15 @@ const ChartContain = styled.div`
   width: 750px;
   height: 400px;
   position: fixed !important;
-  margin-top: -350px;
+  margin-top: 150px;
   margin-left: -800px;
-  /* top: 300px !important; */
+  gap: 50px;
 `;
 const ChartBox = styled.div`
   display: flex;
   box-sizing: border-box;
   width: 750px;
-  height: 350px;
-  /* margin-left: 120px; */
-  /* top: 300px !important; */
+  height: 450px;
 `;
 
 const BoxContain = styled.div`
@@ -85,6 +78,7 @@ const BoxContain = styled.div`
   top: 30px !important;
   left: 300px;
   margin-left: 100px;
+  margin-top: 100px;
 `;
 
 const GraphH1 = styled.h1`
@@ -92,7 +86,6 @@ const GraphH1 = styled.h1`
   height: 100px;
   width: 100%;
   align-items: center;
-  /* color: #9ed5c5; */
   text-align: center;
   text-shadow: 1px 1px 2px #bcead5;
   color: #bcead5;
@@ -100,19 +93,6 @@ const GraphH1 = styled.h1`
 `;
 
 const AssetTargetPage = () => {
-  const tokenAxios = () => {
-    const loginData = {
-      email: 'hoju5@gmail.com',
-      password: 'password5',
-    };
-
-    axios.post(`${url}/member/login`, loginData).then((res) => {
-      const { accessToken } = res.headers.authorization;
-      // token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
-      axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-      console.log(res.headers.authorization);
-    });
-  };
   const url = process.env.REACT_APP_API_URL;
   const [goal, setGoal] = useState(''); // 명칭
   const [extended, setExtended] = useState(''); // 목표금액
@@ -125,7 +105,7 @@ const AssetTargetPage = () => {
   const [up, setUp] = useState(0); //저축횟수
   const [countList, setCountList] = useState([]);
 
-  let monthly = Math.floor(extended / period);
+  let monthly = Math.ceil(extended / period);
   if (isNaN(monthly)) {
     monthly = 0;
   } else if (monthly === Infinity) {
@@ -135,9 +115,15 @@ const AssetTargetPage = () => {
   const targetAmount = monthly
     .toString()
     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
-  let percentage = Math.floor((monthly / extended) * 100);
+
+  let percentage = Math.ceil((monthly / period) * 100);
   if (isNaN(percentage)) {
     percentage = 0;
+  }
+
+  let nowPercentage = percentage * up;
+  if (isNaN(nowPercentage)) {
+    nowPercentage = 0;
   }
 
   const handlerGoal = (e) => {
@@ -153,6 +139,9 @@ const AssetTargetPage = () => {
     setTarget(e.target.value);
   };
   const goalNameonChange = (e) => {
+    if (e.target.value === '') {
+      alert('목표를 입력해주세요.');
+    }
     setGoalName(e.target.value);
   };
 
@@ -167,47 +156,54 @@ const AssetTargetPage = () => {
   useEffect(() => {
     const goalGet = async () => {
       try {
-        const res = await axios.get(`${url}/1/goal`);
+        const res = await axios.get(`${url}/goal`, {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        });
         setCountList(res.data._embedded.responseList);
         setUp(res.data._embedded.responseList.completed);
         setUp(res.data._embedded.responseList.incompleted);
         console.log('get', res);
-        console.log('responseList', res.data._embedded.responseList);
       } catch (err) {
         console.log('error', err);
       }
     };
     goalGet();
-    tokenAxios();
   }, [render]);
 
   const goalPost = async () => {
-    const data = {
+    const postdata = {
       goalName: goal,
       goalPrice: extended,
       targetLength: period,
-      calculatedPrice: targetAmount,
     };
     try {
-      const res = await axios.post(`${url}/1/goal`, data);
+      const res = await axios.post(`${url}/goal`, postdata, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
 
       setGoal('');
       setExtended('');
       setPeriod('');
       setTarget('');
       setRender((el) => el + 1);
-      console.log(countList);
       console.log('post', res);
-      console.log(res.data.goalId);
-      if (countList.length < 6) return;
-      alert('최대 6개의 목표를 설정할 수 있습니다');
+      // if (countList.length < 6) return;
+      // alert('최대 6개의 목표를 설정할 수 있습니다');
     } catch (err) {
       console.log('error', err);
     }
   };
   const goalDelete = async (e) => {
     try {
-      const res = await axios.delete(`${url}/1/goal/${e.target.dataset.id}`);
+      const res = await axios.delete(`${url}/goal/${e.target.dataset.id}`, {
+        headers: {
+          Authorization: localStorage.getItem('token'),
+        },
+      });
       setRender((el) => el + 1);
       console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
@@ -222,10 +218,16 @@ const AssetTargetPage = () => {
       goalPrice: goalPrice,
       targetLength: targetLength,
     };
+    console.log(`${localStorage.getItem('token')}`);
     try {
       const res = await axios.patch(
-        `${url}/1/goal/${e.target.dataset.id}`,
-        patchdata
+        `${url}/goal/${e.target.dataset.id}`,
+        patchdata,
+        {
+          headers: {
+            Authorization: `${localStorage.getItem('token')}`,
+          },
+        }
       );
       setRender((el) => el + 1);
 
@@ -239,8 +241,15 @@ const AssetTargetPage = () => {
   const goalUpPatch = async (e) => {
     try {
       const res = await axios.patch(
-        `${url}/1/goal/${e.target.dataset.id}/complete`
+        `${url}/goal/${e.target.dataset.id}/complete`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
       );
+      setRender((el) => el + 1);
       setUp(res.data.completed);
       console.log(res.data.completed);
     } catch (err) {
@@ -251,101 +260,128 @@ const AssetTargetPage = () => {
   const goalDownPatch = async (e) => {
     try {
       const res = await axios.patch(
-        `${url}/1/goal/${e.target.dataset.id}/incomplete`
+        `${url}/goal/${e.target.dataset.id}/incomplete`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
       );
+      setRender((el) => el + 1);
       setUp(res.data.completed);
     } catch (err) {
       console.log('up', err);
     }
   };
+  const GoalData = [
+    {
+      name: '목표',
+      목표율: 100,
+      달성률: 50,
+      amt: 2400,
+    },
+  ];
+
+  console.log(countList);
+
+  for (let i = 0; i < countList.length; i++) {
+    let countListData = {
+      name: countList[i].goalName,
+      목표율: 100,
+      달성률: Math.ceil(
+        (countList[i].goalPrice /
+          countList[i].targetLength /
+          countList[i].goalPrice) *
+          countList[i].completed *
+          100
+      ),
+      amt: 2400,
+    };
+    GoalData.push(countListData);
+  }
 
   // useEffect(() => {
-  //   goalGet();
-  //   goalPost();
   //   goalDelete();
-  //   tokenAxios();
-  // }, [setGoal, setExtended, setPeriod]);
-  // [setGoal, setExtended, setPeriod]
+  // }, [countList]);
+
   return (
     <>
       <LongNavbarBox />
       <MiniNavbarBox />
       <>
-        <GuideBox>
-          <h2 className="TextHeader">목표 작성을 위한 안내</h2>
-          <br />
-          <p className="Text">
-            첫째, <span className="Hilight">&apos;나의 목표&apos;</span>에
-            목표를 작성해주세요.
-          </p>
-          <br />
-          <p className="Text">
-            둘째, <span className="Hilight">START</span> 버튼을 클릭하면
-            목표리스트가 생성됩니다.
-          </p>
-          <br />
-          <p className="Text">
-            셋째, 목표리스트의 <span className="Hilight">SAVING</span> 버튼을
-            클릭하여 납입 기간을 표시할 수 있습니다.
-          </p>
-          <br />
-          <p className="Text">*그래프를 통해 목표 달성률을 확인해보세요!*</p>
-        </GuideBox>
-        <PageContain>
-          <ChartContain className="ScrollActive">
-            <GraphH1>목표 현황</GraphH1>
-            <ChartBox>
-              <AssetBdata
-                goal={goal}
-                monthly={monthly}
-                extended={extended}
-                period={period}
-                countList={countList}
-              />
-            </ChartBox>
-          </ChartContain>
-
-          <div className="Contain">
-            <BoxContain>
-              <AssetSetting
-                goalPost={goalPost}
-                countList={countList}
-                handlerGoal={handlerGoal}
-                handlerExtended={handlerExtended}
-                handlerPeriod={handlerPeriod}
-                handlerTarget={handlerTarget}
-                goal={goal}
-                extended={extended}
-                period={period}
-                target={target}
-                targetAmount={targetAmount}
-              />
-              {countList.map((count, id) => (
-                <AssetList
-                  count={count}
-                  key={id}
-                  id={count.goalId}
+        <div>
+          <PageContain>
+            <ChartContain className="ScrollActive">
+              <GraphH1>목표 현황</GraphH1>
+              <ChartBox>
+                <AssetBdata GoalData={GoalData}></AssetBdata>
+              </ChartBox>
+            </ChartContain>
+            <div className="Contain">
+              <BoxContain>
+                <GuideBox>
+                  <h2 className="TextHeader">목표 작성을 위한 안내</h2>
+                  <br />
+                  <p className="Text">
+                    첫째, <span className="Hilight">&apos;나의 목표&apos;</span>
+                    에 목표를 작성해주세요.
+                  </p>
+                  <br />
+                  <p className="Text">
+                    둘째, <span className="Hilight">START</span> 버튼을 클릭하면
+                    목표리스트가 생성됩니다.
+                  </p>
+                  <br />
+                  <p className="Text">
+                    셋째, 목표리스트의 <span className="Hilight">Saving</span>{' '}
+                    버튼을 클릭하여 저축한 기간을 표시할 수 있습니다.
+                  </p>
+                  <br />
+                  <p className="Text">
+                    *그래프를 통해 목표 달성률을 확인해보세요!*
+                  </p>
+                </GuideBox>
+                <AssetSetting
+                  goalPost={goalPost}
+                  countList={countList}
+                  handlerGoal={handlerGoal}
+                  handlerExtended={handlerExtended}
+                  handlerPeriod={handlerPeriod}
+                  handlerTarget={handlerTarget}
                   goal={goal}
                   extended={extended}
                   period={period}
-                  setGoal={setGoal}
-                  setExtended={setExtended}
-                  setPeriod={setPeriod}
                   target={target}
-                  goalDelete={goalDelete}
                   targetAmount={targetAmount}
-                  goalPatch={goalPatch}
-                  goalNameonChange={goalNameonChange}
-                  goalPriceonChange={goalPriceonChange}
-                  targetLengthonChange={targetLengthonChange}
-                  goalUpPatch={goalUpPatch}
-                  up={up}
-                  goalDownPatch={goalDownPatch}
-                ></AssetList>
-              ))}
-            </BoxContain>
-          </div>
-        </PageContain>
+                />
+                {countList.map((count, id) => (
+                  <AssetList
+                    count={count}
+                    key={id}
+                    id={count.goalId}
+                    goal={goal}
+                    extended={extended}
+                    period={period}
+                    setGoal={setGoal}
+                    setExtended={setExtended}
+                    setPeriod={setPeriod}
+                    target={target}
+                    goalDelete={goalDelete}
+                    targetAmount={targetAmount}
+                    goalPatch={goalPatch}
+                    goalNameonChange={goalNameonChange}
+                    goalPriceonChange={goalPriceonChange}
+                    targetLengthonChange={targetLengthonChange}
+                    goalUpPatch={goalUpPatch}
+                    up={up}
+                    goalDownPatch={goalDownPatch}
+                  ></AssetList>
+                ))}
+              </BoxContain>
+            </div>
+          </PageContain>
+        </div>
       </>
     </>
   );

@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { PlusBtn } from '../Common/Button';
+// import { Modal } from '../Common/Modal';
+// import { useState } from 'react';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -27,7 +29,7 @@ const Header = styled.h3`
 const SettingInput = styled.input`
   box-sizing: border-box;
   text-align: center;
-  width: 400px;
+  width: 350px;
   height: 60px;
   margin: 10px;
   font-size: 20px;
@@ -61,12 +63,18 @@ const AssetSetting = ({
   extended,
   period,
   countList,
-  HandlerAdd,
   goalPost,
   handlerGoal,
   handlerExtended,
   handlerPeriod,
 }) => {
+  // const [Modalopen, setModalopen] = useState(false);
+  // const openModal = () => {
+  //   setModalopen(!Modalopen);
+  // };
+  // const closeModal = () => {
+  //   setModalopen(false);
+  // };
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -97,11 +105,12 @@ const AssetSetting = ({
           <TextBox>{targetAmount}원!</TextBox>
           {countList.length === 6 ? (
             <>
-              <PlusBtn disabled />
+              {' '}
+              <PlusBtn disabled></PlusBtn>
             </>
           ) : (
             <>
-              <PlusBtn HandlerAdd={HandlerAdd} goalPost={goalPost} />
+              <PlusBtn goalPost={goalPost} />
             </>
           )}
         </ComponentContain>

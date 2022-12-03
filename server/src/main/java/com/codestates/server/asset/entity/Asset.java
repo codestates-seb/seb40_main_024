@@ -2,15 +2,23 @@ package com.codestates.server.asset.entity;
 
 import com.codestates.server.audit.Auditable;
 import com.codestates.server.member.entity.Member;
-import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Builder;
-
-import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
@@ -23,11 +31,11 @@ public class Asset extends Auditable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long assetId;
 
-    @Column
+    @Column(nullable = false)
     private String assetType; // (주식, 현금, 예금 등 유동성자산. 택 1 가능?)
 
-    @Column(nullable = false)
-    private long assetValue; // long은 null값 불가능
+    @Column
+    private Long assetValue; // long은 null값 불가능
 
 
     public Asset(String assetType, Long assetValue) {
@@ -35,29 +43,27 @@ public class Asset extends Auditable {
         this.assetValue = assetValue;
     }
 
-//    public Asset(String assetType, Long assetValue, Member member, AssetTag tag) {
+
     public Asset(String assetType, Long assetValue, Member member) {
         this.assetType = assetType;
         this.assetValue = assetValue;
         this.member = member;
-//        this.tag = tag;
+
     }
 
     @Column
     private String strValue; // string을 long으로 형변환
 
 
-
-    @ManyToOne(fetch = FetchType.LAZY) // 단방향
-    @JoinColumn(name = "member_id")
+    @ManyToOne(fetch = FetchType.LAZY) // 단방향. 지연 로딩
+    @JoinColumn(name = "member_id") // @JoinColum(referencedColumnName = " ") 조인 대상의 테이블 필드 명 직접 지정
     private Member member;
     public void setMember(Member member) {
         this.member = member;
     }
 
-//    @OneToMany(mappedBy = "asset", cascade = CascadeType.ALL)
-//    private List<Asset> assets = new ArrayList<>();
-
+//    @OneToMany(mappedBy = 'assetEditors', cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<AssetEditor> assetEditors = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private AssetStatus assetStatus = AssetStatus.ASSET_POSTED;
@@ -65,18 +71,18 @@ public class Asset extends Auditable {
 
     // AssetStatus 다시 확인해 볼 것!
     public enum AssetStatus {
-        ASSET_DELETED(0, "삭제된 자산"),
-        ASSET_POSTED(1, "자산 추가");
+        ASSET_DELETED( "삭제된 자산" ),
+        ASSET_POSTED( "추가된 자산" ),
+        ASSET_PATCHED("수정된 자산");
 
-        @Getter
-        private final int statusCode;
 
         @Getter
         private final String status;
 
-        AssetStatus(int statusCode, String status) {
-            this.statusCode = statusCode;
+        AssetStatus(String status) {
+
             this.status = status;
+
         }
     }
 
@@ -88,23 +94,20 @@ public class Asset extends Auditable {
         this.member = member; // 직접 연관관계 매핑 (먼저 매핑된 상태에서)
         member.getAssets().add(this);
     }
-//
-//    @Column(nullable = false)
-//    @Enumerated(EnumType.STRING)
-//    private AssetTag tag;
-//
-//    public enum AssetTag {
-//        plus("+"),
-//        minus("-");
-//
-//        @Getter
-//        @JsonValue
-//        private final String tag;
-//
-//        AssetTag(String tag) {
-//            this.tag = tag;
-//        }
+
+//    public AssetEditor.AssetEditorBuilder toEditor() {
+//        return AssetEditor.builder()
+//            .assetType(assetType)
+//            .strValue(strValue);
 //    }
+//
+//    public void edit(AssetEditor assetEditor) {
+//        assetType = assetEditor.getAssetType();
+//        strValue = assetEditor.getStrValue();
+//    }
+
+
+
 
 
 }
@@ -112,19 +115,3 @@ public class Asset extends Auditable {
 
 
 
-
-//
-//// 서브 클래스로 받아오는 게 맞을지?
-//@Enumerated
-//public static class Currency {
-//    public Currency(Long won, Long dol, Long eu, Long jpy) {
-//        this.won = won;
-//        this.dol = dol;
-//        this.eu = eu;
-//        this.jpy = jpy;
-//    }
-//    private Long won;
-//    private Long dol;
-//    private Long eu;
-//    private Long jpy;
-//}

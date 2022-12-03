@@ -41,8 +41,12 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             request.setAttribute("exception", ee);
         } catch (Exception e) {
             request.setAttribute("exception", e);
-        }
 
+            String logoutToken = request.getHeader("Authorization");
+//            if(null != redisTemplate.opsForValue().get(logoutToken)){
+//                throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
+//            }
+        }
 
         filterChain.doFilter(request, response);
     }

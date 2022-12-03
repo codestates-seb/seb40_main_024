@@ -35,6 +35,9 @@ public class MemberDto {
 
         private Long memberId;
 
+        @Email
+        private String email;
+
         @NotBlank
         @Size(min = 2, max = 15)
         private String name;

@@ -25,6 +25,7 @@ public class GoalService {
     private final GoalMapper mapper;
     private final MemberRepository memberRepository;
 
+    // --------------------------------------- test ------------------------------------------------
     public GoalDto.Response findOne(long id) {
         return mapper.goalToGoalResponseDto(findVerifiedGoal(id));
     }
@@ -32,33 +33,36 @@ public class GoalService {
     public List<GoalDto.Response> findAll() {
         return mapper.goalsToGoalResponses(repository.findAll());
     }
+    // --------------------------------------- test ------------------------------------------------
 
-    public List<GoalDto.Response> findByMember(long memberId) {
-        memberRepository.findById(memberId).orElseThrow(() ->
-                new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+    public List<GoalDto.Response> findAllCommentsByMember(String email) {
 
-        return mapper.goalsToGoalResponses(repository.findAllByMemberId(memberId));
+        if (email.equals("anonymousUser")) throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_FOUND);
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return mapper.goalsToGoalResponses(repository.findAllByMemberId(member.getId()));
     }
 
     @Transactional
-    public GoalDto.Response createOne(GoalDto.Post postGoal, long memberId) {
-        Goal goal = mapper.goalPostToGoal(postGoal);
-        Optional<Member> member = memberRepository.findById(memberId);
+    public GoalDto.Response createOne(GoalDto.Post postGoal, String email) {
 
-        Goal newGoal = new Goal(goal.getGoalName(), goal.getGoalPrice(), goal.getTargetLength(),
-                member.orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND)));
+        if (email.equals("anonymousUser")) throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_FOUND);
+
+        Goal goal = mapper.goalPostToGoal(postGoal);
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new CustomException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        Goal newGoal = new Goal(goal.getGoalName(), goal.getGoalPrice(), goal.getTargetLength(), member);
 
         return mapper.goalToGoalResponseDto(repository.save(newGoal));
     }
 
     @Transactional
-    public GoalDto.Response updateOne(GoalDto.Patch patchGoal, long memberId) {
+    public GoalDto.Response updateOne(GoalDto.Patch patchGoal, String email) {
         Goal goal = mapper.goalPatchToGoal(patchGoal);
 
         // Member, Goal and id verifications
-        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
-        Goal verifiedGoal = findVerifiedGoal(goal.getGoalId());
-        commentMemberIdMatch(verifiedGoal, memberId);
+        Goal verifiedGoal = verifyLoggedInMemberForGoal(goal.getGoalId(), email);
+        if (! verifiedGoal.getMember().getEmail().equals(email)) throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_MATCHED);
 
         // changed price
         verifiedGoal.setGoalPrice(goal.getGoalPrice());
@@ -77,25 +81,24 @@ public class GoalService {
     }
 
     @Transactional
-    public void deleteOne(long id, long memberId) {
-        Goal verifiedGoal = findVerifiedGoal(id);
-        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
-        commentMemberIdMatch(verifiedGoal, memberId);
+    public void deleteOne(long id, String email) {
+        Goal verifiedGoal = verifyLoggedInMemberForGoal(id, email);
 
         // DB 완전 삭제
         repository.delete(verifiedGoal);
     }
 
     @Transactional
-    public GoalDto.Response changeCompletion(long id, char operator, long memberId) {
+    public GoalDto.Response changeCompletion(long id, String operator, String email) {
         // verification
-        Goal verifiedGoal = findVerifiedGoal(id);
-        if (memberRepository.findById(memberId).isEmpty()) throw new CustomException(ExceptionCode.MEMBER_NOT_FOUND);
-        commentMemberIdMatch(verifiedGoal, memberId);
+        if (!operator.equals("complete") && !operator.equals("incomplete")) {
+            throw new CustomException(ExceptionCode.GOAL_URL_NOT_FOUND);
+        }
 
+        Goal verifiedGoal = verifyLoggedInMemberForGoal(id, email);
         int newCompleted = verifiedGoal.getCompleted();
 
-        if (operator == '1') {
+        if (operator.equals("complete")) {
             int maxLength = verifiedGoal.getTargetLength();
             // 목표 설정 기간 보다 작은 경우에만 increase
             verifiedGoal.setCompleted(newCompleted + 1 > maxLength ? maxLength : ++newCompleted);
@@ -111,7 +114,13 @@ public class GoalService {
         return optionalGoal.orElseThrow(() -> new CustomException(ExceptionCode.GOAL_NOT_FOUND));
     }
 
-    public void commentMemberIdMatch(Goal goal, long memberId) {
-        if (goal.getMember().getId() != memberId) throw new CustomException(ExceptionCode.GOAL_NOT_FOUND);
+    public Goal verifyLoggedInMemberForGoal(long id, String email) {
+        Goal verifiedGoal = findVerifiedGoal(id);
+        if (email.equals("anonymousUser")) {
+            throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_FOUND);
+        } else if (! email.equals(verifiedGoal.getMember().getEmail())) {
+            throw new CustomException(ExceptionCode.GOAL_POSTER_NOT_MATCHED);
+        }
+        return verifiedGoal;
     }
 }

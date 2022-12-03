@@ -49,6 +49,9 @@ public class Board extends Auditable {
     @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<BoardLikedBy> likedBy = new ArrayList<>();
+
     public Board(String title, String body, BoardCategory category, Member member) {
         this.title = title;
         this.body = body;
