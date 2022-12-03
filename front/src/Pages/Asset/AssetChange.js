@@ -562,7 +562,7 @@ export const AssetChange = () => {
       assetIdsBox.push(e.assetId);
     });
   }
-  console.log('assetIdsBox', assetIdsBox);
+
   const assetValueBox = [];
   const assetValueNumBox = [];
   let assetValue1 = 0;
@@ -680,15 +680,17 @@ export const AssetChange = () => {
   let RevassetData4 = [];
   let RevassetData5 = [];
   let RevassetData6 = [];
+  console.log('ChangeData1', ChangeData1);
 
   RevassetData1.push(...assetData1);
   RevassetData1.push(ChangeData1);
-  // RevassetData2.push(...assetData2);
-  // RevassetData3.push(...assetData3);
-  // RevassetData4.push(...assetData4);
-  // RevassetData5.push(...assetData5);
-  // RevassetData6.push(...assetData6);
-
+  RevassetData2.push(...assetData2);
+  // RevassetData2.push(ChangeData2);
+  RevassetData3.push(...assetData3);
+  RevassetData4.push(...assetData4);
+  RevassetData5.push(...assetData5);
+  RevassetData6.push(...assetData6);
+  console.log('AssetType', AssetType);
   const PathTextHandler1 = () => {
     setPathText1(true);
     RevassetData1.push(ChangeData1);
@@ -728,68 +730,68 @@ export const AssetChange = () => {
 
   console.log('RevassetData1', RevassetData1);
   //??????????????????????????????????????????????????????????????????????????????????????????
-  // let LastRevassetDataassetType2 = '';
-  // ChangeData1 && assetData2
-  //   ? (LastRevassetDataassetType2 =
-  //       RevassetData2[RevassetData2.length - 1].assetType)
-  //   : null;
+  let LastRevassetDataassetType2 = '';
+  ChangeData1 && assetData2
+    ? (LastRevassetDataassetType2 =
+        RevassetData2[RevassetData2.length - 1]?.assetType)
+    : null;
 
-  // RevassetData2?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType2) : null
-  // );
+  RevassetData2?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType2) : null
+  );
 
   console.log('RevassetData2', RevassetData2);
   //??????????????????????????????????????????????????????????????????????????????????????????
 
-  // let LastRevassetDataassetType3 = '';
-  // ChangeData1 && assetData3
-  //   ? (LastRevassetDataassetType3 =
-  //       RevassetData3[RevassetData3.length - 1].assetType)
-  //   : null;
-  // RevassetData3?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType3) : null
-  // );
+  let LastRevassetDataassetType3 = '';
+  ChangeData1 && assetData3
+    ? (LastRevassetDataassetType3 =
+        RevassetData3[RevassetData3.length - 1]?.assetType)
+    : null;
+  RevassetData3?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType3) : null
+  );
 
   console.log('RevassetData3', RevassetData3);
   //??????????????????????????????????????????????????????????????????????????????????????????
 
-  // let LastRevassetDataassetType4 = '';
-  // ChangeData1 && assetData4
-  //   ? (LastRevassetDataassetType4 =
-  //       RevassetData4[RevassetData4.length - 1].assetType)
-  //   : null;
-  // RevassetData4?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType4) : null
-  // );
+  let LastRevassetDataassetType4 = '';
+  ChangeData1 && assetData4
+    ? (LastRevassetDataassetType4 =
+        RevassetData4[RevassetData4.length - 1]?.assetType)
+    : null;
+  RevassetData4?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType4) : null
+  );
 
   console.log('RevassetData4', RevassetData4);
 
   // //??????????????????????????????????????????????????????????????????????????????????????????
 
-  // let LastRevassetDataassetType5 = '';
-  // ChangeData1 && assetData5
-  //   ? (LastRevassetDataassetType5 =
-  //       RevassetData5[RevassetData5.length - 1].assetType)
-  //   : null;
-  // RevassetData5?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType5) : null
-  // );
+  let LastRevassetDataassetType5 = '';
+  ChangeData1 && assetData5
+    ? (LastRevassetDataassetType5 =
+        RevassetData5[RevassetData5.length - 1]?.assetType)
+    : null;
+  RevassetData5?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType5) : null
+  );
 
   console.log('RevassetData5', RevassetData5);
 
   // //??????????????????????????????????????????????????????????????????????????????????????????
 
-  // let LastRevassetDataassetType6 = '';
-  // ChangeData1 && assetData6
-  //   ? (LastRevassetDataassetType6 =
-  //       RevassetData6[RevassetData6.length - 1].assetType)
-  //   : null;
-  // RevassetData6?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
-  // );
+  let LastRevassetDataassetType6 = '';
+  ChangeData1 && assetData6
+    ? (LastRevassetDataassetType6 =
+        RevassetData6[RevassetData6.length - 1].assetType)
+    : null;
+  RevassetData6?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
+  );
 
   console.log('RevassetData6', RevassetData6);
-  // console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
+  console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
 
   // //??????????????????????????????????????????????????????????????????????????????????????????
   //? GET
@@ -1378,18 +1380,18 @@ export const AssetChange = () => {
   };
   //!
 
-  const AssetList = AssetType.map((e, key) => (
-    <AssetListBox key={key}>
-      <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
+  // const AssetList = AssetType.map((e, key) => (
+  //   <AssetListBox key={key}>
+  //     <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
 
-      <H3Title>{e}</H3Title>
-      {e === '명칭' ? (
-        <H3>총 금액: 0원</H3>
-      ) : (
-        <H3>총 금액: {assetValueBox[key]} 원</H3>
-      )}
-    </AssetListBox>
-  ));
+  //     <H3Title>{e}</H3Title>
+  //     {e === '명칭' ? (
+  //       <H3>총 금액: 0원</H3>
+  //     ) : (
+  //       <H3>총 금액: {assetValueBox[key]} 원</H3>
+  //     )}
+  //   </AssetListBox>
+  // ));
 
   return (
     <>
@@ -1424,7 +1426,6 @@ export const AssetChange = () => {
                     <p>1 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal1>
-
                 <AssetDeleteEditModal2
                   open={DelModalopen2}
                   close={closeModal}
@@ -1437,7 +1438,6 @@ export const AssetChange = () => {
                     <p>2 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal2>
-
                 <AssetDeleteEditModal3
                   open={DelModalopen3}
                   close={closeModal}
@@ -1450,7 +1450,6 @@ export const AssetChange = () => {
                     <p>3 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal3>
-
                 <AssetDeleteEditModal4
                   open={DelModalopen4}
                   close={closeModal}
@@ -1463,7 +1462,6 @@ export const AssetChange = () => {
                     <p>4 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal4>
-
                 <AssetDeleteEditModal5
                   open={DelModalopen5}
                   close={closeModal}
@@ -1477,7 +1475,6 @@ export const AssetChange = () => {
                     <p>5 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal5>
-
                 <AssetDeleteEditModal6
                   open={DelModalopen6}
                   close={closeModal}
@@ -1492,7 +1489,6 @@ export const AssetChange = () => {
                     <p>6 선택하신 자산을 삭제하시겠습니까? </p>
                   </Div>
                 </AssetDeleteEditModal6>
-
                 <AssetTextEditModal1
                   header="자산 종류 수정 알림"
                   open={TextModalopen1}
@@ -1510,7 +1506,6 @@ export const AssetChange = () => {
                     />
                   </Div>
                 </AssetTextEditModal1>
-
                 <AssetTextEditModal2
                   header="자산 종류 수정 알림"
                   open={TextModalopen2}
@@ -1528,7 +1523,6 @@ export const AssetChange = () => {
                     />
                   </Div>
                 </AssetTextEditModal2>
-
                 <AssetTextEditModal3
                   header="자산 종류 수정 알림"
                   open={TextModalopen3}
@@ -1546,7 +1540,6 @@ export const AssetChange = () => {
                     />
                   </Div>
                 </AssetTextEditModal3>
-
                 <AssetTextEditModal4
                   header="자산 종류 수정 알림"
                   open={TextModalopen4}
@@ -1564,7 +1557,6 @@ export const AssetChange = () => {
                     />
                   </Div>
                 </AssetTextEditModal4>
-
                 <AssetTextEditModal5
                   header="자산 종류 수정 알림"
                   open={TextModalopen5}
@@ -1582,7 +1574,6 @@ export const AssetChange = () => {
                     />
                   </Div>
                 </AssetTextEditModal5>
-
                 <AssetTextEditModal6
                   header="자산 종류 수정 알림"
                   open={TextModalopen6}
@@ -1600,7 +1591,6 @@ export const AssetChange = () => {
                     />
                   </Div>
                 </AssetTextEditModal6>
-
                 <AutoModal
                   open={Modalopen}
                   close={closeModal}
@@ -1608,7 +1598,6 @@ export const AssetChange = () => {
                 >
                   자산 금액이 수정 되었습니다.
                 </AutoModal>
-
                 <Modal
                   open={errTextModalopen}
                   close={errcloseModal}
@@ -1619,7 +1608,6 @@ export const AssetChange = () => {
                     바랍니다.
                   </p>
                 </Modal>
-
                 <Modal
                   open={errModalopen}
                   close={errcloseModal}
@@ -1627,7 +1615,6 @@ export const AssetChange = () => {
                 >
                   오류 : 수정할 자산 종류를 입력해주세요
                 </Modal>
-
                 <AutoModal
                   open={errDelModalopen}
                   close={errcloseModal}
@@ -1638,201 +1625,134 @@ export const AssetChange = () => {
                     아래 자산금액수정을 진행해 주시기 바랍니다.
                   </p>
                 </AutoModal>
-
                 <H1>자산 리스트</H1>
-                {AssetList}
+                {/* {AssetList} */}
 
-                <H3Title style={{ marginTop: '45px' }}>
-                  <H3Title style={{ marginTop: '45px' }}>
-                    💚&nbsp;&nbsp;금액 명칭 수정&nbsp;&nbsp;💚
+                <AssetListBox>
+                  <H3Title style={{ marginTop: '10px' }}>
+                    1 &nbsp;) &nbsp;
                   </H3Title>
-                  <div
-                    style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      textAlign: 'left',
-                    }}
-                  >
-                    <EditButton
-                      className="1"
-                      onClick={openEditTextModal1}
-                      style={{
-                        marginRight: '15px',
-                        textAlign: 'left',
-                        width: '200px',
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                      }}
-                    >
-                      1) {AssetType[0]}&nbsp;&nbsp;
+                  <H3Title>
+                    {AssetType[0]}&nbsp;
+                    <EditButton className="1" onClick={openEditTextModal1}>
                       <FiEdit />
                     </EditButton>
-                    <EditButton
-                      className="2 "
-                      onClick={openEditTextModal2}
-                      style={{
-                        marginRight: '15px',
-                        textAlign: 'left',
-                        width: '200px',
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                      }}
-                    >
-                      2) {AssetType[1]}&nbsp;&nbsp;
-                      <FiEdit />
+                    &nbsp;
+                    <EditButton className="1" onClick={DelModalopenHandler1}>
+                      <FiDelete />
                     </EditButton>
-                    <EditButton
-                      className="3"
-                      onClick={openEditTextModal3}
-                      style={{
-                        marginRight: '15px',
-                        textAlign: 'left',
-                        width: '200px',
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                      }}
-                    >
-                      3) {AssetType[2]}&nbsp;&nbsp;
-                      <FiEdit />
-                    </EditButton>
-                    <EditButton
-                      className="4"
-                      onClick={openEditTextModal4}
-                      style={{
-                        marginRight: '15px',
-                        textAlign: 'left',
-                        width: '200px',
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                      }}
-                    >
-                      4) {AssetType[3]}&nbsp;&nbsp;
-                      <FiEdit />
-                    </EditButton>
-                    <EditButton
-                      className="5"
-                      onClick={openEditTextModal5}
-                      style={{
-                        marginRight: '15px',
-                        textAlign: 'left',
-                        width: '200px',
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                      }}
-                    >
-                      5) {AssetType[4]}&nbsp;&nbsp;
-                      <FiEdit />
-                    </EditButton>
-                    <EditButton
-                      className="6"
-                      onClick={openEditTextModal6}
-                      style={{
-                        marginRight: '15px',
-                        textAlign: 'left',
-                        width: '200px',
-                        marginLeft: '60px',
-                        marginTop: '10px',
-                      }}
-                    >
-                      6) {AssetType[5]}&nbsp;&nbsp;
-                      <FiEdit />
-                    </EditButton>
-                  </div>
-                  💛&nbsp;금액 한단계 전 되돌리기&nbsp;💛
-                </H3Title>
-                <div
-                  style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    textAlign: 'left',
-                  }}
-                >
-                  <EditButton
-                    className="1"
-                    onClick={DelModalopenHandler1}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '10px',
-                    }}
-                  >
-                    1) {AssetType[0]} &nbsp;&nbsp;
-                    <FiDelete />
-                  </EditButton>
+                  </H3Title>
+                  {AssetType[0] === '명칭' ? (
+                    <H3>총 금액: 0원</H3>
+                  ) : (
+                    <H3>총 금액: {assetValueBox[0]} 원</H3>
+                  )}
+                </AssetListBox>
 
-                  <EditButton
-                    className="2"
-                    onClick={DelModalopenHandler2}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '15px',
-                    }}
-                  >
-                    2) {AssetType[1]}&nbsp;&nbsp;
-                    <FiDelete />
-                  </EditButton>
-                  <EditButton
-                    className="3"
-                    onClick={DelModalopenHandler3}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '15px',
-                    }}
-                  >
-                    3) {AssetType[2]}&nbsp;&nbsp;
-                    <FiDelete />
-                  </EditButton>
-                  <EditButton
-                    className="4"
-                    onClick={DelModalopenHandler4}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '15px',
-                    }}
-                  >
-                    4) {AssetType[3]}&nbsp;&nbsp;
-                    <FiDelete />
-                  </EditButton>
-                  <EditButton
-                    className="5"
-                    onClick={DelModalopenHandler5}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '15px',
-                    }}
-                  >
-                    5) {AssetType[4]}&nbsp;&nbsp;
-                    <FiDelete />
-                  </EditButton>
-                  <EditButton
-                    className="6"
-                    onClick={DelModalopenHandler6}
-                    style={{
-                      marginRight: '15px',
-                      textAlign: 'left',
-                      width: '200px',
-                      marginLeft: '60px',
-                      marginTop: '15px',
-                    }}
-                  >
-                    6) {AssetType[5]} &nbsp;&nbsp;
-                    <FiDelete />
-                  </EditButton>
-                </div>
+                <AssetListBox>
+                  <H3Title style={{ marginTop: '10px' }}>
+                    2 &nbsp;) &nbsp;
+                  </H3Title>
+                  <H3Title>
+                    {AssetType[1]}&nbsp;
+                    <EditButton className="1" onClick={openEditTextModal2}>
+                      <FiEdit />
+                    </EditButton>
+                    &nbsp;
+                    <EditButton className="1" onClick={DelModalopenHandler2}>
+                      <FiDelete />
+                    </EditButton>
+                  </H3Title>
+                  {AssetType[1] === '명칭' ? (
+                    <H3>총 금액: 0원</H3>
+                  ) : (
+                    <H3>총 금액: {assetValueBox[1]} 원</H3>
+                  )}
+                </AssetListBox>
+
+                <AssetListBox>
+                  <H3Title style={{ marginTop: '10px' }}>
+                    3 &nbsp;) &nbsp;
+                  </H3Title>
+                  <H3Title>
+                    {AssetType[2]}&nbsp;
+                    <EditButton className="1" onClick={openEditTextModal3}>
+                      <FiEdit />
+                    </EditButton>
+                    &nbsp;
+                    <EditButton className="1" onClick={DelModalopenHandler3}>
+                      <FiDelete />
+                    </EditButton>
+                  </H3Title>
+                  {AssetType[2] === '명칭' ? (
+                    <H3>총 금액: 0원</H3>
+                  ) : (
+                    <H3>총 금액: {assetValueBox[2]} 원</H3>
+                  )}
+                </AssetListBox>
+
+                <AssetListBox>
+                  <H3Title style={{ marginTop: '10px' }}>
+                    4 &nbsp;) &nbsp;
+                  </H3Title>
+                  <H3Title>
+                    {AssetType[3]}&nbsp;
+                    <EditButton className="1" onClick={openEditTextModal4}>
+                      <FiEdit />
+                    </EditButton>
+                    &nbsp;
+                    <EditButton className="1" onClick={DelModalopenHandler4}>
+                      <FiDelete />
+                    </EditButton>
+                  </H3Title>
+                  {AssetType[3] === '명칭' ? (
+                    <H3>총 금액: 0원</H3>
+                  ) : (
+                    <H3>총 금액: {assetValueBox[3]} 원</H3>
+                  )}
+                </AssetListBox>
+
+                <AssetListBox>
+                  <H3Title style={{ marginTop: '10px' }}>
+                    5 &nbsp;) &nbsp;
+                  </H3Title>
+                  <H3Title>
+                    {AssetType[4]}&nbsp;
+                    <EditButton className="1" onClick={openEditTextModal5}>
+                      <FiEdit />
+                    </EditButton>
+                    &nbsp;
+                    <EditButton className="1" onClick={DelModalopenHandler5}>
+                      <FiDelete />
+                    </EditButton>
+                  </H3Title>
+                  {AssetType[4] === '명칭' ? (
+                    <H3>총 금액: 0원</H3>
+                  ) : (
+                    <H3>총 금액: {assetValueBox[4]} 원</H3>
+                  )}
+                </AssetListBox>
+
+                <AssetListBox>
+                  <H3Title style={{ marginTop: '10px' }}>
+                    6 &nbsp;) &nbsp;
+                  </H3Title>
+                  <H3Title>
+                    {AssetType[5]}&nbsp;
+                    <EditButton className="1" onClick={openEditTextModal6}>
+                      <FiEdit />
+                    </EditButton>
+                    &nbsp;
+                    <EditButton className="1" onClick={DelModalopenHandler6}>
+                      <FiDelete />
+                    </EditButton>
+                  </H3Title>
+                  {AssetType[5] === '명칭' ? (
+                    <H3>총 금액: 0원</H3>
+                  ) : (
+                    <H3>총 금액: {assetValueBox[5]} 원</H3>
+                  )}
+                </AssetListBox>
 
                 <H2 style={{ width: '265px' }}>자산 금액 수정&nbsp;(+ / -)</H2>
                 <Div>
@@ -1891,7 +1811,6 @@ export const AssetChange = () => {
                     >{`🚨 반영금액을 수정해주세요.`}</P>
                   </Fade>
                 ) : null}
-
                 <H2>자산 초기화</H2>
                 <Div>
                   {ZeroText === false ? (
@@ -1924,7 +1843,6 @@ export const AssetChange = () => {
                     </ZeroCashBtn1>
                   </div>
                 </Div>
-
                 {ZeroText && AssetDatas ? (
                   <Fade>
                     {ZeroText === '명칭' ? (

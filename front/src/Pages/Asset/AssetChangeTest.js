@@ -275,13 +275,13 @@ export const AssetChange = () => {
   const [DelModalopen5, setDelModalopen5] = useState(false);
   const [DelModalopen6, setDelModalopen6] = useState(false);
 
-  const [PathText1, setPathText1] = useState('명칭');
-  const [PathText2, setPathText2] = useState('명칭');
-  const [PathText3, setPathText3] = useState('명칭');
-  const [PathText4, setPathText4] = useState('명칭');
-  const [PathText5, setPathText5] = useState('명칭');
-  const [PathText6, setPathText6] = useState('명칭');
-
+  const [PathText1, setPathText1] = useState(false);
+  const [PathText2, setPathText2] = useState(false);
+  const [PathText3, setPathText3] = useState(false);
+  const [PathText4, setPathText4] = useState(false);
+  const [PathText5, setPathText5] = useState(false);
+  const [PathText6, setPathText6] = useState(false);
+  console.log('PathText1', PathText1);
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
   const [EditText, setEditText] = useState('');
@@ -510,11 +510,11 @@ export const AssetChange = () => {
       }
     });
   }
-  // console.log('assetData', assetData);
-  // console.log('assetData1', assetData1);
-  // console.log('assetData2', assetData2);
-  // console.log('assetData3', assetData3);
-  // console.log('assetData4', assetData4);
+  console.log('assetData', assetData);
+  console.log('assetData1', assetData1);
+  console.log('assetData2', assetData2);
+  console.log('assetData3', assetData3);
+  console.log('assetData4', assetData4);
   console.log('assetData5', assetData5);
   console.log('assetData6', assetData6);
 
@@ -681,116 +681,219 @@ export const AssetChange = () => {
   let RevassetData5 = [];
   let RevassetData6 = [];
 
-  RevassetData1.push(...assetData1);
-  RevassetData1.push(ChangeData1);
-  RevassetData2.push(...assetData2);
-  RevassetData3.push(...assetData3);
-  RevassetData4.push(...assetData4);
-  RevassetData5.push(...assetData5);
-  RevassetData6.push(...assetData6);
-
-  const PathTextHandler1 = () => {
-    setPathText1(true);
-    RevassetData1.push(ChangeData1);
-  };
-  const PathTextHandler2 = () => {
-    setPathText1(true);
-    RevassetData2.push(ChangeData1);
-  };
-  const PathTextHandler3 = () => {
-    setPathText1(true);
-    RevassetData3.push(ChangeData1);
-  };
-  const PathTextHandler4 = () => {
-    setPathText1(true);
-    RevassetData4.push(ChangeData1);
-  };
-  const PathTextHandler5 = () => {
-    setPathText1(true);
-    RevassetData5.push(ChangeData1);
-  };
-  const PathTextHandler6 = () => {
-    setPathText1(true);
-    RevassetData6.push(ChangeData1);
-  };
+  // const PathTextHandler1 = () => {
+  //   setPathText1(true);
+  //   RevassetData1.push(ChangeData1);
+  // };
+  // const PathTextHandler2 = () => {
+  //   setPathText2(true);
+  //   RevassetData2.push(ChangeData1);
+  // };
+  // const PathTextHandler3 = () => {
+  //   setPathText3(true);
+  //   RevassetData3.push(ChangeData1);
+  // };
+  // const PathTextHandler4 = () => {
+  //   setPathText4(true);
+  //   RevassetData4.push(ChangeData1);
+  // };
+  // const PathTextHandler5 = () => {
+  //   setPathText5(true);
+  //   RevassetData5.push(ChangeData1);
+  // };
+  // const PathTextHandler6 = () => {
+  //   setPathText6(true);
+  //   RevassetData6.push(ChangeData1);
+  // };
 
   console.log('ChangeData1', ChangeData1);
   //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData1.push(...assetData1);
+  {
+    PathText1 === true ? RevassetData1.push(ChangeData1) : null;
+  }
   let LastRevassetDataassetType1 = '';
   ChangeData1 && assetData1
     ? (LastRevassetDataassetType1 =
-        RevassetData1[RevassetData1.length - 1].assetType)
+        RevassetData1[RevassetData1.length - 1]?.assetType)
+    : null;
+
+  let LastRevassetDataassetId1 = '';
+  ChangeData1 && assetData1
+    ? (LastRevassetDataassetId1 =
+        RevassetData1[RevassetData1.length - 1]?.assetId)
     : null;
 
   RevassetData1?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType1) : null
   );
 
+  if (ChangeData1.assetId === LastRevassetDataassetId1) {
+    RevassetData1.push(ChangeData1);
+    RevassetData1.pop();
+  }
+
   console.log('RevassetData1', RevassetData1);
+  console.log('LastRevassetDataassetType1', LastRevassetDataassetType1);
+  console.log('LastRevassetDataassetId1', LastRevassetDataassetId1);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
+
   //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData2.push(...assetData2);
+  {
+    PathText2 === true ? RevassetData2.push(ChangeData1) : null;
+  }
   let LastRevassetDataassetType2 = '';
   ChangeData1 && assetData2
     ? (LastRevassetDataassetType2 =
-        RevassetData2[RevassetData2.length - 1].assetType)
+        RevassetData2[RevassetData2.length - 1]?.assetType)
+    : null;
+
+  let LastRevassetDataassetId2 = '';
+  ChangeData1 && assetData2
+    ? (LastRevassetDataassetId2 =
+        RevassetData2[RevassetData2.length - 1]?.assetId)
     : null;
 
   RevassetData2?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType2) : null
   );
 
-  console.log('RevassetData2', RevassetData2);
-  //??????????????????????????????????????????????????????????????????????????????????????????
+  if (ChangeData1.assetId === LastRevassetDataassetId2) {
+    RevassetData2.push(ChangeData1);
+    RevassetData2.pop();
+  }
 
+  console.log('RevassetData2', RevassetData2);
+  console.log('LastRevassetDataassetType2', LastRevassetDataassetType2);
+  console.log('LastRevassetDataassetId2', LastRevassetDataassetId2);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData3.push(...assetData3);
+  {
+    PathText3 === true ? RevassetData3.push(ChangeData1) : null;
+  }
   let LastRevassetDataassetType3 = '';
   ChangeData1 && assetData3
     ? (LastRevassetDataassetType3 =
-        RevassetData3[RevassetData3.length - 1].assetType)
+        RevassetData3[RevassetData3.length - 1]?.assetType)
     : null;
+
+  let LastRevassetDataassetId3 = '';
+  ChangeData1 && assetData3
+    ? (LastRevassetDataassetId3 =
+        RevassetData3[RevassetData3.length - 1]?.assetId)
+    : null;
+
   RevassetData3?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType3) : null
   );
 
-  console.log('RevassetData3', RevassetData3);
-  //??????????????????????????????????????????????????????????????????????????????????????????
+  if (ChangeData1.assetId === LastRevassetDataassetId3) {
+    RevassetData3.push(ChangeData1);
+    RevassetData3.pop();
+  }
 
+  console.log('RevassetData3', RevassetData3);
+  console.log('LastRevassetDataassetType3', LastRevassetDataassetType3);
+  console.log('LastRevassetDataassetId3', LastRevassetDataassetId3);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData4.push(...assetData2);
+  {
+    PathText4 === true ? RevassetData4.push(ChangeData1) : null;
+  }
   let LastRevassetDataassetType4 = '';
   ChangeData1 && assetData4
     ? (LastRevassetDataassetType4 =
-        RevassetData4[RevassetData4.length - 1].assetType)
+        RevassetData4[RevassetData4.length - 1]?.assetType)
     : null;
+
+  let LastRevassetDataassetId4 = '';
+  ChangeData1 && assetData4
+    ? (LastRevassetDataassetId4 =
+        RevassetData4[RevassetData4.length - 1]?.assetId)
+    : null;
+
   RevassetData4?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType4) : null
   );
 
+  if (ChangeData1.assetId === LastRevassetDataassetId4) {
+    RevassetData4.push(ChangeData1);
+    RevassetData4.pop();
+  }
+
   console.log('RevassetData4', RevassetData4);
-
+  console.log('LastRevassetDataassetType4', LastRevassetDataassetType4);
+  console.log('LastRevassetDataassetId4', LastRevassetDataassetId4);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData5.push(...assetData5);
+  {
+    PathText5 === true ? RevassetData5.push(ChangeData1) : null;
+  }
+  let LastRevassetDataassetType5 = '';
+  ChangeData1 && assetData5
+    ? (LastRevassetDataassetType5 =
+        RevassetData5[RevassetData5.length - 1]?.assetType)
+    : null;
 
-  // let LastRevassetDataassetType5 = '';
-  // ChangeData1 && assetData5
-  //   ? (LastRevassetDataassetType5 =
-  //       RevassetData5[RevassetData5.length - 1].assetType)
-  //   : null;
-  // RevassetData5?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType5) : null
-  // );
+  let LastRevassetDataassetId5 = '';
+  ChangeData1 && assetData5
+    ? (LastRevassetDataassetId5 =
+        RevassetData5[RevassetData5.length - 1]?.assetId)
+    : null;
 
-  // console.log('RevassetData5', RevassetData5);
+  RevassetData5?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType5) : null
+  );
 
+  if (ChangeData1.assetId === LastRevassetDataassetId5) {
+    RevassetData5.push(ChangeData1);
+    RevassetData5.pop();
+  }
+
+  console.log('RevassetData5', RevassetData5);
+  console.log('LastRevassetDataassetType5', LastRevassetDataassetType5);
+  console.log('LastRevassetDataassetId5', LastRevassetDataassetId5);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData6.push(...assetData6);
+  {
+    PathText6 === true ? RevassetData6.push(ChangeData1) : null;
+  }
+  let LastRevassetDataassetType6 = '';
+  ChangeData1 && assetData6
+    ? (LastRevassetDataassetType6 =
+        RevassetData6[RevassetData6.length - 1]?.assetType)
+    : null;
 
-  // let LastRevassetDataassetType6 = '';
-  // ChangeData1 && assetData6
-  //   ? (LastRevassetDataassetType6 =
-  //       RevassetData6[RevassetData6.length - 1].assetType)
-  //   : null;
-  // RevassetData6?.filter((e) =>
-  //   Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
-  // );
+  let LastRevassetDataassetId6 = '';
+  ChangeData1 && assetData6
+    ? (LastRevassetDataassetId6 =
+        RevassetData6[RevassetData6.length - 1]?.assetId)
+    : null;
 
-  // console.log('RevassetData6', RevassetData6);
-  // console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
+  RevassetData6?.filter((e) =>
+    Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
+  );
 
+  if (ChangeData1.assetId === LastRevassetDataassetId6) {
+    RevassetData6.push(ChangeData1);
+    RevassetData6.pop();
+  }
+
+  console.log('RevassetData6', RevassetData6);
+  console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
+  console.log('LastRevassetDataassetId6', LastRevassetDataassetId6);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
   //? GET
   const getAssetApi = async () => {
@@ -1497,7 +1600,9 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen1}
                   api={patchAssetsApi1}
-                  PathTextHandler1={PathTextHandler1}
+                  PathText1={PathText1}
+                  setPathText1={setPathText1}
+                  // PathTextHandler1={PathTextHandler1}
                   close={closeModal}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
@@ -1515,7 +1620,9 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen2}
                   api={patchAssetsApi2}
-                  PathTextHandler2={PathTextHandler2}
+                  PathText2={PathText2}
+                  setPathText2={setPathText2}
+                  // PathTextHandler2={PathTextHandler2}
                   close={closeModal}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
@@ -1533,7 +1640,9 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen3}
                   api={patchAssetsApi3}
-                  PathTextHandler3={PathTextHandler3}
+                  PathText3={PathText3}
+                  setPathText3={setPathText3}
+                  // PathTextHandler3={PathTextHandler3}
                   close={closeModal}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
@@ -1551,7 +1660,9 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen4}
                   api={patchAssetsApi4}
-                  PathTextHandler4={PathTextHandler4}
+                  PathText4={PathText4}
+                  setPathText4={setPathText4}
+                  // PathTextHandler4={PathTextHandler4}
                   close={closeModal}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
@@ -1569,7 +1680,9 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen5}
                   api={patchAssetsApi5}
-                  PathTextHandler5={PathTextHandler5}
+                  PathText5={PathText5}
+                  setPathText5={setPathText5}
+                  // PathTextHandler5={PathTextHandler5}
                   close={closeModal}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
@@ -1587,7 +1700,9 @@ export const AssetChange = () => {
                   header="자산 종류 수정 알림"
                   open={TextModalopen6}
                   api={patchAssetsApi6}
-                  PathTextHandler6={PathTextHandler6}
+                  PathText6={PathText6}
+                  setPathText6={setPathText6}
+                  // PathTextHandler6={PathTextHandler6}
                   close={closeModal}
                 >
                   변경할 자산 명칭 ( 현재 자산 명칭 : {EditText} )
