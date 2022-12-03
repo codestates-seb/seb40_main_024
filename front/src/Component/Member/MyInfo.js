@@ -255,7 +255,7 @@ const MyInfo = () => {
       UserGet();
     } catch (e) {
       openErrModify();
-      console.log(e);
+      console.log('e', e);
     }
   };
 
@@ -271,7 +271,7 @@ const MyInfo = () => {
       openSuccessSignOut();
     } catch (e) {
       openErrSignOut();
-      console.log(e);
+      console.log('e', e);
     }
   };
 

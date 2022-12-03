@@ -19,7 +19,6 @@ import SubscriptionPage from './Pages/Pay/SubscriptionPage';
 import ModifyBoard from './Pages/Board/ModifyBoard';
 import AuthContext from './store/AuthContext';
 import { Error } from './Pages/ErrorPage/Error';
-import Exchange from './Pages/Asset/Exchange';
 // import AllBoardList from './Component/Board/AllBoardList';
 
 function App() {
@@ -35,7 +34,6 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgotpassword" element={<ForgotPasswordPage />} />
         <Route path="/board" element={<BoardPage />} />
-        <Route path="/exchange" element={<Exchange />} />
         <Route path="/boardcontentpage/:id" element={<BoardContentPage />} />
 
         {authCtx.isLoggedIn && (
