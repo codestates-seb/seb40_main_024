@@ -139,9 +139,6 @@ const AssetTargetPage = () => {
     setTarget(e.target.value);
   };
   const goalNameonChange = (e) => {
-    if (e.target.value === '') {
-      alert('목표를 입력해주세요.');
-    }
     setGoalName(e.target.value);
   };
 
@@ -216,14 +213,14 @@ const AssetTargetPage = () => {
       goalPrice: goalPrice,
       targetLength: targetLength,
     };
-    console.log(`${localStorage.getItem('token')}`);
+
     try {
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}`,
         patchdata,
         {
           headers: {
-            Authorization: `${localStorage.getItem('token')}`,
+            Authorization: localStorage.getItem('token'),
           },
         }
       );
