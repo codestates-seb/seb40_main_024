@@ -81,7 +81,7 @@ const Div = styled.div`
   justify-content: center;
   margin-top: 50px;
 `;
-const UserInfo = styled.div`
+const Info = styled.div`
   display: flex;
   justify-content: center;
   width: 300px;
@@ -90,7 +90,7 @@ const UserInfo = styled.div`
   }
 `;
 
-const UserInfoHead = styled.h4`
+const InfoHead = styled.h4`
   color: #bcead5;
   font-size: 20px;
   margin-bottom: 20px;
@@ -169,20 +169,13 @@ const AssetList = ({
   goal,
   extended,
   period,
-  //   targetAmount,
-  //   setTargetAmount,
   goalPatch,
   goalNameonChange,
-  //   goalName,
   goalPriceonChange,
-  //   goalPrice,
   targetLengthonChange,
-  //   targetLength,
   goalUpPatch,
-  // up,
   goalDownPatch,
   id,
-  //   remainingAmount,
 }) => {
   const [save, setSave] = useState(false);
   const [Modify, setModify] = useState(false);
@@ -295,28 +288,25 @@ const AssetList = ({
           >
             <Div>
               <ListContain>
-                <UserInfo>
+                <Info>
                   <div>
-                    <UserInfoHead>목표자산 수정</UserInfoHead>
+                    <InfoHead>목표자산 수정</InfoHead>
                     <Input
-                      //   value={goalName}
                       onChange={goalNameonChange}
                       placeholder="나의 목표"
                     ></Input>
                     <Input
                       type="number"
-                      //   value={goalPrice}
                       onChange={goalPriceonChange}
                       placeholder="금액"
                     />
                     <Input
                       type="number"
-                      //   value={targetLength}
                       onChange={targetLengthonChange}
                       placeholder="기간"
                     />
                   </div>
-                </UserInfo>
+                </Info>
               </ListContain>
               <Modal
                 open={Modalopen}
@@ -336,7 +326,7 @@ const AssetList = ({
           >
             <Div>
               <ListContain>
-                <UserInfo>
+                <Info>
                   <div className="saving">
                     <SavingInfoHead>
                       목표 기간:{' '}
@@ -377,7 +367,7 @@ const AssetList = ({
                       </DownBtn>
                     </NewBtnBox>
                   </div>
-                </UserInfo>
+                </Info>
               </ListContain>
               <Modal
                 open={Modalopen}

@@ -191,8 +191,6 @@ const AssetTargetPage = () => {
       setTarget('');
       setRender((el) => el + 1);
       console.log('post', res);
-      // if (countList.length < 6) return;
-      // alert('최대 6개의 목표를 설정할 수 있습니다');
     } catch (err) {
       console.log('error', err);
     }
@@ -283,8 +281,6 @@ const AssetTargetPage = () => {
     },
   ];
 
-  console.log(countList);
-
   for (let i = 0; i < countList.length; i++) {
     let countListData = {
       name: countList[i].goalName,
@@ -300,10 +296,6 @@ const AssetTargetPage = () => {
     };
     GoalData.push(countListData);
   }
-
-  // useEffect(() => {
-  //   goalDelete();
-  // }, [countList]);
 
   return (
     <>
