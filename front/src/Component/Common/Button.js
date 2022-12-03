@@ -220,19 +220,9 @@ export const PlusBtn = ({ savings, goalPost }) => {
 
   const checkHandler = () => {
     setCheck(true);
-<<<<<<< HEAD
-    setTimeout(() => {
-      setCheck(false);
-      goalPost();
-    }, 0);
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 5);
-=======
     setCheck(false);
     goalPost();
     window.location.reload();
->>>>>>> 94669f8194aba819f67380cf4b099192bec5bdda
   };
   return (
     <ButtonCC

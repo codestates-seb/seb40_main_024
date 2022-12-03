@@ -662,21 +662,10 @@ export const SavingModal = (props) => {
 
   const checkHandler = () => {
     setCheck(true);
-<<<<<<< HEAD
-    setTimeout(() => {
-      setCheck(false);
-      goalUpPatch();
-      goalDownPatch();
-    }, 0);
-    setTimeout(() => {
-      // window.location.reload();
-    }, 5);
-=======
     setCheck(false);
     goalUpPatch();
     goalDownPatch();
     window.location.reload();
->>>>>>> 94669f8194aba819f67380cf4b099192bec5bdda
   };
 
   return (
