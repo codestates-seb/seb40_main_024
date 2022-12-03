@@ -243,7 +243,22 @@ export const EditGoalBtn = ({ id, openModify }) => {
   );
 };
 export const DeleteGoalBtn = ({ id, goalDelete }) => {
+  // eslint-disable-next-line no-unused-vars
+  const [check, setCheck] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const checkHandler = () => {
+    setCheck(true);
+    setTimeout(() => {
+      // setCheck(false);
+      goalDelete();
+    }, 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 5);
+  };
+
   return (
+    // <ButtonAA data-id={id} onClick={(() => goalDelete, checkHandler)}>
     <ButtonAA data-id={id} onClick={goalDelete}>
       삭제
     </ButtonAA>
