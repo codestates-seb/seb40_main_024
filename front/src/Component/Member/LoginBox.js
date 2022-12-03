@@ -154,6 +154,7 @@ export const LoginBox = () => {
   const authCtx = useContext(AuthContext);
   const URL = process.env.REACT_APP_API_URL;
   const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, setErrModalopen] = useState(false);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -201,9 +202,17 @@ export const LoginBox = () => {
     setModalopen(true);
   };
 
+  const erropenModal = () => {
+    setErrModalopen(true);
+  };
+
   const closeModal = () => {
     setModalopen(false);
     navigate('/', { replace: true });
+  };
+
+  const errCloseModal = () => {
+    setErrModalopen(false);
   };
 
   const DataLogin = {
@@ -219,7 +228,7 @@ export const LoginBox = () => {
       authCtx.login(reqToken);
       openModal();
     } catch (e) {
-      console.log(e);
+      erropenModal();
     }
   };
 
@@ -276,6 +285,13 @@ export const LoginBox = () => {
         </ButtonBox>
         <Modal open={Modalopen} close={closeModal} header="로그인 알림">
           로그인 성공하셨습니다.
+        </Modal>
+        <Modal
+          open={errModalopen}
+          close={errCloseModal}
+          header="로그인 실패 알림"
+        >
+          이메일 또는 비밀번호가 맞지 않습니다.
         </Modal>
       </Container>
     </PageContainer>

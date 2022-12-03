@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@SuppressWarnings("ALL")
+
 @RestController
 @RequestMapping
 @Validated
@@ -63,16 +63,24 @@ public class AssetController {
 
 
 
-    //     자산 한 개 조회
+//         자산 한 개 조회
 
     @GetMapping("asset/{asset_id}")
-    public ResponseEntity getAsset(@PathVariable("member_id") @Positive long memberId, @PathVariable("asset_id") @Positive long assetId,
-                                    @AuthenticationPrincipal String email) {
+    public ResponseEntity getAsset(@PathVariable("asset_id") @Positive long assetId) {
+
         Asset asset = assetService.findVerifiedAsset(assetId);
         Response response = mapper.assetToAssetResponse(asset);
-        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK
-        );
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
+
     }
+//    @GetMapping("asset/{asset_id}")
+//    public ResponseEntity getAsset(@PathVariable("asset_id") @Positive long assetId,
+//                                    @AuthenticationPrincipal String email) {
+//        Asset asset = assetService.findByMemberId(email);
+//        Response response = mapper.assetToAssetResponse(asset);
+//        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK
+//        );
+//    }
 
 
 
@@ -121,7 +129,7 @@ public class AssetController {
 //
 //
 //    // 개인별 자산 전체 삭제
-//    @DeleteMapping("member/{member_id}/asset")
+//    @DeleteMapping("/asset")
 //    public ResponseEntity deleteAssets(@PathVariable("member_id") long memberId,
 //                                        @AuthenticationPrincipal String email) {
 //
@@ -134,7 +142,7 @@ public class AssetController {
 
 
 //    // 수정 내역 저장
-//    @PatchMapping("/member/{member_id}/asset")
+//    @PatchMapping("/asset")
 //    public void edit(@PathVariable long memberId, @RequestBody @Valid AssetEditDto request) {
 //        assetService.edit(memberId, request);
 //    }

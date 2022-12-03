@@ -16,6 +16,7 @@ import com.codestates.server.member.service.MemberService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;

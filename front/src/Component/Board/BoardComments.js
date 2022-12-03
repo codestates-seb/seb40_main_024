@@ -32,6 +32,7 @@ function Comments() {
             commentid={el.commentId}
             body={el.body}
             name={el.memberPosted.name}
+            memberid={el.memberPosted.id}
           />
         );
       })}

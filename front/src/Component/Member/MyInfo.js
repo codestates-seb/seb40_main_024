@@ -5,6 +5,7 @@ import {
   SignOutBtn,
   UnSubscript,
   NameUpdateBtn,
+  SignOutMessgeBtn,
 } from '../../Component/Common/Button';
 import AuthContext from '../../store/AuthContext';
 import { useContext, useEffect, useState } from 'react';
@@ -138,6 +139,15 @@ const DivBtn = styled.div`
   margin-top: 20px;
 `;
 
+const SignOutMessge = styled.div`
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-left: auto;
+    margin-right: 30px;
+  }
+`;
+
 const MyInfo = () => {
   const URL = process.env.REACT_APP_API_URL;
   const authCtx = useContext(AuthContext);
@@ -151,6 +161,7 @@ const MyInfo = () => {
   const [SignOut, setSignOut] = useState(false);
   const [Modalopen, setModalopen] = useState(false);
   const [errSignOut, setErrSignOut] = useState(false);
+  const [SuccessSignOut, setSuccessSignOut] = useState(false);
   const [errModalopen, seterrModalopen] = useState(false);
   const [errModalopenModify, seterrModalopenModify] = useState(false);
 
@@ -188,6 +199,10 @@ const MyInfo = () => {
     setModify(true);
   };
 
+  const openSuccessSignOut = () => {
+    setSuccessSignOut(true);
+  };
+
   const closeModal = () => {
     setunSUb(false);
     setModify(false);
@@ -198,10 +213,15 @@ const MyInfo = () => {
 
   const closeModify = () => {
     setModalopen(false);
+    setModify(false);
   };
 
   const closeSignOut = () => {
     setSignOut(false);
+  };
+
+  const closeSuccessSignOut = () => {
+    setSuccessSignOut(false);
     navigate('/');
     window.location.reload();
   };
@@ -232,12 +252,14 @@ const MyInfo = () => {
         },
       });
       openModal();
+      UserGet();
     } catch (e) {
       openErrModify();
       console.log('e', e);
     }
   };
 
+  // eslint-disable-next-line no-unused-vars
   const UserDelete = async () => {
     try {
       await axios.delete(`${URL}/member/delete`, {
@@ -246,25 +268,26 @@ const MyInfo = () => {
         },
       });
       localStorage.removeItem('token');
-      openSignOut();
+      openSuccessSignOut();
     } catch (e) {
       openErrSignOut();
       console.log('e', e);
     }
   };
 
+  const UserGet = async () => {
+    try {
+      const res = await axios.get(`${URL}/member/${Decode.id}`);
+      setDUsername(res.data.name);
+      setUseremail(res.data.email);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
-    const Get = async () => {
-      try {
-        const res = await axios.get(`${URL}/member/${Decode.id}`);
-        setDUsername(res.data.name);
-        setUseremail(res.data.email);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    Get();
-  }, [UserPatch]);
+    UserGet();
+  }, []);
 
   return (
     <MyPageContain>
@@ -289,7 +312,7 @@ const MyInfo = () => {
                 <NameUpdateBtn openModify={openModify}>수정하기</NameUpdateBtn>
               </MainBtn>
               <MainBtn>
-                <SignOutBtn UserDelete={UserDelete} />
+                <SignOutBtn openSignOut={openSignOut} />
               </MainBtn>
             </DivBox>
           </UserInfo>
@@ -299,13 +322,13 @@ const MyInfo = () => {
                 <UserInfo>
                   <div>
                     <UserInfoHead>회원정보 변경</UserInfoHead>
-                    <Input onChange={UserNameonChange} placeholder="이름" />
                     <Input
                       value={useremail}
                       onChange={UserEmailonChange}
                       placeholder="이메일"
                       disabled
                     />
+                    <Input onChange={UserNameonChange} placeholder="이름" />
                     <Input
                       type="password"
                       onChange={UserPasswordonChange}
@@ -332,6 +355,8 @@ const MyInfo = () => {
                 close={closeModal}
                 header="회원정보 오류알림"
               >
+                이름과 비밀번호 8자이상 영문포함을 확인해 주세요.
+                <br />
                 회원정보가 정상적으로 수정되지 않았습니다.
               </Modal>
             </Div>
@@ -348,6 +373,20 @@ const MyInfo = () => {
             기능 구현중입니다.
           </Modal>
           <Modal open={SignOut} close={closeSignOut} header="회원탈퇴 알림">
+            <SignOutMessge>
+              <span>
+                회원탈퇴시 사용중인 자산정보도 전부 삭제됩니다.
+                <br />
+                진행하시겠습니까?
+              </span>
+              <SignOutMessgeBtn UserDelete={UserDelete} />
+            </SignOutMessge>
+          </Modal>
+          <Modal
+            open={SuccessSignOut}
+            close={closeSuccessSignOut}
+            header="회원탈퇴 알림"
+          >
             회원탈퇴가 완료되었습니다.
           </Modal>
           <Modal

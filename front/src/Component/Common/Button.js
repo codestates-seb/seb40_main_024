@@ -220,6 +220,7 @@ export const PlusBtn = ({ savings, goalPost }) => {
 
   const checkHandler = () => {
     setCheck(true);
+<<<<<<< HEAD
     setTimeout(() => {
       setCheck(false);
       goalPost();
@@ -227,6 +228,11 @@ export const PlusBtn = ({ savings, goalPost }) => {
     // setTimeout(() => {
     //   window.location.reload();
     // }, 5);
+=======
+    setCheck(false);
+    goalPost();
+    window.location.reload();
+>>>>>>> 94669f8194aba819f67380cf4b099192bec5bdda
   };
   return (
     <ButtonCC
@@ -288,8 +294,15 @@ export const ProfileBtn = () => {
 export const ReviseBtn = ({ UserPatch }) => {
   return <ButtonAA onClick={UserPatch}>변경</ButtonAA>;
 };
-export const SignOutBtn = ({ UserDelete }) => {
-  return <ButtonCC onClick={UserDelete}>회원 탈퇴</ButtonCC>;
+export const SignOutMessgeBtn = ({ UserDelete }) => {
+  return (
+    <ButtonAA style={{ backgroundColor: '#9ed5cd' }} onClick={UserDelete}>
+      탈퇴하기
+    </ButtonAA>
+  );
+};
+export const SignOutBtn = ({ openSignOut }) => {
+  return <ButtonCC onClick={openSignOut}>회원 탈퇴</ButtonCC>;
 };
 export const AddCommentBtn = ({ commentPost }) => {
   return (

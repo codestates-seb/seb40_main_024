@@ -18,6 +18,7 @@ const TotalContent = styled.div`
   border: 3px solid #9ed5c5;
   border-radius: 10px;
 `;
+
 const BtnContain = styled.div`
   display: flex;
   justify-content: space-between;
@@ -25,6 +26,7 @@ const BtnContain = styled.div`
   width: auto;
   margin-bottom: 10px;
 `;
+
 const ContentContain = styled.div`
   display: flex;
   flex-direction: row;
@@ -36,11 +38,13 @@ const ContentContain = styled.div`
   border-bottom: 3px solid #def5e5;
   line-height: normal;
 `;
+
 const ImageBox = styled.div`
   display: flex;
   justify-content: center;
   padding: 20px;
 `;
+
 const ContentBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -51,6 +55,7 @@ const ContentBox = styled.div`
   padding: 10px;
   /* border: 1px solid black; */
 `;
+
 const IdEtcBox = styled.div`
   display: flex;
   align-items: center;
@@ -60,6 +65,7 @@ const IdEtcBox = styled.div`
     padding-bottom: 5px;
   }
 `;
+
 const Tag = styled.div`
   display: flex;
   align-items: center;
@@ -81,10 +87,12 @@ const Id = styled.div`
   align-content: center;
   justify-content: center;
 `;
+
 const EtcBox = styled.div`
   display: flex;
   margin-left: auto;
 `;
+
 const Date = styled.div`
   display: flex;
   width: auto;
@@ -93,6 +101,7 @@ const Date = styled.div`
   align-content: center;
   justify-content: center;
 `;
+
 const View = styled.div`
   display: flex;
   width: auto;
@@ -102,6 +111,7 @@ const View = styled.div`
   justify-content: center;
   margin: 0 10px 0 10px;
 `;
+
 const LikeBox = styled.div`
   display: flex;
   width: auto;
@@ -114,6 +124,7 @@ const LikeBox = styled.div`
   -webkit-text-stroke: 1.5px black;
   cursor: pointer;
 `;
+
 const UnLikeBox = styled.div`
   display: flex;
   width: auto;
@@ -126,6 +137,7 @@ const UnLikeBox = styled.div`
   -webkit-text-stroke: 1.5px black;
   cursor: pointer;
 `;
+
 const TitleBox = styled.div`
   display: flex;
   height: auto;
@@ -137,6 +149,7 @@ const TitleBox = styled.div`
   font-size: 23px;
   font-weight: 600;
 `;
+
 const TextBox = styled.div`
   display: flex;
   height: auto;
@@ -152,10 +165,10 @@ const Contents = () => {
   const URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
   const authCtx = useContext(AuthContext);
-  const isLogin = authCtx.isLoggedIn;
   const [Decode] = useState(authCtx.parseJwt);
 
   const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, setErrModalopen] = useState(false);
 
   const { id } = useParams();
   const [title, setTitle] = useState();
@@ -167,16 +180,29 @@ const Contents = () => {
   const [memberid, setMemberId] = useState();
   const [view, setView] = useState();
   const [category, setCategory] = useState();
+  const [errLikeopen, setErrLikeopen] = useState();
   const date = moment(createdAt);
   const momentdata = date.format('YYYY-MM-DD hh:mm:ss');
 
   const openModal = () => {
     setModalopen(true);
   };
-
   const closeModal = () => {
     setModalopen(false);
-    navigate('/login');
+    navigate('/board');
+  };
+
+  const UnerrModalopen = () => {
+    setErrModalopen(true);
+  };
+
+  const UnsetErrLikeopen = () => {
+    setErrLikeopen(true);
+  };
+
+  const UnerrcloseModal = () => {
+    setErrModalopen(false);
+    setErrLikeopen(false);
   };
 
   const Delete = async () => {
@@ -186,52 +212,52 @@ const Contents = () => {
           Authorization: localStorage.getItem('token'),
         },
       });
-      navigate('/board');
+      openModal();
     } catch (e) {
-      console.log(e);
+      UnerrModalopen();
     }
   };
 
   const Patchlike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/like`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      const res = await axios.patch(
+        `${URL}/board/${id}/like`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       setLike(res.data.like);
     } catch (e) {
-      console.log(e);
+      UnsetErrLikeopen();
     }
   };
 
   const Patchdislike = async () => {
     try {
-      const res = await axios.patch(`${URL}/board/${id}/dislike`, {
-        headers: {
-          Authorization: localStorage.getItem('token'),
-        },
-      });
+      const res = await axios.patch(
+        `${URL}/board/${id}/dislike`,
+        {},
+        {
+          headers: {
+            Authorization: localStorage.getItem('token'),
+          },
+        }
+      );
       setLike(res.data.like);
     } catch (e) {
-      console.log(e);
+      UnsetErrLikeopen();
     }
   };
 
   const ModifyButton = () => {
-    if (isLogin) {
-      navigate(`/modifyboard/${boardId}`);
-    } else {
-      openModal();
-    }
+    navigate(`/modifyboard/${boardId}`);
   };
 
   const DeleteButton = () => {
-    if (isLogin) {
-      Delete();
-    } else {
-      openModal();
-    }
+    Delete();
   };
 
   useEffect(() => {
@@ -287,8 +313,14 @@ const Contents = () => {
             <TextBox>{body}</TextBox>
           </ContentBox>
         </ContentContain>
-        <Modal open={Modalopen} close={closeModal} header="오류 알림">
-          로그인이 필요한 항목입니다.
+        <Modal open={Modalopen} close={closeModal} header="게시물 삭제 알림">
+          게시물이 삭제 되었습니다.
+        </Modal>
+        <Modal open={errModalopen} close={UnerrcloseModal} header="오류 알림">
+          게시물이 삭제가 정상적으로 처리되지 않았습니다.
+        </Modal>
+        <Modal open={errLikeopen} close={UnerrcloseModal} header="오류 알림">
+          이미 투표를 완료한 게시물입니다.
         </Modal>
       </TotalContent>
     </>

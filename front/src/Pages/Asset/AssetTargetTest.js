@@ -95,26 +95,8 @@ const GraphH1 = styled.h1`
 
 const AssetTargetPage = () => {
   const authCtx = useContext(AuthContext);
-  // const memberid = authCtx.parseJwt.id;
-  // const token = authCtx.token;
   console.log(authCtx.token);
-  // {
-  //   headers: { Authorization: `${token}` },
-  // }
 
-  // const tokenAxios = () => {
-  //   const loginData = {
-  //     email: 'hoju5@gmail.com',
-  //     password: 'password5',
-  //   };
-
-  //   axios.post(`${url}/member/login`, loginData).then((res) => {
-  //     const { accessToken } = res.headers.authorization;
-  //     // token이 필요한 API 요청 시 header Authorization에 token 담아서 보내기
-  //     axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
-  //     console.log(res.headers.authorization);
-  //   });
-  // };
   const url = process.env.REACT_APP_API_URL;
   const [goal, setGoal] = useState(''); // 명칭
   const [extended, setExtended] = useState(''); // 목표금액
@@ -126,8 +108,6 @@ const AssetTargetPage = () => {
   const [targetLength, setTargetLength] = useState(''); //목표기간
   const [up, setUp] = useState(0); //저축횟수
   const [countList, setCountList] = useState([]);
-  // const [graphData, setGraphData] = useState([])
-  // const [calculatedPrice, setCalculatedPrice] =useState('')
 
   let monthly = Math.ceil(extended / period);
   if (isNaN(monthly)) {
@@ -140,7 +120,6 @@ const AssetTargetPage = () => {
     .toString()
     .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ',');
 
-  // let calculatedMonthly = Math.ceil(goalPrice / targetLength);
   let percentage = Math.ceil((monthly / period) * 100);
   if (isNaN(percentage)) {
     percentage = 0;
@@ -150,17 +129,6 @@ const AssetTargetPage = () => {
   if (isNaN(nowPercentage)) {
     nowPercentage = 0;
   }
-  // console.log(nowPercentage);
-  // console.log(percentage);
-  // console.log(up);
-  // const graphData = [
-  //   {
-  //     name: countList[0].goalName,
-  //     목표율: 100,
-  //     현재: (countList[0].targetLength / countList[0].goalPrice) * 100,
-  //     amt: 2400,
-  //   },
-  // ];
 
   const handlerGoal = (e) => {
     setGoal(e.target.value);
@@ -175,6 +143,9 @@ const AssetTargetPage = () => {
     setTarget(e.target.value);
   };
   const goalNameonChange = (e) => {
+    if (e.target.value === '') {
+      alert('목표를 입력해주세요.');
+    }
     setGoalName(e.target.value);
   };
 
@@ -210,7 +181,7 @@ const AssetTargetPage = () => {
       goalName: goal,
       goalPrice: extended,
       targetLength: period,
-      calculatedPrice: targetAmount,
+      // calculatedPrice: targetAmount,
     };
     try {
       const res = await axios.post(`${url}/goal`, postdata, {
@@ -251,7 +222,6 @@ const AssetTargetPage = () => {
       goalName: goalName,
       goalPrice: goalPrice,
       targetLength: targetLength,
-      // calculatedPrice: calculatedPrice,
     };
     console.log(`${localStorage.getItem('token')}`);
     try {
@@ -277,12 +247,14 @@ const AssetTargetPage = () => {
     try {
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}/complete`,
+        {},
         {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
         }
       );
+      setRender((el) => el + 1);
       setUp(res.data.completed);
       console.log(res.data.completed);
     } catch (err) {
@@ -294,12 +266,14 @@ const AssetTargetPage = () => {
     try {
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}/incomplete`,
+        {},
         {
           headers: {
             Authorization: localStorage.getItem('token'),
           },
         }
       );
+      setRender((el) => el + 1);
       setUp(res.data.completed);
     } catch (err) {
       console.log('up', err);
@@ -332,53 +306,6 @@ const AssetTargetPage = () => {
     GoalData.push(countListData);
   }
 
-  // for (let i = 0; i < countList.length; i++) {
-  //   GoalData.push(countList[i].goalName);
-  // }
-
-  // for (let i = 0; i < countList.length; i++) {
-  //   GoalData.push(
-  //     (countList[i].goalPrice / countList[i].targetLength) *
-  //       countList[i].completed *
-  //       100
-  //   );
-  // }
-
-  // countList.forEach(e){
-  //   if(countList[0].goalName){
-  //     GoalData.push(e)
-  //   }
-  // }
-  // {
-  //   GoalData
-  //     ? GoalData.forEach((el) =>
-  //         el.memberPosted.id === memberid ? GoalData.push(el.name) : null
-  //       )
-  //     : null;
-  // }
-
-  // {
-  //   GoalData ? GoalData.forEach((el) => GoalData.push(el.달성률)) : null;
-  // }
-  // countList.map(goal);
-  // const graphData = [
-  //   {
-  //     name: countList[0].goalName,
-  //     목표율: 100,
-  //     현재:
-  //       (countList[0].calculatedPrice / countList[0].goalPrice) *
-  //       100 *
-  //       countList[0].completed,
-  //     amt: 2400,
-  //   },
-  // ];
-  // console.log(countList);
-  // console.log(countList[0].goalName);
-  // console.log(
-  //   (countList[0].calculatedPrice / countList[0].goalPrice) *
-  //     100 *
-  //     countList[0].completed
-  // );
   // useEffect(() => {
   //   goalGet();
   //   goalPost();
@@ -396,18 +323,8 @@ const AssetTargetPage = () => {
             <GraphH1>목표 현황</GraphH1>
             <ChartBox>
               <AssetBdata GoalData={GoalData}></AssetBdata>
-              {/* {countList.map((count, id) => (
-                <AssetBdata
-                  count={count}
-                  key={id}
-                  goalName={goalName}
-                  goalPrice={goalPrice}
-                  GoalData={GoalData}
-                />
-              ))} */}
             </ChartBox>
           </ChartContain>
-          {/* <LongListContain> */}
           <div className="Contain">
             <BoxContain>
               <GuideBox>
@@ -471,7 +388,6 @@ const AssetTargetPage = () => {
               ))}
             </BoxContain>
           </div>
-          {/* </LongListContain> */}
         </PageContain>
       </>
     </>

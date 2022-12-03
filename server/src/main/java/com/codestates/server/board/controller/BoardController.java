@@ -90,10 +90,10 @@ public class BoardController {
 
     @PatchMapping("/{id}/{like}")
     public ResponseEntity<?> likeBoard(@PathVariable("id") @Positive long id,
-                                       @PathVariable("like") String like) {
+                                       @PathVariable("like") String like,
+                                       @AuthenticationPrincipal String email) {
 
-        // No AuthenticationPrincipal is needed yet
-        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.changeLike(id, like));
+        EntityModel<BoardDto.Response> entityModel = assembler.toModel(boardService.changeLike(id, like, email));
 
         return ResponseEntity
                 .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri())

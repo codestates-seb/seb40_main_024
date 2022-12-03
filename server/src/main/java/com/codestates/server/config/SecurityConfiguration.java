@@ -9,7 +9,6 @@ import com.codestates.server.auth.handler.MemberAuthenticationSuccessHandler;
 import com.codestates.server.auth.jwt.JwtTokenizer;
 import com.codestates.server.auth.utils.CustomAuthorityUtils;
 import com.codestates.server.member.service.MemberService;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -28,12 +27,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration {
-
-    @Value("...")
-    private String clientId;
-
-    @Value("...")
-    private String clientSecret;
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
@@ -78,10 +71,10 @@ public class SecurityConfiguration {
 //                        .antMatchers(HttpMethod.POST,"/member", "/member/login").permitAll() // 지정된 URI에서 POST 메서드만 허용
 //                        .antMatchers(HttpMethod.GET,"/member", "/board/**", "/board/**").permitAll() // 지정된 URI에서 GET 메서드만 허용
                          // 나머지 모든 요청은 유저 권한이 있어야지 호출할 수 있다.
-//                )
-//                .oauth2Login(oauth2 -> oauth2.
-//                        successHandler(new Oauth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
-                );
+ /*               )
+                .oauth2Login(oauth2 -> oauth2.
+                        successHandler(new Oauth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
+        */        );
         return http.build();
     }
     @Bean

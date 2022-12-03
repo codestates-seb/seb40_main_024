@@ -8,6 +8,7 @@ import { BoardPostBtn } from '../../Component/Common/Button';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Modal } from '../../Component/Common/Modal';
 
 const MainPost = styled.div`
   display: flex;
@@ -77,6 +78,26 @@ function FreeCommunity() {
   const [body, setBody] = useState('');
   const [selectCategory, setSelectCategory] = useState('');
   const URL = process.env.REACT_APP_API_URL;
+  const [Modalopen, setModalopen] = useState(false);
+  const [errModalopen, setErrModalopen] = useState(false);
+
+  const SuccessModalopen = () => {
+    setModalopen(true);
+  };
+
+  const UnerrModalopen = () => {
+    setErrModalopen(true);
+  };
+
+  const closeModal = () => {
+    setErrModalopen(false);
+  };
+
+  const SuccesscloseModal = () => {
+    setModalopen(false);
+    navigate('/board');
+  };
+
   const data = {
     title: title,
     body: body,
@@ -85,15 +106,14 @@ function FreeCommunity() {
 
   const Post = async () => {
     try {
-      const res = await axios.post(`${URL}/board`, data, {
+      await axios.post(`${URL}/board`, data, {
         headers: {
           Authorization: localStorage.getItem('token'),
         },
       });
-      console.log(res);
-      navigate('/board');
+      SuccessModalopen();
     } catch (e) {
-      console.log(e);
+      UnerrModalopen();
     }
   };
 
@@ -129,6 +149,16 @@ function FreeCommunity() {
         <Btn>
           <BoardPostBtn Post={Post}></BoardPostBtn>
         </Btn>
+        <Modal
+          open={Modalopen}
+          close={SuccesscloseModal}
+          header="게시물 작성 알림"
+        >
+          게시물 작성이 완료되었습니다.
+        </Modal>
+        <Modal open={errModalopen} close={closeModal} header="오류 알림">
+          카테고리, 제목, 내용 10자 이상을 정확히 입력해주세요.
+        </Modal>
       </MainPost>
     </>
   );
