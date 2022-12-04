@@ -196,6 +196,7 @@ const AssetTargetPage = () => {
   };
   const goalDelete = async (e) => {
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await axios.delete(`${url}/goal/${e.target.dataset.id}`, {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -203,7 +204,7 @@ const AssetTargetPage = () => {
       });
       setRender((el) => el + 1);
       // console.log('dataset.id', e.target.dataset.id);
-      console.log('삭제', res);
+      // console.log('삭제', res);
     } catch (err) {
       // console.log('deleteerror', err);
     }
@@ -217,6 +218,7 @@ const AssetTargetPage = () => {
     };
 
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}`,
         patchdata,
@@ -228,8 +230,8 @@ const AssetTargetPage = () => {
       );
       setRender((el) => el + 1);
 
-      console.log('patch', res);
-      console.log('patchId', e.target.dataset.id);
+      // console.log('patch', res);
+      // console.log('patchId', e.target.dataset.id);
     } catch (err) {
       // console.log('patcherror', err);
     }
