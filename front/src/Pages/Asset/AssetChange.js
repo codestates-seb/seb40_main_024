@@ -281,7 +281,7 @@ export const AssetChange = () => {
   const [PathText4, setPathText4] = useState(false);
   const [PathText5, setPathText5] = useState(false);
   const [PathText6, setPathText6] = useState(false);
-  console.log('PathText1', PathText1);
+  // console.log('PathText1', PathText1);
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
   const [EditText, setEditText] = useState('');
@@ -510,13 +510,13 @@ export const AssetChange = () => {
       }
     });
   }
-  console.log('assetData', assetData);
-  console.log('assetData1', assetData1);
-  console.log('assetData2', assetData2);
-  console.log('assetData3', assetData3);
-  console.log('assetData4', assetData4);
-  console.log('assetData5', assetData5);
-  console.log('assetData6', assetData6);
+  // console.log('assetData', assetData);
+  // console.log('assetData1', assetData1);
+  // console.log('assetData2', assetData2);
+  // console.log('assetData3', assetData3);
+  // console.log('assetData4', assetData4);
+  // console.log('assetData5', assetData5);
+  // console.log('assetData6', assetData6);
 
   const assetIdsBox = [];
   const assetIds1 = [];
@@ -562,7 +562,7 @@ export const AssetChange = () => {
       assetIdsBox.push(e.assetId);
     });
   }
-  console.log('assetIdsBox', assetIdsBox);
+  // console.log('assetIdsBox', assetIdsBox);
   const assetValueBox = [];
   const assetValueNumBox = [];
   let assetValue1 = 0;
@@ -706,7 +706,7 @@ export const AssetChange = () => {
     // RevassetData6.push(ChangeData1);
   };
 
-  console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1', ChangeData1);
   //??????????????????????????????????????????????????????????????????????????????????????????
   RevassetData1.push(...assetData1);
 
@@ -730,11 +730,11 @@ export const AssetChange = () => {
     RevassetData1.pop();
   }
 
-  console.log('RevassetData1', RevassetData1);
-  console.log('LastRevassetDataassetType1', LastRevassetDataassetType1);
-  console.log('LastRevassetDataassetId1', LastRevassetDataassetId1);
-  console.log('ChangeData1', ChangeData1);
-  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  // console.log('RevassetData1', RevassetData1);
+  // console.log('LastRevassetDataassetType1', LastRevassetDataassetType1);
+  // console.log('LastRevassetDataassetId1', LastRevassetDataassetId1);
+  // console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1.assetId', ChangeData1.assetId);
 
   //??????????????????????????????????????????????????????????????????????????????????????????
   RevassetData2.push(...assetData2);
@@ -760,14 +760,14 @@ export const AssetChange = () => {
   //   RevassetData2.pop();
   // }
 
-  console.log('RevassetData2', RevassetData2);
-  console.log('LastRevassetDataassetType2', LastRevassetDataassetType2);
-  console.log('LastRevassetDataassetId2', LastRevassetDataassetId2);
-  console.log('ChangeData1', ChangeData1);
-  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  // console.log('RevassetData2', RevassetData2);
+  // console.log('LastRevassetDataassetType2', LastRevassetDataassetType2);
+  // console.log('LastRevassetDataassetId2', LastRevassetDataassetId2);
+  // console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1.assetId', ChangeData1.assetId);
   //??????????????????????????????????????????????????????????????????????????????????????????
   RevassetData3.push(...assetData3);
-  console.log('assetData4', assetData4);
+  // console.log('assetData4', assetData4);
 
   let LastRevassetDataassetType3 = '';
   ChangeData1 && assetData3
@@ -790,11 +790,11 @@ export const AssetChange = () => {
   //   RevassetData3.pop();
   // }
 
-  console.log('RevassetData3', RevassetData3);
-  console.log('LastRevassetDataassetType3', LastRevassetDataassetType3);
-  console.log('LastRevassetDataassetId3', LastRevassetDataassetId3);
-  console.log('ChangeData1', ChangeData1);
-  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  // console.log('RevassetData3', RevassetData3);
+  // console.log('LastRevassetDataassetType3', LastRevassetDataassetType3);
+  // console.log('LastRevassetDataassetId3', LastRevassetDataassetId3);
+  // console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1.assetId', ChangeData1.assetId);
   //??????????????????????????????????????????????????????????????????????????????????????????
   RevassetData4.push(...assetData4);
 
@@ -819,11 +819,11 @@ export const AssetChange = () => {
   //   RevassetData4.pop();
   // }
 
-  console.log('RevassetData4', RevassetData4);
-  console.log('LastRevassetDataassetType4', LastRevassetDataassetType4);
-  console.log('LastRevassetDataassetId4', LastRevassetDataassetId4);
-  console.log('ChangeData1', ChangeData1);
-  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  // console.log('RevassetData4', RevassetData4);
+  // console.log('LastRevassetDataassetType4', LastRevassetDataassetType4);
+  // console.log('LastRevassetDataassetId4', LastRevassetDataassetId4);
+  // console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
   RevassetData5.push(...assetData5);
 
@@ -848,11 +848,11 @@ export const AssetChange = () => {
   //   RevassetData5.pop();
   // }
 
-  console.log('RevassetData5', RevassetData5);
-  console.log('LastRevassetDataassetType5', LastRevassetDataassetType5);
-  console.log('LastRevassetDataassetId5', LastRevassetDataassetId5);
-  console.log('ChangeData1', ChangeData1);
-  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  // console.log('RevassetData5', RevassetData5);
+  // console.log('LastRevassetDataassetType5', LastRevassetDataassetType5);
+  // console.log('LastRevassetDataassetId5', LastRevassetDataassetId5);
+  // console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
   RevassetData6.push(...assetData6);
 
@@ -877,11 +877,11 @@ export const AssetChange = () => {
   //   RevassetData6.pop();
   // }
 
-  console.log('RevassetData6', RevassetData6);
-  console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
-  console.log('LastRevassetDataassetId6', LastRevassetDataassetId6);
-  console.log('ChangeData1', ChangeData1);
-  console.log('ChangeData1.assetId', ChangeData1.assetId);
+  // console.log('RevassetData6', RevassetData6);
+  // console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
+  // console.log('LastRevassetDataassetId6', LastRevassetDataassetId6);
+  // console.log('ChangeData1', ChangeData1);
+  // console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
   //? GET
   const getAssetApi = async () => {
@@ -933,7 +933,7 @@ export const AssetChange = () => {
     assetType: EditText,
     strValue: '+0',
   };
-  console.log(AssetDatas);
+  // console.log(AssetDatas);
   EditText !== '명칭' ? (Patchdata1 = Patchdata) : null;
 
   {
