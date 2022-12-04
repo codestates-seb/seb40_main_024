@@ -814,7 +814,6 @@ export const AssetChange = () => {
   );
 
   // console.log('RevassetData4', RevassetData4);
-  // if (ChangeData1.assetId === LastRevassetDataassetId4) {
 
   //   RevassetData4.pop();
   // }
