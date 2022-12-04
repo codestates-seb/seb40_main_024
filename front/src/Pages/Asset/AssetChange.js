@@ -275,13 +275,13 @@ export const AssetChange = () => {
   const [DelModalopen5, setDelModalopen5] = useState(false);
   const [DelModalopen6, setDelModalopen6] = useState(false);
 
-  const [PathText1, setPathText1] = useState('명칭');
-  const [PathText2, setPathText2] = useState('명칭');
-  const [PathText3, setPathText3] = useState('명칭');
-  const [PathText4, setPathText4] = useState('명칭');
-  const [PathText5, setPathText5] = useState('명칭');
-  const [PathText6, setPathText6] = useState('명칭');
-
+  const [PathText1, setPathText1] = useState(false);
+  const [PathText2, setPathText2] = useState(false);
+  const [PathText3, setPathText3] = useState(false);
+  const [PathText4, setPathText4] = useState(false);
+  const [PathText5, setPathText5] = useState(false);
+  const [PathText6, setPathText6] = useState(false);
+  console.log('PathText1', PathText1);
   const [Cash, setCash] = useState('');
   const [Text, setText] = useState('');
   const [EditText, setEditText] = useState('');
@@ -510,11 +510,11 @@ export const AssetChange = () => {
       }
     });
   }
-  // console.log('assetData', assetData);
-  // console.log('assetData1', assetData1);
-  // console.log('assetData2', assetData2);
-  // console.log('assetData3', assetData3);
-  // console.log('assetData4', assetData4);
+  console.log('assetData', assetData);
+  console.log('assetData1', assetData1);
+  console.log('assetData2', assetData2);
+  console.log('assetData3', assetData3);
+  console.log('assetData4', assetData4);
   console.log('assetData5', assetData5);
   console.log('assetData6', assetData6);
 
@@ -562,7 +562,7 @@ export const AssetChange = () => {
       assetIdsBox.push(e.assetId);
     });
   }
-
+  console.log('assetIdsBox', assetIdsBox);
   const assetValueBox = [];
   const assetValueNumBox = [];
   let assetValue1 = 0;
@@ -680,119 +680,207 @@ export const AssetChange = () => {
   let RevassetData4 = [];
   let RevassetData5 = [];
   let RevassetData6 = [];
-  console.log('ChangeData1', ChangeData1);
 
-  RevassetData1.push(...assetData1);
-  RevassetData1.push(ChangeData1);
-  RevassetData2.push(...assetData2);
-  // RevassetData2.push(ChangeData2);
-  RevassetData3.push(...assetData3);
-  RevassetData4.push(...assetData4);
-  RevassetData5.push(...assetData5);
-  RevassetData6.push(...assetData6);
-  console.log('AssetType', AssetType);
   const PathTextHandler1 = () => {
     setPathText1(true);
-    RevassetData1.push(ChangeData1);
+    // RevassetData1.push(ChangeData1);
   };
   const PathTextHandler2 = () => {
-    setPathText1(true);
-    RevassetData2.push(ChangeData1);
+    setPathText2(true);
+    // RevassetData2.push(ChangeData1);
   };
   const PathTextHandler3 = () => {
-    setPathText1(true);
-    RevassetData3.push(ChangeData1);
+    setPathText3(true);
+    // RevassetData3.push(ChangeData1);
   };
   const PathTextHandler4 = () => {
-    setPathText1(true);
-    RevassetData4.push(ChangeData1);
+    setPathText4(true);
+    // RevassetData4.push(ChangeData1);
   };
   const PathTextHandler5 = () => {
-    setPathText1(true);
-    RevassetData5.push(ChangeData1);
+    setPathText5(true);
+    // RevassetData5.push(ChangeData1);
   };
   const PathTextHandler6 = () => {
-    setPathText1(true);
-    RevassetData6.push(ChangeData1);
+    setPathText6(true);
+    // RevassetData6.push(ChangeData1);
   };
 
   console.log('ChangeData1', ChangeData1);
   //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData1.push(...assetData1);
+
   let LastRevassetDataassetType1 = '';
   ChangeData1 && assetData1
     ? (LastRevassetDataassetType1 =
-        RevassetData1[RevassetData1.length - 1].assetType)
+        RevassetData1[RevassetData1.length - 1]?.assetType)
+    : null;
+
+  let LastRevassetDataassetId1 = '';
+  ChangeData1 && assetData1
+    ? (LastRevassetDataassetId1 =
+        RevassetData1[RevassetData1.length - 1]?.assetId)
     : null;
 
   RevassetData1?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType1) : null
   );
 
+  if (ChangeData1.assetId === LastRevassetDataassetId1) {
+    RevassetData1.pop();
+  }
+
   console.log('RevassetData1', RevassetData1);
+  console.log('LastRevassetDataassetType1', LastRevassetDataassetType1);
+  console.log('LastRevassetDataassetId1', LastRevassetDataassetId1);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
+
   //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData2.push(...assetData2);
+
   let LastRevassetDataassetType2 = '';
   ChangeData1 && assetData2
     ? (LastRevassetDataassetType2 =
         RevassetData2[RevassetData2.length - 1]?.assetType)
     : null;
 
+  let LastRevassetDataassetId2 = '';
+  ChangeData1 && assetData2
+    ? (LastRevassetDataassetId2 =
+        RevassetData2[RevassetData2.length - 1]?.assetId)
+    : null;
+
   RevassetData2?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType2) : null
   );
 
+  // if (ChangeData1.assetId === LastRevassetDataassetId2) {
+
+  //   RevassetData2.pop();
+  // }
+
   console.log('RevassetData2', RevassetData2);
+  console.log('LastRevassetDataassetType2', LastRevassetDataassetType2);
+  console.log('LastRevassetDataassetId2', LastRevassetDataassetId2);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData3.push(...assetData3);
 
   let LastRevassetDataassetType3 = '';
   ChangeData1 && assetData3
     ? (LastRevassetDataassetType3 =
         RevassetData3[RevassetData3.length - 1]?.assetType)
     : null;
+
+  let LastRevassetDataassetId3 = '';
+  ChangeData1 && assetData3
+    ? (LastRevassetDataassetId3 =
+        RevassetData3[RevassetData3.length - 1]?.assetId)
+    : null;
+
   RevassetData3?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType3) : null
   );
 
+  // if (ChangeData1.assetId === LastRevassetDataassetId3) {
+
+  //   RevassetData3.pop();
+  // }
+
   console.log('RevassetData3', RevassetData3);
+  console.log('LastRevassetDataassetType3', LastRevassetDataassetType3);
+  console.log('LastRevassetDataassetId3', LastRevassetDataassetId3);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData4.push(...assetData2);
 
   let LastRevassetDataassetType4 = '';
   ChangeData1 && assetData4
     ? (LastRevassetDataassetType4 =
         RevassetData4[RevassetData4.length - 1]?.assetType)
     : null;
+
+  let LastRevassetDataassetId4 = '';
+  ChangeData1 && assetData4
+    ? (LastRevassetDataassetId4 =
+        RevassetData4[RevassetData4.length - 1]?.assetId)
+    : null;
+
   RevassetData4?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType4) : null
   );
 
-  console.log('RevassetData4', RevassetData4);
+  // if (ChangeData1.assetId === LastRevassetDataassetId4) {
 
+  //   RevassetData4.pop();
+  // }
+
+  console.log('RevassetData4', RevassetData4);
+  console.log('LastRevassetDataassetType4', LastRevassetDataassetType4);
+  console.log('LastRevassetDataassetId4', LastRevassetDataassetId4);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData5.push(...assetData5);
 
   let LastRevassetDataassetType5 = '';
   ChangeData1 && assetData5
     ? (LastRevassetDataassetType5 =
         RevassetData5[RevassetData5.length - 1]?.assetType)
     : null;
+
+  let LastRevassetDataassetId5 = '';
+  ChangeData1 && assetData5
+    ? (LastRevassetDataassetId5 =
+        RevassetData5[RevassetData5.length - 1]?.assetId)
+    : null;
+
   RevassetData5?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType5) : null
   );
 
-  console.log('RevassetData5', RevassetData5);
+  // if (ChangeData1.assetId === LastRevassetDataassetId5) {
 
+  //   RevassetData5.pop();
+  // }
+
+  console.log('RevassetData5', RevassetData5);
+  console.log('LastRevassetDataassetType5', LastRevassetDataassetType5);
+  console.log('LastRevassetDataassetId5', LastRevassetDataassetId5);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
+  RevassetData6.push(...assetData6);
 
   let LastRevassetDataassetType6 = '';
   ChangeData1 && assetData6
     ? (LastRevassetDataassetType6 =
         RevassetData6[RevassetData6.length - 1]?.assetType)
     : null;
+
+  let LastRevassetDataassetId6 = '';
+  ChangeData1 && assetData6
+    ? (LastRevassetDataassetId6 =
+        RevassetData6[RevassetData6.length - 1]?.assetId)
+    : null;
+
   RevassetData6?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
   );
 
+  // if (ChangeData1.assetId === LastRevassetDataassetId6) {
+
+  //   RevassetData6.pop();
+  // }
+
   console.log('RevassetData6', RevassetData6);
   console.log('LastRevassetDataassetType6', LastRevassetDataassetType6);
-
+  console.log('LastRevassetDataassetId6', LastRevassetDataassetId6);
+  console.log('ChangeData1', ChangeData1);
+  console.log('ChangeData1.assetId', ChangeData1.assetId);
   // //??????????????????????????????????????????????????????????????????????????????????????????
   //? GET
   const getAssetApi = async () => {
@@ -820,7 +908,7 @@ export const AssetChange = () => {
         },
       })
       .then((res) => openCashModal())
-      .catch((err) => console.log(err));
+      .catch((err) => openCashModal());
   };
   //?
 
@@ -1297,7 +1385,7 @@ export const AssetChange = () => {
   useEffect(() => {
     getAssetApi();
   }, [
-    // Modalopen,
+    Modalopen,
     TextModalopen1,
     TextModalopen2,
     TextModalopen3,
@@ -1380,18 +1468,18 @@ export const AssetChange = () => {
   };
   //!
 
-  // const AssetList = AssetType.map((e, key) => (
-  //   <AssetListBox key={key}>
-  //     <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
+  const AssetList = AssetType.map((e, key) => (
+    <AssetListBox key={key}>
+      <H3Title style={{ marginTop: '10px' }}>{key + 1} &nbsp;)</H3Title>
 
-  //     <H3Title>{e}</H3Title>
-  //     {e === '명칭' ? (
-  //       <H3>총 금액: 0원</H3>
-  //     ) : (
-  //       <H3>총 금액: {assetValueBox[key]} 원</H3>
-  //     )}
-  //   </AssetListBox>
-  // ));
+      <H3Title>{e}</H3Title>
+      {e === '명칭' ? (
+        <H3>총 금액: 0원</H3>
+      ) : (
+        <H3>총 금액: {assetValueBox[key]} 원</H3>
+      )}
+    </AssetListBox>
+  ));
 
   return (
     <>
@@ -1633,7 +1721,12 @@ export const AssetChange = () => {
                     1 &nbsp;) &nbsp;
                   </H3Title>
                   <H3Title>
-                    {AssetType[0]}&nbsp;
+                    {RevassetData1[RevassetData1.length - 1]?.assetType ===
+                    undefined ? (
+                      <>명칭</>
+                    ) : (
+                      <>{RevassetData1[RevassetData1.length - 1]?.assetType}</>
+                    )}
                     <EditButton className="1" onClick={openEditTextModal1}>
                       <FiEdit />
                     </EditButton>
@@ -1642,7 +1735,8 @@ export const AssetChange = () => {
                       <FiDelete />
                     </EditButton>
                   </H3Title>
-                  {AssetType[0] === '명칭' ? (
+                  {RevassetData1[RevassetData1.length - 1]?.assetValue ===
+                  undefined ? (
                     <H3>총 금액: 0원</H3>
                   ) : (
                     <H3>총 금액: {assetValueBox[0]} 원</H3>
@@ -1654,7 +1748,12 @@ export const AssetChange = () => {
                     2 &nbsp;) &nbsp;
                   </H3Title>
                   <H3Title>
-                    {AssetType[1]}&nbsp;
+                    {RevassetData2[RevassetData2.length - 1]?.assetType ===
+                    undefined ? (
+                      <>명칭</>
+                    ) : (
+                      <>{RevassetData2[RevassetData2.length - 1]?.assetType}</>
+                    )}
                     <EditButton className="1" onClick={openEditTextModal2}>
                       <FiEdit />
                     </EditButton>
@@ -1675,7 +1774,12 @@ export const AssetChange = () => {
                     3 &nbsp;) &nbsp;
                   </H3Title>
                   <H3Title>
-                    {AssetType[2]}&nbsp;
+                    {RevassetData3[RevassetData3.length - 1]?.assetType ===
+                    undefined ? (
+                      <>명칭</>
+                    ) : (
+                      <>{RevassetData3[RevassetData3.length - 1]?.assetType}</>
+                    )}
                     <EditButton className="1" onClick={openEditTextModal3}>
                       <FiEdit />
                     </EditButton>
@@ -1696,7 +1800,12 @@ export const AssetChange = () => {
                     4 &nbsp;) &nbsp;
                   </H3Title>
                   <H3Title>
-                    {AssetType[3]}&nbsp;
+                    {RevassetData4[RevassetData4.length - 1]?.assetType ===
+                    undefined ? (
+                      <>명칭</>
+                    ) : (
+                      <>{RevassetData4[RevassetData4.length - 1]?.assetType}</>
+                    )}
                     <EditButton className="1" onClick={openEditTextModal4}>
                       <FiEdit />
                     </EditButton>
@@ -1717,7 +1826,12 @@ export const AssetChange = () => {
                     5 &nbsp;) &nbsp;
                   </H3Title>
                   <H3Title>
-                    {AssetType[4]}&nbsp;
+                    {RevassetData5[RevassetData5.length - 1]?.assetType ===
+                    undefined ? (
+                      <>명칭</>
+                    ) : (
+                      <>{RevassetData5[RevassetData5.length - 1]?.assetType}</>
+                    )}
                     <EditButton className="1" onClick={openEditTextModal5}>
                       <FiEdit />
                     </EditButton>
@@ -1737,8 +1851,15 @@ export const AssetChange = () => {
                   <H3Title style={{ marginTop: '10px' }}>
                     6 &nbsp;) &nbsp;
                   </H3Title>
+
                   <H3Title>
-                    {AssetType[5]}&nbsp;
+                    {/* {RevassetData6[RevassetData6.length - 1]?.assetType}&nbsp; */}
+                    {RevassetData6[RevassetData6.length - 1]?.assetType ===
+                    undefined ? (
+                      <>명칭</>
+                    ) : (
+                      <>{RevassetData6[RevassetData6.length - 1]?.assetType}</>
+                    )}
                     <EditButton className="1" onClick={openEditTextModal6}>
                       <FiEdit />
                     </EditButton>
