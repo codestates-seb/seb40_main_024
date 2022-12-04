@@ -403,7 +403,7 @@ export const AssetBoardPostBtn = () => {
 
 // 현재 자산 수정하기 페이지 버튼들
 export const TitleCashBtn = ({ postAssetApi, Text, Cash }) => {
-  console.log(Text, Cash);
+  // console.log(Text, Cash);
   return Text === '' && Cash === '' ? (
     <ButtonAA disabled>수정</ButtonAA>
   ) : (
