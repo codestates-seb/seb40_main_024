@@ -154,8 +154,11 @@ export const AutoModal = (props) => {
 };
 
 export const AssetTextEditModal1 = (props) => {
-  const { open, close, header, api } = props;
-
+  const { open, close, header, api, PathTextHandler1 } = props;
+  const miniHandler = () => {
+    api();
+    PathTextHandler1();
+  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -169,7 +172,7 @@ export const AssetTextEditModal1 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={api}>
+              <button className="edit" onClick={miniHandler}>
                 Edit
               </button>
               <button
@@ -187,8 +190,11 @@ export const AssetTextEditModal1 = (props) => {
   );
 };
 export const AssetTextEditModal2 = (props) => {
-  const { open, close, header, api } = props;
-
+  const { open, close, header, api, PathTextHandler2 } = props;
+  const miniHandler = () => {
+    api();
+    PathTextHandler2();
+  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -202,7 +208,7 @@ export const AssetTextEditModal2 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={api}>
+              <button className="edit" onClick={miniHandler}>
                 Edit
               </button>
               <button
@@ -220,8 +226,11 @@ export const AssetTextEditModal2 = (props) => {
   );
 };
 export const AssetTextEditModal3 = (props) => {
-  const { open, close, header, api } = props;
-
+  const { open, close, header, api, PathTextHandler3 } = props;
+  const miniHandler = () => {
+    api();
+    PathTextHandler3();
+  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -235,7 +244,7 @@ export const AssetTextEditModal3 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={api}>
+              <button className="edit" onClick={miniHandler}>
                 Edit
               </button>
               <button
@@ -256,8 +265,7 @@ export const AssetTextEditModal4 = (props) => {
   const { open, close, header, api, PathTextHandler4 } = props;
   const miniHandler = () => {
     api();
-
-    setTimeout(() => PathTextHandler4(), 500);
+    PathTextHandler4();
   };
   return (
     <Div>
@@ -329,7 +337,10 @@ export const AssetTextEditModal6 = (props) => {
   const { open, close, header, api, PathTextHandler6 } = props;
 
   // eslint-disable-next-line no-unused-vars
-
+  const miniHandler = () => {
+    api();
+    PathTextHandler6();
+  };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -343,7 +354,7 @@ export const AssetTextEditModal6 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={(() => api, PathTextHandler6)}>
+              <button className="edit" onClick={miniHandler}>
                 Edit
               </button>
               <button
