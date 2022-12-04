@@ -161,9 +161,9 @@ const AssetTargetPage = () => {
         setCountList(res.data._embedded.responseList);
         setUp(res.data._embedded.responseList.completed);
         setUp(res.data._embedded.responseList.incompleted);
-        console.log('get', res);
+        // console.log('get', res);
       } catch (err) {
-        console.log('error', err);
+        // console.log('error', err);
       }
     };
     goalGet();
@@ -176,6 +176,7 @@ const AssetTargetPage = () => {
       targetLength: period,
     };
     try {
+      // eslint-disable-next-line no-unused-vars
       const res = await axios.post(`${url}/goal`, postdata, {
         headers: {
           Authorization: localStorage.getItem('token'),
@@ -187,9 +188,10 @@ const AssetTargetPage = () => {
       setPeriod('');
       setTarget('');
       setRender((el) => el + 1);
-      console.log('post', res);
+
+      // console.log('post', res);
     } catch (err) {
-      console.log('error', err);
+      // console.log('error', err);
     }
   };
   const goalDelete = async (e) => {
@@ -200,10 +202,10 @@ const AssetTargetPage = () => {
         },
       });
       setRender((el) => el + 1);
-      console.log('dataset.id', e.target.dataset.id);
+      // console.log('dataset.id', e.target.dataset.id);
       console.log('삭제', res);
     } catch (err) {
-      console.log('deleteerror', err);
+      // console.log('deleteerror', err);
     }
   };
 
@@ -229,7 +231,7 @@ const AssetTargetPage = () => {
       console.log('patch', res);
       console.log('patchId', e.target.dataset.id);
     } catch (err) {
-      console.log('patcherror', err);
+      // console.log('patcherror', err);
     }
   };
 
@@ -248,7 +250,7 @@ const AssetTargetPage = () => {
       setUp(res.data.completed);
       console.log(res.data.completed);
     } catch (err) {
-      console.log('up', err);
+      // console.log('up', err);
     }
   };
 
@@ -266,7 +268,7 @@ const AssetTargetPage = () => {
       setRender((el) => el + 1);
       setUp(res.data.completed);
     } catch (err) {
-      console.log('up', err);
+      // console.log('up', err);
     }
   };
   const GoalData = [
