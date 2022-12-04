@@ -139,9 +139,6 @@ const AssetTargetPage = () => {
     setTarget(e.target.value);
   };
   const goalNameonChange = (e) => {
-    if (e.target.value === '') {
-      alert('목표를 입력해주세요.');
-    }
     setGoalName(e.target.value);
   };
 
@@ -191,8 +188,6 @@ const AssetTargetPage = () => {
       setTarget('');
       setRender((el) => el + 1);
       console.log('post', res);
-      // if (countList.length < 6) return;
-      // alert('최대 6개의 목표를 설정할 수 있습니다');
     } catch (err) {
       console.log('error', err);
     }
@@ -218,14 +213,14 @@ const AssetTargetPage = () => {
       goalPrice: goalPrice,
       targetLength: targetLength,
     };
-    console.log(`${localStorage.getItem('token')}`);
+
     try {
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}`,
         patchdata,
         {
           headers: {
-            Authorization: `${localStorage.getItem('token')}`,
+            Authorization: localStorage.getItem('token'),
           },
         }
       );
@@ -283,8 +278,6 @@ const AssetTargetPage = () => {
     },
   ];
 
-  console.log(countList);
-
   for (let i = 0; i < countList.length; i++) {
     let countListData = {
       name: countList[i].goalName,
@@ -300,10 +293,6 @@ const AssetTargetPage = () => {
     };
     GoalData.push(countListData);
   }
-
-  // useEffect(() => {
-  //   goalDelete();
-  // }, [countList]);
 
   return (
     <>

@@ -217,12 +217,16 @@ export const SaveBtn = ({ openSavingModal }) => {
 export const PlusBtn = ({ savings, goalPost }) => {
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
-
+  // eslint-disable-next-line no-unused-vars
   const checkHandler = () => {
     setCheck(true);
-    setCheck(false);
-    goalPost();
-    window.location.reload();
+    setTimeout(() => {
+      // setCheck(false);
+      goalPost();
+    }, 0);
+    setTimeout(() => {
+      window.location.reload();
+    }, 2);
   };
   return (
     <ButtonCC
@@ -230,7 +234,8 @@ export const PlusBtn = ({ savings, goalPost }) => {
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={(() => goalPost, checkHandler)}
+      onClick={goalPost}
+      // onClick={(() => goalPost, checkHandler)}
     >
       START
     </ButtonCC>
@@ -249,17 +254,14 @@ export const DeleteGoalBtn = ({ id, goalDelete }) => {
   // eslint-disable-next-line no-unused-vars
   const checkHandler = () => {
     setCheck(true);
-    setTimeout(() => {
+    setTimeout(() =>
       // setCheck(false);
-      goalDelete();
-    }, 0);
-    setTimeout(() => {
-      window.location.reload();
-    }, 5);
+      goalDelete()
+    );
+    setTimeout(() => window.location.reload(), 5);
   };
 
   return (
-    // <ButtonAA data-id={id} onClick={(() => goalDelete, checkHandler)}>
     <ButtonAA data-id={id} onClick={goalDelete}>
       삭제
     </ButtonAA>

@@ -128,7 +128,7 @@ export const AutoModal = (props) => {
     setTimeout(() => {
       setCheck(false);
       close();
-      // window.location.reload();
+      window.location.reload();
     }, 5);
   };
   return (
@@ -292,7 +292,8 @@ export const AssetTextEditModal4 = (props) => {
 export const AssetTextEditModal5 = (props) => {
   const { open, close, header, api, PathTextHandler5 } = props;
   const miniHandler = () => {
-    api(), PathTextHandler5();
+    api();
+    PathTextHandler5();
   };
   return (
     <Div>
@@ -369,7 +370,7 @@ export const AssetDeleteEditModal1 = (props) => {
     api1();
     close;
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 80);
   };
   return (
@@ -411,7 +412,7 @@ export const AssetDeleteEditModal2 = (props) => {
     api1();
     close;
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 80);
   };
 
@@ -454,7 +455,7 @@ export const AssetDeleteEditModal3 = (props) => {
     api1();
     close;
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 80);
   };
   return (
@@ -496,7 +497,7 @@ export const AssetDeleteEditModal4 = (props) => {
     api1();
     close;
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 80);
   };
   return (
@@ -538,7 +539,7 @@ export const AssetDeleteEditModal5 = (props) => {
     api1();
     close;
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 80);
   };
   return (
@@ -572,12 +573,6 @@ export const AssetDeleteEditModal5 = (props) => {
   );
 };
 
-// open={DelModalopen6}
-// close={closeModal}
-// header="자산 종류 수정 알림"
-// api1={deletAssetApi6}
-// api2={deletLastAssetApi1}
-// AssetTypelength={AssetType.length}
 export const AssetDeleteEditModal6 = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
@@ -588,7 +583,7 @@ export const AssetDeleteEditModal6 = (props) => {
     api1();
     close;
     setTimeout(() => {
-      // window.location.reload();
+      window.location.reload();
     }, 80);
   };
   return (
@@ -656,17 +651,7 @@ export const GoalModifyModal = (props) => {
 };
 
 export const SavingModal = (props) => {
-  const { open, close, header, goalUpPatch, goalDownPatch } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [check, setCheck] = useState(false);
-
-  const checkHandler = () => {
-    setCheck(true);
-    setCheck(false);
-    goalUpPatch();
-    goalDownPatch();
-    window.location.reload();
-  };
+  const { open, close, header } = props;
 
   return (
     <Div>
@@ -683,7 +668,7 @@ export const SavingModal = (props) => {
             <footer>
               <button
                 className="close"
-                onClick={(() => close, checkHandler)}
+                onClick={close}
                 style={{ marginLeft: '20px' }}
               >
                 저장

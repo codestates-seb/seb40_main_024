@@ -10,7 +10,6 @@ import {
 } from 'recharts';
 
 export const AssetBdata = ({ GoalData }) => {
-  console.log(GoalData);
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart
