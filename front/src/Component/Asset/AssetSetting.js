@@ -68,13 +68,6 @@ const AssetSetting = ({
   handlerExtended,
   handlerPeriod,
 }) => {
-  // const [Modalopen, setModalopen] = useState(false);
-  // const openModal = () => {
-  //   setModalopen(!Modalopen);
-  // };
-  // const closeModal = () => {
-  //   setModalopen(false);
-  // };
   return (
     <>
       <div style={{ display: 'flex' }}>
