@@ -784,7 +784,7 @@ export const AssetChange = () => {
   let LastRevassetDataassetType6 = '';
   ChangeData1 && assetData6
     ? (LastRevassetDataassetType6 =
-        RevassetData6[RevassetData6.length - 1].assetType)
+        RevassetData6[RevassetData6.length - 1]?.assetType)
     : null;
   RevassetData6?.filter((e) =>
     Object.isExtensible(e) ? (e.assetType = LastRevassetDataassetType6) : null
@@ -820,7 +820,7 @@ export const AssetChange = () => {
         },
       })
       .then((res) => openCashModal())
-      .catch((err) => openCashModal());
+      .catch((err) => console.log(err));
   };
   //?
 
@@ -1297,7 +1297,7 @@ export const AssetChange = () => {
   useEffect(() => {
     getAssetApi();
   }, [
-    Modalopen,
+    // Modalopen,
     TextModalopen1,
     TextModalopen2,
     TextModalopen3,
