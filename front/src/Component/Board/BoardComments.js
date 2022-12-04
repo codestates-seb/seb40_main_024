@@ -12,7 +12,6 @@ function Comments() {
     const Get = async () => {
       try {
         const res = await axios.get(`${URL}/board/${id}`);
-        console.log(res);
         setComments(res.data.commentsPosted);
       } catch (e) {
         console.log(e);
