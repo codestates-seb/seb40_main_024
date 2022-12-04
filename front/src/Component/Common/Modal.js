@@ -651,17 +651,7 @@ export const GoalModifyModal = (props) => {
 };
 
 export const SavingModal = (props) => {
-  const { open, close, header, goalUpPatch, goalDownPatch } = props;
-  // eslint-disable-next-line no-unused-vars
-  const [check, setCheck] = useState(false);
-
-  const checkHandler = () => {
-    setCheck(true);
-    setCheck(false);
-    goalUpPatch();
-    goalDownPatch();
-    window.location.reload();
-  };
+  const { open, close, header } = props;
 
   return (
     <Div>
@@ -678,7 +668,7 @@ export const SavingModal = (props) => {
             <footer>
               <button
                 className="close"
-                onClick={(() => close, checkHandler)}
+                onClick={close}
                 style={{ marginLeft: '20px' }}
               >
                 저장

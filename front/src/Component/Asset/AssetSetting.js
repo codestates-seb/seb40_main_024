@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import { PlusBtn } from '../Common/Button';
+// import { Modal } from '../Common/Modal';
+// import { useState } from 'react';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -61,7 +63,6 @@ const AssetSetting = ({
   extended,
   period,
   countList,
-  HandlerAdd,
   goalPost,
   handlerGoal,
   handlerExtended,
@@ -97,11 +98,12 @@ const AssetSetting = ({
           <TextBox>{targetAmount}원!</TextBox>
           {countList.length === 6 ? (
             <>
-              <PlusBtn disabled />
+              {' '}
+              <PlusBtn disabled></PlusBtn>
             </>
           ) : (
             <>
-              <PlusBtn HandlerAdd={HandlerAdd} goalPost={goalPost} />
+              <PlusBtn goalPost={goalPost} />
             </>
           )}
         </ComponentContain>

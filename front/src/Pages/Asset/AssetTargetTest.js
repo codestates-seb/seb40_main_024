@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { AssetBdata } from '../../Component/Asset/Asset_B_Data';
 import AssetSetting from '../../Component/Asset/AssetSetting';
@@ -8,7 +8,6 @@ import {
 } from '../../Component/Common/NavebarRev';
 import AssetList from '../../Component/Asset/AssetList';
 import axios from 'axios';
-import AuthContext from '../../store/AuthContext';
 
 const GuideBox = styled.div`
   display: flex;
@@ -94,9 +93,6 @@ const GraphH1 = styled.h1`
 `;
 
 const AssetTargetPage = () => {
-  const authCtx = useContext(AuthContext);
-  console.log(authCtx.token);
-
   const url = process.env.REACT_APP_API_URL;
   const [goal, setGoal] = useState(''); // 명칭
   const [extended, setExtended] = useState(''); // 목표금액
@@ -143,9 +139,6 @@ const AssetTargetPage = () => {
     setTarget(e.target.value);
   };
   const goalNameonChange = (e) => {
-    if (e.target.value === '') {
-      alert('목표를 입력해주세요.');
-    }
     setGoalName(e.target.value);
   };
 
@@ -181,7 +174,6 @@ const AssetTargetPage = () => {
       goalName: goal,
       goalPrice: extended,
       targetLength: period,
-      // calculatedPrice: targetAmount,
     };
     try {
       const res = await axios.post(`${url}/goal`, postdata, {
@@ -196,8 +188,6 @@ const AssetTargetPage = () => {
       setTarget('');
       setRender((el) => el + 1);
       console.log('post', res);
-      // if (countList.length < 6) return;
-      // alert('최대 6개의 목표를 설정할 수 있습니다');
     } catch (err) {
       console.log('error', err);
     }
@@ -223,14 +213,14 @@ const AssetTargetPage = () => {
       goalPrice: goalPrice,
       targetLength: targetLength,
     };
-    console.log(`${localStorage.getItem('token')}`);
+
     try {
       const res = await axios.patch(
         `${url}/goal/${e.target.dataset.id}`,
         patchdata,
         {
           headers: {
-            Authorization: `${localStorage.getItem('token')}`,
+            Authorization: localStorage.getItem('token'),
           },
         }
       );
@@ -288,8 +278,6 @@ const AssetTargetPage = () => {
     },
   ];
 
-  console.log(countList);
-
   for (let i = 0; i < countList.length; i++) {
     let countListData = {
       name: countList[i].goalName,
@@ -306,89 +294,83 @@ const AssetTargetPage = () => {
     GoalData.push(countListData);
   }
 
-  // useEffect(() => {
-  //   goalGet();
-  //   goalPost();
-  //   goalDelete();
-  //   tokenAxios();
-  // }, [setGoal, setExtended, setPeriod]);
-  // [setGoal, setExtended, setPeriod]
   return (
     <>
       <LongNavbarBox />
       <MiniNavbarBox />
       <>
-        <PageContain>
-          <ChartContain className="ScrollActive">
-            <GraphH1>목표 현황</GraphH1>
-            <ChartBox>
-              <AssetBdata GoalData={GoalData}></AssetBdata>
-            </ChartBox>
-          </ChartContain>
-          <div className="Contain">
-            <BoxContain>
-              <GuideBox>
-                <h2 className="TextHeader">목표 작성을 위한 안내</h2>
-                <br />
-                <p className="Text">
-                  첫째, <span className="Hilight">&apos;나의 목표&apos;</span>에
-                  목표를 작성해주세요.
-                </p>
-                <br />
-                <p className="Text">
-                  둘째, <span className="Hilight">START</span> 버튼을 클릭하면
-                  목표리스트가 생성됩니다.
-                </p>
-                <br />
-                <p className="Text">
-                  셋째, 목표리스트의 <span className="Hilight">Saving</span>{' '}
-                  버튼을 클릭하여 저축한 기간을 표시할 수 있습니다.
-                </p>
-                <br />
-                <p className="Text">
-                  *그래프를 통해 목표 달성률을 확인해보세요!*
-                </p>
-              </GuideBox>
-              <AssetSetting
-                goalPost={goalPost}
-                countList={countList}
-                handlerGoal={handlerGoal}
-                handlerExtended={handlerExtended}
-                handlerPeriod={handlerPeriod}
-                handlerTarget={handlerTarget}
-                goal={goal}
-                extended={extended}
-                period={period}
-                target={target}
-                targetAmount={targetAmount}
-              />
-
-              {countList.map((count, id) => (
-                <AssetList
-                  count={count}
-                  key={id}
-                  id={count.goalId}
+        <div>
+          <PageContain>
+            <ChartContain className="ScrollActive">
+              <GraphH1>목표 현황</GraphH1>
+              <ChartBox>
+                <AssetBdata GoalData={GoalData}></AssetBdata>
+              </ChartBox>
+            </ChartContain>
+            <div className="Contain">
+              <BoxContain>
+                <GuideBox>
+                  <h2 className="TextHeader">목표 작성을 위한 안내</h2>
+                  <br />
+                  <p className="Text">
+                    첫째, <span className="Hilight">&apos;나의 목표&apos;</span>
+                    에 목표를 작성해주세요.
+                  </p>
+                  <br />
+                  <p className="Text">
+                    둘째, <span className="Hilight">START</span> 버튼을 클릭하면
+                    목표리스트가 생성됩니다.
+                  </p>
+                  <br />
+                  <p className="Text">
+                    셋째, 목표리스트의 <span className="Hilight">Saving</span>{' '}
+                    버튼을 클릭하여 저축한 기간을 표시할 수 있습니다.
+                  </p>
+                  <br />
+                  <p className="Text">
+                    *그래프를 통해 목표 달성률을 확인해보세요!*
+                  </p>
+                </GuideBox>
+                <AssetSetting
+                  goalPost={goalPost}
+                  countList={countList}
+                  handlerGoal={handlerGoal}
+                  handlerExtended={handlerExtended}
+                  handlerPeriod={handlerPeriod}
+                  handlerTarget={handlerTarget}
                   goal={goal}
                   extended={extended}
                   period={period}
-                  setGoal={setGoal}
-                  setExtended={setExtended}
-                  setPeriod={setPeriod}
                   target={target}
-                  goalDelete={goalDelete}
                   targetAmount={targetAmount}
-                  goalPatch={goalPatch}
-                  goalNameonChange={goalNameonChange}
-                  goalPriceonChange={goalPriceonChange}
-                  targetLengthonChange={targetLengthonChange}
-                  goalUpPatch={goalUpPatch}
-                  up={up}
-                  goalDownPatch={goalDownPatch}
-                ></AssetList>
-              ))}
-            </BoxContain>
-          </div>
-        </PageContain>
+                />
+                {countList.map((count, id) => (
+                  <AssetList
+                    count={count}
+                    key={id}
+                    id={count.goalId}
+                    goal={goal}
+                    extended={extended}
+                    period={period}
+                    setGoal={setGoal}
+                    setExtended={setExtended}
+                    setPeriod={setPeriod}
+                    target={target}
+                    goalDelete={goalDelete}
+                    targetAmount={targetAmount}
+                    goalPatch={goalPatch}
+                    goalNameonChange={goalNameonChange}
+                    goalPriceonChange={goalPriceonChange}
+                    targetLengthonChange={targetLengthonChange}
+                    goalUpPatch={goalUpPatch}
+                    up={up}
+                    goalDownPatch={goalDownPatch}
+                  ></AssetList>
+                ))}
+              </BoxContain>
+            </div>
+          </PageContain>
+        </div>
       </>
     </>
   );
