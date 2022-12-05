@@ -253,7 +253,7 @@ export const SaveBtn = ({ openSavingModal }) => {
   );
 };
 
-export const PlusBtn = ({ savings, goalPost, openModal, countList }) => {
+export const PlusBtn = ({ savings, goalPost }) => {
   // eslint-disable-next-line no-unused-vars
   const [check, setCheck] = useState(false);
   // eslint-disable-next-line no-unused-vars
@@ -273,11 +273,22 @@ export const PlusBtn = ({ savings, goalPost, openModal, countList }) => {
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={() => {
-        goalPost();
-        openModal();
-      }}
-      disabled={countList.length >= 6}
+      onClick={goalPost}
+      // onClick={(() => goalPost, checkHandler)}
+    >
+      START
+    </ButtonCC>
+  );
+};
+
+export const DisabledBtn = ({ savings }) => {
+  return (
+    <ButtonCC
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+      onClick={() => alert('목표는 6개까지 등록할 수 있습니다.')}
       // onClick={(() => goalPost, checkHandler)}
     >
       START
@@ -326,13 +337,6 @@ export const DownBtn = ({ id, goalDownPatch }) => {
   );
 };
 
-export const EditGoalTotalBtn = ({ id, goalPatch }) => {
-  return (
-    <ButtonAA data-id={id} onClick={goalPatch}>
-      Edit
-    </ButtonAA>
-  );
-};
 //마이페이지, 회원정보수정
 
 export const SavingsBtn = () => {
