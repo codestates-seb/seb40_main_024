@@ -250,7 +250,6 @@ const AssetTargetPage = () => {
       );
       setRender((el) => el + 1);
       setUp(res.data.completed);
-      console.log(res.data.completed);
     } catch (err) {
       // console.log('up', err);
     }
