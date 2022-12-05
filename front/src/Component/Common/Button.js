@@ -280,6 +280,21 @@ export const PlusBtn = ({ savings, goalPost }) => {
     </ButtonCC>
   );
 };
+
+export const DisabledBtn = ({ savings }) => {
+  return (
+    <ButtonCC
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+      onClick={() => alert('목표는 6개까지 등록할 수 있습니다.')}
+      // onClick={(() => goalPost, checkHandler)}
+    >
+      START
+    </ButtonCC>
+  );
+};
 export const EditGoalBtn = ({ id, openModify }) => {
   return (
     <ButtonAA data-id={id} onClick={openModify}>
