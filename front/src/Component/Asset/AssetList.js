@@ -6,6 +6,8 @@ import {
   Modal,
   SavingModal,
 } from '../../Component/Common/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 const ComponentContain = styled.div`
   display: flex;
@@ -131,7 +133,7 @@ const NewBtnBox = styled.div`
   flex-direction: row;
   width: 200px;
   height: 40px;
-  gap: 40px;
+  gap: 60px;
   margin-bottom: 10px;
 `;
 const UpBtn = styled.button`
@@ -308,12 +310,8 @@ const AssetList = ({
                   </div>
                 </Info>
               </ListContain>
-              <Modal
-                open={Modalopen}
-                close={closeModal}
-                header="목표자산수정 알림"
-              >
-                목표자산이 수정되었습니다.
+              <Modal open={Modalopen} close={closeModal} header="알림">
+                목표달성에 도전해보세요!
               </Modal>
             </Div>
           </GoalModifyModal>
@@ -329,15 +327,15 @@ const AssetList = ({
                 <Info>
                   <div className="saving">
                     <SavingInfoHead>
-                      목표 기간:{' '}
+                      <FontAwesomeIcon icon={faCheck} color="grey" /> 목표 기간:{' '}
                       <span className="number">{count.targetLength}</span>개월
                     </SavingInfoHead>
                     <SavingInfoHead>
-                      저축 기간:{' '}
+                      <FontAwesomeIcon icon={faCheck} color="grey" /> 저축 기간:{' '}
                       <span className="number">{count.completed}</span>개월
                     </SavingInfoHead>
                     <SavingInfoHead>
-                      남은 금액:{' '}
+                      <FontAwesomeIcon icon={faCheck} color="grey" /> 남은 금액:{' '}
                       <span className="number">
                         {Number(Math.ceil(count.goalPrice)) <
                         (Number(count.targetLength) - count.completed) *
