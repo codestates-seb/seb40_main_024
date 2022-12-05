@@ -2,7 +2,15 @@ import 'animate.css';
 import styled from 'styled-components';
 import { MainA, MainB, MainC, MainD } from './MainImgData';
 import { Fade, JackInTheBox } from 'react-awesome-reveal';
-import { ButtonLogin, ButtonSignup } from '../../Component/Common/Button';
+import {
+  ButtonLogin,
+  ButtonSignup,
+  ButtonCommunity,
+  ButtonGoal,
+  ButtonAsset,
+} from '../../Component/Common/Button';
+import { useContext } from 'react';
+import AuthContext from '../../store/AuthContext';
 
 const MiddleDiv = styled.div`
   margin: 0 auto;
@@ -85,6 +93,9 @@ const MiddleDiv = styled.div`
 `;
 
 const Middle = () => {
+  const authCtx = useContext(AuthContext);
+  const islogin = authCtx.isLoggedIn;
+
   return (
     <MiddleDiv>
       <div id="1" className="Main1 div1">
@@ -225,8 +236,18 @@ const Middle = () => {
             길을 떠나볼까요?
           </h2>
           <div>
-            <ButtonLogin />
-            <ButtonSignup />
+            {islogin ? (
+              <>
+                <ButtonAsset />
+                <ButtonGoal />
+                <ButtonCommunity />
+              </>
+            ) : (
+              <>
+                <ButtonLogin />
+                <ButtonSignup />
+              </>
+            )}
           </div>
         </JackInTheBox>
       </div>
