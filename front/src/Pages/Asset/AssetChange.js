@@ -334,7 +334,6 @@ export const AssetChange = () => {
   if (assetDatas !== undefined && assetDatas.length >= 7) {
     assetDatas.pop();
   }
-  console.log('assetDatas', assetDatas);
 
   let ListData = ['', '', '', '', ''];
   let ListTypeData = [];
@@ -379,7 +378,6 @@ export const AssetChange = () => {
     if (ListData[5] === undefined) {
       ListData[5] = '';
     }
-    console.log('ListData', ListData);
 
     //!
     ListTypeData = [
@@ -500,7 +498,6 @@ export const AssetChange = () => {
     }
   }
 
-  console.log('Reviewtarget', Reviewtarget);
   //? GET
   const getAssetApi = async () => {
     await axios
@@ -1048,7 +1045,7 @@ export const AssetChange = () => {
 
               <MainContain>
                 <AssetListPostModal1
-                  header={`자산 리스트  :  ${AssetType.length}`}
+                  header={`List :  ${AssetType.length} / ${AssetType.length}`}
                   open={PostListModalopen1}
                   api={postAssetApi}
                   close={closeModal}
@@ -1158,7 +1155,6 @@ export const AssetChange = () => {
                 <AssetTextEditModal1
                   header="자산 금액 변경"
                   open={TextModalopen1}
-                  // api={patchAssetsApi1}
                   close={closeModal}
                   EditText={EditText}
                 >
@@ -1178,6 +1174,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenP1}
                         style={{ width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiPlusSm /> 수입
                       </button>
@@ -1185,6 +1182,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenM1}
                         style={{ marginTop: '10px', width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiMinusSm /> 지출
                       </button>
@@ -1195,7 +1193,6 @@ export const AssetChange = () => {
                 <AssetTextEditModal2
                   header="자산 종류 수정 알림"
                   open={TextModalopen2}
-                  // api={patchAssetsApi2}
                   close={closeModal}
                 >
                   자산 금액 변경 ( 자산 명칭 : {ListTypeData[1]} )
@@ -1213,6 +1210,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenP2}
                         style={{ width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiPlusSm /> 수입
                       </button>
@@ -1220,6 +1218,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenM2}
                         style={{ marginTop: '10px', width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiMinusSm /> 지출
                       </button>
@@ -1230,7 +1229,6 @@ export const AssetChange = () => {
                 <AssetTextEditModal3
                   header="자산 종류 수정 알림"
                   open={TextModalopen3}
-                  // api={patchAssetsApi3}
                   close={closeModal}
                 >
                   자산 금액 변경 ( 자산 명칭 : {ListTypeData[2]} )
@@ -1248,6 +1246,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenP3}
                         style={{ width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiPlusSm /> 수입
                       </button>
@@ -1255,6 +1254,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenM3}
                         style={{ marginTop: '10px', width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiMinusSm /> 지출
                       </button>
@@ -1265,7 +1265,6 @@ export const AssetChange = () => {
                 <AssetTextEditModal4
                   header="자산 종류 수정 알림"
                   open={TextModalopen4}
-                  // api={patchAssetsApi4}
                   close={closeModal}
                 >
                   자산 금액 변경 ( 자산 명칭 : {ListTypeData[3]} )
@@ -1283,6 +1282,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenP4}
                         style={{ width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiPlusSm /> 수입
                       </button>
@@ -1290,6 +1290,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenM4}
                         style={{ marginTop: '10px', width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiMinusSm /> 지출
                       </button>
@@ -1318,6 +1319,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenP5}
                         style={{ width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiPlusSm /> 수입
                       </button>
@@ -1325,6 +1327,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenM5}
                         style={{ marginTop: '10px', width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiMinusSm /> 지출
                       </button>
@@ -1353,6 +1356,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenP6}
                         style={{ width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiPlusSm /> 수입
                       </button>
@@ -1360,6 +1364,7 @@ export const AssetChange = () => {
                         className="edit"
                         onClick={openPatchTextModalopenM6}
                         style={{ marginTop: '10px', width: '65.52px' }}
+                        disabled={EditText.length === 0}
                       >
                         <HiMinusSm /> 지출
                       </button>
@@ -1477,17 +1482,6 @@ export const AssetChange = () => {
                 >
                   오류 : 수정할 자산 종류를 입력해주세요
                 </Modal>
-
-                {/* <AutoModal
-                  open={errDelModalopen}
-                  // close={errcloseModal}
-                  header="자산 종류 오류 알림"
-                >
-                  <p>오류 : 현재 등록 된 자산 데이터가 없습니다. </p>
-                  <p style={{ marginLeft: '42px', marginTop: '10px' }}>
-                    아래 자산금액수정을 진행해 주시기 바랍니다.
-                  </p>
-                </AutoModal> */}
 
                 <Modal
                   open={errDelModalopen}
@@ -1767,7 +1761,6 @@ export const AssetChange = () => {
                     <P
                       style={{ color: 'blue' }}
                     >{`✔ 금액 : "${Cashtarget}원"`}</P>
-                    {/* <P>{`✔ 수정 후 금액 : "${Reviewtarget}원"`}</P> */}
                     <P>{`✔ 금액 자리수 : ${Cashtarget.length}자리`}</P>
                     <P>{`✔ 숫자만 기입 + " , " 포함 21자리까지 금액수정이 가능합니다.`}</P>
                   </Fade>
@@ -1780,69 +1773,6 @@ export const AssetChange = () => {
                     <P style={{ color: 'blue' }}>{`🚨 금액을 수정해주세요.`}</P>
                   </Fade>
                 ) : null}
-                {/* {Cash && ListValueData && Reviewtarget.length <= 21 ? (
-                  <Fade>
-                    <P
-                      style={{ color: 'blue' }}
-                    >{`✔ 반영될 금액 : "${Cashtarget}원"`}</P>
-                    <P>{`✔ 수정 후 금액 : "${Reviewtarget}원"`}</P>
-                    <P>{`✔ 수정 후 금액 자리수 : ${Reviewtarget.length}자리`}</P>
-                    <P>{`✔ 숫자만 기입 + " , " 포함 21자리까지 금액수정이 가능합니다.`}</P>
-                  </Fade>
-                ) : Cash && AssetDatas && Reviewtarget.length >= 22 ? (
-                  <Fade>
-                    <P>{`🚨 수정 후 금액 자리수 : ${Reviewtarget.length}자리`}</P>
-                    <P>{`🚨 " , " 포함 21자리까지 금액수정이 가능합니다.`}</P>
-                    <P
-                      style={{ color: 'blue' }}
-                    >{`🚨 현재 수정금액 자리수가 22자리 이상입니다.`}</P>
-                    <P
-                      style={{ color: 'blue' }}
-                    >{`🚨 반영금액을 수정해주세요.`}</P>
-                  </Fade>
-                ) : null} */}
-                {/* <H2 style={{ width: '250px' }}>&nbsp;자산 리스트 삭제</H2>
-                <Div>
-                  {ZeroText === false ? (
-                    <Input
-                      // onChange={ZeroCashonChange}
-                      value={''}
-                      type="text"
-                      placeholder="0원으로 초기화 하실 자산 명칭을 적어주세요."
-                    />
-                  ) : (
-                    <Input
-                      // onChange={ZeroCashonChange}
-                      value={ZeroText}
-                      type="text"
-                      placeholder="0원으로 초기화 하실 자산 명칭을 적어주세요."
-                    />
-                  )}
-                  <div>
-                    <ZeroCashBtn1
-                      ZeroText={ZeroText}
-                      // postZEROAssetApi1={postZeroAssetApi1}
-                      // postZEROAssetApi2={postZeroAssetApi2}
-                      // postZEROAssetApi3={postZeroAssetApi3}
-                      // postZEROAssetApi4={postZeroAssetApi4}
-                      // postZEROAssetApi5={postZeroAssetApi5}
-                      // postZEROAssetApi6={postZeroAssetApi6}
-                      // AssetType={AssetType}
-                    >
-                      초기화
-                    </ZeroCashBtn1>
-                  </div>
-                </Div>
-                {ZeroText && AssetDatas ? (
-                  <Fade>
-                    {ZeroText === '명칭' ? (
-                      <P
-                        style={{ color: 'blue' }}
-                      >{`🚨 위 항목에 없는 명칭이면 버튼 비활성화됩니다."`}</P>
-                    ) : null}
-                    <P>{`✨ 반영될 자산명칭: "${ZeroText}"`}</P>
-                  </Fade>
-                ) : null} */}
               </MainContain>
             </TopPage>
           </MainPage>
