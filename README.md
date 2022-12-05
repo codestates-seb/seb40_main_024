@@ -1,12 +1,73 @@
-# Hojumoney - team 024
+# 🥇 Hojumoney - team 024
 
 ![testBanner02](https://user-images.githubusercontent.com/97623334/205558081-ff5e9db3-a641-49b0-b2af-bfe6357894cd.png)
 
-## Project time
+<br>
+
+## ⏰ Project time
 
 #### `2022.11.08 - 2022.12.07`
 
-## Member
+<br>
+
+## 📔 Document
+
+<details>
+<summary>전체 구현 목록 & 담당</summary>
+
+<br>
+
+[Frontend]
+
+- 황인준: Member, Board, Comment, 404 구현
+- 이지원: Goal 구현, FE 회의록 작성
+- 임후나: Asset 구현
+
+<br>
+
+[Backend]
+
+- 김민주: Board, Comment, Goal 구현, test data 생성, Azure web app 배포
+- 주윤정: Asset 구현, BE 회의록 작성, EC2 배포
+- 홍성학: Member 회원생성, 로그인 구현
+
+<br>
+
+- [전체 구현 목록 & 담당](https://github.com/codestates-seb/seb40_main_024/issues/103)
+
+</details>
+
+<details>
+<summary>User flow</summary>
+<br>
+
+![2022-12-05_15 34 09](https://user-images.githubusercontent.com/97623334/205565987-e4e019bd-7197-4bc5-b087-6a7f5a95bc77.png)
+
+</details>
+
+<details>
+<summary>ERD</summary>
+<br>
+
+![024ERD_ver1](https://user-images.githubusercontent.com/97623334/205564779-5d513894-0271-4c4a-974f-4723bf89ff06.jpg)
+
+</details>
+
+<br>
+
+## ⚡ Project time
+
+### Frontend
+
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/React Router-CA4245?style=for-the-badge&logo=React Router&logoColor=white"> <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"> <img src="https://img.shields.io/badge/React on scroll animation-61DAFB?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/React icons-FF4154?style=for-the-badge&logo=React&logoColor=black"> <img src="https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=React&logoColor=white">
+
+### Backend
+
+WIP
+
+<br>
+
+## 👥 Member
 
 |                                                     Frontend (팀장)                                                     |                                                    Frontend                                                    |                                                    Frontend                                                    |
 | :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
@@ -18,11 +79,9 @@
 | [<img src="https://avatars.githubusercontent.com/u/97623334?v=4" width="160px;" alt=""/>](https://github.com/JadeMK) | [<img src="https://avatars.githubusercontent.com/u/107476079?v=4" width="160px">](https://github.com/codinginfant) | [<img src="https://avatars.githubusercontent.com/u/101723087?v=4" width="160px" >](https://github.com/HongSungHak) |
 |                                         [김민주](https://github.com/JadeMK)                                          |                                     [주윤정](https://github.com/codinginfant)                                      |                                      [홍성학](https://github.com/HongSungHak)                                      |
 
-## Document
+<br>
 
-- [전체 구현 목록 & 담당](https://github.com/codestates-seb/seb40_main_024/issues/103)
-
-## Commit convention
+## ✔️ Commit convention
 
 | 태그이름 | 설명                                     |
 | -------- | ---------------------------------------- |
@@ -36,31 +95,3 @@
 | remove   | 파일 삭제                                |
 | docs     | 문서 수정                                |
 | merge    | 머지                                     |
-
-## Tech Stacks
-
--frontend
-
-<img src="https://img.shields.io/badge/html5-E34F26?style=for-the-badge&logo=html5&logoColor=white"><img src="https://img.shields.io/badge/css-1572B6?style=for-the-badge&logo=css3&logoColor=white"><img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"><img src="https://img.shields.io/badge/styled components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/><img src="https://img.shields.io/badge/Axios-5A29E4.svg?&style=for-the-badge&logo=axios&logoColor=white">
-
-<img src="https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white"><img src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white"><img src="https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=Prettier&logoColor=black">
-
--backend
-
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
-
-<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"/><img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/><img src="https://img.shields.io/badge/Spring Data JPA-6DB33F?style=for-the-badge&logoColor=white"/><img src="https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white">
-
-<img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white"/><img src="https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradlel&logoColor=white">
-<img src="https://img.shields.io/badge/Microsoft Azure-0078D4?style=for-the-badge&logo=Microsoft Azure&logoColor=white">
-
--Tool
-
-<img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white">
-<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>
-
--deploy
-
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white">
-<img src="https://img.shields.io/badge/Amazon EC2-527FFF?style=for-the-badge&logo=Amazon EC2&logoColor=white">
-<img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white">
