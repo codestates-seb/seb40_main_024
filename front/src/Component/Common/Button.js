@@ -205,6 +205,45 @@ export const ButtonSignup = () => {
   );
 };
 
+export const ButtonCommunity = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/board');
+      }}
+    >
+      커뮤니티
+    </ButtonAA>
+  );
+};
+
+export const ButtonAsset = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/assetchange');
+      }}
+    >
+      자산관리
+    </ButtonAA>
+  );
+};
+
+export const ButtonGoal = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/assettarget');
+      }}
+    >
+      목표관리
+    </ButtonAA>
+  );
+};
+
 //목표수정 페이지
 export const SaveBtn = ({ openSavingModal }) => {
   return (
