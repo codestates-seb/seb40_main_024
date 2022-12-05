@@ -2,7 +2,7 @@ import styled from 'styled-components';
 // eslint-disable-next-line no-unused-vars
 import { useState, useEffect } from 'react';
 // eslint-disable-next-line no-unused-vars
-import { useSelector, useDispatch } from 'react-redux';
+
 // eslint-disable-next-line no-unused-vars
 import { title, setTitleName } from '../../Redux/titleSlice';
 // import { useState,t, useContext } from 'react';
@@ -28,6 +28,7 @@ const Div = styled.div`
     margin: 0 auto;
     border-radius: 0.3rem;
     background-color: #fff;
+    width: 800px;
     /* 팝업이 열릴때 스르륵 열리는 효과 */
     animation: modal-show 0.6s;
     overflow: hidden;
@@ -59,6 +60,13 @@ const Div = styled.div`
     text-align: right;
   }
   .modal > section > footer button {
+    padding: 6px 12px;
+    color: #fff;
+    background-color: #9ed5cd;
+    border-radius: 5px;
+    font-size: 13px;
+  }
+  .modal > section > main button {
     padding: 6px 12px;
     color: #fff;
     background-color: #9ed5cd;
@@ -152,12 +160,16 @@ export const AutoModal = (props) => {
     </Div>
   );
 };
+export const AssetListPostModal1 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api } = props;
 
-export const AssetTextEditModal1 = (props) => {
-  const { open, close, header, api, PathTextHandler1 } = props;
+  // eslint-disable-next-line no-unused-vars
   const miniHandler = () => {
     api();
-    PathTextHandler1();
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 10);
   };
   return (
     <Div>
@@ -178,7 +190,7 @@ export const AssetTextEditModal1 = (props) => {
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -189,12 +201,18 @@ export const AssetTextEditModal1 = (props) => {
     </Div>
   );
 };
-export const AssetTextEditModal2 = (props) => {
-  const { open, close, header, api, PathTextHandler2 } = props;
-  const miniHandler = () => {
-    api();
-    PathTextHandler2();
-  };
+export const AssetTextEditModal1 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, EditText } = props;
+  console.log('EditText', EditText);
+  // const miniHandler = () => {
+  //   if (EditText.length >= 1) {
+  //     api();
+  //     setTimeout(() => {
+  //       window.location.reload();
+  //     }, 5);
+  //   }
+  // };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -208,13 +226,50 @@ export const AssetTextEditModal2 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={miniHandler}>
-                Edit
-              </button>
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
+
+export const AssetTextEditModal2 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api } = props;
+  // const miniHandler = () => {
+  //   api();
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 5);
+  // };
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              {/* <button className="edit" onClick={miniHandler}>
+                Edit
+              </button> */}
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -226,11 +281,14 @@ export const AssetTextEditModal2 = (props) => {
   );
 };
 export const AssetTextEditModal3 = (props) => {
-  const { open, close, header, api, PathTextHandler3 } = props;
-  const miniHandler = () => {
-    api();
-    PathTextHandler3();
-  };
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api } = props;
+  // const miniHandler = () => {
+  //   api();
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 5);
+  // };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -244,13 +302,13 @@ export const AssetTextEditModal3 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={miniHandler}>
+              {/* <button className="edit" onClick={miniHandler}>
                 Edit
-              </button>
+              </button> */}
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -262,11 +320,14 @@ export const AssetTextEditModal3 = (props) => {
   );
 };
 export const AssetTextEditModal4 = (props) => {
-  const { open, close, header, api, PathTextHandler4 } = props;
-  const miniHandler = () => {
-    api();
-    PathTextHandler4();
-  };
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api } = props;
+  // const miniHandler = () => {
+  //   api();
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 5);
+  // };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -280,13 +341,13 @@ export const AssetTextEditModal4 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={miniHandler}>
+              {/* <button className="edit" onClick={miniHandler}>
                 Edit
-              </button>
+              </button> */}
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -298,11 +359,14 @@ export const AssetTextEditModal4 = (props) => {
   );
 };
 export const AssetTextEditModal5 = (props) => {
-  const { open, close, header, api, PathTextHandler5 } = props;
-  const miniHandler = () => {
-    api();
-    PathTextHandler5();
-  };
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api } = props;
+  // const miniHandler = () => {
+  //   api();
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 5);
+  // };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -316,13 +380,13 @@ export const AssetTextEditModal5 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={miniHandler}>
+              {/* <button className="edit" onClick={miniHandler}>
                 Edit
-              </button>
+              </button> */}
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -334,13 +398,16 @@ export const AssetTextEditModal5 = (props) => {
   );
 };
 export const AssetTextEditModal6 = (props) => {
-  const { open, close, header, api, PathTextHandler6 } = props;
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api } = props;
 
   // eslint-disable-next-line no-unused-vars
-  const miniHandler = () => {
-    api();
-    PathTextHandler6();
-  };
+  // const miniHandler = () => {
+  //   api();
+  //   setTimeout(() => {
+  //     window.location.reload();
+  //   }, 5);
+  // };
   return (
     <Div>
       <div className={open ? 'openModal modal' : 'modal'}>
@@ -354,13 +421,13 @@ export const AssetTextEditModal6 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="edit" onClick={miniHandler}>
+              {/* <button className="edit" onClick={miniHandler}>
                 Edit
-              </button>
+              </button> */}
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -371,18 +438,15 @@ export const AssetTextEditModal6 = (props) => {
     </Div>
   );
 };
-export const AssetDeleteEditModal1 = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
 
+export const AssetDeleteModal1 = (props) => {
   // eslint-disable-next-line no-unused-vars
-
-  const checkHandler = () => {
+  const { open, close, header, api1 } = props;
+  const miniHandler = () => {
     api1();
-    close;
     setTimeout(() => {
       window.location.reload();
-    }, 80);
+    }, 2);
   };
   return (
     <Div>
@@ -397,13 +461,13 @@ export const AssetDeleteEditModal1 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="close" onClick={checkHandler}>
+              <button className="close" onClick={miniHandler}>
                 Delete
               </button>
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -414,60 +478,15 @@ export const AssetDeleteEditModal1 = (props) => {
     </Div>
   );
 };
-export const AssetDeleteEditModal2 = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
-  // eslint-disable-next-line no-unused-vars
 
-  const checkHandler = () => {
-    api1();
-    close;
+export const AssetDeleteModal2 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api2 } = props;
+  const miniHandler = () => {
+    api2();
     setTimeout(() => {
       window.location.reload();
-    }, 80);
-  };
-
-  return (
-    <Div>
-      <div className={open ? 'openModal modal' : 'modal'}>
-        {open ? (
-          <section>
-            <header>
-              {header}
-              <button className="close" onClick={close}>
-                &times;
-              </button>
-            </header>
-            <main>{props.children}</main>
-            <footer>
-              <button className="close" onClick={checkHandler}>
-                Delete
-              </button>
-              <button
-                className="close"
-                onClick={close}
-                style={{ marginLeft: '20px' }}
-              >
-                close
-              </button>
-            </footer>
-          </section>
-        ) : null}
-      </div>
-    </Div>
-  );
-};
-export const AssetDeleteEditModal3 = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
-  // eslint-disable-next-line no-unused-vars
-
-  const checkHandler = () => {
-    api1();
-    close;
-    setTimeout(() => {
-      window.location.reload();
-    }, 80);
+    }, 2);
   };
   return (
     <Div>
@@ -482,13 +501,13 @@ export const AssetDeleteEditModal3 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="close" onClick={checkHandler}>
+              <button className="close" onClick={miniHandler}>
                 Delete
               </button>
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -499,17 +518,15 @@ export const AssetDeleteEditModal3 = (props) => {
     </Div>
   );
 };
-export const AssetDeleteEditModal4 = (props) => {
-  // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
-  // eslint-disable-next-line no-unused-vars
 
-  const checkHandler = () => {
-    api1();
-    close;
+export const AssetDeleteModal3 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api3 } = props;
+  const miniHandler = () => {
+    api3();
     setTimeout(() => {
       window.location.reload();
-    }, 80);
+    }, 2);
   };
   return (
     <Div>
@@ -524,13 +541,13 @@ export const AssetDeleteEditModal4 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="close" onClick={checkHandler}>
+              <button className="close" onClick={miniHandler}>
                 Delete
               </button>
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -541,17 +558,14 @@ export const AssetDeleteEditModal4 = (props) => {
     </Div>
   );
 };
-export const AssetDeleteEditModal5 = (props) => {
+export const AssetDeleteModal4 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
-  // eslint-disable-next-line no-unused-vars
-
-  const checkHandler = () => {
-    api1();
-    close;
+  const { open, close, header, api4 } = props;
+  const miniHandler = () => {
+    api4();
     setTimeout(() => {
       window.location.reload();
-    }, 80);
+    }, 2);
   };
   return (
     <Div>
@@ -566,13 +580,13 @@ export const AssetDeleteEditModal5 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="close" onClick={checkHandler}>
+              <button className="close" onClick={miniHandler}>
                 Delete
               </button>
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -584,18 +598,14 @@ export const AssetDeleteEditModal5 = (props) => {
   );
 };
 
-export const AssetDeleteEditModal6 = (props) => {
+export const AssetDeleteModal5 = (props) => {
   // eslint-disable-next-line no-unused-vars
-  const { open, close, header, api1, api2, AssetTypeNonMyungching } = props;
-  // eslint-disable-next-line no-unused-vars
-
-  // console.log(api1, api2, AssetTypeNonMungching);
-  const checkHandler = () => {
-    api1();
-    close;
+  const { open, close, header, api5 } = props;
+  const miniHandler = () => {
+    api5();
     setTimeout(() => {
       window.location.reload();
-    }, 80);
+    }, 2);
   };
   return (
     <Div>
@@ -610,13 +620,13 @@ export const AssetDeleteEditModal6 = (props) => {
             </header>
             <main>{props.children}</main>
             <footer>
-              <button className="delete" onClick={checkHandler}>
+              <button className="close" onClick={miniHandler}>
                 Delete
               </button>
               <button
                 className="close"
                 onClick={close}
-                style={{ marginLeft: '20px' }}
+                style={{ marginLeft: '20px', width: '65.52px' }}
               >
                 close
               </button>
@@ -627,6 +637,237 @@ export const AssetDeleteEditModal6 = (props) => {
     </Div>
   );
 };
+
+export const AssetDeleteModal6 = (props) => {
+  // eslint-disable-next-line no-unused-vars
+  const { open, close, header, api6 } = props;
+  const miniHandler = () => {
+    api6();
+    setTimeout(() => {
+      window.location.reload();
+    }, 2);
+  };
+  return (
+    <Div>
+      <div className={open ? 'openModal modal' : 'modal'}>
+        {open ? (
+          <section>
+            <header>
+              {header}
+              <button className="close" onClick={close}>
+                &times;
+              </button>
+            </header>
+            <main>{props.children}</main>
+            <footer>
+              <button className="close" onClick={miniHandler}>
+                Delete
+              </button>
+              <button
+                className="close"
+                onClick={close}
+                style={{ marginLeft: '20px', width: '65.52px' }}
+              >
+                close
+              </button>
+            </footer>
+          </section>
+        ) : null}
+      </div>
+    </Div>
+  );
+};
+// export const AssetDeleteEditModal2 = (props) => {
+//   // eslint-disable-next-line no-unused-vars
+//   const { open, close, header, api2 } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const miniHandler = () => {
+//     api2();
+//   };
+
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close" onClick={close}>
+//                 &times;
+//               </button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={miniHandler}>
+//                 Delete
+//               </button>
+//               <button
+//                 className="close"
+//                 onClick={close}
+//                 style={{ marginLeft: '20px' }}
+//               >
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+// export const AssetDeleteEditModal3 = (props) => {
+//   // eslint-disable-next-line no-unused-vars
+//   const { open, close, header, api3 } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const miniHandler = () => {
+//     api3();
+//   };
+
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close" onClick={close}>
+//                 &times;
+//               </button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={miniHandler}>
+//                 Delete
+//               </button>
+//               <button
+//                 className="close"
+//                 onClick={close}
+//                 style={{ marginLeft: '20px' }}
+//               >
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+// export const AssetDeleteEditModal4 = (props) => {
+//   // eslint-disable-next-line no-unused-vars
+//   const { open, close, header, api4 } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const miniHandler = () => {
+//     api4();
+//   };
+
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close" onClick={close}>
+//                 &times;
+//               </button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={miniHandler}>
+//                 Delete
+//               </button>
+//               <button
+//                 className="close"
+//                 onClick={close}
+//                 style={{ marginLeft: '20px' }}
+//               >
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+// export const AssetDeleteEditModal5 = (props) => {
+//   // eslint-disable-next-line no-unused-vars
+//   const { open, close, header, api5 } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const miniHandler = () => {
+//     api5();
+//   };
+
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close" onClick={close}>
+//                 &times;
+//               </button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="close" onClick={miniHandler}>
+//                 Delete
+//               </button>
+//               <button
+//                 className="close"
+//                 onClick={close}
+//                 style={{ marginLeft: '20px' }}
+//               >
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
+
+// export const AssetDeleteEditModal6 = (props) => {
+//   // eslint-disable-next-line no-unused-vars
+//   const { open, close, header, api6 } = props;
+//   // eslint-disable-next-line no-unused-vars
+//   const miniHandler = () => {
+//     api6();
+//   };
+
+//   return (
+//     <Div>
+//       <div className={open ? 'openModal modal' : 'modal'}>
+//         {open ? (
+//           <section>
+//             <header>
+//               {header}
+//               <button className="close" onClick={close}>
+//                 &times;
+//               </button>
+//             </header>
+//             <main>{props.children}</main>
+//             <footer>
+//               <button className="delete" onClick={miniHandler}>
+//                 Delete
+//               </button>
+//               <button
+//                 className="close"
+//                 onClick={close}
+//                 style={{ marginLeft: '20px' }}
+//               >
+//                 close
+//               </button>
+//             </footer>
+//           </section>
+//         ) : null}
+//       </div>
+//     </Div>
+//   );
+// };
 export const GoalModifyModal = (props) => {
   const { open, close, header, goalPatch, id } = props;
 
