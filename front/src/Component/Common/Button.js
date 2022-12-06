@@ -466,7 +466,6 @@ export const TitleCashBtn = ({
   // eslint-disable-next-line no-unused-vars
   openerrDelModalopen,
 }) => {
-  // console.log(listdata[5]);
   return Text === '' && Cash === '' ? (
     <ButtonAA disabled>추가</ButtonAA>
   ) : listdata[5] === '명칭' ? (
