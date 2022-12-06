@@ -204,7 +204,7 @@ export const AssetListPostModal1 = (props) => {
 export const AssetTextEditModal1 = (props) => {
   // eslint-disable-next-line no-unused-vars
   const { open, close, header, EditText } = props;
-
+  // console.log('EditText', EditText);
   // const miniHandler = () => {
   //   if (EditText.length >= 1) {
   //     api();
