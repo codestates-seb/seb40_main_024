@@ -205,6 +205,45 @@ export const ButtonSignup = () => {
   );
 };
 
+export const ButtonCommunity = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/board');
+      }}
+    >
+      커뮤니티
+    </ButtonAA>
+  );
+};
+
+export const ButtonAsset = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/assetchange');
+      }}
+    >
+      자산관리
+    </ButtonAA>
+  );
+};
+
+export const ButtonGoal = () => {
+  const navigate = useNavigate();
+  return (
+    <ButtonAA
+      onClick={() => {
+        navigate('/assettarget');
+      }}
+    >
+      목표관리
+    </ButtonAA>
+  );
+};
+
 //목표수정 페이지
 export const SaveBtn = ({ openSavingModal }) => {
   return (
@@ -235,6 +274,21 @@ export const PlusBtn = ({ savings, goalPost }) => {
       value={savings}
       style={{ marginBottom: '30px' }}
       onClick={goalPost}
+      // onClick={(() => goalPost, checkHandler)}
+    >
+      START
+    </ButtonCC>
+  );
+};
+
+export const DisabledBtn = ({ savings }) => {
+  return (
+    <ButtonCC
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+      onClick={() => alert('목표는 6개까지 등록할 수 있습니다.')}
       // onClick={(() => goalPost, checkHandler)}
     >
       START
@@ -402,30 +456,35 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi, Text, Cash }) => {
+export const TitleCashBtn = ({
+  // eslint-disable-next-line no-unused-vars
+  postAssetApi,
+  Text,
+  Cash,
+  // eslint-disable-next-line no-unused-vars
+  listdata,
+  // eslint-disable-next-line no-unused-vars
+  openerrDelModalopen,
+}) => {
   return Text === '' && Cash === '' ? (
-    <ButtonAA disabled>수정</ButtonAA>
-  ) : (
-    <ButtonAA
-      onClick={() => {
-        postAssetApi();
-      }}
-      disabled={String(Text) === '명칭'}
-    >
+    <ButtonAA disabled>추가</ButtonAA>
+  ) : listdata[5] === '명칭' ? (
+    <ButtonAA onClick={postAssetApi} disabled={String(Text) === '명칭'}>
       수정
     </ButtonAA>
+  ) : (
+    <ButtonAA onClick={openerrDelModalopen}>수정</ButtonAA>
   );
 };
-{
-  /* <ButtonAA
+
+// || listdata[5] !== '명칭'
+/* <ButtonAA
 onClick={() => {
   postAssetApi();
 }}
 disabled={String(Text) === '명칭'}
->
-수정
-</ButtonAA> */
-}
+> */
+
 export const ZeroCashBtn1 = ({
   postZEROAssetApi1,
   postZEROAssetApi2,
