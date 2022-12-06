@@ -280,6 +280,22 @@ export const PlusBtn = ({ savings, goalPost }) => {
     </ButtonCC>
   );
 };
+
+export const DisabledBtn = ({ savings, openModal }) => {
+  return (
+    <ButtonCC
+      type="number"
+      name="savings"
+      value={savings}
+      style={{ marginBottom: '30px' }}
+      //모달로변경
+      onClick={openModal}
+      // onClick={(() => goalPost, checkHandler)}
+    >
+      START
+    </ButtonCC>
+  );
+};
 export const EditGoalBtn = ({ id, openModify }) => {
   return (
     <ButtonAA data-id={id} onClick={openModify}>
@@ -441,31 +457,35 @@ export const AssetBoardPostBtn = () => {
 };
 
 // 현재 자산 수정하기 페이지 버튼들
-export const TitleCashBtn = ({ postAssetApi, Text, Cash }) => {
-  // console.log(Text, Cash);
+export const TitleCashBtn = ({
+  // eslint-disable-next-line no-unused-vars
+  postAssetApi,
+  Text,
+  Cash,
+  // eslint-disable-next-line no-unused-vars
+  listdata,
+  // eslint-disable-next-line no-unused-vars
+  openerrDelModalopen,
+}) => {
   return Text === '' && Cash === '' ? (
-    <ButtonAA disabled>수정</ButtonAA>
-  ) : (
-    <ButtonAA
-      onClick={() => {
-        postAssetApi();
-      }}
-      disabled={String(Text) === '명칭'}
-    >
+    <ButtonAA disabled>추가</ButtonAA>
+  ) : listdata[5] === '명칭' ? (
+    <ButtonAA onClick={postAssetApi} disabled={String(Text) === '명칭'}>
       수정
     </ButtonAA>
+  ) : (
+    <ButtonAA onClick={openerrDelModalopen}>수정</ButtonAA>
   );
 };
-{
-  /* <ButtonAA
+
+// || listdata[5] !== '명칭'
+/* <ButtonAA
 onClick={() => {
   postAssetApi();
 }}
 disabled={String(Text) === '명칭'}
->
-수정
-</ButtonAA> */
-}
+> */
+
 export const ZeroCashBtn1 = ({
   postZEROAssetApi1,
   postZEROAssetApi2,

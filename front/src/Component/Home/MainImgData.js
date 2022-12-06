@@ -1,5 +1,5 @@
 import Mainpeople from './Img/MainA.jpg';
-import Assetimg1 from './Img/Asset.jpg';
+import Assetimg1 from './Img/Asset.png';
 import Assetimg2 from './Img/Asset2.jpg';
 import community from './Img/community.png';
 

@@ -8,6 +8,7 @@ import {
 } from '../../Component/Common/NavebarRev';
 import AssetList from '../../Component/Asset/AssetList';
 import axios from 'axios';
+import { Modal } from '../../Component/Common/Modal';
 
 const GuideBox = styled.div`
   display: flex;
@@ -33,6 +34,9 @@ const GuideBox = styled.div`
   .Hilight {
     color: #8ec3b0;
   }
+  /* .TextCenter {
+    text-align: center;
+  } */
 `;
 
 const PageContain = styled.div`
@@ -104,6 +108,14 @@ const AssetTargetPage = () => {
   const [targetLength, setTargetLength] = useState(''); //목표기간
   const [up, setUp] = useState(0); //저축횟수
   const [countList, setCountList] = useState([]);
+  const [Modalopen, setModalopen] = useState(false);
+
+  // const openModal = () => {
+  //   setModalopen(!Modalopen);
+  // };
+  const closeModal = () => {
+    setModalopen(!Modalopen);
+  };
 
   let monthly = Math.ceil(extended / period);
   if (isNaN(monthly)) {
@@ -229,6 +241,7 @@ const AssetTargetPage = () => {
         }
       );
       setRender((el) => el + 1);
+      closeModal();
 
       // console.log('patch', res);
       // console.log('patchId', e.target.dataset.id);
@@ -250,7 +263,6 @@ const AssetTargetPage = () => {
       );
       setRender((el) => el + 1);
       setUp(res.data.completed);
-      console.log(res.data.completed);
     } catch (err) {
       // console.log('up', err);
     }
@@ -275,9 +287,9 @@ const AssetTargetPage = () => {
   };
   const GoalData = [
     {
-      name: '목표',
+      name: '목표예시',
       목표율: 100,
-      달성률: 50,
+      달성률: 30,
       amt: 2400,
     },
   ];
@@ -317,21 +329,26 @@ const AssetTargetPage = () => {
                   <h2 className="TextHeader">목표 작성을 위한 안내</h2>
                   <br />
                   <p className="Text">
-                    첫째, <span className="Hilight">&apos;나의 목표&apos;</span>
-                    에 목표를 작성해주세요.
+                    1. <span className="Hilight">&apos;나의 목표&apos;</span>에
+                    목표를 작성해주세요.
                   </p>
                   <br />
                   <p className="Text">
-                    둘째, <span className="Hilight">START</span> 버튼을 클릭하면
+                    2. <span className="Hilight">START</span> 버튼을 클릭하면
                     목표리스트가 생성됩니다.
                   </p>
                   <br />
                   <p className="Text">
-                    셋째, 목표리스트의 <span className="Hilight">Saving</span>{' '}
+                    3. 목표리스트의 <span className="Hilight">Saving</span>{' '}
                     버튼을 클릭하여 저축한 기간을 표시할 수 있습니다.
                   </p>
                   <br />
-                  <p className="Text">
+                  <p className="TextCenter">
+                    *목표는 <span className="Hilight">최대 6개</span>까지 등록할
+                    수 있습니다.*
+                  </p>
+                  <br />
+                  <p className="TextCenter">
                     *그래프를 통해 목표 달성률을 확인해보세요!*
                   </p>
                 </GuideBox>
@@ -372,6 +389,13 @@ const AssetTargetPage = () => {
                   ></AssetList>
                 ))}
               </BoxContain>
+              <Modal
+                open={Modalopen}
+                close={closeModal}
+                header="목표자산수정 알림"
+              >
+                목표자산이 수정되었습니다.
+              </Modal>
             </div>
           </PageContain>
         </div>

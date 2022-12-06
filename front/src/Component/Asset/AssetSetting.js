@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { PlusBtn } from '../Common/Button';
+import { PlusBtn, DisabledBtn } from '../Common/Button';
+import { Modal } from '../Common/Modal';
 // import { Modal } from '../Common/Modal';
 // import { useState } from 'react';
 
@@ -68,6 +70,16 @@ const AssetSetting = ({
   handlerExtended,
   handlerPeriod,
 }) => {
+  const [Modalopen, setModalopen] = useState(false);
+
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+  };
+
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -96,10 +108,13 @@ const AssetSetting = ({
           />
           <p className="p">목표달성을 위한 매달 저축액은?</p>
           <TextBox>{targetAmount}원!</TextBox>
-          {countList.length === 6 ? (
+          {countList.length >= 6 ? (
             <>
               {' '}
-              <PlusBtn disabled></PlusBtn>
+              <DisabledBtn disabled openModal={openModal}></DisabledBtn>
+              <Modal open={Modalopen} close={closeModal} header="오류 알림">
+                목표는 6개 이상 등록 불가능합니다.
+              </Modal>
             </>
           ) : (
             <>
