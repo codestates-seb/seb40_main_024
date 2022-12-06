@@ -12,7 +12,7 @@ import Board from './Pages/Board/Board';
 import MyPage from './Pages/Member/MyPage';
 import BoardContentPage from './Pages/Board/BoardContentPage';
 import AssetTargetTest from './Pages/Asset/AssetTargetTest';
-import AssetTartget from './Pages/Asset/AssetTargetPage';
+// import AssetTartget from './Pages/Asset/AssetTargetPage';
 import PaymentConfirmPage from './Pages/Pay/PaymentConfirmPage';
 import PaymentPage from './Pages/Pay/PaymentPage';
 import SubscriptionPage from './Pages/Pay/SubscriptionPage';
@@ -47,9 +47,9 @@ function App() {
         {authCtx.isLoggedIn && (
           <Route path="/assettarget" element={<AssetTargetTest />} />
         )}
-        {authCtx.isLoggedIn && (
+        {/* {authCtx.isLoggedIn && (
           <Route path="/assettargetpage" element={<AssetTartget />} />
-        )}
+        )} */}
 
         {/*
         subscriptionpage는 ?

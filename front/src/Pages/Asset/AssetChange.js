@@ -852,14 +852,12 @@ export const AssetChange = () => {
   };
 
   const openPatchTextModalopenP1 = () => {
-    console.log('P1눌림');
     patchAssetsApiP1();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenM1 = () => {
-    console.log('M1눌림');
     patchAssetsApiM1();
     setTimeout(() => {
       window.location.reload();
@@ -867,63 +865,54 @@ export const AssetChange = () => {
   };
 
   const openPatchTextModalopenP2 = () => {
-    console.log('P2눌림');
     patchAssetsApiP2();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenM2 = () => {
-    console.log('M2눌림');
     patchAssetsApiM2();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenP3 = () => {
-    console.log('P3눌림');
     patchAssetsApiP3();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenM3 = () => {
-    console.log('M3눌림');
     patchAssetsApiM3();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenP4 = () => {
-    console.log('P4눌림');
     patchAssetsApiP4();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenM4 = () => {
-    console.log('M4눌림');
     patchAssetsApiM4();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenP5 = () => {
-    console.log('P5눌림');
     patchAssetsApiP5();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenM5 = () => {
-    console.log('M5눌림');
     patchAssetsApiM5();
     setTimeout(() => {
       window.location.reload();
     }, 5);
   };
   const openPatchTextModalopenP6 = () => {
-    console.log('P6눌림');
     patchAssetsApiP6();
     setTimeout(() => {
       window.location.reload();
@@ -931,7 +920,6 @@ export const AssetChange = () => {
   };
 
   const openPatchTextModalopenM6 = () => {
-    console.log('M6눌림');
     patchAssetsApiM6();
     setTimeout(() => {
       window.location.reload();
@@ -1021,8 +1009,6 @@ export const AssetChange = () => {
     }
   });
 
-  console.log('PerCentValueData', PerCentValueData);
-  console.log('ListTypeData', ListTypeData);
   return (
     <>
       <LongNavbarBox />
@@ -1045,7 +1031,7 @@ export const AssetChange = () => {
 
               <MainContain>
                 <AssetListPostModal1
-                  header={`List :  ${AssetType.length} / ${AssetType.length}`}
+                  header={`List :  ${AssetType.length} / 6`}
                   open={PostListModalopen1}
                   api={postAssetApi}
                   close={closeModal}
