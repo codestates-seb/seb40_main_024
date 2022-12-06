@@ -446,7 +446,7 @@ export const AssetDeleteModal1 = (props) => {
     api1();
     setTimeout(() => {
       window.location.reload();
-    }, 2);
+    }, 5);
   };
   return (
     <Div>
@@ -486,7 +486,7 @@ export const AssetDeleteModal2 = (props) => {
     api2();
     setTimeout(() => {
       window.location.reload();
-    }, 2);
+    }, 5);
   };
   return (
     <Div>
@@ -526,7 +526,7 @@ export const AssetDeleteModal3 = (props) => {
     api3();
     setTimeout(() => {
       window.location.reload();
-    }, 2);
+    }, 5);
   };
   return (
     <Div>
@@ -565,7 +565,7 @@ export const AssetDeleteModal4 = (props) => {
     api4();
     setTimeout(() => {
       window.location.reload();
-    }, 2);
+    }, 5);
   };
   return (
     <Div>
@@ -605,7 +605,7 @@ export const AssetDeleteModal5 = (props) => {
     api5();
     setTimeout(() => {
       window.location.reload();
-    }, 2);
+    }, 5);
   };
   return (
     <Div>
@@ -645,7 +645,7 @@ export const AssetDeleteModal6 = (props) => {
     api6();
     setTimeout(() => {
       window.location.reload();
-    }, 2);
+    }, 5);
   };
   return (
     <Div>
