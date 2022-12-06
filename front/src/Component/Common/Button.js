@@ -281,14 +281,15 @@ export const PlusBtn = ({ savings, goalPost }) => {
   );
 };
 
-export const DisabledBtn = ({ savings }) => {
+export const DisabledBtn = ({ savings, openModal }) => {
   return (
     <ButtonCC
       type="number"
       name="savings"
       value={savings}
       style={{ marginBottom: '30px' }}
-      onClick={() => alert('목표는 6개까지 등록할 수 있습니다.')}
+      //모달로변경
+      onClick={openModal}
       // onClick={(() => goalPost, checkHandler)}
     >
       START

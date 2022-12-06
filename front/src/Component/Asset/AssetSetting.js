@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { PlusBtn, DisabledBtn } from '../Common/Button';
+import { Modal } from '../Common/Modal';
 // import { Modal } from '../Common/Modal';
 // import { useState } from 'react';
 
@@ -68,6 +70,16 @@ const AssetSetting = ({
   handlerExtended,
   handlerPeriod,
 }) => {
+  const [Modalopen, setModalopen] = useState(false);
+
+  const openModal = () => {
+    setModalopen(true);
+  };
+
+  const closeModal = () => {
+    setModalopen(false);
+  };
+
   return (
     <>
       <div style={{ display: 'flex' }}>
@@ -99,7 +111,10 @@ const AssetSetting = ({
           {countList.length >= 6 ? (
             <>
               {' '}
-              <DisabledBtn disabled></DisabledBtn>
+              <DisabledBtn disabled openModal={openModal}></DisabledBtn>
+              <Modal open={Modalopen} close={closeModal} header="오류 알림">
+                목표는 6개 이상 등록 불가능합니다.
+              </Modal>
             </>
           ) : (
             <>

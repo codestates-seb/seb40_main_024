@@ -287,9 +287,9 @@ const AssetTargetPage = () => {
   };
   const GoalData = [
     {
-      name: '목표',
+      name: '목표예시',
       목표율: 100,
-      달성률: 50,
+      달성률: 30,
       amt: 2400,
     },
   ];
