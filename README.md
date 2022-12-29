@@ -1,12 +1,12 @@
-# 🥇 Hojumoney - team 024
+# 🥇 Hojumoney - team 024 Refactoring
 
 ![testBanner02](https://user-images.githubusercontent.com/97623334/205558081-ff5e9db3-a641-49b0-b2af-bfe6357894cd.png)
 
 <br>
 
-## ⏰ Project time
+## ⏰ Refactoring Project time
 
-#### `2022.11.08 - 2022.12.07`
+#### `2022.12.26 -`
 
 <br>
 
@@ -19,7 +19,6 @@
 
 [Frontend]
 
-- 황인준: Member, Board, Comment, 404 구현
 - 이지원: Goal 구현, FE 회의록 작성
 - 임후나: Asset 구현
 
@@ -29,7 +28,6 @@
 
 - 김민주: Board, Comment, Goal 구현, test data 생성, Azure web app 배포
 - 주윤정: Asset 구현, BE 회의록 작성, EC2 배포
-- 홍성학: Member 회원생성, 로그인 구현
 
 <br>
 
@@ -55,7 +53,7 @@
 
 <br>
 
-## ⚡ Project time
+## ⚡ Project 
 
 ### Frontend
 
@@ -69,15 +67,15 @@
 
 ## 👥 Member
 
-|                                                     Frontend (팀장)                                                     |                                                    Frontend                                                    |                                                    Frontend                                                    |
+|                                                     Frontend                                                     |                                                    Frontend                                                    |                                                                                                       |
 | :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars.githubusercontent.com/u/85159654?v=4" width="160px;" alt=""/>](https://github.com/junny1995) | [<img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="160px" >](https://github.com/jioneee) | [<img src="https://avatars.githubusercontent.com/u/107407182?v=4" width="160px">](https://github.com/dlagnsk2) |
-|                                         [황인준](https://github.com/junny1995)                                          |                                      [이지원](https://github.com/jioneee)                                      |                                     [임후나](https://github.com/dlagnsk2)                                      |
+| [<img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="160px" >](https://github.com/jioneee) | [<img src="https://avatars.githubusercontent.com/u/107407182?v=4" width="160px">](https://github.com/dlagnsk2) | 
+|                                         [이지원](https://github.com/jioneee)                                          |                                      [임후나](https://github.com/dlagnsk2)                                      |
 
-|                                                       Backend                                                        |                                                      Backend                                                       |                                                      Backend                                                       |
+|                                                       Backend                                                        |                                                      Backend                                                       ||
 | :------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars.githubusercontent.com/u/97623334?v=4" width="160px;" alt=""/>](https://github.com/JadeMK) | [<img src="https://avatars.githubusercontent.com/u/107476079?v=4" width="160px">](https://github.com/codinginfant) | [<img src="https://avatars.githubusercontent.com/u/101723087?v=4" width="160px" >](https://github.com/HongSungHak) |
-|                                         [김민주](https://github.com/JadeMK)                                          |                                     [주윤정](https://github.com/codinginfant)                                      |                                      [홍성학](https://github.com/HongSungHak)                                      |
+| [<img src="https://avatars.githubusercontent.com/u/107476079?v=4" width="160px">](https://github.com/codinginfant) | [<img src="https://avatars.githubusercontent.com/u/97623334?v=4" width="160px;" alt=""/>](https://github.com/JadeMK) |                                      
+|                                                                              [주윤정](https://github.com/codinginfant)                                   |                                         [김민주](https://github.com/JadeMK)                                         |
 
 <br>
 
