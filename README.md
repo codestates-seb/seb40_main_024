@@ -19,7 +19,6 @@
 
 [Frontend]
 
-- 황인준: Member, Board, Comment, 404 구현
 - 이지원: Goal 구현, FE 회의록 작성
 - 임후나: Asset 구현
 
@@ -29,7 +28,6 @@
 
 - 김민주: Board, Comment, Goal 구현, test data 생성, Azure web app 배포
 - 주윤정: Asset 구현, BE 회의록 작성, EC2 배포
-- 홍성학: Member 회원생성, 로그인 구현
 
 <br>
 
