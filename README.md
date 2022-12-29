@@ -1,12 +1,12 @@
-# 🥇 Hojumoney - team 024
+# 🥇 Hojumoney - team 024 Refactoring
 
 ![testBanner02](https://user-images.githubusercontent.com/97623334/205558081-ff5e9db3-a641-49b0-b2af-bfe6357894cd.png)
 
 <br>
 
-## ⏰ Project time
+## ⏰ Refactoring Project time
 
-#### `2022.11.08 - 2022.12.07`
+#### `2022.12.26 -`
 
 <br>
 
