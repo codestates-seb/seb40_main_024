@@ -67,7 +67,7 @@
 
 ## 👥 Member
 
-|                                                    Frontend                                                    |                                                    Frontend                                                    
+|                                                     Frontend (팀장)                                                     |                                                    Frontend                                                    |                                                    Frontend                                                    |
 | :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
 | [<img src="https://avatars.githubusercontent.com/u/85159654?v=4" width="160px;" alt=""/>](https://github.com/junny1995) | [<img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="160px" >](https://github.com/jioneee) | [<img src="https://avatars.githubusercontent.com/u/107407182?v=4" width="160px">](https://github.com/dlagnsk2) |
 |                                         [황인준](https://github.com/junny1995)                                          |                                      [이지원](https://github.com/jioneee)                                      |                                     [임후나](https://github.com/dlagnsk2)                                      |
