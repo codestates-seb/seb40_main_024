@@ -69,7 +69,7 @@
 
 |                                                     Frontend (팀장)                                                     |                                                    Frontend                                                    |                                                    Frontend                                                    |
 | :---------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------: |
-[<img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="160px" >](https://github.com/jioneee) |
+[<img src="https://avatars.githubusercontent.com/u/107476522?v=4" width="160px" >](https://github.com/jioneee) 
 [<img src="https://avatars.githubusercontent.com/u/107407182?v=4" width="160px">](https://github.com/dlagnsk2) |
 |                                                                                 |                                      [이지원](https://github.com/jioneee)                                      |                                     [임후나](https://github.com/dlagnsk2)                                      |
 
