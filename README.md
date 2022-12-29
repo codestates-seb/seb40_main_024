@@ -74,8 +74,8 @@
 
 |                                                       Backend                                                        |                                                      Backend                                                       ||
 | :------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://avatars.githubusercontent.com/u/97623334?v=4" width="160px;" alt=""/>](https://github.com/JadeMK) | [<img src="https://avatars.githubusercontent.com/u/107476079?v=4" width="160px">](https://github.com/codinginfant) |                                      [주윤정](https://github.com/codinginfant)                                      | 
-|                                         [김민주](https://github.com/JadeMK)                                         |
+| [<img src="https://avatars.githubusercontent.com/u/107476079?v=4" width="160px">](https://github.com/codinginfant) | [<img src="https://avatars.githubusercontent.com/u/97623334?v=4" width="160px;" alt=""/>](https://github.com/JadeMK) |                                      
+|                                                                              [주윤정](https://github.com/codinginfant)                                   |                                         [김민주](https://github.com/JadeMK)                                         |
 
 <br>
 
