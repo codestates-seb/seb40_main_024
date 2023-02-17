@@ -91,6 +91,7 @@ public class SecurityConfiguration {
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("http://ec2-43-201-118-134.ap-northeast-2.compute.amazonaws.com:8080/");
         configuration.addAllowedOrigin("http://24kgb.co.uk.s3-website.ap-northeast-2.amazonaws.com/");
+        configuration.addAllowedOrigin("http://main24k.s3-website.ap-northeast-2.amazonaws.com/");
 
 
 //        configuration.addAllowedOriginPattern("*");
